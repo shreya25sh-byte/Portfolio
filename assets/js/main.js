@@ -814,12 +814,32 @@ const burst = (x, y, n = 9) => {
     ).onfinish = () => g.remove();
   }
 };
+const STAMPS = ["WHY?", "HOW?", "SO WHAT?", "WHO?", "TELL ME MORE", "VALIDATED ✓", "ASK AGAIN"];
 $$(".hero, .contact").forEach((sec) =>
   sec.addEventListener("click", (e) => {
-    if (e.target.closest("a, button, .lens, input")) return;
-    burst(e.clientX, e.clientY);
+    if (e.target.closest("a, button, .lens, input, .stamp-spin")) return;
+    const r = sec.getBoundingClientRect();
+    const st = document.createElement("span");
+    st.className = "inkstamp" + (Math.random() < 0.35 ? " b" : "");
+    st.textContent = STAMPS[Math.floor(Math.random() * STAMPS.length)];
+    st.style.left = `${e.clientX - r.left}px`;
+    st.style.top = `${e.clientY - r.top}px`;
+    sec.appendChild(st);
+    const rot = (Math.random() * 30 - 15).toFixed(1);
+    st.animate(
+      [{ transform: `translate(-50%,-50%) rotate(${rot}deg) scale(1.8)`, opacity: 0 },
+       { transform: `translate(-50%,-50%) rotate(${rot}deg) scale(.95)`, opacity: .9, offset: .25 },
+       { transform: `translate(-50%,-50%) rotate(${rot}deg) scale(1)`, opacity: .9, offset: .85 },
+       { transform: `translate(-50%,-50%) rotate(${rot}deg) scale(1)`, opacity: 0 }],
+      { duration: reduced ? 1500 : 3200, easing: "cubic-bezier(.22,1,.36,1)", fill: "forwards" }
+    ).onfinish = () => st.remove();
   })
 );
+$$(".stamp-spin").forEach((sp) => {
+  const go = (e) => { e.stopPropagation(); sp.classList.add("is-fast"); setTimeout(() => sp.classList.remove("is-fast"), 1200); confetti(30); };
+  sp.addEventListener("click", go);
+  sp.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(e); } });
+});
 
 /* Logo: spin on click */
 $$(".logo").forEach((l) =>
@@ -833,7 +853,7 @@ $$(".logo").forEach((l) =>
 /* Confetti of sticky-note colours */
 const confetti = (n = 70) => {
   if (reduced) return;
-  const cols = ["#c9c0ff", "#a9c8ff", "#9fe3ea", "#ffb3ad", "#b8f4ff", "#ffc79a"];
+  const cols = ["#ff3fa4", "#1f5fd6", "#ffe14d", "#e8590c", "#0b8a78", "#111111"];
   for (let i = 0; i < n; i++) {
     const c = document.createElement("i");
     c.className = "confetti";
@@ -1199,7 +1219,7 @@ if (journey) {
   const inner = document.createElement("div");
   inner.className = "journey__inner";
   inner.style.width = `${W}px`;
-  inner.innerHTML = `<svg class="wave" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" aria-hidden="true"><defs><linearGradient id="jgrad" x1="0" x2="1"><stop offset="0" stop-color="#ffc46b"/><stop offset=".45" stop-color="#7ff0ff"/><stop offset="1" stop-color="#a99bff"/></linearGradient></defs><path d="${d}"/></svg>`;
+  inner.innerHTML = `<svg class="wave" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" aria-hidden="true"><defs><linearGradient id="jgrad" x1="0" x2="1"><stop offset="0" stop-color="#e8590c"/><stop offset=".5" stop-color="#e8308c"/><stop offset="1" stop-color="#1f5fd6"/></linearGradient></defs><path d="${d}"/></svg>`;
   EVENTS.forEach(([type, when, title, sub], i) => {
     const x = PAD + i * STEP, y = yAt(x), up = i % 2 === 0;
     const stem = up ? 58 + (i % 4) * 14 : 50 + (i % 3) * 16;
