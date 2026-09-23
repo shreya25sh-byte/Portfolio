@@ -9,7 +9,7 @@
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body class="case" style="--c: var(--calidus)">
@@ -41,7 +41,21 @@
           <div><h4 class="mono">Role</h4><p>Research, engineering &amp; industrial design, HMI, brand</p></div>
           <div><h4 class="mono">Timeline</h4><p>6 months · 2024</p></div>
           <div><h4 class="mono">Context</h4><p>B.Des capstone at Therefore Design, Pune, for LabIndia</p></div>
-          <div><h4 class="mono">Methods</h4><p>On-site interviews, photo documentation, usage analysis, journey mapping, task analysis, benchmarking</p></div>
+        </div>
+        <div class="impact reveal">
+          <div class="impact__hero">
+            <span class="mono impact__kicker">Impact</span>
+            <div class="impact__num"><span data-count="67">0</span><i>%</i></div>
+            <p class="impact__label">fewer assembly steps, from 15 down to 5</p>
+            <p class="impact__note">Result · LabIndia stability chamber</p>
+          </div>
+          <div class="impact__side">
+            <div class="impact__stats"><div><b>~25%</b><span>narrower footprint (970 vs ~1,300 mm)</span></div><div><b>24</b><span>pain points documented on site</span></div><div><b>6</b><span>HMI screens redesigned</span></div></div>
+            <div class="impact__methods">
+              <span class="mono">Research methods · 7 · tap to jump</span>
+              <div class="mgrid"><a class="method" href="#field"><small>Discover</small><b>On-site interviews</b><span>Factory workers & repair technicians</span></a><a class="method" href="#field"><small>Discover</small><b>Photo documentation</b><span>24 pain points</span></a><a class="method" href="#analysis"><small>Define</small><b>Root-cause analysis</b><span>10 recurring issues</span></a><a class="method" href="#journey"><small>Define</small><b>Journey mapping</b><span>10-stage technician journey</span></a><a class="method" href="#tasks"><small>Define</small><b>Task analysis</b><span>Physical, cognitive & emotional load</span></a><a class="method" href="#landscape"><small>Discover</small><b>Benchmarking</b><span>10+ global & local brands</span></a><a class="method" href="#concepts"><small>Validate</small><b>Concept evaluation</b><span>3 directions → 1</span></a></div>
+            </div>
+          </div>
         </div>
         <div class="cover fig__frame fig__frame--dark"><img src="../assets/img/calidus-intro.webp" alt="Introducing Calidus: a revolutionary stability chamber, with minimal sheet metal usage and strong brand identity" width="1800" height="699"></div>
       </div>
@@ -70,12 +84,6 @@
             <div><h4 class="mono">Challenge</h4><p>Design a reach-in medicine stability chamber that controls temperature and humidity for pharmaceutical testing, complies with industry standards, and is reliable and easy to use for researchers and technicians.</p></div>
             <div><h4 class="mono">Research</h4><p>On-site interviews with factory workers and repair technicians, 24 photographed pain points, a root-cause analysis, a journey map and a task analysis.</p></div>
             <div><h4 class="mono">Outcome</h4><p>Calidus: assembly cut from 15 steps to 5, a 970 mm footprint (vs ~1,300 mm), easier repair and wire management, and a redesigned 6-screen HMI.</p></div>
-          </div>
-          <div class="big-stats">
-            <div class="big-stat reveal"><b data-count="67">0<sup>%</sup></b><span>fewer assembly steps (15 → 5)</span></div>
-            <div class="big-stat reveal"><b data-count="970">0</b><span>mm wide, vs ~1,300 mm for comparable chambers</span></div>
-            <div class="big-stat reveal"><b data-count="10">0<sup>+</sup></b><span>global &amp; local competitors benchmarked</span></div>
-            <div class="big-stat reveal"><b data-count="6">0</b><span>HMI screens redesigned</span></div>
           </div>
           <div class="prose reveal" style="margin-top:28px">
             <p>I started by understanding the machine itself (chassis, impeller, cooling and heating coils, water tanks, compressor) and the eight steps it takes to go from “place samples on racks” to “fan distributes conditioned air evenly”. Then I went to watch people use it.</p>
@@ -186,10 +194,77 @@
           </div>
           <h3 class="reveal">HMI redesign</h3>
           <div class="prose reveal"><p>The screen is where set-up errors happen, so I redesigned it around the task flow: a start screen, login, a home with three clear actions, slider-based temperature and humidity adjustment, alarms and a data table.</p></div>
-          <figure class="fig reveal">
-            <div class="fig__frame"><img src="../assets/img/calidus-ui.webp" alt="Six HMI screens: adjust, set alarm, data, start screen, login, home" loading="lazy"></div>
-            <figcaption><span class="mono">Fig. 11</span>Adjust · Set alarm · Data · Start · Login · Home</figcaption>
-          </figure>
+          <div class="redesign-tag" style="margin-top:28px">UI refresh · 2026 · try it</div>
+          <div class="device-stage reveal">
+            <div class="hmi" id="hmi">
+              <div class="hmi__screen">
+                <div class="hmi__top">
+                  <span class="hmi__brand"><i></i>Calidus <span>· LabIndia · CH-01</span></span>
+                  <span class="hmi__status"><span class="pill" id="hmi-state">Stable</span><span class="clock" id="hmi-clock">--:--</span></span>
+                </div>
+                <div class="hmi__nav" role="tablist" aria-label="Chamber screens">
+                  <button role="tab" aria-selected="true" data-v="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 12 4l9 7v9H3z"/><path d="M9 20v-6h6v6"/></svg>Home</button>
+                  <button role="tab" aria-selected="false" data-v="set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>Set</button>
+                  <button role="tab" aria-selected="false" data-v="alarms"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 1 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></svg>Alarms</button>
+                  <button role="tab" aria-selected="false" data-v="data"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V4M4 20h16"/><path d="m7 15 4-5 3 3 5-7"/></svg>Data</button>
+                </div>
+                <div class="hmi__main">
+                  <div class="hmi__view hmi-home is-on" data-view="home">
+                    <div class="gauge" data-g="t"><small>Temperature</small>
+                    <svg viewBox="0 0 200 120"><path class="arc-bg" d="M20 110 A80 80 0 0 1 180 110"/><path class="arc-band" data-band d="M20 110 A80 80 0 0 1 180 110"/><path class="arc-val" d="M20 110 A80 80 0 0 1 180 110"/></svg>
+                    <div class="gauge__val"><span data-v="t">--</span><sup>°C</sup></div>
+                    <div class="gauge__set">Set <span data-s="t">--</span>°C · ±2 °C</div></div>
+                    <div class="gauge" data-g="h"><small>Humidity</small>
+                    <svg viewBox="0 0 200 120"><path class="arc-bg" d="M20 110 A80 80 0 0 1 180 110"/><path class="arc-band" data-band d="M20 110 A80 80 0 0 1 180 110"/><path class="arc-val" d="M20 110 A80 80 0 0 1 180 110"/></svg>
+                    <div class="gauge__val"><span data-v="h">--</span><sup>%RH</sup></div>
+                    <div class="gauge__set">Set <span data-s="h">--</span>%RH · ±5 %RH</div></div>
+                    <div class="hmi-side">
+                      <div class="hmi-card"><small>Running study</small><b id="hmi-cond">ICH long-term</b><span style="color:var(--mu)" id="hmi-cond-sub">25 °C / 60 %RH</span></div>
+                      <div class="hmi-card"><small>Water tank</small><b>78%</b><div class="bar"><i style="width:78%"></i></div></div>
+                      <div class="hmi-card"><small>Door</small><b>Closed · locked</b></div>
+                      <div class="hmi-card"><small>Next inspection</small><b>in 3 days</b></div>
+                    </div>
+                  </div>
+                  <div class="hmi__view hmi-set" data-view="set">
+                    <div class="presets" role="group" aria-label="ICH stability conditions">
+                      <button aria-pressed="true" data-p="25,60,ICH long-term"><b>25 / 60</b>Long-term</button>
+                      <button aria-pressed="false" data-p="30,65,ICH intermediate"><b>30 / 65</b>Intermediate</button>
+                      <button aria-pressed="false" data-p="40,75,ICH accelerated"><b>40 / 75</b>Accelerated</button>
+                      <button aria-pressed="false" data-p="custom"><b>Custom</b>Your setpoint</button>
+                    </div>
+                    <div class="slider-card"><label for="hmi-t">Temperature <b><span id="hmi-t-out">25</span> °C</b></label><input type="range" id="hmi-t" min="10" max="45" step="0.5" value="25"></div>
+                    <div class="slider-card"><label for="hmi-h">Humidity <b><span id="hmi-h-out">60</span> %RH</b></label><input type="range" id="hmi-h" min="20" max="90" step="1" value="60"></div>
+                    <button class="apply" id="hmi-apply"><i></i><span>Hold to apply</span></button>
+                  </div>
+                  <div class="hmi__view hmi-alarms" data-view="alarms">
+                    <div class="alarm is-warn"><i></i><div>Door opened 3× today<small>Last at 10:42 · check seal</small></div><span class="pill is-warn">Review</span></div>
+                    <div class="alarm"><i></i><div>Temperature out of band<small>Alert if ±2 °C for 5 min</small></div><button class="toggle" role="switch" aria-checked="true" aria-label="Temperature alert"></button></div>
+                    <div class="alarm"><i></i><div>Humidity out of band<small>Alert if ±5 %RH for 5 min</small></div><button class="toggle" role="switch" aria-checked="true" aria-label="Humidity alert"></button></div>
+                    <div class="alarm"><i></i><div>Water tank below 20%<small>Refill reminder</small></div><button class="toggle" role="switch" aria-checked="true" aria-label="Water tank alert"></button></div>
+                    <div class="alarm"><i></i><div>Power failure<small>Switch to backup and log</small></div><button class="toggle" role="switch" aria-checked="false" aria-label="Power failure alert"></button></div>
+                  </div>
+                  <div class="hmi__view hmi-data" data-view="data">
+                    <div class="chart-card">
+                      <div class="legend"><span><i style="background:#7ff0ff"></i>Temperature</span><span><i style="background:#a99bff"></i>Humidity</span><span style="margin-left:auto">Last 24 h</span></div>
+                      <svg id="hmi-chart" viewBox="0 0 600 180" preserveAspectRatio="none" aria-label="24 hour temperature and humidity chart"></svg>
+                    </div>
+                    <div class="hmi-card" style="grid-template-columns:1fr auto;align-items:center"><div><small>Data log</small><b>2,880 readings · 0 gaps</b></div><span class="pill">Auto-saved</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tapp-notes" style="margin-top:22px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+            <div><b>Presets, not guesswork</b><span>One tap for ICH conditions, the set-up step where errors happened most.</span></div>
+            <div><b>Hold to apply</b><span>A deliberate press stops accidental changes mid-study.</span></div>
+            <div><b>Status at a glance</b><span>Live values against their tolerance band, readable from across the lab.</span></div>
+          </div>
+          <div class="before-after">
+            <figure class="fig reveal">
+              <div class="fig__frame"><img src="../assets/img/calidus-ui.webp" alt="Original 2024 HMI screens: adjust, set alarm, data, start screen, login, home" loading="lazy"></div>
+              <figcaption><span class="mono">Before</span>The original 2024 HMI screens</figcaption>
+            </figure>
+          </div>
           <figure class="fig reveal">
             <div class="fig__frame"><img src="../assets/img/calidus-ortho.webp" alt="Orthographic views with dimensions 1837 mm tall, 970 mm wide, 1300 mm deep" loading="lazy"></div>
             <figcaption><span class="mono">Fig. 12</span>Final dimensions: 970 mm wide vs ~1,300 mm on comparable chambers (a 1:5 scale model was also built)</figcaption>

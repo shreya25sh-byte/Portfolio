@@ -9,7 +9,7 @@
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body class="case" style="--c: var(--totsecure)">
@@ -41,7 +41,21 @@
           <div><h4 class="mono">Role</h4><p>Research, mechanism design, app UI, prototyping</p></div>
           <div><h4 class="mono">Timeline</h4><p>3 months · 2025</p></div>
           <div><h4 class="mono">Context</h4><p>Graduate university project</p></div>
-          <div><h4 class="mono">Methods</h4><p>Secondary research, persona, requirements metrics, sketching, working prototype</p></div>
+        </div>
+        <div class="impact reveal">
+          <div class="impact__hero">
+            <span class="mono impact__kicker">Impact</span>
+            <div class="impact__num"><span data-count="55">0</span><i>%</i></div>
+            <p class="impact__label">of home injuries could be avoided with proper child-proofing, according to parents</p>
+            <p class="impact__note">The problem this project targets · secondary research</p>
+          </div>
+          <div class="impact__side">
+            <div class="impact__stats"><div><b>12</b><span>measurable requirements defined</span></div><div><b>1</b><span>working ESP32 prototype</span></div><div><b>5</b><span>app screens designed</span></div></div>
+            <div class="impact__methods">
+              <span class="mono">Research methods · 5 · tap to jump</span>
+              <div class="mgrid"><a class="method" href="#problem"><small>Discover</small><b>Secondary research</b><span>Injury & smart-home adoption data</span></a><a class="method" href="#users"><small>Define</small><b>Persona</b><span>“Amy”, parent of 3</span></a><a class="method" href="#requirements"><small>Define</small><b>Requirements matrix</b><span>12 performance measures</span></a><a class="method" href="#ideation"><small>Ideate</small><b>Sketch exploration</b><span>Mechanisms mapped to lock states</span></a><a class="method" href="#prototype"><small>Validate</small><b>Working prototype</b><span>ESP32 · servo latch · app</span></a></div>
+            </div>
+          </div>
         </div>
         <div class="cover fig__frame"><img src="../assets/img/totsecure-lockunlock.webp" alt="Totsecure lock mounted under a cabinet with phone screens showing lock and unlock" width="1800" height="571"></div>
       </div>
@@ -175,10 +189,56 @@
           <ul class="methods reveal" style="margin-top:28px">
             <li>Remote locking of doors, cupboards &amp; cabinets</li><li>Real-time control via mobile app</li><li>Scheduled locking</li><li>Emergency manual override</li><li>Backup battery system</li><li>Easy installation</li>
           </ul>
-          <figure class="fig reveal">
-            <div class="fig__frame"><img src="../assets/img/totsecure-screens.webp" alt="Five app screens: lock, unlock, low battery warning, profile and scheduling" loading="lazy"></div>
-            <figcaption><span class="mono">Fig. 3</span>App: lock, unlock, low-battery warning, family profiles, scheduled locking</figcaption>
-          </figure>
+          <div class="redesign-tag" style="margin-top:28px">UI refresh · 2026 · tap the switches</div>
+          <div class="device-stage reveal">
+            <div class="tapp-wrap">
+              <div class="tapp" id="tapp">
+                <div class="tapp__notch"></div>
+                <div class="tapp__screen">
+                  <div class="tapp__bar"><span id="tapp-clock">9:41</span><span>●●● 87%</span></div>
+                  <div class="tapp__views">
+                    <div class="tapp__view is-on" data-view="home">
+                      <div class="tapp__hi"><h5><small>Good evening</small>Hi, Amy</h5><span class="tapp__avatar">A</span></div>
+                      <div class="tapp__hero" id="tapp-hero">
+                        <div class="tapp__ring"><svg viewBox="0 0 70 70"><circle class="rb" cx="35" cy="35" r="30"/><circle class="rf" cx="35" cy="35" r="30" stroke-dasharray="188.5" stroke-dashoffset="0"/></svg><b id="tapp-count">4/5</b></div>
+                        <div><strong id="tapp-title">1 lock open</strong><p id="tapp-sub">Knife drawer is unlocked.</p></div>
+                      </div>
+                      <div class="tapp__sec">Around the house</div>
+                      <div class="lock-card"><span class="lock-card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><div><b>Under-sink cabinet</b><small data-sub="cleaning supplies">Kitchen · Locked</small></div><button class="lk" role="switch" aria-checked="true" aria-label="Under-sink cabinet lock"></button></div><div class="lock-card"><span class="lock-card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><div><b>Tool cabinet</b><small data-sub="power tools">Garage · Locked</small></div><button class="lk" role="switch" aria-checked="true" aria-label="Tool cabinet lock"></button></div><div class="lock-card"><span class="lock-card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><div><b>Medicine drawer</b><small data-sub="medication">Bathroom · Locked</small></div><button class="lk" role="switch" aria-checked="true" aria-label="Medicine drawer lock"></button></div><div class="lock-card"><span class="lock-card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><div><b>Stair door</b><small data-sub="steep stairs">Basement · Locked</small></div><button class="lk" role="switch" aria-checked="true" aria-label="Stair door lock"></button></div><div class="lock-card is-open"><span class="lock-card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><div><b>Knife drawer</b><small data-sub="sharp objects">Kitchen · Unlocked</small></div><button class="lk" role="switch" aria-checked="false" aria-label="Knife drawer lock"></button></div>
+                    </div>
+                    <div class="tapp__view" data-view="sched">
+                      <div class="tapp__hi"><h5><small>Auto-lock</small>Schedules</h5></div>
+                      <div class="sched"><div><b>8:00 PM</b><small>Bedtime · lock everything</small></div><button class="toggle" role="switch" aria-checked="true" aria-label="Bedtime schedule"></button><div class="days"><span class="on">S</span><span class="on">M</span><span class="on">T</span><span class="on">W</span><span class="on">T</span><span class="on">F</span><span class="on">S</span></div></div>
+                      <div class="sched"><div><b>3:30 PM</b><small>After school · kitchen &amp; garage</small></div><button class="toggle" role="switch" aria-checked="true" aria-label="After school schedule"></button><div class="days"><span class="">S</span><span class="on">M</span><span class="on">T</span><span class="on">W</span><span class="on">T</span><span class="on">F</span><span class="">S</span></div></div>
+                      <div class="sched"><div><b>7:00 AM</b><small>Morning · unlock kitchen</small></div><button class="toggle" role="switch" aria-checked="false" aria-label="Morning schedule"></button><div class="days"><span class="">S</span><span class="on">M</span><span class="on">T</span><span class="on">W</span><span class="on">T</span><span class="on">F</span><span class="">S</span></div></div>
+                    </div>
+                    <div class="tapp__view" data-view="log">
+                      <div class="tapp__hi"><h5><small>Today</small>Activity</h5></div>
+                      <div class="log" id="tapp-log">
+                        <div><i class="o"></i><span>Knife drawer unlocked by Amy</span><time>6:12 PM</time></div>
+                        <div><i></i><span>Garage auto-locked (after school)</span><time>3:30 PM</time></div>
+                        <div><i></i><span>Low battery fixed · Basement</span><time>11:05 AM</time></div>
+                        <div><i></i><span>Manual override used · Bathroom</span><time>8:47 AM</time></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tapp__tabs" role="tablist" aria-label="App sections"><button role="tab" aria-selected="true" data-t="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 12 4l9 7v9H3z"/></svg>Home</button><button role="tab" aria-selected="false" data-t="sched"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>Schedules</button><button role="tab" aria-selected="false" data-t="log"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg>Activity</button></div>
+                </div>
+              </div>
+              <div class="tapp-notes">
+                <div><b>Answers Amy's question first</b><span>“What's most dangerous right now?” The top card says exactly what's open, in plain words.</span></div>
+                <div><b>Organised by room, not device</b><span>Parents think in places (kitchen, garage), so locks are labelled by what they protect.</span></div>
+                <div><b>Schedules do the remembering</b><span>Bedtime and after-school auto-locks cut the daily checklist.</span></div>
+                <div><b>A log you can trust</b><span>Every lock, unlock and override is recorded.</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="before-after">
+            <figure class="fig reveal">
+              <div class="fig__frame"><img src="../assets/img/totsecure-screens.webp" alt="Original 2025 app screens: lock, unlock, low battery warning, profile and scheduling" loading="lazy"></div>
+              <figcaption><span class="mono">Before</span>The original 2025 app screens</figcaption>
+            </figure>
+          </div>
           <figure class="fig reveal">
             <div class="fig__frame"><img src="../assets/img/totsecure-install.webp" alt="Installation steps: attach pin on door frame, install door mount" loading="lazy"></div>
             <figcaption><span class="mono">Fig. 4</span>Two-step install: pin on the frame, mount on the door</figcaption>

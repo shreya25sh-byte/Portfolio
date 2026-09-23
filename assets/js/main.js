@@ -929,3 +929,371 @@ $$(".bench").forEach((b) => {
     });
   });
 });
+
+/* ==========================================================================
+   v4: more fun
+   ========================================================================== */
+
+/* Images with a fallback (e.g. About photo not added yet) */
+$$("img[data-fallback]").forEach((img) => {
+  const swap = () => { if (img.src.indexOf(img.dataset.fallback) === -1) img.src = img.dataset.fallback; };
+  img.addEventListener("error", swap);
+  if (img.complete && img.naturalWidth === 0) swap();
+});
+
+/* Polaroid stack: click to shuffle */
+$$(".stack").forEach((stack) => {
+  const rots = [-7, 5, -3, 8, -5];
+  const layout = () =>
+    $$(".polaroid", stack).forEach((p, i, all) => {
+      const depth = all.length - 1 - i;
+      p.style.setProperty("--rot", `${rots[i % rots.length]}deg`);
+      p.style.setProperty("--tx", `${depth * 6}px`);
+      p.style.setProperty("--ty", `${depth * 4}px`);
+      p.style.zIndex = i;
+    });
+  layout();
+  const shuffle = () => {
+    const top = $(".polaroid:last-child", stack);
+    if (!top || top.classList.contains("is-out")) return;
+    top.classList.add("is-out");
+    setTimeout(() => {
+      stack.prepend(top);
+      top.classList.remove("is-out");
+      layout();
+    }, reduced ? 0 : 420);
+  };
+  stack.setAttribute("tabindex", "0");
+  stack.setAttribute("role", "button");
+  stack.addEventListener("click", shuffle);
+  stack.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); shuffle(); } });
+});
+
+/* Draggable stickers */
+$$(".sticker").forEach((st) => {
+  st.setAttribute("data-cursor", "Drag");
+  let sx, sy, ox, oy, id = null;
+  st.addEventListener("pointerdown", (e) => {
+    id = e.pointerId; st.setPointerCapture(id); st.classList.add("is-dragging");
+    const par = st.offsetParent.getBoundingClientRect(), r = st.getBoundingClientRect();
+    ox = r.left - par.left; oy = r.top - par.top; sx = e.clientX; sy = e.clientY;
+    st.style.left = `${ox}px`; st.style.top = `${oy}px`; st.style.right = "auto"; st.style.bottom = "auto";
+  });
+  st.addEventListener("pointermove", (e) => {
+    if (e.pointerId !== id) return;
+    st.style.left = `${ox + e.clientX - sx}px`; st.style.top = `${oy + e.clientY - sy}px`;
+  });
+  const end = () => { if (id === null) return; id = null; st.classList.remove("is-dragging"); st.style.setProperty("--r", `${(Math.random() * 16 - 8).toFixed(1)}deg`); };
+  st.addEventListener("pointerup", end);
+  st.addEventListener("pointercancel", end);
+});
+
+/* Sparkle trail behind the cursor */
+if (finePointer && !reduced) {
+  const cols = ["#7ff0ff", "#a99bff", "#e3ecfb"];
+  let last = 0;
+  addEventListener("pointermove", (e) => {
+    const now = performance.now();
+    if (now - last < 90) return;
+    last = now;
+    const s = document.createElement("i");
+    s.className = "spark";
+    s.style.background = cols[Math.floor(Math.random() * cols.length)];
+    document.body.appendChild(s);
+    const dx = (Math.random() - 0.5) * 30, dy = 10 + Math.random() * 24;
+    s.animate(
+      [{ transform: `translate(${e.clientX}px, ${e.clientY}px) scale(1)`, opacity: 0.9 },
+       { transform: `translate(${e.clientX + dx}px, ${e.clientY + dy}px) scale(0)`, opacity: 0 }],
+      { duration: 700, easing: "ease-out" }
+    ).onfinish = () => s.remove();
+  }, { passive: true });
+}
+
+/* Method chips: jump to the section and flash it */
+$$(".method").forEach((m) =>
+  m.addEventListener("click", () => {
+    const t = document.querySelector(m.getAttribute("href"));
+    if (!t) return;
+    setTimeout(() => { t.classList.remove("is-flash"); void t.offsetWidth; t.classList.add("is-flash"); }, 450);
+  })
+);
+
+/* Experience tabs */
+$$(".xp-tabs button").forEach((b) =>
+  b.addEventListener("click", () => {
+    $$(".xp-tabs button").forEach((x) => x.setAttribute("aria-selected", x === b));
+    $$(".xp-list").forEach((l) => (l.hidden = l.dataset.panel !== b.dataset.xp));
+  })
+);
+
+/* ==========================================================================
+   Redesigned interfaces
+   ========================================================================== */
+
+/* Calidus HMI */
+const hmi = $("#hmi");
+if (hmi) {
+  const st = { t: 25, h: 60, st: 25, sh: 60, cond: "ICH long-term" };
+  const ARC = 251.3; // length of the 180° arc (r=80)
+  $$(".arc-val, .arc-bg, .arc-band", hmi).forEach((p) => (p.style.strokeDasharray = ARC));
+  const ranges = { t: [10, 45], h: [20, 90] };
+  const bandOf = { t: 2, h: 5 };
+  const pos = (k, v) => (v - ranges[k][0]) / (ranges[k][1] - ranges[k][0]);
+  const drawBand = (k) => {
+    const band = $(`.gauge[data-g="${k}"] [data-band]`, hmi);
+    const sp = k === "t" ? st.st : st.sh, b = bandOf[k];
+    const a = pos(k, sp - b), z = pos(k, sp + b);
+    band.style.strokeDasharray = `0 ${a * ARC} ${(z - a) * ARC} ${ARC}`;
+  };
+  const render = () => {
+    ["t", "h"].forEach((k) => {
+      const v = st[k], sp = k === "t" ? st.st : st.sh;
+      $(`[data-v="${k}"]`, hmi).textContent = v.toFixed(1);
+      $(`[data-s="${k}"]`, hmi).textContent = sp;
+      $(`.gauge[data-g="${k}"] .arc-val`, hmi).style.strokeDashoffset = ARC * (1 - pos(k, v));
+    });
+    const ok = Math.abs(st.t - st.st) <= 2 && Math.abs(st.h - st.sh) <= 5;
+    const state = $("#hmi-state");
+    state.textContent = ok ? "Stable" : "Stabilising";
+    state.classList.toggle("is-warn", !ok);
+    $("#hmi-cond").textContent = st.cond;
+    $("#hmi-cond-sub").textContent = `${st.st} °C / ${st.sh} %RH`;
+  };
+  drawBand("t"); drawBand("h"); render();
+  setInterval(() => {
+    st.t += (st.st - st.t) * 0.12 + (Math.random() - 0.5) * 0.15;
+    st.h += (st.sh - st.h) * 0.12 + (Math.random() - 0.5) * 0.6;
+    render();
+    const d = new Date();
+    $("#hmi-clock").textContent = d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  }, 900);
+
+  // nav
+  $$(".hmi__nav button", hmi).forEach((b) =>
+    b.addEventListener("click", () => {
+      $$(".hmi__nav button", hmi).forEach((x) => x.setAttribute("aria-selected", x === b));
+      $$(".hmi__view", hmi).forEach((v) => v.classList.toggle("is-on", v.dataset.view === b.dataset.v));
+    })
+  );
+  // presets + sliders
+  const ti = $("#hmi-t"), hi = $("#hmi-h");
+  const outs = () => { $("#hmi-t-out").textContent = ti.value; $("#hmi-h-out").textContent = hi.value; };
+  let pendingCond = st.cond;
+  $$(".presets button", hmi).forEach((b) =>
+    b.addEventListener("click", () => {
+      $$(".presets button", hmi).forEach((x) => x.setAttribute("aria-pressed", x === b));
+      if (b.dataset.p !== "custom") {
+        const [t, h, name] = b.dataset.p.split(",");
+        ti.value = t; hi.value = h; pendingCond = name;
+      } else pendingCond = "Custom study";
+      outs();
+    })
+  );
+  [ti, hi].forEach((i) => i.addEventListener("input", () => {
+    $$(".presets button", hmi).forEach((x) => x.setAttribute("aria-pressed", x.dataset.p === "custom"));
+    pendingCond = "Custom study"; outs();
+  }));
+  // hold to apply
+  const ap = $("#hmi-apply"), fill = $("i", ap), label = $("span", ap);
+  let raf, t0;
+  const apply = () => {
+    st.st = +ti.value; st.sh = +hi.value; st.cond = pendingCond;
+    drawBand("t"); drawBand("h"); render();
+    label.textContent = "Applied ✓";
+    setTimeout(() => { label.textContent = "Hold to apply"; fill.style.transform = "scaleX(0)"; }, 1400);
+  };
+  const start = (e) => {
+    e.preventDefault(); t0 = performance.now();
+    const f = (t) => { const p = Math.min(1, (t - t0) / 800); fill.style.transform = `scaleX(${p})`; if (p < 1) raf = requestAnimationFrame(f); else apply(); };
+    raf = requestAnimationFrame(f);
+  };
+  const cancel = () => { cancelAnimationFrame(raf); if (label.textContent === "Hold to apply") fill.style.transform = "scaleX(0)"; };
+  ap.addEventListener("pointerdown", start);
+  ap.addEventListener("pointerup", cancel);
+  ap.addEventListener("pointerleave", cancel);
+  ap.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); apply(); } });
+  // toggles
+  $$(".toggle", hmi).forEach((t) => t.addEventListener("click", () => t.setAttribute("aria-checked", t.getAttribute("aria-checked") !== "true")));
+  // 24h chart
+  const svg = $("#hmi-chart");
+  const W = 600, H = 180, N = 48;
+  const series = (base, amp, lo, hi2, seed) => Array.from({ length: N }, (_, i) => base + Math.sin(i / 5 + seed) * amp + Math.sin(i * 1.7 + seed) * amp * 0.3)
+    .map((v, i) => `${(i / (N - 1)) * W},${H - ((v - lo) / (hi2 - lo)) * H}`).join(" ");
+  svg.innerHTML =
+    `<g stroke="rgba(170,230,240,.08)">${[0.25, 0.5, 0.75].map((y) => `<line x1="0" x2="${W}" y1="${y * H}" y2="${y * H}"/>`).join("")}</g>` +
+    `<polyline fill="none" stroke="#a99bff" stroke-width="2" points="${series(60, 2.2, 45, 75, 1)}"/>` +
+    `<polyline fill="none" stroke="#7ff0ff" stroke-width="2.5" points="${series(25, 0.6, 20, 30, 0)}"/>`;
+}
+
+/* Totsecure app */
+const tapp = $("#tapp");
+if (tapp) {
+  const cards = $$(".lock-card", tapp);
+  const log = $("#tapp-log");
+  const summary = () => {
+    const open = cards.filter((c) => c.classList.contains("is-open"));
+    const n = cards.length, locked = n - open.length;
+    $("#tapp-count").textContent = `${locked}/${n}`;
+    $(".tapp__ring .rf", tapp).style.strokeDashoffset = 188.5 * (1 - locked / n);
+    $("#tapp-hero").classList.toggle("is-open", open.length > 0);
+    $("#tapp-title").textContent = open.length ? `${open.length} lock${open.length > 1 ? "s" : ""} open` : "Everything's secure";
+    $("#tapp-sub").textContent = open.length
+      ? `${open.map((c) => $("b", c).textContent).join(", ")} ${open.length > 1 ? "are" : "is"} unlocked.`
+      : "All cabinets and doors are locked.";
+  };
+  cards.forEach((c) => {
+    const sw = $(".lk", c), sub = $("small", c);
+    sw.addEventListener("click", () => {
+      const nowOpen = !c.classList.contains("is-open");
+      c.classList.toggle("is-open", nowOpen);
+      sw.setAttribute("aria-checked", !nowOpen);
+      sub.textContent = sub.textContent.replace(/Locked|Unlocked/, nowOpen ? "Unlocked" : "Locked");
+      const row = document.createElement("div");
+      const t = new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+      row.innerHTML = `<i class="${nowOpen ? "o" : ""}"></i><span>${$("b", c).textContent} ${nowOpen ? "unlocked" : "locked"} by Amy</span><time>${t}</time>`;
+      log.prepend(row);
+      summary();
+    });
+  });
+  $$(".tapp__tabs button", tapp).forEach((b) =>
+    b.addEventListener("click", () => {
+      $$(".tapp__tabs button", tapp).forEach((x) => x.setAttribute("aria-selected", x === b));
+      $$(".tapp__view", tapp).forEach((v) => v.classList.toggle("is-on", v.dataset.view === b.dataset.t));
+    })
+  );
+  $$(".toggle", tapp).forEach((t) => t.addEventListener("click", () => t.setAttribute("aria-checked", t.getAttribute("aria-checked") !== "true")));
+  $("#tapp-clock").textContent = new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }).replace(/\s?[AP]M/i, "");
+  summary();
+}
+
+/* ==========================================================================
+   Journey timeline
+   ========================================================================== */
+const journey = $("#timeline");
+if (journey) {
+  // Edit this list to update the timeline (oldest → newest)
+  const EVENTS = [
+    ["extra", "Feb ’19", "Arangetram", "Bharatanatyam debut"],
+    ["extra", "Nov ’19", "Dance diploma", "T.M.V, Pune"],
+    ["acad", "2020 – 2024", "MIT Institute of Design", "B.Des, Industrial Design"],
+    ["extra", "Mar ’21", "Visharad", "Gandharva Mahavidyalaya"],
+    ["work", "Jun – Jul ’22", "Chef at Home", "Packaging design intern"],
+    ["cert", "Jul ’22", "Emotional thinking & design psychology", "Udemy"],
+    ["work", "Aug – Sep ’22", "Guddee", "Product design intern"],
+    ["extra", "Feb ’23", "Packaging of the World", "Featured design"],
+    ["work", "May – Jun ’23", "Godrej & Boyce (Interio)", "Product design intern"],
+    ["extra", "Jun – Jul ’23", "CRY", "Volunteering"],
+    ["work", "Jan – Jun ’24", "Therefore Design", "Industrial design intern"],
+    ["acad", "2024 – 2026", "Penn State", "M.S., Engineering Design"],
+    ["work", "Aug ’24 – now", "Penn State", "Teaching assistant"],
+    ["work", "Nov ’24 – now", "Penn State", "Graduate researcher"],
+    ["research", "Aug ’25", "ASME IDETC-CIE", "Presentation, Anaheim"],
+    ["research", "Apr ’26", "CERS 2026", "Research symposium"],
+    ["research", "Aug ’26", "ASME IDETC-CIE", "2nd place Best Paper"],
+  ];
+  const STEP = 150, PAD = 110, H = 440, MID = 220, AMP = 34;
+  const W = PAD * 2 + STEP * (EVENTS.length - 1);
+  const yAt = (x) => MID + Math.sin((x - PAD) / 95) * AMP;
+  let d = `M0 ${yAt(0)}`;
+  for (let x = 8; x <= W; x += 8) d += ` L${x} ${yAt(x).toFixed(1)}`;
+  const inner = document.createElement("div");
+  inner.className = "journey__inner";
+  inner.style.width = `${W}px`;
+  inner.innerHTML = `<svg class="wave" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" aria-hidden="true"><defs><linearGradient id="jgrad" x1="0" x2="1"><stop offset="0" stop-color="#ffc46b"/><stop offset=".45" stop-color="#7ff0ff"/><stop offset="1" stop-color="#a99bff"/></linearGradient></defs><path d="${d}"/></svg>`;
+  EVENTS.forEach(([type, when, title, sub], i) => {
+    const x = PAD + i * STEP, y = yAt(x), up = i % 2 === 0;
+    const stem = up ? 58 + (i % 4) * 14 : 50 + (i % 3) * 16;
+    const n = document.createElement("div");
+    n.className = "jn";
+    n.dataset.type = type;
+    n.style.left = `${x}px`;
+    n.style.top = `${y}px`;
+    n.innerHTML =
+      `<span class="jn__dot"></span><span class="jn__stem" style="${up ? `bottom:0;height:${stem}px` : `top:0;height:${stem}px`}"></span>` +
+      `<div class="jn__card" tabindex="0" style="${up ? `bottom:${stem + 8}px;--lift:-4px` : `top:${stem + 8}px;--lift:4px`}"><small>${when}</small><b>${title}</b><span>${sub}</span></div>`;
+    inner.appendChild(n);
+  });
+  journey.appendChild(inner);
+  const path = $(".wave path", journey);
+  path.style.setProperty("--len", Math.ceil(path.getTotalLength()));
+  io.observe(journey);
+  journey.addEventListener("reveal", () => {
+    if (reduced) return;
+    $$(".jn", journey).forEach((n, i) => n.animate([{ opacity: 0, transform: "translateY(10px)" }, { opacity: 1, transform: "none" }], { duration: 500, delay: 300 + i * 90, fill: "backwards", easing: "ease-out" }));
+  });
+  // drag to scroll + wheel sideways
+  let dx = null, sl = 0;
+  journey.addEventListener("pointerdown", (e) => { if (e.pointerType !== "mouse") return; dx = e.clientX; sl = journey.scrollLeft; journey.classList.add("is-drag"); });
+  addEventListener("pointermove", (e) => { if (dx !== null) journey.scrollLeft = sl - (e.clientX - dx); });
+  addEventListener("pointerup", () => { dx = null; journey.classList.remove("is-drag"); });
+  journey.addEventListener("wheel", (e) => {
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+      const max = journey.scrollWidth - journey.clientWidth;
+      if ((e.deltaY > 0 && journey.scrollLeft < max - 1) || (e.deltaY < 0 && journey.scrollLeft > 0)) { e.preventDefault(); journey.scrollLeft += e.deltaY; }
+    }
+  }, { passive: false });
+  // legend filter
+  $$(".journey-legend button").forEach((b) =>
+    b.addEventListener("click", () => {
+      b.setAttribute("aria-pressed", b.getAttribute("aria-pressed") !== "true");
+      const on = $$(".journey-legend button").filter((x) => x.getAttribute("aria-pressed") === "true").map((x) => x.dataset.type);
+      $$(".jn", journey).forEach((n) => n.classList.toggle("is-off", !on.includes(n.dataset.type)));
+    })
+  );
+}
+
+/* ==========================================================================
+   Mini-game: catch the questions, dodge the assumptions
+   ========================================================================== */
+const gameBtn = $("#game-start");
+if (gameBtn) {
+  const field = $("#game-field"), scoreEl = $("#game-score"), bestEl = $("#game-best"), timeEl = $("#game-time");
+  const GOOD = ["why?", "how?", "who?", "what if?", "tell me more", "walk me through it"];
+  const BAD = ["users will love it", "it's obvious", "just add a button", "trust me", "nobody reads that"];
+  let best = 0;
+  try { best = +localStorage.getItem("sh-best") || 0; } catch {}
+  bestEl.textContent = best;
+  let score = 0, timer, spawner, left = 15, running = false;
+  const spawn = () => {
+    const good = Math.random() < 0.65;
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = `bubble ${good ? "bubble--q" : "bubble--a"}`;
+    b.textContent = (good ? GOOD : BAD)[Math.floor(Math.random() * (good ? GOOD : BAD).length)];
+    field.appendChild(b);
+    const fw = field.clientWidth, fh = field.clientHeight;
+    const x = Math.random() * Math.max(10, fw - b.offsetWidth - 10) + 5;
+    b.style.left = `${x}px`;
+    b.style.top = `${fh}px`;
+    const dur = 2600 + Math.random() * 1600;
+    const anim = b.animate([{ transform: "translateY(0)" }, { transform: `translateY(-${fh + 40}px)` }], { duration: dur, easing: "linear" });
+    anim.onfinish = () => b.remove();
+    b.addEventListener("click", (e) => {
+      if (!running) return;
+      score += good ? 1 : -2;
+      scoreEl.textContent = score;
+      burst(e.clientX, e.clientY, good ? 6 : 3);
+      anim.pause();
+      b.classList.add("is-pop");
+      setTimeout(() => b.remove(), 300);
+    });
+  };
+  const end = () => {
+    running = false;
+    clearInterval(timer); clearInterval(spawner);
+    $$(".bubble", field).forEach((b) => b.remove());
+    if (score > best) { best = score; bestEl.textContent = best; try { localStorage.setItem("sh-best", best); } catch {} }
+    toast(score >= 10 ? `${score} points. You'd make a great UX researcher ✳` : score > 0 ? `${score} points. Solid instincts!` : `${score} points. Assumptions got you this time.`);
+    if (score >= 10) confetti(50);
+    gameBtn.textContent = "Play again";
+    gameBtn.disabled = false;
+  };
+  gameBtn.addEventListener("click", () => {
+    score = 0; left = 15; running = true;
+    scoreEl.textContent = 0; timeEl.textContent = "15s";
+    gameBtn.disabled = true; gameBtn.textContent = "Go!";
+    spawner = setInterval(spawn, 520);
+    spawn();
+    timer = setInterval(() => { left--; timeEl.textContent = `${left}s`; if (left <= 0) end(); }, 1000);
+  });
+}
