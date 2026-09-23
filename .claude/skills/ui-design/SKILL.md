@@ -7,23 +7,25 @@ description: Shreya Hirpathak's UI design system and interface-design rules for 
 
 Read this before touching markup or styles. The goal: every new piece looks like it was always part of the site: calm, cool, research-led, with one playful moment per section.
 
-## 1. Brand tokens (source of truth: top of `assets/css/style.css`)
+## 1. Brand tokens: "research zine" (source of truth: `:root` overrides in `assets/css/style.css`)
 
 | Token | Value | Use |
 | --- | --- | --- |
-| `--bg` | `#050914` | page ground (midnight navy) |
-| `--bg-2` / `--surface` / `--surface-2` | `#0a1122` / `#101a30` / `#17233f` | cards, widgets, raised surfaces |
-| `--text` | `#e3ecfb` | primary text |
-| `--muted` / `--dim` | `#8594b3` / `#56647f` | secondary text, labels |
-| `--accent` | `#7ff0ff` (ice cyan) | the ONE highlight colour: CTAs, key numbers |
-| `--iris` | cyan → violet `#a99bff` gradient | sparingly: primary buttons, italic headline words |
-| Project colours | `--idetc` cyan · `--godrej #ff8a3d` · `--totsecure #4d8dff` · `--calidus #2fb3c4` · `--dfam #ff5a5f` | set `--c` on a case-study `<body>`; everything project-specific uses `var(--c)` |
+| `--bg` / `--bg-2` | `#eeede8` / `#f8f7f3` | newsprint ground, cards |
+| `--text` / `--body-ink` / `--muted` | `#111` / `#2f2d29` / `#55534d` | ink, body copy, labels |
+| `--accent` | `#ff3fa4` (riso pink) | the ONE highlight: chapter-number stroke, eyebrow tabs, key numbers |
+| `--riso-yellow` | `#ffe14d` | stickers, award card, marquee, text selection |
+| Project colours | `--idetc #e8308c` · `--habit #7048e8` · `--totsecure #1f5fd6` · `--dfam #d9362b` · `--calidus #0b8a78` · `--godrej #c2410c` | case pages get `<body class="case case--X">`, which sets `--c` |
 
-Never hard-code a new colour when a token exists. New tokens go in `:root`.
+Rules learned the hard way:
+- Never set colours or CSS variables with inline `style=""`: the preview viewer blocks them. Use a class (`case--X`, `next--X`, `xrow--X`), or set styles from JS via `el.style` (CSSOM is fine).
+- Never put white text on a background that depends on `var(--c)`; if `--c` is missing, the text disappears. Use fixed ink or pink.
+- Run the contrast check after every visual change: zero WCAG failures.
+- Chapter numbers are solid ink with a pink highlighter stroke; no outlined text.
 
 ## 2. Type
 
-- **Geist** (sans) for everything; **Geist Mono** for small uppercase labels (`.mono`); **Instrument Serif italic** (`.serif`) for one emphasised phrase per heading.
+- **Geist** (sans) for body; **Instrument Serif** for display headlines and numbers; **Geist Mono** for small uppercase labels (`.mono`); **Instrument Serif italic** (`.serif`) for one emphasised phrase per heading.
 - Pattern for headings: plain sans + one serif-italic phrase, e.g. `Research, <span class="serif">presented.</span>`
 - Keep the scale restrained (headings were deliberately reduced). Use the existing clamps: `.h2`, `.chapter h2`, `.case-hero h1`. Don't invent new giant sizes.
 - Body 16px, line-height 1.6, max ~66ch per line.
@@ -43,7 +45,7 @@ Build them as live HTML/CSS/JS inside `.device-stage`, not static images.
 - Surface status first (what needs attention now), details second.
 - Destructive or high-stakes actions get a deliberate interaction (press-and-hold with a fill, like `.apply` / `.phone__btn`).
 - Use real domain units and conventions (e.g. ICH 25/60, 30/65, 40/75 for stability chambers).
-- Show original work as "Before" beneath a redesign; label redesigns honestly ("UI refresh · 2026").
+- Label redesigns honestly ("UI refresh · 2026"). Drop the "Before" screenshots once the live UI covers them.
 - Every control must work with keyboard (buttons, `role="switch"` + `aria-checked`, `role="tab"` + `aria-selected`).
 
 ## 5. Motion & fun (on brand, not noisy)

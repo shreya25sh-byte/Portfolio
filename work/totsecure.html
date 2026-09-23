@@ -15,7 +15,7 @@
 <body class="case case--totsecure">
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="grain" aria-hidden="true"></div>
-  <div class="progress" aria-hidden="true" style="background:var(--c)"></div>
+  <div class="progress" aria-hidden="true"></div>
 
   <header class="nav">
     <a href="../index.html" class="logo" aria-label="Shreya Hirpathak, home"><span class="logo__mark"><img src="../assets/img/logo.webp" alt="" width="40" height="40"></span><span>Shreya Hirpathak</span></a>
@@ -57,7 +57,7 @@
             </div>
           </div>
         </div>
-        <div class="cover fig__frame"><img src="../assets/img/totsecure-lockunlock.webp" alt="Totsecure lock mounted under a cabinet with phone screens showing lock and unlock" width="1800" height="571"></div>
+        <div class="cover fig__frame"><img src="../assets/img/totsecure-render.webp" alt="Render of the Totsecure lock mounted under a wooden cabinet, its latch hooked over a pin" width="1300" height="715"></div>
       </div>
     </section>
 
@@ -100,7 +100,7 @@
             </div>
           </div>
           <h3 class="reveal">Parents already trust smart devices for safety</h3>
-          <p class="muted reveal" style="margin:0 0 16px">Child-proofing device categories, by parent preference</p>
+          <p class="muted reveal st-22">Child-proofing device categories, by parent preference</p>
           <div class="hbars" data-animate>
             <div class="hbar" data-value="77"><span>Smart smoke detectors</span><span class="hbar__t"><i></i></span><span>77%</span></div>
             <div class="hbar" data-value="69"><span>Baby monitors</span><span class="hbar__t"><i></i></span><span>69%</span></div>
@@ -111,7 +111,15 @@
             <div class="hbar" data-value="47"><span>Smart plugs</span><span class="hbar__t"><i></i></span><span>47%</span></div>
             <div class="hbar" data-value="46"><span>Motion sensors</span><span class="hbar__t"><i></i></span><span>46%</span></div>
           </div>
-          <div class="prose reveal" style="margin-top:28px">
+          <div class="fig-row rooms-row">
+            <div class="reveal">
+              <h3>Safest rooms, according to parents</h3>
+              <p class="muted small-note">Ranked safest to least safe</p>
+              <div class="hbars rooms" data-animate><div class="hbar" data-value="100"><span>Bedroom</span><span class="hbar__t"><i></i></span><span>1st</span></div><div class="hbar" data-value="92"><span>Living room</span><span class="hbar__t"><i></i></span><span>2nd</span></div><div class="hbar" data-value="87"><span>Parents' room</span><span class="hbar__t"><i></i></span><span>3rd</span></div><div class="hbar" data-value="68"><span>Backyard</span><span class="hbar__t"><i></i></span><span>4th</span></div><div class="hbar" data-value="65"><span>Bathroom</span><span class="hbar__t"><i></i></span><span>5th</span></div><div class="hbar" data-value="54"><span>Front yard</span><span class="hbar__t"><i></i></span><span>6th</span></div><div class="hbar is-risk" data-value="46"><span>Kitchen</span><span class="hbar__t"><i></i></span><span>7th</span></div><div class="hbar is-risk" data-value="42"><span>Basement</span><span class="hbar__t"><i></i></span><span>8th</span></div><div class="hbar is-risk" data-value="22"><span>Garage</span><span class="hbar__t"><i></i></span><span>9th</span></div></div>
+            </div>
+            <div class="insight reveal defn"><span class="mono">Definition</span><h4>What is baby proofing?</h4><p>Modifying a home to remove dangers and reduce injury risk for infants and toddlers as they become mobile: covering outlets, installing safety gates, securing heavy furniture, and <strong>locking cabinets</strong>.</p><span class="arrow">Totsecure sits in that last category, and makes it remote.</span></div>
+          </div>
+          <div class="prose reveal">
             <p>Smart locks are already trusted by more than half of parents, but they're built for front doors, not kitchen cabinets. Parents ranked the <strong>kitchen, basement and garage</strong> as the least safe rooms in the house. That's where the chemicals and tools are, and where a remote-controllable lock matters most.</p>
           </div>
         </section>
@@ -123,9 +131,9 @@
             <div class="prose reveal">
               <p>Amy (42, stay-at-home parent, suburban, medium tech literacy) spends most of her day managing the home and caring for three children <strong>at very different developmental stages</strong>.</p>
               <p>Her youngest puts small objects in their mouth; her oldest can already reach tools and kitchen items. One lock setting can't fit all three.</p>
-              <blockquote class="quote" style="font-size:clamp(24px,2.8vw,34px);margin-top:24px">“With three kids, I just need to know what's most dangerous right now, and fix it fast.”<cite>Amy · persona</cite></blockquote>
+              <blockquote class="quote st-23">“With three kids, I just need to know what's most dangerous right now, and fix it fast.”<cite>Amy · persona</cite></blockquote>
             </div>
-            <figure class="fig reveal" style="margin-top:0">
+            <figure class="fig reveal st-8">
               <div class="fig__frame"><img src="../assets/img/totsecure-persona.webp" alt="Persona card for Amy with bio, core needs and frustrations" loading="lazy"></div>
               <figcaption><span class="mono">Fig. 1</span>Persona: core needs and frustrations</figcaption>
             </figure>
@@ -143,9 +151,21 @@
           <div class="prose reveal">
             <p>I translated needs into performance measures with target values, then benchmarked them against existing products (installation from 5 to 15 minutes, prices from $30 to $120).</p>
           </div>
-          <ul class="methods reveal">
-            <li>Manual locking success rate (%)</li><li>Force withstood (lb)</li><li>Max force to unlock manually (lb)</li><li>Time to unlock manually (s)</li><li>Remote activation success rate (%)</li><li>Remote response time</li><li>Remote range (ft)</li><li>Number of connected devices</li><li>Compatible doors &amp; cabinets</li><li>ASTM / EN / ISO compliance</li><li>Installation time (min)</li><li>Product cost ($)</li>
-          </ul>
+          <div class="reqs reveal">
+            <div class="reqs__needs">
+              <h3>8 needs, weighted</h3>
+              <ul>
+                <li><b>10</b>Reliably keeps children out</li><li><b>10</b>Opens manually, like a normal child lock</li><li><b>10</b>Activates and deactivates remotely</li><li><b>10</b>Meets child-safety standards</li><li><b>7</b>Simple to install</li><li><b>7</b>Affordable</li><li><b>7</b>Intuitive</li><li><b>6</b>Fits many household products</li>
+              </ul>
+            </div>
+            <div class="table-scroll">
+              <table class="reqtable">
+                <caption class="mono">12 performance measures · target values</caption>
+                <thead><tr><th scope="col">Measure</th><th scope="col">Ideal</th><th scope="col">Acceptable</th></tr></thead>
+                <tbody><tr><th scope="row">Manual locking success rate</th><td>100%</td><td>≥ 99%</td></tr><tr><th scope="row">Force the lock withstands</th><td>No limit</td><td>≥ 45.3 lb</td></tr><tr><th scope="row">Force to unlock manually</th><td>3 lb</td><td>2.5–5 lb</td></tr><tr><th scope="row">Time to unlock manually</th><td>Instant</td><td>≤ 3 s</td></tr><tr><th scope="row">Remote activation success</th><td>100%</td><td>≥ 98%</td></tr><tr><th scope="row">Remote response time</th><td>Instant</td><td>≤ 3 s</td></tr><tr><th scope="row">Remote range</th><td>Anywhere</td><td>≥ 60 ft</td></tr><tr><th scope="row">Devices per account</th><td>Unlimited</td><td>≥ 3</td></tr><tr><th scope="row">Compatible with</th><td>Swinging &amp; sliding doors, cupboards, cabinets</td><td>Standard swinging doors</td></tr><tr><th scope="row">ASTM / EN / ISO compliance</th><td>100%</td><td>100%</td></tr><tr><th scope="row">Installation time</th><td>5 min</td><td>≤ 15 min</td></tr><tr><th scope="row">Product cost</th><td>$65</td><td>$30–120</td></tr></tbody>
+              </table>
+            </div>
+          </div>
         </section>
 
         <section class="chapter" id="ideation">
@@ -164,32 +184,48 @@
             <p>A deliberate <strong>press-and-hold</strong> interaction prevents accidental unlocks (by adults or curious kids with a phone). Try it:</p>
           </div>
           <div class="widget reveal">
-            <div class="widget__bar"><span class="mono">Interactive · press and hold the button</span><span class="mono" style="color:var(--c)">Prototype simulation</span></div>
+            <div class="widget__bar"><span class="mono">Interactive · press and hold the button</span><span class="mono">Prototype simulation</span></div>
             <div class="widget__body lockdemo" id="lockdemo">
-              <div class="phone">
-                <span class="phone__brand">Totsecure</span>
-                <button class="phone__btn" aria-label="Hold to disable child lock">
-                  <span class="phone__icon"></span>
-                  <svg class="ring" viewBox="0 0 132 132" aria-hidden="true"><circle cx="66" cy="66" r="64"/></svg>
-                </button>
-                <p class="phone__hint">Hold to disable child lock</p>
-                <div class="phone__status"><span>Status</span><b>Connected</b></div>
+              <div class="tapp tapp--solo">
+                <div class="tapp__notch"></div>
+                <div class="tapp__screen">
+                  <div class="tapp__bar"><span>9:41</span><span>●●● 87%</span></div>
+                  <div class="tapp__views">
+                    <div class="tapp__view is-on">
+                      <div class="tapp__hi"><h5><small>Kitchen</small>Knife drawer</h5><span class="ld__batt">87%</span></div>
+                      <div class="ld__stage">
+                        <button type="button" class="ld__btn" aria-label="Hold to unlock the knife drawer">
+                          <svg class="ld__ring" viewBox="0 0 132 132" aria-hidden="true"><circle class="rb" cx="66" cy="66" r="60"/><circle class="rf" cx="66" cy="66" r="60"/></svg>
+                          <span class="ld__icon"></span>
+                        </button>
+                        <strong class="ld__state">Locked</strong>
+                        <p class="ld__hint">Press and hold to unlock</p>
+                      </div>
+                      <div class="ld__meta"><div><small>Connection</small><b>Connected</b></div><div><small>Auto-lock</small><b>8:00 PM</b></div></div>
+                    </div>
+                  </div>
+                  <div class="tapp__tabs" aria-hidden="true"><button class="is-on" data-t="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 12 4l9 7v9H3z"/></svg>Home</button><button data-t="sched"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>Schedules</button><button data-t="log"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg>Activity</button></div>
+                </div>
               </div>
-              <div>
-                <div class="device" aria-hidden="true">
-                  <div class="device__frame"></div>
-                  <div class="device__door"></div>
-                  <div class="device__latch"></div>
-                  <div class="device__box"><span class="device__led"></span></div>
+              <div class="ld__device">
+                <div class="seg ld__seg" role="group" aria-label="Device view">
+                  <button type="button" data-ldv="ext" aria-pressed="true">Outside</button>
+                  <button type="button" data-ldv="int" aria-pressed="false">Inside the mechanism</button>
+                </div>
+                <div class="ld__imgs fig__frame">
+                  <img data-v="ext" data-s="locked" src="../assets/img/totsecure-locked.webp" alt="Render: Totsecure locked, latch hooked over the pin" width="980" height="400">
+                  <img data-v="ext" data-s="open" src="../assets/img/totsecure-unlocked.webp" alt="Render: Totsecure unlocked, latch pulled back from the pin" width="980" height="400" loading="lazy">
+                  <img data-v="int" data-s="locked" src="../assets/img/totsecure-mech-locked.webp" alt="Cutaway render: servo-driven rack pushes the hook forward to lock" width="1200" height="570" loading="lazy">
+                  <img data-v="int" data-s="open" src="../assets/img/totsecure-mech-open.webp" alt="Cutaway render: rack pulled back, hook released" width="1200" height="570" loading="lazy">
                 </div>
                 <div class="lockdemo__log" aria-live="polite"></div>
               </div>
             </div>
           </div>
-          <ul class="methods reveal" style="margin-top:28px">
+          <ul class="methods reveal st-9">
             <li>Remote locking of doors, cupboards &amp; cabinets</li><li>Real-time control via mobile app</li><li>Scheduled locking</li><li>Emergency manual override</li><li>Backup battery system</li><li>Easy installation</li>
           </ul>
-          <div class="redesign-tag" style="margin-top:28px">UI refresh · 2026 · tap the switches</div>
+          <div class="redesign-tag st-9">UI refresh · 2026 · tap the switches</div>
           <div class="device-stage reveal">
             <div class="tapp-wrap">
               <div class="tapp" id="tapp">
@@ -233,12 +269,6 @@
               </div>
             </div>
           </div>
-          <div class="before-after">
-            <figure class="fig reveal">
-              <div class="fig__frame"><img src="../assets/img/totsecure-screens.webp" alt="Original 2025 app screens: lock, unlock, low battery warning, profile and scheduling" loading="lazy"></div>
-              <figcaption><span class="mono">Before</span>The original 2025 app screens</figcaption>
-            </figure>
-          </div>
           <figure class="fig reveal">
             <div class="fig__frame"><img src="../assets/img/totsecure-install.webp" alt="Installation steps: attach pin on door frame, install door mount" loading="lazy"></div>
             <figcaption><span class="mono">Fig. 4</span>Two-step install: pin on the frame, mount on the door</figcaption>
@@ -256,6 +286,10 @@
               <video src="../assets/video/totsecure-mechanism.mp4" poster="../assets/img/totsecure-video-poster.webp" muted loop playsinline preload="metadata" controls aria-label="Animation of the Totsecure latch: the wall mount pulls away from the pin to unlock, and a servo-driven hook moves forward and back"></video>
             </div>
             <figcaption><span class="mono">Video</span>How the mechanism works: a servo-driven hook locks over the wall mount, and pulls back to release it</figcaption>
+          </figure>
+          <figure class="fig reveal">
+            <div class="fig__frame"><img src="../assets/img/totsecure-cutaway.webp" alt="Cutaway render of the lock housing showing the servo, rack and pinion, hook and electronics" loading="lazy" width="1300" height="629"></div>
+            <figcaption><span class="mono">Render</span>Cutaway: servo, rack and pinion, hook, and the electronics bay</figcaption>
           </figure>
           <figure class="fig reveal">
             <div class="fig__frame"><img src="../assets/img/totsecure-prototype.webp" alt="Open prototype showing the ESP32 microcontroller, servo mechanism, gear and battery" loading="lazy"></div>
@@ -279,8 +313,8 @@
       </div>
     </div>
 
-    <a class="next" href="godrej.html" style="--nc: var(--godrej)" data-cursor="Next">
-      <div class="wrap"><span class="mono">Next case study · 04</span><br><span class="next__title">Godrej →</span></div>
+    <a class="next next--dfam" href="dfam.html" data-cursor="Next">
+      <div class="wrap"><span class="mono">Next case study · 04</span><br><span class="next__title">Lattice acoustics →</span></div>
     </a>
   </main>
 

@@ -2,9 +2,9 @@
 
 // ---- Edit these to your real links ------------------------------------
 const CONFIG = {
-  email: "hello@shreyahirpathak.com", // TODO: replace with your email
-  linkedin: "https://www.linkedin.com/", // TODO: replace with your LinkedIn URL
-  resume: "#", // TODO: link to your resume PDF, e.g. "assets/Shreya_Hirpathak_Resume.pdf"
+  email: "shreya.hirpathak@gmail.com",
+  linkedin: "https://www.linkedin.com/in/shreya-hirpathak-a72b21220/",
+  resume: "assets/Shreya_Hirpathak_Resume.pdf",
 };
 // ------------------------------------------------------------------------
 
@@ -666,38 +666,29 @@ if (stepper) {
 /* Totsecure: lock demo */
 const lockdemo = $("#lockdemo");
 if (lockdemo) {
-  const phone = $(".phone", lockdemo);
-  const btn = $(".phone__btn", lockdemo);
-  const hint = $(".phone__hint", lockdemo);
-  const log = $(".lockdemo__log", lockdemo);
-  const ringC = $(".ring circle", lockdemo);
-  const ICON_LOCK = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17 9V7A5 5 0 0 0 7 7v2a3 3 0 0 0-3 3v7a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-7a3 3 0 0 0-3-3ZM9 7a3 3 0 0 1 6 0v2H9Zm4 9.73V18a1 1 0 0 1-2 0v-1.27a2 2 0 1 1 2 0Z"/></svg>';
-  const ICON_UNLOCK = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17 9H9V7a3 3 0 0 1 5.83-1 1 1 0 1 0 1.88-.66A5 5 0 0 0 7 7v2a3 3 0 0 0-3 3v7a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-7a3 3 0 0 0-3-3Zm-4 7.73V18a1 1 0 0 1-2 0v-1.27a2 2 0 1 1 2 0Z"/></svg>';
+  const btn = $(".ld__btn", lockdemo), icon = $(".ld__icon", lockdemo), state = $(".ld__state", lockdemo), hint = $(".ld__hint", lockdemo);
+  const log = $(".lockdemo__log", lockdemo), ringC = $(".ld__ring .rf", lockdemo);
+  const ICON_LOCK = '<svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+  const ICON_UNLOCK = '<svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 7.5-2"/></svg>';
+  const C = 377, HOLD = 700;
   let locked = true, raf, t0;
-  const HOLD = 700;
-  const icon = $(".phone__icon", lockdemo);
+  ringC.style.strokeDasharray = C; ringC.style.strokeDashoffset = C;
   const addLog = (m) => {
     const time = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
-    const s = document.createElement("span");
-    s.textContent = `${time}  ${m}`;
-    log.prepend(s);
-    while (log.children.length > 4) log.lastChild.remove();
+    const el = document.createElement("span"); el.textContent = `${time}  ${m}`;
+    log.prepend(el); while (log.children.length > 3) log.lastChild.remove();
   };
-  const setState = (l) => {
+  const setState = (l, quiet) => {
     locked = l;
     icon.innerHTML = l ? ICON_LOCK : ICON_UNLOCK;
-    phone.classList.toggle("is-unlocked", !l);
     lockdemo.classList.toggle("is-unlocked", !l);
-    lockdemo.classList.remove("is-open");
-    hint.textContent = l ? "Hold to disable child lock" : "Hold to enable child lock";
-    btn.setAttribute("aria-label", hint.textContent);
-    addLog(l ? "child lock ENABLED · latch engaged" : "child lock DISABLED · adult can open");
-    if (!l) setTimeout(() => lockdemo.classList.contains("is-unlocked") && lockdemo.classList.add("is-open"), 700);
+    state.textContent = l ? "Locked" : "Unlocked";
+    hint.textContent = l ? "Press and hold to unlock" : "Press and hold to lock";
+    btn.setAttribute("aria-label", `${hint.textContent} the knife drawer`);
+    if (!quiet) addLog(l ? "locked · hook engaged over the pin" : "unlocked · hook released, an adult can open");
   };
-  const C = 402;
   const start = (e) => {
-    e.preventDefault();
-    t0 = performance.now();
+    e.preventDefault(); t0 = performance.now();
     const f = (t) => {
       const p = Math.min(1, (t - t0) / HOLD);
       ringC.style.strokeDashoffset = C * (1 - p);
@@ -711,8 +702,12 @@ if (lockdemo) {
   btn.addEventListener("pointerup", cancel);
   btn.addEventListener("pointerleave", cancel);
   btn.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setState(!locked); } });
-  icon.innerHTML = ICON_LOCK;
-  addLog("device connected · battery OK");
+  $$("[data-ldv]", lockdemo).forEach((b) => b.addEventListener("click", () => {
+    $$("[data-ldv]", lockdemo).forEach((x) => x.setAttribute("aria-pressed", x === b));
+    lockdemo.classList.toggle("is-int", b.dataset.ldv === "int");
+  }));
+  setState(true, true);
+  addLog("device connected · battery 87%");
 }
 
 /* Totsecure: donuts + bars */
@@ -1262,60 +1257,31 @@ if (journey) {
   );
 }
 
-/* ==========================================================================
-   Mini-game: catch the questions, dodge the assumptions
-   ========================================================================== */
-const gameBtn = $("#game-start");
-if (gameBtn) {
-  const field = $("#game-field"), scoreEl = $("#game-score"), bestEl = $("#game-best"), timeEl = $("#game-time");
-  const GOOD = ["why?", "how?", "who?", "what if?", "tell me more", "walk me through it"];
-  const BAD = ["users will love it", "it's obvious", "just add a button", "trust me", "nobody reads that"];
-  let best = 0;
-  try { best = +localStorage.getItem("sh-best") || 0; } catch {}
-  bestEl.textContent = best;
-  let score = 0, timer, spawner, left = 15, running = false;
-  const spawn = () => {
-    const good = Math.random() < 0.65;
-    const b = document.createElement("button");
-    b.type = "button";
-    b.className = `bubble ${good ? "bubble--q" : "bubble--a"}`;
-    b.textContent = (good ? GOOD : BAD)[Math.floor(Math.random() * (good ? GOOD : BAD).length)];
-    field.appendChild(b);
-    const fw = field.clientWidth, fh = field.clientHeight;
-    const x = Math.random() * Math.max(10, fw - b.offsetWidth - 10) + 5;
-    b.style.left = `${x}px`;
-    b.style.top = `${fh}px`;
-    const dur = 2600 + Math.random() * 1600;
-    const anim = b.animate([{ transform: "translateY(0)" }, { transform: `translateY(-${fh + 40}px)` }], { duration: dur, easing: "linear" });
-    anim.onfinish = () => b.remove();
-    b.addEventListener("click", (e) => {
-      if (!running) return;
-      score += good ? 1 : -2;
-      scoreEl.textContent = score;
-      burst(e.clientX, e.clientY, good ? 6 : 3);
-      anim.pause();
-      b.classList.add("is-pop");
-      setTimeout(() => b.remove(), 300);
-    });
+/* How I work: flip cards for proof */
+const mvs = $$(".mv");
+if (mvs.length) {
+  const count = $("#mv-count"), fill = $("#mv-fill"), all = $("#mv-all");
+  const seen = new Set();
+  const upd = () => {
+    count.textContent = `${seen.size} / 4 moves flipped`;
+    fill.style.transform = `scaleX(${seen.size / 4})`;
+    all.textContent = mvs.every((m) => m.classList.contains("is-flipped")) ? "Flip back" : "Flip all";
   };
-  const end = () => {
-    running = false;
-    clearInterval(timer); clearInterval(spawner);
-    $$(".bubble", field).forEach((b) => b.remove());
-    if (score > best) { best = score; bestEl.textContent = best; try { localStorage.setItem("sh-best", best); } catch {} }
-    toast(score >= 10 ? `${score} points. You'd make a great UX researcher ✳` : score > 0 ? `${score} points. Solid instincts!` : `${score} points. Assumptions got you this time.`);
-    if (score >= 10) confetti(50);
-    gameBtn.textContent = "Play again";
-    gameBtn.disabled = false;
+  const flip = (m, on, quiet) => {
+    m.classList.toggle("is-flipped", on);
+    $(".mv__front", m).setAttribute("aria-expanded", on);
+    if (on && !seen.has(m.dataset.mv)) {
+      seen.add(m.dataset.mv);
+      if (seen.size === 4 && !quiet) { toast("Immerse → Synthesize → Make → Measure. That's the whole method."); confetti(24); }
+    }
+    upd();
   };
-  gameBtn.addEventListener("click", () => {
-    score = 0; left = 15; running = true;
-    scoreEl.textContent = 0; timeEl.textContent = "15s";
-    gameBtn.disabled = true; gameBtn.textContent = "Go!";
-    spawner = setInterval(spawn, 520);
-    spawn();
-    timer = setInterval(() => { left--; timeEl.textContent = `${left}s`; if (left <= 0) end(); }, 1000);
+  mvs.forEach((m) => {
+    $(".mv__front", m).addEventListener("click", () => { flip(m, true); $(".mv__close", m).focus({ preventScroll: true }); });
+    $(".mv__close", m).addEventListener("click", () => { flip(m, false); $(".mv__front", m).focus({ preventScroll: true }); });
   });
+  all.addEventListener("click", () => { const on = !mvs.every((m) => m.classList.contains("is-flipped")); mvs.forEach((m, i) => setTimeout(() => flip(m, on, i < 3), i * 120)); });
+  upd();
 }
 
 /* Autoplay case-study videos only while visible */
