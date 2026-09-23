@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Totsecure · Shreya Hirpathak</title>
+  <meta name="description" content="Totsecure: a remote-controlled child-safety lock shaped by parent research, a persona, and measurable requirements.">
+  <meta name="theme-color" content="#0d0d0b">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%23d7f25a'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Georgia' font-style='italic' font-size='30' fill='%230d0d0b'%3Esh%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="case" style="--c: var(--totsecure)">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="progress" aria-hidden="true" style="background:var(--c)"></div>
+
+  <header class="nav">
+    <a href="../index.html" class="logo" aria-label="Shreya Hirpathak, home"><span class="logo__mark">sh</span><span>Shreya Hirpathak</span></a>
+    <nav aria-label="Primary">
+      <ul class="nav__links" id="nav-links">
+        <li><a href="../index.html#work">Work</a></li>
+        <li><a href="../index.html#process">Process</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a href="../index.html#contact" class="status"><span class="status__dot"></span>Open to UX Research roles</a>
+    <button class="nav__toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links"><i></i><i></i></button>
+  </header>
+
+  <main id="main">
+    <section class="case-hero">
+      <div class="wrap">
+        <div class="crumbs mono"><a href="../index.html#work">Work</a><span>/</span><span>02</span></div>
+        <h1 class="split">Totsecure</h1>
+        <p class="case-hero__sub split">A lock toddlers can't beat, <span class="serif">and parents can control from anywhere.</span></p>
+        <div class="meta reveal">
+          <div><h4 class="mono">Role</h4><p>Research, mechanism design, app UI, prototyping</p></div>
+          <div><h4 class="mono">Timeline</h4><p>3 months · 2025</p></div>
+          <div><h4 class="mono">Context</h4><p>Graduate university project</p></div>
+          <div><h4 class="mono">Methods</h4><p>Secondary research, persona, requirements metrics, sketching, working prototype</p></div>
+        </div>
+        <div class="cover fig__frame"><img src="../assets/img/totsecure-lockunlock.webp" alt="Totsecure lock mounted under a cabinet with phone screens showing lock and unlock" width="1800" height="571"></div>
+      </div>
+    </section>
+
+    <div class="wrap case-body">
+      <aside class="toc" aria-label="On this page">
+        <ol>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#problem">The problem</a></li>
+          <li><a href="#users">Users</a></li>
+          <li><a href="#requirements">Requirements</a></li>
+          <li><a href="#ideation">Ideation</a></li>
+          <li><a href="#solution">Solution</a></li>
+          <li><a href="#prototype">Prototype</a></li>
+          <li><a href="#reflection">Reflection</a></li>
+        </ol>
+      </aside>
+
+      <div>
+        <section class="chapter" id="overview">
+          <span class="mono">01 · Overview</span>
+          <h2 class="split">Child locks are designed for children. The parents were forgotten.</h2>
+          <div class="tldr reveal">
+            <div><h4 class="mono">Challenge</h4><p>Design a child-safety lock for doors and cupboards that adults can open manually, that can be switched on or off remotely, and that stays reliable.</p></div>
+            <div><h4 class="mono">Research</h4><p>Parent injury and smart-home adoption data, a room-by-room risk ranking, a persona (“Amy”), and a measurable requirements matrix.</p></div>
+            <div><h4 class="mono">Outcome</h4><p>Totsecure: a remote-controlled lock with an app, scheduled locking, battery backup and an emergency manual override, built as a working ESP32 prototype.</p></div>
+          </div>
+        </section>
+
+        <section class="chapter" id="problem">
+          <span class="mono">02 · The problem</span>
+          <h2 class="split">Most home injuries are preventable, according to parents.</h2>
+          <div class="donuts">
+            <div class="donut" data-value="55" data-animate>
+              <div class="donut__wrap"><svg viewBox="0 0 110 110" aria-hidden="true"><circle class="bg" cx="55" cy="55" r="46"/><circle class="fg" cx="55" cy="55" r="46"/></svg><b>55%</b></div>
+              <p>of injuries could be avoided with appropriate child-proofing, according to parents</p>
+            </div>
+            <div class="donut" data-value="59" data-animate>
+              <div class="donut__wrap"><svg viewBox="0 0 110 110" aria-hidden="true"><circle class="bg" cx="55" cy="55" r="46"/><circle class="fg" cx="55" cy="55" r="46"/></svg><b>59%</b></div>
+              <p>of children 10 and under have been injured in their homes, according to their parents</p>
+            </div>
+          </div>
+          <h3 class="reveal">Parents already trust smart devices for safety</h3>
+          <p class="muted reveal" style="margin:0 0 16px">Child-proofing device categories, by parent preference</p>
+          <div class="hbars" data-animate>
+            <div class="hbar" data-value="77"><span>Smart smoke detectors</span><span class="hbar__t"><i></i></span><span>77%</span></div>
+            <div class="hbar" data-value="69"><span>Baby monitors</span><span class="hbar__t"><i></i></span><span>69%</span></div>
+            <div class="hbar" data-value="61"><span>Security cameras</span><span class="hbar__t"><i></i></span><span>61%</span></div>
+            <div class="hbar" data-value="59"><span>Smart door locks</span><span class="hbar__t"><i></i></span><span>59%</span></div>
+            <div class="hbar" data-value="59"><span>Video doorbells</span><span class="hbar__t"><i></i></span><span>59%</span></div>
+            <div class="hbar" data-value="57"><span>GPS trackers for kids</span><span class="hbar__t"><i></i></span><span>57%</span></div>
+            <div class="hbar" data-value="47"><span>Smart plugs</span><span class="hbar__t"><i></i></span><span>47%</span></div>
+            <div class="hbar" data-value="46"><span>Motion sensors</span><span class="hbar__t"><i></i></span><span>46%</span></div>
+          </div>
+          <div class="prose reveal" style="margin-top:28px">
+            <p>Smart locks are already trusted by more than half of parents, but they're built for front doors, not kitchen cabinets. Parents ranked the <strong>kitchen, basement and garage</strong> as the least safe rooms in the house. That's where the chemicals and tools are, and where a remote-controllable lock matters most.</p>
+          </div>
+        </section>
+
+        <section class="chapter" id="users">
+          <span class="mono">03 · Users</span>
+          <h2 class="split">Meet Amy: three kids, zero spare minutes.</h2>
+          <div class="fig-row">
+            <div class="prose reveal">
+              <p>Amy (42, stay-at-home parent, suburban, medium tech literacy) spends most of her day managing the home and caring for three children <strong>at very different developmental stages</strong>.</p>
+              <p>Her youngest puts small objects in their mouth; her oldest can already reach tools and kitchen items. One lock setting can't fit all three.</p>
+              <blockquote class="quote" style="font-size:clamp(24px,2.8vw,34px);margin-top:24px">“With three kids, I just need to know what's most dangerous right now, and fix it fast.”<cite>Amy · persona</cite></blockquote>
+            </div>
+            <figure class="fig reveal" style="margin-top:0">
+              <div class="fig__frame"><img src="../assets/img/totsecure-persona.webp" alt="Persona card for Amy with bio, core needs and frustrations" loading="lazy"></div>
+              <figcaption><span class="mono">Fig. 1</span>Persona: core needs and frustrations</figcaption>
+            </figure>
+          </div>
+          <div class="insights">
+            <div class="insight reveal"><span class="mono">Need</span><h4>Stay on top of hazards without stress.</h4><p>She can't monitor everything at once.</p><span class="arrow">Lock or unlock every cabinet from one app, from anywhere in the house.</span></div>
+            <div class="insight reveal"><span class="mono">Frustration</span><h4>Limited time to research safety.</h4><p>She needs easy-to-follow actions she can do fast.</p><span class="arrow">One big hold-to-toggle button, and installation in minutes.</span></div>
+            <div class="insight reveal"><span class="mono">Need</span><h4>Control in an emergency.</h4><p>Remote control is useless if the battery dies at the wrong moment.</p><span class="arrow">Backup battery, low-battery warning and a manual override.</span></div>
+          </div>
+        </section>
+
+        <section class="chapter" id="requirements">
+          <span class="mono">04 · Requirements</span>
+          <h2 class="split">Turning needs into numbers I could test against.</h2>
+          <div class="prose reveal">
+            <p>I translated needs into performance measures with target values, then benchmarked them against existing products (installation from 5 to 15 minutes, prices from $30 to $120).</p>
+          </div>
+          <ul class="methods reveal">
+            <li>Manual locking success rate (%)</li><li>Force withstood (lb)</li><li>Max force to unlock manually (lb)</li><li>Time to unlock manually (s)</li><li>Remote activation success rate (%)</li><li>Remote response time</li><li>Remote range (ft)</li><li>Number of connected devices</li><li>Compatible doors &amp; cabinets</li><li>ASTM / EN / ISO compliance</li><li>Installation time (min)</li><li>Product cost ($)</li>
+          </ul>
+        </section>
+
+        <section class="chapter" id="ideation">
+          <span class="mono">05 · Ideation</span>
+          <h2 class="split">Every sketch had to answer: adult opens, child can't.</h2>
+          <figure class="fig reveal">
+            <div class="fig__frame"><img src="../assets/img/totsecure-sketches.webp" alt="Pages of mechanism sketches for latches, hinges and sliders with lock states" loading="lazy"></div>
+            <figcaption><span class="mono">Fig. 2</span>Mechanism explorations, mapped to states: child lock active, disabled, and confirmed open by an adult</figcaption>
+          </figure>
+        </section>
+
+        <section class="chapter" id="solution">
+          <span class="mono">06 · Solution</span>
+          <h2 class="split">Hold to lock. Hold to unlock. That's the whole interface.</h2>
+          <div class="prose reveal">
+            <p>A deliberate <strong>press-and-hold</strong> interaction prevents accidental unlocks (by adults or curious kids with a phone). Try it:</p>
+          </div>
+          <div class="widget reveal">
+            <div class="widget__bar"><span class="mono">Interactive · press and hold the button</span><span class="mono" style="color:var(--c)">Prototype simulation</span></div>
+            <div class="widget__body lockdemo" id="lockdemo">
+              <div class="phone">
+                <span class="phone__brand">Totsecure</span>
+                <button class="phone__btn" aria-label="Hold to disable child lock">
+                  <span class="phone__icon"></span>
+                  <svg class="ring" viewBox="0 0 132 132" aria-hidden="true"><circle cx="66" cy="66" r="64"/></svg>
+                </button>
+                <p class="phone__hint">Hold to disable child lock</p>
+                <div class="phone__status"><span>Status</span><b>Connected</b></div>
+              </div>
+              <div>
+                <div class="device" aria-hidden="true">
+                  <div class="device__frame"></div>
+                  <div class="device__door"></div>
+                  <div class="device__latch"></div>
+                  <div class="device__box"><span class="device__led"></span></div>
+                </div>
+                <div class="lockdemo__log" aria-live="polite"></div>
+              </div>
+            </div>
+          </div>
+          <ul class="methods reveal" style="margin-top:28px">
+            <li>Remote locking of doors, cupboards &amp; cabinets</li><li>Real-time control via mobile app</li><li>Scheduled locking</li><li>Emergency manual override</li><li>Backup battery system</li><li>Easy installation</li>
+          </ul>
+          <figure class="fig reveal">
+            <div class="fig__frame"><img src="../assets/img/totsecure-screens.webp" alt="Five app screens: lock, unlock, low battery warning, profile and scheduling" loading="lazy"></div>
+            <figcaption><span class="mono">Fig. 3</span>App: lock, unlock, low-battery warning, family profiles, scheduled locking</figcaption>
+          </figure>
+          <figure class="fig reveal">
+            <div class="fig__frame"><img src="../assets/img/totsecure-install.webp" alt="Installation steps: attach pin on door frame, install door mount" loading="lazy"></div>
+            <figcaption><span class="mono">Fig. 4</span>Two-step install: pin on the frame, mount on the door</figcaption>
+          </figure>
+        </section>
+
+        <section class="chapter" id="prototype">
+          <span class="mono">07 · Prototype</span>
+          <h2 class="split">Then I built it, for real.</h2>
+          <div class="prose reveal">
+            <p>A working 3D-printed prototype: an <strong>ESP32-C3 mini</strong> microcontroller, a servo-driven gear and rack latch, buck converter, battery, status LED, switch and a manual override, all documented in full CAD drawings.</p>
+          </div>
+          <figure class="fig reveal">
+            <div class="fig__frame"><img src="../assets/img/totsecure-prototype.webp" alt="Open prototype showing the ESP32 microcontroller, servo mechanism, gear and battery" loading="lazy"></div>
+            <figcaption><span class="mono">Fig. 5</span>Working prototype internals</figcaption>
+          </figure>
+          <figure class="fig reveal">
+            <div class="fig__frame"><img src="../assets/img/totsecure-cad.webp" alt="Assembled CAD technical drawings with dimensions and a bill of materials" loading="lazy"></div>
+            <figcaption><span class="mono">Fig. 6</span>Assembled CAD drawings and bill of materials</figcaption>
+          </figure>
+        </section>
+
+        <section class="chapter" id="reflection">
+          <span class="mono">08 · Reflection</span>
+          <h2 class="split">What I'd validate next.</h2>
+          <div class="prose reveal">
+            <p><strong>Talk to real parents, not just the data.</strong> The persona is grounded in survey statistics. Interviews and in-home observation would test whether “remote” is a real need or a nice-to-have.</p>
+            <p><strong>Test the hold-to-toggle interaction</strong> for speed and error rate under realistic stress, like a child crying or hands full.</p>
+            <p><strong>Run the requirements matrix against the prototype</strong>: unlock force, response time and install time, measured rather than estimated.</p>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <a class="next" href="calidus.html" style="--nc: var(--calidus)" data-cursor="Next">
+      <div class="wrap"><span class="mono">Next case study · 03</span><br><span class="next__title">Calidus →</span></div>
+    </a>
+  </main>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Veneze · Shreya Hirpathak</title>
+  <meta name="description" content="Veneze: a wearable for home-based DVT recovery, shaped by hospital field research and competitive analysis.">
+  <meta name="theme-color" content="#0d0d0b">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%23d7f25a'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Georgia' font-style='italic' font-size='30' fill='%230d0d0b'%3Esh%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="case" style="--c: var(--veneze)">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="progress" aria-hidden="true" style="background:var(--c)"></div>
+
+  <header class="nav">
+    <a href="../index.html" class="logo" aria-label="Shreya Hirpathak, home"><span class="logo__mark">sh</span><span>Shreya Hirpathak</span></a>
+    <nav aria-label="Primary">
+      <ul class="nav__links" id="nav-links">
+        <li><a href="../index.html#work">Work</a></li>
+        <li><a href="../index.html#process">Process</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a href="../index.html#contact" class="status"><span class="status__dot"></span>Open to UX Research roles</a>
+    <button class="nav__toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links"><i></i><i></i></button>
+  </header>
+
+  <main id="main">
+    <section class="case-hero">
+      <div class="wrap">
+        <div class="crumbs mono"><a href="../index.html#work">Work</a><span>/</span><span>01</span></div>
+        <h1 class="split">Veneze</h1>
+        <p class="case-hero__sub split">Bringing DVT recovery home. <span class="serif">Five weeks, one leg, six zones.</span></p>
+        <div class="meta reveal">
+          <div><h4 class="mono">Role</h4><p>UX research, industrial design, UI design</p></div>
+          <div><h4 class="mono">Timeline</h4><p>5 weeks · 2024</p></div>
+          <div><h4 class="mono">Context</h4><p>Undergraduate university project</p></div>
+          <div><h4 class="mono">Methods</h4><p>Hospital visits, observation, competitive analysis, proof-of-concept testing</p></div>
+        </div>
+        <div class="cover fig__frame fig__frame--dark"><img src="../assets/img/veneze-anatomy.webp" alt="Close-up render of the Veneze sleeve with its interface screen, PCB and ABS shell called out" width="1800" height="942"></div>
+      </div>
+    </section>
+
+    <div class="wrap case-body">
+      <aside class="toc" aria-label="On this page">
+        <ol>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#context">Context</a></li>
+          <li><a href="#field">Field research</a></li>
+          <li><a href="#landscape">Landscape</a></li>
+          <li><a href="#insights">Insights</a></li>
+          <li><a href="#ideation">Ideation</a></li>
+          <li><a href="#solution">Solution</a></li>
+          <li><a href="#interface">Interface</a></li>
+          <li><a href="#reflection">Reflection</a></li>
+        </ol>
+      </aside>
+
+      <div>
+        <section class="chapter" id="overview">
+          <span class="mono">01 · Overview</span>
+          <h2 class="split">Therapy that only works in a clinic doesn't work for most patients.</h2>
+          <div class="tldr reveal">
+            <div><h4 class="mono">Challenge</h4><p>Design a wearable that fits into home-based physiotherapy: personalised leg rehabilitation, real-time feedback and remote monitoring for better engagement and recovery.</p></div>
+            <div><h4 class="mono">Research</h4><p>Hospital and physiotherapy visits, observation of existing DVT pumps in use, and a competitive matrix of six devices across 17 criteria.</p></div>
+            <div><h4 class="mono">Outcome</h4><p>A six-zone sleeve with sequential compression and heat, Velcro fit, and an on-thigh touchscreen with modes, profiles, schedules and wear tutorials.</p></div>
+          </div>
+        </section>
+
+        <section class="chapter" id="context">
+          <span class="mono">02 · Context</span>
+          <h2 class="split">What is DVT?</h2>
+          <div class="fig-row">
+            <div class="prose reveal">
+              <p>Deep vein thrombosis is the <strong>formation of blood clots in deep veins</strong>, often in the lower extremities, caused by medical conditions that affect how blood clots.</p>
+              <p>The danger is that a clot can <strong>travel through the bloodstream and get stuck in the lungs</strong>, blocking blood flow. Recovery depends on keeping blood moving, which usually means compression therapy, repeated regularly.</p>
+              <ol class="rq" style="margin-top:28px">
+                <li>How are compression devices actually used today, and by whom?</li>
+                <li>Where do existing devices create friction for patients and handlers?</li>
+                <li>What would make therapy feel manageable at home?</li>
+              </ol>
+            </div>
+            <figure class="fig reveal" style="margin-top:0">
+              <div class="fig__frame"><img src="../assets/img/veneze-dvt.webp" alt="Diagram of a healthy vein, pooling blood, a clot, embolus and thrombosis" loading="lazy"></div>
+              <figcaption><span class="mono">Fig. 1</span>How a clot forms and travels</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="chapter" id="field">
+          <span class="mono">03 · Field research</span>
+          <h2 class="split">I went to the hospital before I opened a sketchbook.</h2>
+          <div class="prose reveal">
+            <p>I visited hospitals and physiotherapy rooms to watch compression and rehab equipment being used for real: who straps it on, how long it takes, what gets cleaned, and what gets in the way.</p>
+          </div>
+          <div class="fig-row">
+            <figure class="fig reveal">
+              <div class="fig__frame"><img src="../assets/img/veneze-field.webp" alt="Grid of photos from hospital and physiotherapy site visits with equipment highlighted" loading="lazy"></div>
+              <figcaption><span class="mono">Fig. 2</span>Site visits: equipment, rooms and handlers</figcaption>
+            </figure>
+            <figure class="fig reveal">
+              <div class="fig__frame"><img src="../assets/img/veneze-hospital.webp" alt="A clinician demonstrating Velcro wrapping and a note that the device should be easy to clean" loading="lazy"></div>
+              <figcaption><span class="mono">Fig. 3</span>“Velcro is the easiest wrapping technique.” “Should be easy to clean.”</figcaption>
+            </figure>
+          </div>
+          <figure class="fig reveal">
+            <div class="fig__frame"><img src="../assets/img/veneze-usage-steps.webp" alt="Four photos: user presses start, taps the mode button, presses start, plugs in air flow pipes" loading="lazy"></div>
+            <figcaption><span class="mono">Fig. 4</span>Walking through a current DVT pump: start → mode → start → plug in air pipes → pumping starts</figcaption>
+          </figure>
+        </section>
+
+        <section class="chapter" id="landscape">
+          <span class="mono">04 · Landscape</span>
+          <h2 class="split">Six devices, seventeen criteria, no clear winner.</h2>
+          <div class="prose reveal">
+            <p>I compared CPM machines, DVT pumps, vibrating massagers, Matrix Rhythm devices, oscillating air-compression devices and plantar fasciitis splints on price, purpose, mechanism, target area, DVT prevention, patient participation, professional supervision, customisation and more.</p>
+            <p>The pattern: devices that actually prevent DVT are <strong>passive and uncustomisable</strong>. The ones patients engage with <strong>don't prevent DVT</strong>. That gap became the brief.</p>
+          </div>
+          <figure class="fig reveal">
+            <div class="fig__frame"><img src="../assets/img/veneze-compare.webp" alt="Competitive comparison table of six therapy devices across seventeen criteria" loading="lazy"></div>
+            <figcaption><span class="mono">Fig. 5</span>Competitive matrix: price ranges from ₹1,790 to ₹5 lakh</figcaption>
+          </figure>
+        </section>
+
+        <section class="chapter" id="insights">
+          <span class="mono">05 · Insights</span>
+          <h2 class="split">What I heard, and what I did about it.</h2>
+          <div class="insights">
+            <div class="insight reveal"><span class="mono">Insight 01</span><h4>Velcro already wins on the ward.</h4><p>Clinicians wrap with Velcro because it's fast and adjustable for any leg.</p><span class="arrow">Kept Velcro closures on every band instead of inventing a new fastening.</span></div>
+            <div class="insight reveal"><span class="mono">Insight 02</span><h4>Hygiene is a hard requirement.</h4><p>Anything touching skin across patients has to be easy to clean.</p><span class="arrow">Hypoallergenic, breathable inner fabric and a Dry-Fit knee cavity.</span></div>
+            <div class="insight reveal"><span class="mono">Insight 03</span><h4>Hoses kill mobility.</h4><p>Air pipes tether patients to a base unit, and coverage comes in separate calf, ankle and foot sections.</p><span class="arrow">Self-contained actuators in six zones, from ankle to thigh, in one sleeve.</span></div>
+            <div class="insight reveal"><span class="mono">Insight 04</span><h4>The controls need a handler.</h4><p>Modes are shown as abstract graphics on a tiny screen, next to cryptic readouts.</p><span class="arrow">Three clear entry points (Mode, Profile, Tutorial) plus “how to wear” videos.</span></div>
+          </div>
+        </section>
+
+        <section class="chapter" id="ideation">
+          <span class="mono">06 · Ideation</span>
+          <h2 class="split">Brainstorm wide, then prove it with your hands.</h2>
+          <figure class="fig reveal">
+            <div class="fig__frame"><img src="../assets/img/veneze-brainstorm.webp" alt="Mind map: portable, user friendly interface, less intimidating, customisable to body type, easy to maintain, low risk" loading="lazy"></div>
+            <figcaption><span class="mono">Fig. 6</span>Design brainstorming: portable, less intimidating, customisable, easy to maintain, low risk</figcaption>
+          </figure>
+          <figure class="fig reveal">
+            <div class="fig__frame"><img src="../assets/img/veneze-poc.webp" alt="Proof of concept: origami-inspired ring on a leg and a string push-pull mechanism on an arm" loading="lazy"></div>
+            <figcaption><span class="mono">Fig. 7</span>Proofs of concept: origami ring with an octagonal cross-section, and a string push/pull mechanism tested on volunteers</figcaption>
+          </figure>
+        </section>
+
+        <section class="chapter" id="solution">
+          <span class="mono">07 · Solution</span>
+          <h2 class="split">Six zones that squeeze in sequence, from ankle to thigh.</h2>
+          <div class="prose reveal">
+            <p>Veneze splits the leg into <strong>6 sections with 6 air cushions and 6 tightening mechanisms</strong>. Bands tighten one after another so blood is pumped and directed in one direction. Try it:</p>
+          </div>
+          <div class="widget reveal" id="compress">
+            <div class="widget__bar"><span class="mono">Interactive · sequential compression</span><button class="btn" data-compress="play" aria-pressed="false" style="padding:8px 16px">Run compression cycle</button></div>
+            <div class="widget__body compress">
+              <svg class="leg" viewBox="0 0 200 420" role="img" aria-label="Leg with six compression bands lighting up from ankle to thigh">
+                <path d="M70 10 C 60 120, 70 200, 78 250 C 84 300, 80 350, 86 370 L 88 400 L 150 404 C 160 404, 160 390, 140 384 L 124 376 C 120 350, 126 300, 130 250 C 138 190, 150 110, 146 10 Z" fill="none" stroke="var(--line-strong)" stroke-width="1.5"/>
+                <rect class="seg-band" x="62" y="30" width="88" height="40" rx="8"/>
+                <rect class="seg-band" x="64" y="84" width="84" height="40" rx="8"/>
+                <rect class="seg-band" x="68" y="138" width="76" height="40" rx="8"/>
+                <rect class="seg-band" x="72" y="200" width="64" height="40" rx="8"/>
+                <rect class="seg-band" x="76" y="254" width="56" height="40" rx="8"/>
+                <rect class="seg-band" x="80" y="308" width="48" height="40" rx="8"/>
+                <path class="flow" d="M104 390 L 104 20"/>
+              </svg>
+              <div class="compress__controls">
+                <div class="range"><label for="c-speed">Cycle speed <b id="c-speed-out"></b></label><input type="range" id="c-speed" min="1" max="5" value="3"></div>
+                <div class="range"><label for="c-int">Intensity <b id="c-int-out"></b></label><input type="range" id="c-int" min="1" max="5" value="3"></div>
+                <p class="muted" style="margin:0;font-size:14px">Each section can run its own frequency and intensity, set from the interface or a patient profile.</p>
+              </div>
+            </div>
+          </div>
+          <div class="fig-row">
+            <figure class="fig reveal">
+              <div class="fig__frame"><img src="../assets/img/veneze-pressure.webp" alt="Diagram comparing untightened and tightened bands around the leg" loading="lazy"></div>
+              <figcaption><span class="mono">Fig. 8</span>Without vs with pressure: tightened bands provide compression</figcaption>
+            </figure>
+            <figure class="fig reveal">
+              <div class="fig__frame"><img src="../assets/img/veneze-layers.webp" alt="Exploded layers: solenoid, polyester fiber, resin band, section fabric, air pocket, heatable gel, hypoallergenic fabric" loading="lazy"></div>
+              <figcaption><span class="mono">Fig. 9</span>Inside each section: solenoid, air pocket, heatable gel, hypoallergenic fabric</figcaption>
+            </figure>
+          </div>
+          <figure class="fig reveal">
+            <div class="fig__frame"><img src="../assets/img/veneze-render.webp" alt="Render of the Veneze sleeve on a leg with a knee cavity and foot strap" loading="lazy"></div>
+            <figcaption><span class="mono">Fig. 10</span>Materials: ABS shell, polyester, Velcro, hypoallergenic fabric, nylon threads</figcaption>
+          </figure>
+        </section>
+
+        <section class="chapter" id="interface">
+          <span class="mono">08 · Interface</span>
+          <h2 class="split">An interface that sits where your hand already is.</h2>
+          <div class="prose reveal">
+            <p>The screen is placed on the thigh so patients can reach it while seated, and the display rotates to face the user. The UI trades cryptic readouts for three large entry points and step-by-step guidance.</p>
+          </div>
+          <ul class="methods reveal">
+            <li>Per-section frequency &amp; intensity</li><li>Timer</li><li>Heat + tighten modes</li><li>Scheduled sessions</li><li>Multiple user profiles</li><li>Leg coverage options</li><li>“How to wear” video tutorials</li><li>AI assistance</li>
+          </ul>
+          <div class="fig-row">
+            <figure class="fig reveal">
+              <div class="fig__frame"><img src="../assets/img/veneze-screens.webp" alt="Interface screens: mode, schedule sessions, how to wear, leg coverage, menu and help" loading="lazy"></div>
+              <figcaption><span class="mono">Fig. 11</span>Mode, schedules, tutorials, coverage and help screens</figcaption>
+            </figure>
+            <figure class="fig reveal">
+              <div class="fig__frame fig__frame--dark"><img src="../assets/img/veneze-screen.webp" alt="The Veneze interface on the sleeve showing heat and tighten mode" loading="lazy"></div>
+              <figcaption><span class="mono">Fig. 12</span>The mode screen in context</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="chapter" id="reflection">
+          <span class="mono">09 · Reflection</span>
+          <h2 class="split">What I'd do with another five weeks.</h2>
+          <div class="prose reveal">
+            <p><strong>Test donning with real patients.</strong> People recovering from DVT often have limited mobility. Putting on a thigh-to-ankle sleeve is its own usability task, and I'd run it before refining anything else.</p>
+            <p><strong>Usability-test the UI with older adults and physiotherapists</strong>, separately, since they need different things from the same screen.</p>
+            <p><strong>Define success metrics early</strong>: session adherence, time-to-start and error rate. That turns “engaging” into something measurable.</p>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <a class="next" href="totsecure.html" style="--nc: var(--totsecure)" data-cursor="Next">
+      <div class="wrap"><span class="mono">Next case study · 02</span><br><span class="next__title">Totsecure →</span></div>
+    </a>
+  </main>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

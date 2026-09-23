@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calidus · Shreya Hirpathak</title>
+  <meta name="description" content="Calidus: a reach-in medicine stability chamber redesigned through contextual inquiry, journey mapping and task analysis.">
+  <meta name="theme-color" content="#0d0d0b">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%23d7f25a'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Georgia' font-style='italic' font-size='30' fill='%230d0d0b'%3Esh%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="case" style="--c: var(--calidus)">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="progress" aria-hidden="true" style="background:var(--c)"></div>
+
+  <header class="nav">
+    <a href="../index.html" class="logo" aria-label="Shreya Hirpathak, home"><span class="logo__mark">sh</span><span>Shreya Hirpathak</span></a>
+    <nav aria-label="Primary">
+      <ul class="nav__links" id="nav-links">
+        <li><a href="../index.html#work">Work</a></li>
+        <li><a href="../index.html#process">Process</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a href="../index.html#contact" class="status"><span class="status__dot"></span>Open to UX Research roles</a>
+    <button class="nav__toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links"><i></i><i></i></button>
+  </header>
+
+  <main id="main">
+    <section class="case-hero">
+      <div class="wrap">
+        <div class="crumbs mono"><a href="../index.html#work">Work</a><span>/</span><span>03</span></div>
+        <h1 class="split">Calidus</h1>
+        <p class="case-hero__sub split">A stability chamber, <span class="serif">designed around the people who run it.</span></p>
+        <div class="meta reveal">
+          <div><h4 class="mono">Role</h4><p>Research, engineering &amp; industrial design, HMI, brand</p></div>
+          <div><h4 class="mono">Timeline</h4><p>6 months · 2024</p></div>
+          <div><h4 class="mono">Context</h4><p>Undergraduate capstone with an industry partner</p></div>
+          <div><h4 class="mono">Methods</h4><p>Site visits, photo documentation, usage analysis, journey mapping, task analysis, competitive analysis</p></div>
+        </div>
+        <div class="cover fig__frame fig__frame--dark"><img src="../assets/img/calidus-intro.webp" alt="Introducing Calidus: a revolutionary stability chamber, with minimal sheet metal usage and strong brand identity" width="1800" height="699"></div>
+      </div>
+    </section>
+
+    <div class="wrap case-body">
+      <aside class="toc" aria-label="On this page">
+        <ol>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#field">Field research</a></li>
+          <li><a href="#analysis">Usage analysis</a></li>
+          <li><a href="#journey">Journey</a></li>
+          <li><a href="#tasks">Task analysis</a></li>
+          <li><a href="#landscape">Landscape</a></li>
+          <li><a href="#concepts">Concepts</a></li>
+          <li><a href="#solution">Solution</a></li>
+          <li><a href="#reflection">Reflection</a></li>
+        </ol>
+      </aside>
+
+      <div>
+        <section class="chapter" id="overview">
+          <span class="mono">01 · Overview</span>
+          <h2 class="split">When a chamber fails, months of drug-stability data fail with it.</h2>
+          <div class="tldr reveal">
+            <div><h4 class="mono">Challenge</h4><p>Design a reach-in medicine stability chamber that controls temperature and humidity for pharmaceutical testing, complies with industry standards, and is reliable and easy to use for researchers and technicians.</p></div>
+            <div><h4 class="mono">Research</h4><p>Visits to working labs, 24 photographed pain points, a 10-issue root-cause analysis, a technician journey map and a five-activity task analysis.</p></div>
+            <div><h4 class="mono">Outcome</h4><p>Calidus: less sheet metal, easy to assemble, front-access tank and compressor drawers, a clear brand, and a redesigned HMI.</p></div>
+          </div>
+          <div class="prose reveal" style="margin-top:28px">
+            <p>I started by understanding the machine itself (chassis, impeller, cooling and heating coils, water tanks, compressor) and the eight steps it takes to go from “place samples on racks” to “fan distributes conditioned air evenly”. Then I went to watch people use it.</p>
+          </div>
+        </section>
+
+        <section class="chapter" id="field">
+          <span class="mono">02 · Field research</span>
+          <h2 class="split">24 photos. 24 problems nobody had written down.</h2>
+          <div class="prose reveal">
+            <p>On site, I documented every friction point I could see or that technicians mentioned: dead space on top, heavy back panels, a confusing UI, visible hinges, surfaces that are hard to clean, non-uniform airflow, lost insulation, sliding racks, bad lighting, confusing interiors, and no strong brand identity.</p>
+          </div>
+          <figure class="fig reveal">
+            <div class="fig__frame"><img src="../assets/img/calidus-problems.webp" alt="Grid of photos of problems in existing chambers, each labelled" loading="lazy"></div>
+            <figcaption><span class="mono">Fig. 1</span>Problems in existing products, photographed and labelled on site</figcaption>
+          </figure>
+        </section>
+
+        <section class="chapter" id="analysis">
+          <span class="mono">03 · Usage analysis</span>
+          <h2 class="split">From symptoms to root causes.</h2>
+          <div class="prose reveal">
+            <p>For ten recurring issues (temperature fluctuations, humidity control, airflow, calibration, condensation, contamination, power failure, data logging, sample handling and equipment malfunction) I traced the limitation, the challenge it creates and its <strong>root cause</strong>. Many “technical” failures turned out to be human ones: lack of training, unclear protocols, poor maintenance cues.</p>
+          </div>
+          <figure class="fig reveal">
+            <div class="fig__frame"><img src="../assets/img/calidus-usage-table.webp" alt="Usage analysis table of aspects, limitations, challenges and root causes" loading="lazy"></div>
+            <figcaption><span class="mono">Fig. 2</span>Usage analysis: aspect → limitation → challenge → root cause</figcaption>
+          </figure>
+        </section>
+
+        <section class="chapter" id="journey">
+          <span class="mono">04 · Journey</span>
+          <h2 class="split">A technician's journey, end to end.</h2>
+          <div class="fig-row">
+            <div class="prose reveal">
+              <p>Preparing samples → setting up the chamber → loading → programming parameters → monitoring and recording → periodic inspection and maintenance → analysing stability data → documentation → storing retained samples → continuous improvement.</p>
+              <p>Mapping it showed that the chamber is touched at almost every stage, and that <strong>monitoring</strong> is where attention (and anxiety) peaks.</p>
+            </div>
+            <figure class="fig reveal" style="margin-top:0">
+              <div class="fig__frame"><img src="../assets/img/calidus-journey.webp" alt="Journey map of a stability testing workflow" loading="lazy"></div>
+              <figcaption><span class="mono">Fig. 3</span>Journey mapping</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="chapter" id="tasks">
+          <span class="mono">05 · Task analysis</span>
+          <h2 class="split">Where effort, attention and error pile up.</h2>
+          <div class="prose reveal">
+            <p>For each core activity I mapped physical load, cognitive load, emotional state, likely errors, their impact and root cause. Pick an activity to explore:</p>
+          </div>
+          <div class="widget reveal">
+            <div class="widget__bar"><span class="mono">Interactive · task analysis</span><div class="tabs seg" role="tablist" aria-label="Activities"></div></div>
+            <div class="widget__body"><div class="explorer" id="task-explorer" aria-live="polite"></div></div>
+          </div>
+          <div class="insights">
+            <div class="insight reveal"><span class="mono">Insight 01</span><h4>Set-up is where experiments get ruined.</h4><p>A confusing HMI leads to wrong temperature and humidity settings, compromising the whole study.</p><span class="arrow">A redesigned HMI flow: start → login → adjust (sliders) → alarms → data.</span></div>
+            <div class="insight reveal"><span class="mono">Insight 02</span><h4>Observation is constant, low-grade stress.</h4><p>Technicians have to stay alert for small fluctuations that aren't easy to see.</p><span class="arrow">Alarms and scheduled checks instead of relying on someone watching gauges.</span></div>
+            <div class="insight reveal"><span class="mono">Insight 03</span><h4>Cleaning and maintenance are an afterthought.</h4><p>Dead spaces, visible joints and awkward draining make chambers hard to keep clean.</p><span class="arrow">Flat front, fewer joints, front-access tank and compressor drawers.</span></div>
+          </div>
+          <figure class="fig reveal">
+            <div class="fig__frame"><img src="../assets/img/calidus-usage-mapping.webp" alt="Scope mind map and usage mapping table of activities against physical, cognitive and emotional load" loading="lazy"></div>
+            <figcaption><span class="mono">Fig. 4</span>Project scope and the original usage mapping</figcaption>
+          </figure>
+        </section>
+
+        <section class="chapter" id="landscape">
+          <span class="mono">06 · Landscape</span>
+          <h2 class="split">Global, local, parallel and alternative.</h2>
+          <div class="prose reveal">
+            <p>I benchmarked 10 global and 10 local chamber brands, parallel products (walk-in rooms, incubators, freeze-thaw chambers) and alternative testing techniques, to find where the category looked identical and where there was room to stand out.</p>
+          </div>
+          <figure class="fig reveal">
+            <div class="fig__frame"><img src="../assets/img/calidus-landscape.webp" alt="Global, local and parallel products, and alternative testing techniques" loading="lazy"></div>
+            <figcaption><span class="mono">Fig. 5</span>Competitive landscape</figcaption>
+          </figure>
+        </section>
+
+        <section class="chapter" id="concepts">
+          <span class="mono">07 · Concepts</span>
+          <h2 class="split">Three directions, scored against the research.</h2>
+          <figure class="fig reveal">
+            <div class="fig__frame"><img src="../assets/img/calidus-concepts.webp" alt="Three concepts with materials, colour palettes, features and renders" loading="lazy"></div>
+            <figcaption><span class="mono">Fig. 6</span>Concept 1: cheaper CMF, rear impeller · Concept 2: fewer processes, strong pivot · Concept 3: compressor drawer, sliding racks</figcaption>
+          </figure>
+          <figure class="fig reveal">
+            <div class="fig__frame fig__frame--dark"><img src="../assets/img/calidus-moodboard.webp" alt="Moodboard of teal and graphite textures" loading="lazy"></div>
+            <figcaption><span class="mono">Fig. 7</span>Brand moodboard: graphite with a teal signature</figcaption>
+          </figure>
+        </section>
+
+        <section class="chapter" id="solution">
+          <span class="mono">08 · Solution</span>
+          <h2 class="split">Calidus: Latin for “warm”.</h2>
+          <figure class="fig reveal">
+            <div class="fig__frame"><img src="../assets/img/calidus-renders.webp" alt="Renders of Calidus showing the side drawers and the teal front" loading="lazy"></div>
+            <figcaption><span class="mono">Fig. 8</span>Front-access drawers for the water tank, and a strong teal identity</figcaption>
+          </figure>
+          <div class="fig-row">
+            <figure class="fig reveal">
+              <div class="fig__frame"><img src="../assets/img/calidus-cad.webp" alt="Colour-coded CAD of panels and joineries" loading="lazy"></div>
+              <figcaption><span class="mono">Fig. 9</span>Panel breakdown, colour-coded by joining method</figcaption>
+            </figure>
+            <figure class="fig reveal">
+              <div class="fig__frame"><img src="../assets/img/calidus-assemble.webp" alt="Open Calidus chamber showing racks, labelled easy to assemble" loading="lazy"></div>
+              <figcaption><span class="mono">Fig. 10</span>Designed to be easy to assemble</figcaption>
+            </figure>
+          </div>
+          <h3 class="reveal">HMI redesign</h3>
+          <div class="prose reveal"><p>The screen is where set-up errors happen, so I redesigned it around the task flow: a start screen, login, a home with three clear actions, slider-based temperature and humidity adjustment, alarms and a data table.</p></div>
+          <figure class="fig reveal">
+            <div class="fig__frame"><img src="../assets/img/calidus-ui.webp" alt="Six HMI screens: adjust, set alarm, data, start screen, login, home" loading="lazy"></div>
+            <figcaption><span class="mono">Fig. 11</span>Adjust · Set alarm · Data · Start · Login · Home</figcaption>
+          </figure>
+          <figure class="fig reveal">
+            <div class="fig__frame"><img src="../assets/img/calidus-ortho.webp" alt="Orthographic views with dimensions 1837 mm tall, 970 mm wide, 1300 mm deep" loading="lazy"></div>
+            <figcaption><span class="mono">Fig. 12</span>Final dimensions: 1837 × 970 × 1300 mm (a 1:5 scale model was also built)</figcaption>
+          </figure>
+        </section>
+
+        <section class="chapter" id="reflection">
+          <span class="mono">09 · Reflection</span>
+          <h2 class="split">What this taught me about research.</h2>
+          <div class="prose reveal">
+            <p><strong>The expensive failures were human.</strong> I came in expecting engineering problems. The root-cause analysis kept pointing to labelling, training and monitoring, which are design problems.</p>
+            <p><strong>Next time</strong> I'd usability-test the HMI with technicians using a clickable prototype, and measure set-up time and error rate against the existing interface.</p>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <a class="next" href="idetc.html" style="--nc: var(--idetc)" data-cursor="Next">
+      <div class="wrap"><span class="mono">Next case study · 04</span><br><span class="next__title">MSES →</span></div>
+    </a>
+  </main>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

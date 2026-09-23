@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DFAM · Shreya Hirpathak</title>
+  <meta name="description" content="DFAM: a controlled experiment on how six 3D-printed lattice structures affect acoustic damping.">
+  <meta name="theme-color" content="#0d0d0b">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%23d7f25a'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Georgia' font-style='italic' font-size='30' fill='%230d0d0b'%3Esh%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="case" style="--c: var(--dfam)">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="progress" aria-hidden="true" style="background:var(--c)"></div>
+
+  <header class="nav">
+    <a href="../index.html" class="logo" aria-label="Shreya Hirpathak, home"><span class="logo__mark">sh</span><span>Shreya Hirpathak</span></a>
+    <nav aria-label="Primary">
+      <ul class="nav__links" id="nav-links">
+        <li><a href="../index.html#work">Work</a></li>
+        <li><a href="../index.html#process">Process</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a href="../index.html#contact" class="status"><span class="status__dot"></span>Open to UX Research roles</a>
+    <button class="nav__toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links"><i></i><i></i></button>
+  </header>
+
+  <main id="main">
+    <section class="case-hero">
+      <div class="wrap">
+        <div class="crumbs mono"><a href="../index.html#work">Work</a><span>/</span><span>05</span></div>
+        <h1 class="split">DFAM</h1>
+        <p class="case-hero__sub split">Can structure alone <span class="serif">make things quieter?</span></p>
+        <div class="meta reveal">
+          <div><h4 class="mono">Role</h4><p>Experiment design, lattice modelling, testing, analysis</p></div>
+          <div><h4 class="mono">Timeline</h4><p>2 months · 2025</p></div>
+          <div><h4 class="mono">Context</h4><p>Graduate project: design for additive manufacturing</p></div>
+          <div><h4 class="mono">Methods</h4><p>Controlled experiment, repeated measures, quantitative analysis</p></div>
+        </div>
+        <div class="cover fig__frame"><img src="../assets/img/dfam-rig.webp" alt="Purple 3D-printed lattice enclosure next to a phone playing a tone and an Apple Watch reading 69 dB" width="1800" height="620"></div>
+      </div>
+    </section>
+
+    <div class="wrap case-body">
+      <aside class="toc" aria-label="On this page">
+        <ol>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#design">Experiment design</a></li>
+          <li><a href="#lattices">Lattices</a></li>
+          <li><a href="#results">Results</a></li>
+          <li><a href="#tradeoffs">Trade-offs</a></li>
+          <li><a href="#why">Why it's here</a></li>
+        </ol>
+      </aside>
+
+      <div>
+        <section class="chapter" id="overview">
+          <span class="mono">01 · Overview</span>
+          <h2 class="split">How do 3D-printed lattice structures affect acoustic damping?</h2>
+          <div class="tldr reveal">
+            <div><h4 class="mono">Question</h4><p>Which lattice structures reduce transmitted sound most effectively, using structural design alone?</p></div>
+            <div><h4 class="mono">Method</h4><p>Six interchangeable lattice geometries in a sealed enclosure, a fixed tone source, three decibel readings each, against a no-lattice control.</p></div>
+            <div><h4 class="mono">Finding</h4><p>Hexagonal Honeycomb (−11.4 dB) and Body-Centered Cubic (−10 dB) worked best. IsoTruss made things <em>louder</em> (+3.3 dB).</p></div>
+          </div>
+        </section>
+
+        <section class="chapter" id="design">
+          <span class="mono">02 · Experiment design</span>
+          <h2 class="split">Control what you can. Be honest about what you can't.</h2>
+          <div class="prose reveal">
+            <p>Design the lattices → print the samples → build the test enclosure → set up measurement → run the trials → calculate results → analyse and conclude.</p>
+            <p>A phone playing a test tone from a tone generator sits inside a snap-fit sealing box, with its speaker facing an interchangeable lattice enclosure. An Apple Watch in a fixed position measures the decibels that get through.</p>
+          </div>
+          <div class="fig-row">
+            <figure class="fig reveal">
+              <div class="fig__frame"><img src="../assets/img/dfam-setup.webp" alt="Diagram of the test setup: snap-fit box, watch placement, tone generator" loading="lazy"></div>
+              <figcaption><span class="mono">Fig. 1</span>Test setup and tone generator</figcaption>
+            </figure>
+            <figure class="fig reveal">
+              <div class="fig__frame"><img src="../assets/img/dfam-watch.webp" alt="Apple Watch reading 71 dB next to the lattice sample" loading="lazy"></div>
+              <figcaption><span class="mono">Fig. 2</span>Measuring with a fixed watch position</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="chapter" id="lattices">
+          <span class="mono">03 · Lattices</span>
+          <h2 class="split">Six cell topologies, from open trusses to closed cells.</h2>
+          <figure class="fig reveal">
+            <div class="fig__frame"><img src="../assets/img/dfam-topologies.webp" alt="Six lattice unit cells: body-centered cubic, diamond, face-centered cubic, fluorite, hexagonal honeycomb, iso truss" loading="lazy"></div>
+            <figcaption><span class="mono">Fig. 3</span>BCC · Diamond (TPMS-like) · FCC · Fluorite · Hexagonal Honeycomb · IsoTruss</figcaption>
+          </figure>
+          <figure class="fig reveal">
+            <div class="fig__frame fig__frame--dark"><img src="../assets/img/dfam-models.webp" alt="Six lattice models in the modelling software" loading="lazy"></div>
+            <figcaption><span class="mono">Fig. 4</span>Lattice models, prepared for printing in PLA</figcaption>
+          </figure>
+        </section>
+
+        <section class="chapter" id="results">
+          <span class="mono">04 · Results</span>
+          <h2 class="split">Closed and complex beats open and directional.</h2>
+          <div class="widget reveal">
+            <div class="widget__bar">
+              <span class="mono">Interactive · average SPL by lattice</span>
+              <div class="seg" role="group" aria-label="Chart mode">
+                <button data-chart-mode="abs" aria-pressed="true">Measured dB</button>
+                <button data-chart-mode="delta" aria-pressed="false">Δ vs control</button>
+              </div>
+            </div>
+            <div class="widget__body">
+              <div class="chart" id="spl-chart" data-animate role="img" aria-label="Bar chart: Hexagonal Honeycomb 58.3 dB, Body-Centered Cubic 59.7, Fluorite 64.4, Diamond 65.7, Face-Centered Cubic 68.0, IsoTruss 73.0. No-lattice control 69.7 dB."></div>
+              <p class="muted" style="margin:22px 0 0;font-size:13px">Average of three readings per lattice. Hover a bar to see the raw readings. The dashed line is the no-lattice control.</p>
+            </div>
+          </div>
+          <div class="prose reveal" style="margin-top:28px">
+            <p>The Hexagonal Honeycomb and Body-Centered Cubic structures were the most effective, likely because their <strong>tortuous paths and higher surface interaction</strong> disrupted the sound waves. The IsoTruss performed worst: its open, columnar design actually <strong>increased transmission by 3.3 dB</strong>.</p>
+          </div>
+          <figure class="fig reveal">
+            <div class="fig__frame"><img src="../assets/img/dfam-table.webp" alt="Data table of readings for each lattice type" loading="lazy"></div>
+            <figcaption><span class="mono">Fig. 5</span>Raw data readings</figcaption>
+          </figure>
+          <blockquote class="quote reveal">“Closed and complex lattice geometries are more effective at reducing sound transmission than open, directional ones.”<cite>Conclusion</cite></blockquote>
+        </section>
+
+        <section class="chapter" id="tradeoffs">
+          <span class="mono">05 · Trade-offs</span>
+          <h2 class="split">What this proves, and what it doesn't.</h2>
+          <div class="fig-row" style="gap:16px">
+            <div class="insight reveal" style="margin-top:28px"><span class="mono">Pros</span>
+              <ul style="margin:12px 0 0;padding-left:18px;color:#cfcbc2;font-size:15px;display:grid;gap:8px">
+                <li>Shows control of functional performance through DFAM techniques.</li>
+                <li>Lattices enable multifunctionality: lightweight, customisable and tunable.</li>
+                <li>Easy to integrate into the design of everyday things.</li>
+              </ul>
+            </div>
+            <div class="insight reveal" style="margin-top:28px"><span class="mono">Limitations</span>
+              <ul style="margin:12px 0 0;padding-left:18px;color:#cfcbc2;font-size:15px;display:grid;gap:8px">
+                <li>Only PLA was tested. Other materials may behave differently.</li>
+                <li>A limited set of lattices.</li>
+                <li>Consumer decibel apps lack lab-grade calibration.</li>
+                <li>No frequency sweep. Results are averaged across broadband noise.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="chapter" id="why">
+          <span class="mono">06 · Why it's in a UX portfolio</span>
+          <h2 class="split">Because rigour transfers.</h2>
+          <div class="prose reveal">
+            <p>This isn't a user study, but it's how I approach every study: <strong>one clear question, a control, a single variable, repeated measurements, and an honest limitations section</strong>. The same discipline goes into an A/B test, a usability benchmark or a survey instrument.</p>
+            <p>It's also a reminder that intuition is only a hypothesis: not every lattice helped, and one made things worse.</p>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <a class="next" href="veneze.html" style="--nc: var(--veneze)" data-cursor="Next">
+      <div class="wrap"><span class="mono">Back to the start · 01</span><br><span class="next__title">Veneze →</span></div>
+    </a>
+  </main>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
