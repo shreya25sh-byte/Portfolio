@@ -1557,3 +1557,6 @@ main { counter-reset: page; }
 .extra__num i { font-style: normal; font-size: .45em; margin-left: 2px; }
 @media (max-width: 700px) { .extra__card { grid-template-columns: 1fr; } .extra__card img { width: 100%; } }
 .work__item[data-id="idetc"] .work__title { font-size: clamp(30px, 3.4vw, 50px); line-height: 1; }
+/* Logo: back to ink mark with pink offset */
+.logo__mark img, .loader__logo, .polaroid--logo img { filter: grayscale(1) contrast(1.4) brightness(.35) drop-shadow(2px 2px 0 rgba(255,63,164,.6)) !important; }
+.logo:hover .logo__mark img { filter: grayscale(1) contrast(1.4) brightness(.35) drop-shadow(2px 2px 0 rgba(255,63,164,.9)) !important; }
