@@ -834,7 +834,7 @@ $$(".logo").forEach((l) =>
 /* Confetti of sticky-note colours */
 const confetti = (n = 70) => {
   if (reduced) return;
-  const cols = ["#c9c0ff", "#a9c8ff", "#9fe3ea", "#ffb3ad", "#e6f7a2", "#ffc79a"];
+  const cols = ["#c9c0ff", "#a9c8ff", "#9fe3ea", "#ffb3ad", "#b8f4ff", "#ffc79a"];
   for (let i = 0; i < n; i++) {
     const c = document.createElement("i");
     c.className = "confetti";
