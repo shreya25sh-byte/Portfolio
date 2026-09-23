@@ -99,15 +99,29 @@
         <section class="chapter" id="try">
           <span class="mono">03 · Try it</span>
           <h2 class="split">Feel the cost of a moved button.</h2>
-          <div class="prose reveal"><p>Tap the <strong>heart</strong> as fast as you can, 5 times. Then the app gets a “redesign”. Same task, same icons, new layout.</p></div>
+          <div class="prose reveal"><p>Tap the <strong>heart</strong> 5 times, as fast as you can. Then the app gets a “redesign”: the same heart, but it could be anywhere on the screen.</p></div>
           <div class="widget reveal" id="habit-test">
-            <div class="widget__bar"><span class="mono" id="ht-stage">Round 1 · familiar layout</span><button class="btn" id="ht-start" style="padding:8px 16px">Start</button></div>
+            <div class="widget__bar"><span class="mono" id="ht-stage">Ready · 2 rounds · 5 taps each</span><button class="btn btn--accent" id="ht-start" style="padding:8px 18px">Start test</button></div>
             <div class="widget__body ht">
-              <div class="ht__phone"><div class="ht__feed"><i></i><i></i><i></i></div><div class="ht__bar" id="ht-bar"></div></div>
+              <div class="ht__phone">
+                <div class="ht__screen" id="ht-screen">
+                  <div class="ht__top"><span>moments</span><i></i></div>
+                  <div class="ht__stories"><i></i><i></i><i></i><i></i><i></i></div>
+                  <div class="ht__post"><div class="ht__ph"></div></div>
+                  <div class="ht__bar" id="ht-bar"></div>
+                  <div class="ht__overlay" id="ht-overlay"><b>Tap the ♥ as fast as you can</b><span>Press “Start test”</span></div>
+                </div>
+              </div>
               <div class="ht__results">
-                <div><small class="mono">Familiar</small><b id="ht-a">–</b></div>
-                <div><small class="mono">Redesigned</small><b id="ht-b">–</b></div>
-                <p id="ht-msg" class="muted">Average time to find and tap the heart. Your hand learns fast, and unlearns slowly.</p>
+                <div class="ht__race">
+                  <div class="ht__lane"><span class="mono">Familiar</span><div class="ht__track"><i id="ht-bar-a"></i></div><b id="ht-a">–</b></div>
+                  <div class="ht__lane is-b"><span class="mono">Redesigned</span><div class="ht__track"><i id="ht-bar-b"></i></div><b id="ht-b">–</b></div>
+                </div>
+                <div class="ht__verdict" id="ht-verdict">
+                  <span class="mono">Your result</span>
+                  <b id="ht-big">?</b>
+                  <p id="ht-msg">Round 1 uses the layout your thumb knows. Round 2 is a “redesign” that moves everything, every tap.</p>
+                </div>
               </div>
             </div>
           </div>

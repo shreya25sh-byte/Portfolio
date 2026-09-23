@@ -1327,42 +1327,59 @@ $$(".video-frame video").forEach((v) => {
 /* Innovation vs habit: muscle-memory test */
 const ht = $("#habit-test");
 if (ht) {
-  const bar = $("#ht-bar"), stage = $("#ht-stage"), btn = $("#ht-start"), msg = $("#ht-msg");
-  const ICONS = ["⌂", "⌕", "⊕", "♥", "◉"];
-  let layout = [...ICONS], round = 0, taps = 0, times = [], t0 = 0, results = [];
-  const draw = () => {
-    bar.innerHTML = layout.map((ic) => `<button type="button" aria-label="${ic === "♥" ? "Heart" : "Other icon"}" class="${ic === "♥" ? "is-target" : ""}">${ic}</button>`).join("");
-    $$("button", bar).forEach((b) => b.addEventListener("click", () => hit(b)));
-  };
+  const screen = $("#ht-screen"), bar = $("#ht-bar"), overlay = $("#ht-overlay"), stage = $("#ht-stage"), btn = $("#ht-start");
+  const ICONS = [["⌂", "#1f5fd6"], ["⌕", "#0b8a78"], ["⊕", "#e8590c"], ["♥", "#ff3fa4"], ["◉", "#7048e8"]];
+  let round = 0, taps = 0, times = [], t0 = 0, res = [];
   const avg = (a) => a.reduce((x, y) => x + y, 0) / a.length;
-  const next = () => { t0 = performance.now(); };
-  const hit = (b) => {
+  const mk = ([ic, col]) => { const b = document.createElement("button"); b.type = "button"; b.className = "ht__ic" + (ic === "♥" ? " is-heart" : ""); b.style.setProperty("--ic", col); b.textContent = ic; b.setAttribute("aria-label", ic === "♥" ? "Heart" : "Other icon"); b.addEventListener("click", (e) => hit(b, e)); return b; };
+  const drawFamiliar = () => { $$(".ht__ic.is-float", screen).forEach((x) => x.remove()); bar.innerHTML = ""; ICONS.forEach((i) => bar.appendChild(mk(i))); };
+  const scatter = () => {
+    bar.innerHTML = ""; $$(".ht__ic.is-float", screen).forEach((x) => x.remove());
+    const W = screen.clientWidth - 56, H = screen.clientHeight - 56, used = [];
+    [...ICONS].sort(() => Math.random() - 0.5).forEach((i) => {
+      let x, y, n = 0;
+      do { x = 8 + Math.random() * W; y = 40 + Math.random() * (H - 40); n++; } while (n < 40 && used.some(([ux, uy]) => Math.hypot(ux - x, uy - y) < 70));
+      used.push([x, y]);
+      const b = mk(i); b.classList.add("is-float"); b.style.left = x + "px"; b.style.top = y + "px";
+      b.style.transform = `rotate(${(Math.random() * 40 - 20).toFixed(0)}deg) scale(${(0.8 + Math.random() * 0.5).toFixed(2)})`;
+      screen.appendChild(b);
+    });
+  };
+  const miss = (b) => b.animate([{ transform: b.style.transform + " translateX(-5px)" }, { transform: b.style.transform + " translateX(5px)" }, { transform: b.style.transform }], { duration: 220 });
+  const hit = (b, e) => {
     if (!round) return;
-    if (b.textContent !== "♥") { b.animate([{ transform: "translateX(-4px)" }, { transform: "translateX(4px)" }, { transform: "none" }], { duration: 200 }); return; }
+    if (!b.classList.contains("is-heart")) { miss(b); return; }
     times.push(performance.now() - t0); taps++;
-    if (round === 2) { layout = shuffle(layout); draw(); }
-    if (taps < 5) return next();
-    results.push(avg(times));
-    (round === 1 ? $("#ht-a") : $("#ht-b")).textContent = `${Math.round(results.at(-1))} ms`;
+    burst(e.clientX, e.clientY, 4);
+    stage.textContent = `Round ${round} · ${round === 1 ? "familiar" : "redesigned"} · ${taps}/5`;
+    if (round === 2 && taps < 5) scatter();
+    if (taps < 5) { t0 = performance.now(); return; }
+    res.push(avg(times));
     if (round === 1) {
-      round = 0; bar.classList.add("is-idle");
-      const f = document.createElement("div"); f.className = "ht__flash"; f.textContent = "New update! We've redesigned the app ✨";
-      bar.parentElement.appendChild(f);
-      setTimeout(() => { f.remove(); layout = shuffle(ICONS); draw(); bar.classList.remove("is-idle"); round = 2; taps = 0; times = []; stage.textContent = "Round 2 · after the redesign"; next(); }, 1500);
+      $("#ht-a").textContent = `${Math.round(res[0])} ms`;
+      round = 0; overlay.innerHTML = "<b>✨ New update!</b><span>We've redesigned the app.</span>"; overlay.classList.add("is-on", "is-update");
+      setTimeout(() => { overlay.classList.remove("is-on", "is-update"); round = 2; taps = 0; times = []; stage.textContent = "Round 2 · redesigned · 0/5"; scatter(); t0 = performance.now(); }, 1400);
     } else {
-      round = 0; bar.classList.add("is-idle");
-      const pct = Math.round((results[1] / results[0] - 1) * 100);
-      msg.innerHTML = pct > 0 ? `You were <b>${pct}% slower</b> after the redesign. That extra time is the cognitive load this study sets out to measure.` : `You adapted instantly this time, but real redesigns move whole flows, not one icon. That's what the study measures.`;
+      round = 0; $("#ht-b").textContent = `${Math.round(res[1])} ms`;
+      const mx = Math.max(...res), ratio = res[1] / res[0];
+      $("#ht-bar-a").style.width = `${(res[0] / mx) * 100}%`; $("#ht-bar-b").style.width = `${(res[1] / mx) * 100}%`;
+      const v = $("#ht-verdict"); v.classList.add("is-done");
+      $("#ht-big").textContent = ratio >= 1.05 ? `${ratio.toFixed(1)}× slower` : "Unfazed!";
+      $("#ht-msg").innerHTML = ratio >= 2 ? "Your thumb had to <b>think</b> again. That extra time is the cognitive load this study sets out to measure."
+        : ratio >= 1.05 ? `You lost <b>${Math.round((ratio - 1) * 100)}%</b> of your speed to a redesign. Imagine that across every app update.`
+        : "Impressive, but real redesigns move whole flows, not one icon. That's what the study measures.";
+      if (ratio >= 2) confetti(30);
       stage.textContent = "Done · try again?"; btn.textContent = "Restart"; btn.disabled = false;
+      drawFamiliar(); overlay.innerHTML = "<b>Done ✓</b><span>See your result →</span>"; overlay.classList.add("is-on");
     }
   };
-  const shuffle = (a) => { let b; do { b = [...a].sort(() => Math.random() - 0.5); } while (b.indexOf("♥") === a.indexOf("♥")); return b; };
-  bar.classList.add("is-idle"); draw();
+  drawFamiliar(); overlay.classList.add("is-on");
   btn.addEventListener("click", () => {
-    layout = [...ICONS]; draw(); bar.classList.remove("is-idle");
-    round = 1; taps = 0; times = []; results = [];
-    $("#ht-a").textContent = "–"; $("#ht-b").textContent = "–";
-    stage.textContent = "Round 1 · familiar layout · tap ♥ 5×"; btn.disabled = true; next();
+    drawFamiliar(); overlay.classList.remove("is-on");
+    round = 1; taps = 0; times = []; res = [];
+    $("#ht-a").textContent = $("#ht-b").textContent = "–"; $("#ht-bar-a").style.width = $("#ht-bar-b").style.width = "0%";
+    $("#ht-verdict").classList.remove("is-done"); $("#ht-big").textContent = "…";
+    stage.textContent = "Round 1 · familiar · 0/5"; btn.disabled = true; t0 = performance.now();
   });
 }
 
