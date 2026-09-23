@@ -1647,3 +1647,4 @@ main { counter-reset: page; }
 .case-body > div > .chapter:first-child { margin-top: 56px; }
 .insights:has(> :nth-child(4):last-child) { grid-template-columns: repeat(2, 1fr); }
 @media (max-width: 640px) { .insights:has(> :nth-child(4):last-child) { grid-template-columns: 1fr; } }
+.xp-list[hidden] { display: none !important; }
