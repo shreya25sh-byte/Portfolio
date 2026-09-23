@@ -1686,3 +1686,14 @@ main { counter-reset: page; }
 .ht__verdict.is-done p, .ht__verdict.is-done .mono { color: rgba(255,255,255,.88); }
 @media (max-width: 760px) { .ht { grid-template-columns: 1fr; } .ht__lane { grid-template-columns: 80px 1fr 70px; } }
 .ht__verdict p b { font-weight: 600; }
+/* Chapter labels: ink on a tint, never white-on-paper */
+.chapter > .mono { background: color-mix(in srgb, var(--c, var(--accent)) 22%, var(--bg-2)); color: var(--text); border: 1.5px solid var(--text); border-top: 0; }
+.ht__verdict p b { display: inline; font-family: var(--f-sans); font-size: inherit; font-weight: 600; line-height: inherit; margin: 0; }
+.funnel__row:not(.is-gap) .funnel__bar span { color: var(--text); }
+.explorer .is-risk h5 { color: #b3261e; }
+.nav__links a span { color: #c4127a; }
+#process .section-head > .mono { color: #111; }
+.stat__num sup, .big-stat b sup, .accent, .about__text .accent { color: #c4127a; }
+.stack-hint { color: var(--muted); }
+.impact__kicker { color: var(--text) !important; }
+:root { --godrej: #c2410c; }
