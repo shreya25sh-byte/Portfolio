@@ -1538,3 +1538,22 @@ main { counter-reset: page; }
 
 /* Section heads read like spread titles */
 .section-head > .mono { font-size: 12px; }
+
+/* Long case-study title (MSES) */
+.case-hero h1.is-long { font-size: clamp(44px, 7vw, 108px); line-height: .95; max-width: 14ch; }
+.next__title { font-size: clamp(40px, 7vw, 110px); }
+
+/* Extra work */
+.extra { margin-top: 56px; display: grid; gap: 14px; }
+.extra__label { color: var(--muted); display: flex; gap: 12px; align-items: center; }
+.extra__label::after { content: ""; flex: 1; height: 1px; background: var(--line-strong); }
+.extra__card { display: grid; grid-template-columns: 180px 1fr auto; gap: 22px; align-items: center; padding: 14px; background: var(--bg); border: 1.5px solid var(--text); border-radius: var(--radius); transition: transform .3s var(--ease), box-shadow .3s var(--ease); }
+.extra__card:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--dfam); }
+.extra__card img { width: 180px; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 4px; border: 1px solid var(--line-strong); }
+.extra__body { display: grid; gap: 4px; }
+.extra__body b { font-family: var(--f-display); font-weight: 400; font-size: clamp(22px, 2.2vw, 30px); line-height: 1.1; }
+.extra__body .muted { font-size: 14.5px; }
+.extra__num { font-family: var(--f-display); font-size: clamp(30px, 3vw, 44px); padding-right: 8px; }
+.extra__num i { font-style: normal; font-size: .45em; margin-left: 2px; }
+@media (max-width: 700px) { .extra__card { grid-template-columns: 1fr; } .extra__card img { width: 100%; } }
+.work__item[data-id="idetc"] .work__title { font-size: clamp(30px, 3.4vw, 50px); line-height: 1; }
