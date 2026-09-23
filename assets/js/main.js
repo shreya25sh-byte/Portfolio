@@ -1211,7 +1211,7 @@ if (journey) {
     ["research", "Apr ’26", "CERS 2026", "Research symposium"],
     ["research", "Aug ’26", "ASME IDETC-CIE", "2nd place Best Paper"],
   ];
-  const STEP = 150, PAD = 110, H = 440, MID = 220, AMP = 34;
+  const STEP = 150, PAD = 110, H = 330, MID = 165, AMP = 24;
   const W = PAD * 2 + STEP * (EVENTS.length - 1);
   const yAt = (x) => MID + Math.sin((x - PAD) / 95) * AMP;
   let d = `M0 ${yAt(0)}`;
@@ -1222,7 +1222,7 @@ if (journey) {
   inner.innerHTML = `<svg class="wave" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" aria-hidden="true"><defs><linearGradient id="jgrad" x1="0" x2="1"><stop offset="0" stop-color="#e8590c"/><stop offset=".5" stop-color="#e8308c"/><stop offset="1" stop-color="#1f5fd6"/></linearGradient></defs><path d="${d}"/></svg>`;
   EVENTS.forEach(([type, when, title, sub], i) => {
     const x = PAD + i * STEP, y = yAt(x), up = i % 2 === 0;
-    const stem = up ? 58 + (i % 4) * 14 : 50 + (i % 3) * 16;
+    const stem = up ? 40 + (i % 4) * 10 : 36 + (i % 3) * 12;
     const n = document.createElement("div");
     n.className = "jn";
     n.dataset.type = type;
