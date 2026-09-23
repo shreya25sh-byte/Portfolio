@@ -1506,3 +1506,35 @@ main { counter-reset: page; }
 .note-pin button { background: var(--bg-2); }
 .video-frame { border: 1.5px solid var(--text); border-radius: var(--radius); overflow: hidden; background: #111; box-shadow: 6px 6px 0 var(--c, var(--text)); }
 .video-frame video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; }
+
+/* Logo: original mark as a die-cut sticker */
+.logo__mark img, .logo:hover .logo__mark img, .loader__logo, .polaroid--logo img { filter: drop-shadow(2px 2px 0 var(--accent)) !important; }
+.logo:hover .logo__mark img { filter: drop-shadow(3px 3px 0 var(--accent)) !important; }
+.polaroid--logo { background: var(--accent); }
+
+/* Distinct spreads: each section gets its own paper */
+#top ~ section, .bands { position: relative; }
+.section { padding-block: clamp(90px, 11vw, 150px) !important; }
+#work, #experience, #side-quests { background: #f8f7f3; }
+#work, #experience, #side-quests, #about, #process, #talks { border-top: 2px solid var(--text); }
+#about { background: color-mix(in srgb, var(--accent) 10%, #f8f7f3); }
+#about .section-head::before { background: color-mix(in srgb, var(--accent) 10%, #f8f7f3); }
+#work .section-head::before, #experience .section-head::before, #side-quests .section-head::before { background: #f8f7f3; }
+
+/* Inverted ink spread */
+#process {
+  --bg: #121212; --bg-2: #1c1c1b; --surface: #242423; --surface-2: #2e2e2c;
+  --text: #eeede8; --muted: #a9a69e; --dim: #7c7a73;
+  --line: rgba(238, 237, 232, .14); --line-strong: rgba(238, 237, 232, .45);
+  background: var(--bg); color: var(--text);
+}
+#process .section-head { border-top-color: var(--line-strong); }
+#process .section-head::before { background: var(--bg); color: var(--text); }
+#process .h2 .serif { color: var(--text); }
+#process .process__step li a { border-color: var(--line-strong); }
+#process .process__step li a:hover { color: var(--accent); border-color: var(--accent); }
+#process .process__dial .track { stroke: var(--line-strong); }
+#process .process__dial-label b { font-family: var(--f-display); font-weight: 400; }
+
+/* Section heads read like spread titles */
+.section-head > .mono { font-size: 12px; }
