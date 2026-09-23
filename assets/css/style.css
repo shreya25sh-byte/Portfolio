@@ -1549,7 +1549,7 @@ main { counter-reset: page; }
 .extra__label { color: var(--muted); display: flex; gap: 12px; align-items: center; }
 .extra__label::after { content: ""; flex: 1; height: 1px; background: var(--line-strong); }
 .extra__card { display: grid; grid-template-columns: 180px 1fr auto; gap: 22px; align-items: center; padding: 14px; background: var(--bg); border: 1.5px solid var(--text); border-radius: var(--radius); transition: transform .3s var(--ease), box-shadow .3s var(--ease); }
-.extra__card:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--dfam); }
+.extra__card:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--xc, var(--dfam)); }
 .extra__card img { width: 180px; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 4px; border: 1px solid var(--line-strong); }
 .extra__body { display: grid; gap: 4px; }
 .extra__body b { font-family: var(--f-display); font-weight: 400; font-size: clamp(22px, 2.2vw, 30px); line-height: 1.1; }
