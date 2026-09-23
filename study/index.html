@@ -116,7 +116,7 @@ td.n,th.n{text-align:right}
 </head>
 <body>
 <div class="wrap">
-  <div class="mast mono"><span><b>Habit Study Kit</b> · Innovation vs habit</span><span>Shreya Hirpathak · IST 520</span><span id="saved-count"></span></div>
+  <div class="mast mono"><span><b>Habit Study Kit</b> · Innovation vs habit</span><span>Shreya Hirpathak · IST 520</span><span><span id="sync">Saved on this device</span> · <span id="saved-count"></span></span></div>
 
   <!-- SETUP -->
   <section id="v-setup">
@@ -186,8 +186,26 @@ td.n,th.n{text-align:right}
 <script>
 const $=(s,e=document)=>e.querySelector(s),$$=(s,e=document)=>[...e.querySelectorAll(s)];
 const KEY="habit-study-v1";
-const load=()=>{try{return JSON.parse(localStorage.getItem(KEY))||[]}catch{return[]}};
+/* Storage: shared cloud store when available (claude.ai), else this browser */
+let DB=null, CACHE=null, DL=null;
+const local=()=>{try{return JSON.parse(localStorage.getItem(KEY))||[]}catch{return[]}};
+const load=()=>CACHE??local();
 const save=(rows)=>{try{localStorage.setItem(KEY,JSON.stringify(rows))}catch{}};
+async function addRow(row){
+  if(DB){ try{ await DB.collection("readings").add(row); return; }catch(e){ toast("Cloud save failed. Saved on this device instead"); } }
+  const r=local(); r.push(row); save(r);
+}
+async function clearAll(){
+  if(DB){ const snap=await DB.collection("readings").get(); for(const d of snap.docs){ try{ await DB.collection("readings").doc(d.id).delete(); }catch{} } }
+  save([]);
+}
+(async()=>{
+  if(!window.claude?.use) return;
+  DB=await window.claude.use("db"); DL=await window.claude.use("downloads");
+  if(!DB) return;
+  $("#sync").textContent="● Cloud sync on";
+  DB.collection("readings").orderBy("timestamp").onSnapshot(snap=>{ CACHE=snap.docs.map(d=>d.data()); updCount(); if(!$("#v-results").classList.contains("hidden")) renderResults(); },()=>{});
+})();
 const toast=(m)=>{const t=$("#toast");t.textContent=m;t.classList.add("on");setTimeout(()=>t.classList.remove("on"),2200)};
 const show=(v)=>{["setup","run","results"].forEach(x=>$("#v-"+x).classList.toggle("hidden",x!==v));if(v==="results")renderResults();updCount()};
 const updCount=()=>{const r=load();const p=new Set(r.map(x=>x.participant)).size;$("#saved-count").textContent=`${p} participant${p===1?"":"s"} · ${r.length} readings saved`};
@@ -330,7 +348,7 @@ function finishTask(gaveUp){
 $("#tlx-next").onclick=()=>{
   const tlx={};TLX.forEach(([k])=>tlx[k]=+$("#x-"+k).value);
   const raw=Math.round(Object.values(tlx).reduce((a,b)=>a+b,0)/6*10)/10;
-  const rows=load(); rows.push({participant:S.pid,note:S.note,order:S.order,round:S.r+1,version:S.ver==="A"?"before":"after",task:S.task.id,time_ms:S.cur.time,taps:S.cur.taps,backs:S.cur.backs,gave_up:S.cur.gaveUp?1:0,...tlx,tlx_raw:raw,timestamp:new Date().toISOString()}); save(rows);
+  addRow({participant:S.pid,note:S.note,order:S.order,round:S.r+1,version:S.ver==="A"?"before":"after",task:S.task.id,time_ms:S.cur.time,taps:S.cur.taps,backs:S.cur.backs,gave_up:S.cur.gaveUp?1:0,...tlx,tlx_raw:raw,timestamp:new Date().toISOString()});
   S.t++; nextTask(); updCount();
 };
 
@@ -353,9 +371,11 @@ function renderResults(){
 }
 $("#to-results").onclick=()=>show("results");
 $("#new").onclick=()=>{$("#pid").value="";$("#pnote").value="";show("setup")};
-$("#csv").onclick=()=>{const b=new Blob([toCSV(load())],{type:"text/csv"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=`habit-study-${new Date().toISOString().slice(0,10)}.csv`;a.click()};
+$("#csv").onclick=async()=>{const name=`habit-study-${new Date().toISOString().slice(0,10)}.csv`,csv=toCSV(load());
+  if(DL){try{await DL.save({filename:name,data:csv})}catch(e){if(e?.code==="unavailable")toast("Download unavailable here. Use Copy CSV")}return}
+  const b=new Blob([csv],{type:"text/csv"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=name;a.click()};
 $("#copy").onclick=async()=>{try{await navigator.clipboard.writeText(toCSV(load()));toast("CSV copied")}catch{toast("Copy blocked. Use Download CSV")}};
-$("#wipe").onclick=()=>{if(!$("#wipe").dataset.c){$("#wipe").dataset.c=1;$("#wipe").textContent="Tap again to delete everything";setTimeout(()=>{delete $("#wipe").dataset.c;$("#wipe").textContent="Delete all"},3000);return}save([]);renderResults();updCount();toast("All readings deleted")};
+$("#wipe").onclick=async()=>{if(!$("#wipe").dataset.c){$("#wipe").dataset.c=1;$("#wipe").textContent="Tap again to delete everything";setTimeout(()=>{delete $("#wipe").dataset.c;$("#wipe").textContent="Delete all"},3000);return}await clearAll();CACHE=DB?[]:null;renderResults();updCount();toast("All readings deleted")};
 </script>
 </body>
 </html>
