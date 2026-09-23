@@ -1767,3 +1767,7 @@ main { counter-reset: page; }
 .journey { height: 330px; }
 .journey-wrap { margin-bottom: 28px; }
 .journey-head { justify-content: flex-end; }
+
+/* Page colour via class (works where inline styles are blocked) */
+.case--calidus { --c: var(--calidus); } .case--dfam { --c: var(--dfam); } .case--godrej { --c: var(--godrej); }
+.case--habit { --c: var(--habit); } .case--idetc { --c: var(--idetc); } .case--totsecure { --c: var(--totsecure); }
