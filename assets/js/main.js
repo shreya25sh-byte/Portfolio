@@ -1327,58 +1327,111 @@ $$(".video-frame video").forEach((v) => {
 /* Innovation vs habit: muscle-memory test */
 const ht = $("#habit-test");
 if (ht) {
-  const screen = $("#ht-screen"), bar = $("#ht-bar"), overlay = $("#ht-overlay"), stage = $("#ht-stage"), btn = $("#ht-start");
-  const ICONS = [["⌂", "#1f5fd6"], ["⌕", "#0b8a78"], ["⊕", "#e8590c"], ["♥", "#ff3fa4"], ["◉", "#7048e8"]];
-  let round = 0, taps = 0, times = [], t0 = 0, res = [];
-  const avg = (a) => a.reduce((x, y) => x + y, 0) / a.length;
-  const mk = ([ic, col]) => { const b = document.createElement("button"); b.type = "button"; b.className = "ht__ic" + (ic === "♥" ? " is-heart" : ""); b.style.setProperty("--ic", col); b.textContent = ic; b.setAttribute("aria-label", ic === "♥" ? "Heart" : "Other icon"); b.addEventListener("click", (e) => hit(b, e)); return b; };
-  const drawFamiliar = () => { $$(".ht__ic.is-float", screen).forEach((x) => x.remove()); bar.innerHTML = ""; ICONS.forEach((i) => bar.appendChild(mk(i))); };
-  const scatter = () => {
-    bar.innerHTML = ""; $$(".ht__ic.is-float", screen).forEach((x) => x.remove());
-    const W = screen.clientWidth - 56, H = screen.clientHeight - 56, used = [];
-    [...ICONS].sort(() => Math.random() - 0.5).forEach((i) => {
-      let x, y, n = 0;
-      do { x = 8 + Math.random() * W; y = 40 + Math.random() * (H - 40); n++; } while (n < 40 && used.some(([ux, uy]) => Math.hypot(ux - x, uy - y) < 70));
-      used.push([x, y]);
-      const b = mk(i); b.classList.add("is-float"); b.style.left = x + "px"; b.style.top = y + "px";
-      b.style.transform = `rotate(${(Math.random() * 40 - 20).toFixed(0)}deg) scale(${(0.8 + Math.random() * 0.5).toFixed(2)})`;
-      screen.appendChild(b);
-    });
+  const screen = $("#ht-screen"), overlay = $("#ht-overlay"), stage = $("#ht-stage"), btn = $("#ht-start"), hint = $("#ht-hint");
+  const P = (d, f) => `<svg viewBox="0 0 24 24" width="22" height="22" fill="${f ? "currentColor" : "none"}" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+  const IC = {
+    heart: P('<path d="M12 20.5s-7.5-4.4-7.5-10A4.3 4.3 0 0 1 12 7.7a4.3 4.3 0 0 1 7.5 2.8c0 5.6-7.5 10-7.5 10z"/>'),
+    heartF: P('<path d="M12 20.5s-7.5-4.4-7.5-10A4.3 4.3 0 0 1 12 7.7a4.3 4.3 0 0 1 7.5 2.8c0 5.6-7.5 10-7.5 10z"/>', 1),
+    comment: P('<path d="M20.5 11.5a8.5 8.5 0 0 1-12.4 7.6L3.5 20.5l1.4-4.4A8.5 8.5 0 1 1 20.5 11.5z"/>'),
+    send: P('<path d="M21 3 10 14M21 3l-6.5 18-4-7.5L3 9.5z"/>'),
+    save: P('<path d="M6 3.5h12v17l-6-4.5-6 4.5z"/>'),
+    dots: P('<circle cx="5" cy="12" r="1.2" fill="currentColor"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/><circle cx="19" cy="12" r="1.2" fill="currentColor"/>'),
+    home: P('<path d="M3.5 10.5 12 3.5l8.5 7V20a.5.5 0 0 1-.5.5h-5v-6h-6v6H4a.5.5 0 0 1-.5-.5z"/>'),
+    search: P('<circle cx="10.5" cy="10.5" r="6.5"/><path d="m20.5 20.5-5.3-5.3"/>'),
+    plus: P('<rect x="3.5" y="3.5" width="17" height="17" rx="5"/><path d="M12 8v8M8 12h8"/>'),
+    reels: P('<rect x="3.5" y="3.5" width="17" height="17" rx="5"/><path d="M3.5 8.5h17M8 3.5l2.5 5M13.5 3.5l2.5 5"/><path d="m10.5 12 4 2.5-4 2.5z"/>'),
+    user: P('<circle cx="12" cy="8.5" r="4"/><path d="M4.5 20.5a7.5 7.5 0 0 1 15 0"/>'),
+    msg: P('<path d="M4 5.5h16v11H9l-5 4z"/>'),
   };
-  const miss = (b) => b.animate([{ transform: b.style.transform + " translateX(-5px)" }, { transform: b.style.transform + " translateX(5px)" }, { transform: b.style.transform }], { duration: 220 });
-  const hit = (b, e) => {
-    if (!round) return;
-    if (!b.classList.contains("is-heart")) { miss(b); return; }
-    times.push(performance.now() - t0); taps++;
+  const POSTS = [
+    ["maya.makes", "Laser-cut lamp, v3 🌙", "linear-gradient(160deg,#a99bff,#ff8fcb 55%,#ffb14d)"],
+    ["lab.notes", "Makerspace at 2am", "linear-gradient(200deg,#1f5fd6,#0b8a78)"],
+    ["ari.prints", "Lattice test #6 printed!", "linear-gradient(140deg,#ffd166,#ff3fa4)"],
+    ["dev.dan", "New desk setup", "linear-gradient(170deg,#0b8a78,#9ee6c9)"],
+    ["priya.draws", "Sketchbook, week 12", "linear-gradient(150deg,#7048e8,#1f5fd6 70%)"],
+    ["sam.climbs", "Sunday send", "linear-gradient(190deg,#ff8f5a,#7048e8)"],
+  ];
+  const STORIES = ["you", "maya", "lab", "ari", "dan"];
+  // Round 2 puts the heart somewhere a real redesign might, one spot per post
+  const SPOTS = {
+    header: "the header, next to messages",
+    rowEnd: "the other end of the action row",
+    fab: "a floating button over the feed",
+    tab: "the tab bar, where Reels was",
+    postHead: "the post header, by the ··· menu",
+  };
+  let round = 0, taps = 0, times = [], t0 = 0, res = [], spot = "row", last = "", post = 0, likes = 0, order;
+  const avg = (a) => a.reduce((x, y) => x + y, 0) / a.length;
+  const b = (slot, ic, label, cls = "") => `<button type="button" class="ht__b ${cls}" data-slot="${slot}" aria-label="${label}">${ic}</button>`;
+  const heartOr = (slot, alt, altLabel, cls = "") => spot === slot ? b(slot, IC.heart, "Like", "is-heart " + cls) : alt ? b(slot, alt, altLabel, cls) : "";
+  const draw = () => {
+    const [user, cap, bg] = POSTS[post % POSTS.length];
+    const tabs = order.map((t) => t === "reels" ? heartOr("tab", IC.reels, "Reels") : b("x", IC[t], t)).join("");
+    screen.innerHTML = `
+      <div class="ht__status"><b>9:41</b><span><i></i><i></i><i></i></span></div>
+      <div class="ht__top"><span>moments</span><div>${heartOr("header", "", "")}${b("x", IC.msg, "Messages")}</div></div>
+      <div class="ht__stories">${STORIES.map((n, i) => `<figure><i data-h="${i * 57}"></i><figcaption>${n}</figcaption></figure>`).join("")}</div>
+      <article class="ht__card">
+        <header><i data-bg></i><b>${user}</b>${heartOr("postHead", "", "", "is-sm")}${b("x", IC.dots, "More", "is-sm")}</header>
+        <div class="ht__ph" data-bg><span>${cap}</span></div>
+        <div class="ht__actions">${heartOr("row", "", "")}${b("x", IC.comment, "Comment")}${b("x", IC.send, "Share")}<span></span>${heartOr("rowEnd", "", "")}${b("x", IC.save, "Save")}</div>
+        <p class="ht__likes"><b>${(likes + 128 + post * 37).toLocaleString()} likes</b></p>
+        <p class="ht__cap"><b>${user}</b> ${cap}</p>
+      </article>
+      ${spot === "fab" ? b("fab", IC.heart, "Like", "is-heart ht__fab") : ""}
+      <nav class="ht__tabs">${tabs}</nav>`;
+    // styles set via CSSOM: style attributes can be blocked by a page's CSP
+    $$("[data-bg]", screen).forEach((x) => (x.style.background = bg));
+    $$("[data-h]", screen).forEach((x) => (x.style.filter = `hue-rotate(${x.dataset.h}deg)`));
+    screen.appendChild(overlay);
+  };
+  const nextSpot = () => { const k = Object.keys(SPOTS).filter((x) => x !== last); spot = last = k[Math.floor(Math.random() * k.length)]; };
+  const miss = (el) => el.animate([{ transform: "translateX(-4px)" }, { transform: "translateX(4px)" }, { transform: "none" }], { duration: 200 });
+  screen.addEventListener("click", (e) => {
+    const el = e.target.closest(".ht__b");
+    if (!el || !round || el.classList.contains("is-liked")) return;
+    if (!el.classList.contains("is-heart")) { miss(el); return; }
+    times.push(performance.now() - t0); taps++; likes++;
+    el.innerHTML = IC.heartF; el.classList.add("is-liked");
     burst(e.clientX, e.clientY, 4);
     stage.textContent = `Round ${round} · ${round === 1 ? "familiar" : "redesigned"} · ${taps}/5`;
-    if (round === 2 && taps < 5) scatter();
-    if (taps < 5) { t0 = performance.now(); return; }
+    if (taps < 5) {
+      setTimeout(() => { post++; if (round === 2) nextSpot(); draw(); if (round === 2) hint.textContent = `Now: ${SPOTS[spot]}`; t0 = performance.now(); }, 180);
+      return;
+    }
     res.push(avg(times));
     if (round === 1) {
       $("#ht-a").textContent = `${Math.round(res[0])} ms`;
-      round = 0; overlay.innerHTML = "<b>✨ New update!</b><span>We've redesigned the app.</span>"; overlay.classList.add("is-on", "is-update");
-      setTimeout(() => { overlay.classList.remove("is-on", "is-update"); round = 2; taps = 0; times = []; stage.textContent = "Round 2 · redesigned · 0/5"; scatter(); t0 = performance.now(); }, 1400);
+      round = 0; overlay.innerHTML = "<b>✨ New update!</b><span>We've refreshed the design</span>"; overlay.classList.add("is-on", "is-update");
+      setTimeout(() => {
+        overlay.classList.remove("is-on", "is-update"); round = 2; taps = 0; times = []; post++;
+        order = ["home", "search", "reels", "plus", "user"].sort(() => Math.random() - 0.5);
+        nextSpot(); draw(); hint.textContent = `Round 2: the heart moved to ${SPOTS[spot]}.`;
+        stage.textContent = "Round 2 · redesigned · 0/5"; t0 = performance.now();
+      }, 1500);
     } else {
       round = 0; $("#ht-b").textContent = `${Math.round(res[1])} ms`;
       const mx = Math.max(...res), ratio = res[1] / res[0];
       $("#ht-bar-a").style.width = `${(res[0] / mx) * 100}%`; $("#ht-bar-b").style.width = `${(res[1] / mx) * 100}%`;
-      const v = $("#ht-verdict"); v.classList.add("is-done");
+      $("#ht-verdict").classList.add("is-done");
       $("#ht-big").textContent = ratio >= 1.05 ? `${ratio.toFixed(1)}× slower` : "Unfazed!";
       $("#ht-msg").innerHTML = ratio >= 2 ? "Your thumb had to <b>think</b> again. That extra time is the cognitive load this study sets out to measure."
         : ratio >= 1.05 ? `You lost <b>${Math.round((ratio - 1) * 100)}%</b> of your speed to a redesign. Imagine that across every app update.`
         : "Impressive, but real redesigns move whole flows, not one icon. That's what the study measures.";
       if (ratio >= 2) confetti(30);
       stage.textContent = "Done · try again?"; btn.textContent = "Restart"; btn.disabled = false;
-      drawFamiliar(); overlay.innerHTML = "<b>Done ✓</b><span>See your result →</span>"; overlay.classList.add("is-on");
+      hint.textContent = "Every spot was a sensible place for a like button. Your thumb still had to search.";
+      overlay.innerHTML = "<b>Done ✓</b><span>See your result →</span>"; overlay.classList.add("is-on");
     }
-  };
-  drawFamiliar(); overlay.classList.add("is-on");
+  });
+  const reset = () => { spot = "row"; last = ""; order = ["home", "search", "plus", "reels", "user"]; draw(); };
+  reset(); overlay.classList.add("is-on");
   btn.addEventListener("click", () => {
-    drawFamiliar(); overlay.classList.remove("is-on");
-    round = 1; taps = 0; times = []; res = [];
+    reset(); overlay.classList.remove("is-on");
+    round = 1; taps = 0; times = []; res = []; likes = 0;
     $("#ht-a").textContent = $("#ht-b").textContent = "–"; $("#ht-bar-a").style.width = $("#ht-bar-b").style.width = "0%";
     $("#ht-verdict").classList.remove("is-done"); $("#ht-big").textContent = "…";
+    hint.textContent = "Round 1: the heart is where it always is.";
     stage.textContent = "Round 1 · familiar · 0/5"; btn.disabled = true; t0 = performance.now();
   });
 }

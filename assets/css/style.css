@@ -1771,3 +1771,52 @@ main { counter-reset: page; }
 /* Page colour via class (works where inline styles are blocked) */
 .case--calidus { --c: var(--calidus); } .case--dfam { --c: var(--dfam); } .case--godrej { --c: var(--godrej); }
 .case--habit { --c: var(--habit); } .case--idetc { --c: var(--idetc); } .case--totsecure { --c: var(--totsecure); }
+
+/* ---------- Habit test v3: realistic feed ---------- */
+.ht { grid-template-columns: 300px 1fr; align-items: start; }
+.ht__left { display: grid; gap: 12px; justify-items: center; }
+.ht__hint { margin: 0; max-width: 280px; text-align: center; color: var(--muted); min-height: 2.6em; }
+.ht__phone { width: 290px; height: 560px; border: 9px solid #111; border-radius: 44px; background: #111; box-shadow: 8px 8px 0 var(--habit); }
+.ht__screen { position: relative; height: 100%; border-radius: 35px; overflow: hidden; background: #fff; color: #111; font-family: var(--f-sans); display: flex; flex-direction: column; }
+.ht__status { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px 2px; font-size: 12px; }
+.ht__status span { display: flex; gap: 2px; align-items: flex-end; }
+.ht__status span i { width: 3px; background: #111; border-radius: 1px; }
+.ht__status span i:nth-child(1) { height: 5px; } .ht__status span i:nth-child(2) { height: 8px; } .ht__status span i:nth-child(3) { height: 11px; }
+.ht__top { display: flex; justify-content: space-between; align-items: center; padding: 4px 10px 4px 16px; font-size: 24px; }
+.ht__top > div { display: flex; gap: 2px; }
+.ht__stories { display: flex; gap: 10px; padding: 4px 14px 8px; border-bottom: 1px solid #efefef; }
+.ht__stories figure { margin: 0; display: grid; gap: 3px; justify-items: center; }
+.ht__stories i { width: 42px; height: 42px; border-radius: 50%; background: conic-gradient(#ff3fa4, #ffb14d, #7048e8, #ff3fa4); box-shadow: inset 0 0 0 2px #fff, inset 0 0 0 20px #e9e4ff; }
+.ht__stories figcaption { font-size: 10px; color: #444; }
+.ht__card { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.ht__card header { display: flex; align-items: center; gap: 8px; padding: 8px 6px 8px 12px; font-size: 13px; }
+.ht__card header i { width: 26px; height: 26px; border-radius: 50%; }
+.ht__card header b { font-weight: 600; margin-right: auto; }
+.ht__ph { flex: 1; min-height: 120px; position: relative; }
+.ht__ph span { position: absolute; left: 12px; bottom: 10px; font-family: var(--f-display); font-style: italic; font-size: 22px; color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,.35); }
+.ht__actions { display: flex; align-items: center; padding: 4px 6px 0; }
+.ht__actions span { flex: 1; }
+.ht__likes, .ht__cap { margin: 0; padding: 0 12px; font-size: 12.5px; line-height: 1.4; }
+.ht__likes b, .ht__cap b { font-weight: 600; }
+.ht__cap { padding-bottom: 8px; color: #333; }
+.ht__tabs { display: flex; justify-content: space-around; align-items: center; height: 54px; border-top: 1px solid #efefef; padding-bottom: 6px; background: #fff; }
+.ht__b { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 12px; color: #111; transition: transform .12s, background .2s; }
+.ht__b.is-sm { width: 32px; height: 32px; }
+.ht__b:hover { background: #f3f1ec; }
+.ht__b:active { transform: scale(.86); }
+.ht__b.is-heart { color: #111; }
+.ht__b.is-liked { color: #ff3fa4; animation: popIn .3s var(--ease); }
+.ht__fab { position: absolute; right: 14px; bottom: 70px; width: 52px; height: 52px; border-radius: 50%; background: #111; color: #fff !important; box-shadow: 0 8px 20px rgba(0,0,0,.25); z-index: 3; }
+.ht__fab:hover { background: #111; }
+.ht__fab.is-liked { color: #ff3fa4 !important; }
+.ht__overlay { z-index: 6; }
+.ht__overlay.is-update { background: linear-gradient(145deg, #7048e8, #ff3fa4); }
+/* Results: fixed ink card, so the text never depends on --c */
+.ht__lane.is-b .ht__track i { background: linear-gradient(90deg, #7048e8, #ff3fa4); }
+.ht__verdict.is-done { background: #111; color: #fff; border-color: #111; box-shadow: 6px 6px 0 #ff3fa4; }
+.ht__verdict.is-done > b { color: #ff7ac2; }
+.ht__verdict.is-done p, .ht__verdict.is-done .mono { color: #e9e7e1; }
+.ht__verdict.is-done p b { color: #fff; }
+@media (max-width: 760px) { .ht { grid-template-columns: 1fr; } }
+@media (max-width: 360px) { .ht__phone { width: 268px; height: 530px; } }
+.btn--sm { padding: 8px 18px; }
