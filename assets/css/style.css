@@ -453,11 +453,11 @@ section { position: relative; }
 @media (max-width: 760px) { .footer { grid-template-columns: 1fr 1fr; } .footer__name { grid-column: 1 / -1; } }
 
 .toast {
-  position: fixed; left: 50%; bottom: 24px; z-index: 250; transform: translate(-50%, 140%);
+  position: fixed; left: 50%; bottom: 24px; z-index: 250; transform: translate(-50%, calc(100% + 48px)); visibility: hidden;
   padding: 12px 18px; border-radius: 999px; background: var(--accent); color: var(--accent-ink); font-weight: 500; font-size: 14px;
   transition: transform .5s var(--ease); max-width: calc(100vw - 32px); text-align: center;
 }
-.toast.is-on { transform: translate(-50%, 0); }
+.toast.is-on { transform: translate(-50%, 0); visibility: visible; }
 
 /* ==========================================================================
    CASE STUDY
