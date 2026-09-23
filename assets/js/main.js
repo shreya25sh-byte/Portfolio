@@ -1323,3 +1323,53 @@ $$(".video-frame video").forEach((v) => {
   if (reduced) return;
   new IntersectionObserver((es) => es.forEach((e) => (e.isIntersecting ? v.play().catch(() => {}) : v.pause())), { threshold: 0.4 }).observe(v);
 });
+
+/* Innovation vs habit: muscle-memory test */
+const ht = $("#habit-test");
+if (ht) {
+  const bar = $("#ht-bar"), stage = $("#ht-stage"), btn = $("#ht-start"), msg = $("#ht-msg");
+  const ICONS = ["⌂", "⌕", "⊕", "♥", "◉"];
+  let layout = [...ICONS], round = 0, taps = 0, times = [], t0 = 0, results = [];
+  const draw = () => {
+    bar.innerHTML = layout.map((ic) => `<button type="button" aria-label="${ic === "♥" ? "Heart" : "Other icon"}" class="${ic === "♥" ? "is-target" : ""}">${ic}</button>`).join("");
+    $$("button", bar).forEach((b) => b.addEventListener("click", () => hit(b)));
+  };
+  const avg = (a) => a.reduce((x, y) => x + y, 0) / a.length;
+  const next = () => { t0 = performance.now(); };
+  const hit = (b) => {
+    if (!round) return;
+    if (b.textContent !== "♥") { b.animate([{ transform: "translateX(-4px)" }, { transform: "translateX(4px)" }, { transform: "none" }], { duration: 200 }); return; }
+    times.push(performance.now() - t0); taps++;
+    if (round === 2) { layout = shuffle(layout); draw(); }
+    if (taps < 5) return next();
+    results.push(avg(times));
+    (round === 1 ? $("#ht-a") : $("#ht-b")).textContent = `${Math.round(results.at(-1))} ms`;
+    if (round === 1) {
+      round = 0; bar.classList.add("is-idle");
+      const f = document.createElement("div"); f.className = "ht__flash"; f.textContent = "New update! We've redesigned the app ✨";
+      bar.parentElement.appendChild(f);
+      setTimeout(() => { f.remove(); layout = shuffle(ICONS); draw(); bar.classList.remove("is-idle"); round = 2; taps = 0; times = []; stage.textContent = "Round 2 · after the redesign"; next(); }, 1500);
+    } else {
+      round = 0; bar.classList.add("is-idle");
+      const pct = Math.round((results[1] / results[0] - 1) * 100);
+      msg.innerHTML = pct > 0 ? `You were <b>${pct}% slower</b> after the redesign. That extra time is the cognitive load this study sets out to measure.` : `You adapted instantly this time, but real redesigns move whole flows, not one icon. That's what the study measures.`;
+      stage.textContent = "Done · try again?"; btn.textContent = "Restart"; btn.disabled = false;
+    }
+  };
+  const shuffle = (a) => { let b; do { b = [...a].sort(() => Math.random() - 0.5); } while (b.indexOf("♥") === a.indexOf("♥")); return b; };
+  bar.classList.add("is-idle"); draw();
+  btn.addEventListener("click", () => {
+    layout = [...ICONS]; draw(); bar.classList.remove("is-idle");
+    round = 1; taps = 0; times = []; results = [];
+    $("#ht-a").textContent = "–"; $("#ht-b").textContent = "–";
+    stage.textContent = "Round 1 · familiar layout · tap ♥ 5×"; btn.disabled = true; next();
+  });
+}
+
+/* NASA-TLX raw score */
+const tlxBox = $("#tlx");
+if (tlxBox) {
+  const ins = $$("input", tlxBox), out = $("#tlx-score");
+  const upd = () => { ins.forEach((i) => (i.nextElementSibling.textContent = i.value)); out.textContent = Math.round(ins.reduce((a, i) => a + +i.value, 0) / ins.length); };
+  ins.forEach((i) => i.addEventListener("input", upd)); upd();
+}
