@@ -1317,3 +1317,9 @@ if (gameBtn) {
     timer = setInterval(() => { left--; timeEl.textContent = `${left}s`; if (left <= 0) end(); }, 1000);
   });
 }
+
+/* Autoplay case-study videos only while visible */
+$$(".video-frame video").forEach((v) => {
+  if (reduced) return;
+  new IntersectionObserver((es) => es.forEach((e) => (e.isIntersecting ? v.play().catch(() => {}) : v.pause())), { threshold: 0.4 }).observe(v);
+});

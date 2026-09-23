@@ -1504,3 +1504,5 @@ main { counter-reset: page; }
 .featured__img, .talk__img { background: color-mix(in srgb, var(--c, var(--accent)) 50%, var(--bg-2)); }
 .featured__img img, .talk__img img, .work__thumb img { filter: grayscale(1) contrast(.95) brightness(1.2); }
 .note-pin button { background: var(--bg-2); }
+.video-frame { border: 1.5px solid var(--text); border-radius: var(--radius); overflow: hidden; background: #111; box-shadow: 6px 6px 0 var(--c, var(--text)); }
+.video-frame video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; }
