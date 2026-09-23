@@ -27,7 +27,7 @@ Settings → Pages → Source: *Deploy from a branch* → pick the branch and `/
 
 ```
 index.html            Home: hero lens, work list, process, affinity board, talks, about, contact
-work/veneze.html      DVT wearable: field research → 6-zone sleeve (interactive compression demo)
+work/godrej.html      Godrej Interio gaming-chair research (survey funnel, benchmark grid)
 work/totsecure.html   Child-safety lock: parent data, persona, requirements (interactive lock demo)
 work/calidus.html     Stability chamber: contextual inquiry, task analysis (interactive explorer)
 work/idetc.html       MSES thesis research, conference talks (interactive phase stepper)

@@ -239,7 +239,6 @@ const QUESTIONS = [
   "who feels like they belong in a makerspace?",
   "can a lattice make a room quieter?",
   "why don't people who game own gaming chairs?",
-  "why is Velcro still winning in hospitals?",
   "what would you do if this button didn't exist?",
   "what happened the last time that went wrong?",
 ];
