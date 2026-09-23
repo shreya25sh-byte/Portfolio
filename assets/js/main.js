@@ -59,7 +59,7 @@ if (loader) {
   } else {
     const num = $(".loader__count", loader);
     const bar = $(".loader__bar i", loader);
-    const target = 1500;
+    const target = 1910;
     const dur = 1400;
     const t0 = performance.now();
     const tick = (t) => {
@@ -238,6 +238,7 @@ const QUESTIONS = [
   "what makes a parent trust a lock they can't see?",
   "who feels like they belong in a makerspace?",
   "can a lattice make a room quieter?",
+  "why don't people who game own gaming chairs?",
   "why is Velcro still winning in hospitals?",
   "what would you do if this button didn't exist?",
   "what happened the last time that went wrong?",
@@ -641,11 +642,11 @@ if (explorer) {
 const stepper = $("#phase-stepper");
 if (stepper) {
   const PHASES = [
-    ["Survey & segment", "Survey students & collect demographic data", "Administered an initial survey to first-year engineering students to collect baseline self-efficacy data alongside demographic information — gender, first-generation status and race/ethnicity."],
+    ["Survey & segment", "Survey 1,910 students & collect demographic data", "Designed and administered a two-round survey to 1,910 first-year engineering students to collect baseline self-efficacy data alongside demographic information — gender, first-generation status and race/ethnicity."],
     ["Build the MSES", "Existing scales fall short — so I built one", "SEED, EMSE, ISE and CESES were designed for broad engineering contexts and miss the process of making. I developed the Makerspace Self-Efficacy Scale (MSES) to capture the full breadth of skills in a making project."],
-    ["Validate", "Validate the MSES across two cohorts", "Confirmatory Factor Analysis (CFA) across two independent student cohorts confirmed a stable four-domain structure with strong model fit."],
+    ["Validate", "Validate the MSES", "Confirmatory Factor Analysis (CFA) on 1,190+ responses across two independent student cohorts validated 16 of the 17 items (94%) and confirmed a stable four-domain structure."],
     ["Pre / post", "Collect pre & post self-efficacy data", "A second round captured student self-efficacy before and after the cornerstone makerspace project, enabling direct measurement of change in each domain."],
-    ["Correlate", "Correlate shifts with student backgrounds", "Pre–post self-efficacy shifts are correlated with demographic data to understand how background shapes confidence and experience in makerspaces."],
+    ["Correlate", "Connect confidence to background", "Item response theory (IRT) isolated 2 background factors that call for system-level improvement, not individual fixes: the kind of finding that changes how a space is designed."],
   ];
   const panel = $(".stepper-panel");
   PHASES.forEach(([short, title, body], i) => {
@@ -760,3 +761,172 @@ if (compress) {
   inten.addEventListener("input", out);
   out();
 }
+
+/* ==========================================================================
+   v2: fun layer
+   ========================================================================== */
+
+/* Hero letters lean toward the cursor */
+const heroTitle = $(".hero__title");
+if (heroTitle && finePointer && !reduced) {
+  $$(".word > span", heroTitle).forEach((w) => {
+    const txt = w.textContent;
+    w.textContent = "";
+    [...txt].forEach((c) => {
+      const s = document.createElement("span");
+      s.className = "ch";
+      s.textContent = c;
+      w.appendChild(s);
+    });
+  });
+  const chars = $$(".ch", heroTitle);
+  let raf;
+  heroTitle.addEventListener("pointermove", (e) => {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      chars.forEach((c) => {
+        const r = c.getBoundingClientRect();
+        const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
+        const d = Math.hypot(dx, dy), k = Math.max(0, 1 - d / 160);
+        c.style.transform = k ? `translate(${(-dx / d) * k * 10 || 0}px, ${-k * 14}px) rotate(${(dx / 160) * k * -12}deg)` : "";
+        c.style.color = k > 0.55 ? "var(--accent)" : "";
+      });
+    });
+  });
+  heroTitle.addEventListener("pointerleave", () => chars.forEach((c) => { c.style.transform = ""; c.style.color = ""; }));
+}
+
+/* Click bursts of research glyphs */
+const GLYPHS = ["?", "!", "why?", "how?", "✳", "?", "who?"];
+const burst = (x, y, n = 9) => {
+  if (reduced) return;
+  for (let i = 0; i < n; i++) {
+    const g = document.createElement("span");
+    g.className = "burst";
+    g.textContent = GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+    document.body.appendChild(g);
+    const a = (Math.PI * 2 * i) / n + Math.random() * 0.6, v = 70 + Math.random() * 90;
+    g.animate(
+      [
+        { transform: `translate(${x}px, ${y}px) translate(-50%, -50%) scale(.4)`, opacity: 1 },
+        { transform: `translate(${x + Math.cos(a) * v}px, ${y + Math.sin(a) * v - 30}px) translate(-50%, -50%) rotate(${(Math.random() - 0.5) * 60}deg) scale(1)`, opacity: 0 },
+      ],
+      { duration: 900 + Math.random() * 400, easing: "cubic-bezier(.22,1,.36,1)" }
+    ).onfinish = () => g.remove();
+  }
+};
+$$(".hero, .contact").forEach((sec) =>
+  sec.addEventListener("click", (e) => {
+    if (e.target.closest("a, button, .lens, input")) return;
+    burst(e.clientX, e.clientY);
+  })
+);
+
+/* Logo: spin on click */
+$$(".logo").forEach((l) =>
+  l.addEventListener("click", () => {
+    l.classList.remove("is-spin");
+    void l.offsetWidth;
+    l.classList.add("is-spin");
+  })
+);
+
+/* Confetti of sticky-note colours */
+const confetti = (n = 70) => {
+  if (reduced) return;
+  const cols = ["#c9c0ff", "#a9c8ff", "#9fe3ea", "#ffb3ad", "#e6f7a2", "#ffc79a"];
+  for (let i = 0; i < n; i++) {
+    const c = document.createElement("i");
+    c.className = "confetti";
+    c.style.background = cols[i % cols.length];
+    document.body.appendChild(c);
+    const x = Math.random() * innerWidth, drift = (Math.random() - 0.5) * 200, rot = Math.random() * 720;
+    c.animate(
+      [
+        { transform: `translate(${x}px, -20px) rotate(0deg)`, opacity: 1 },
+        { transform: `translate(${x + drift}px, ${innerHeight + 40}px) rotate(${rot}deg)`, opacity: 0.9 },
+      ],
+      { duration: 1800 + Math.random() * 1400, delay: Math.random() * 300, easing: "cubic-bezier(.3,.6,.5,1)" }
+    ).onfinish = () => c.remove();
+  }
+};
+
+/* Secret: type "hire" anywhere */
+let typed = "";
+addEventListener("keydown", (e) => {
+  if (/input|textarea/i.test(document.activeElement.tagName) || e.key.length !== 1) return;
+  typed = (typed + e.key.toLowerCase()).slice(-4);
+  if (typed === "hire") {
+    confetti();
+    toast("Excellent decision. My email is one click away ✳");
+  }
+});
+
+/* Mini self-efficacy survey */
+$$(".likert").forEach((form) => {
+  const qs = $$(".likert__q", form);
+  const answers = {};
+  qs.forEach((q) => {
+    const scale = $(".likert__scale", q);
+    for (let v = 1; v <= 5; v++) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.textContent = v;
+      b.setAttribute("aria-pressed", "false");
+      b.setAttribute("aria-label", `${v} of 5: ${q.querySelector("p").textContent}`);
+      b.addEventListener("click", (e) => {
+        answers[q.dataset.domain] = v;
+        $$("button", scale).forEach((x) => x.setAttribute("aria-pressed", x === b));
+        const r = b.getBoundingClientRect();
+        if (v >= 4) burst(r.left + r.width / 2, r.top, 5);
+        if (Object.keys(answers).length === qs.length) done();
+        void e;
+      });
+      scale.appendChild(b);
+    }
+  });
+  const done = () => {
+    const vals = Object.values(answers), avg = vals.reduce((a, b) => a + b, 0) / vals.length;
+    const res = $(".likert__result", form);
+    const top = Object.entries(answers).sort((a, b) => b[1] - a[1])[0][0];
+    const label = avg >= 4.3 ? "Fearless maker" : avg >= 3.3 ? "Confident tinkerer" : avg >= 2.3 ? "Curious builder" : "Future maker (everyone starts here)";
+    res.innerHTML =
+      `<span class="mono muted">Your result</span><b>${label} · ${avg.toFixed(1)}/5</b>` +
+      Object.entries(answers).map(([k, v]) => `<div class="likert__bar"><span>${k}</span><i style="--w:0%"></i><span>${v}</span></div>`).join("") +
+      `<p class="likert__note">Strongest domain: ${top}. This is how a Likert scale turns a feeling into data. The real MSES has 17 validated items; these 3 are just for fun.</p>`;
+    form.classList.add("is-done");
+    requestAnimationFrame(() => requestAnimationFrame(() => $$(".likert__bar", res).forEach((b, i) => ($("i", b).style.setProperty("--w", `${(vals[i] / 5) * 100}%`)))));
+    if (avg >= 4) confetti(40);
+  };
+});
+
+/* 30-second version */
+const panel = $(".tldr-panel");
+if (panel) {
+  const open = () => { panel.classList.add("is-on"); panel.setAttribute("aria-hidden", "false"); $(".tldr-close", panel).focus(); };
+  const close = () => { panel.classList.remove("is-on"); panel.setAttribute("aria-hidden", "true"); $(".tldr-fab")?.focus(); };
+  $$("[data-tldr]").forEach((b) => b.addEventListener("click", open));
+  $(".tldr-close", panel).addEventListener("click", close);
+  panel.addEventListener("click", (e) => { if (e.target === panel) close(); });
+  $$("a", panel).forEach((a) => a.addEventListener("click", close));
+  addEventListener("keydown", (e) => { if (e.key === "Escape" && panel.classList.contains("is-on")) close(); });
+}
+
+/* Godrej: funnel */
+$$(".funnel").forEach((f) =>
+  f.addEventListener("reveal", () => $$(".funnel__row", f).forEach((r, i) => setTimeout(() => ($("i", r).style.width = `${r.dataset.value}%`), i * 250)))
+);
+
+/* Godrej: benchmark grid */
+$$(".bench").forEach((b) => {
+  const out = $(".bench-count b", b.parentElement);
+  const btns = $$("button", b);
+  btns.forEach((x, i) => {
+    x.style.transitionDelay = `${i * 40}ms`;
+    x.addEventListener("click", () => {
+      x.style.transitionDelay = "0ms";
+      x.setAttribute("aria-pressed", x.getAttribute("aria-pressed") !== "true");
+      if (out) out.textContent = btns.filter((y) => y.getAttribute("aria-pressed") === "true").length;
+    });
+  });
+});
