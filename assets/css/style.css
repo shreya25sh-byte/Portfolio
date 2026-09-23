@@ -1697,3 +1697,4 @@ main { counter-reset: page; }
 .stack-hint { color: var(--muted); }
 .impact__kicker { color: var(--text) !important; }
 :root { --godrej: #c2410c; }
+.masthead b { background: none; color: var(--text); padding: 0; font-weight: 600; }
