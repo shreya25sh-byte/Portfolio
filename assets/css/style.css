@@ -2395,3 +2395,39 @@ button[aria-pressed="true"] .rq__w i.on { background: #111; }
 @media (min-width: 901px) { .featured__img { flex-basis: 48%; min-height: 320px; } }
 @media (max-width: 900px) { .featured { grid-template-columns: 1fr; } }
 .featured__img img { object-position: 78% 40% !important; }
+
+/* How I work: Design Jenga (CSS 3D, dark section so colours are fixed) */
+.jenga { border: 1.5px solid #f4f2ec; border-radius: 12px; background: radial-gradient(ellipse at 50% 85%, #2a2320 0%, #161616 60%); color: #f4f2ec; box-shadow: 8px 8px 0 #ff3fa4; overflow: hidden; }
+.jenga__hud { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 18px; border-bottom: 1px solid rgba(244,242,236,.18); flex-wrap: wrap; }
+.jenga__score { color: #a8a59d; }
+.jenga__score b { font-family: var(--f-display); font-weight: 400; font-size: 26px; color: #ffe14d; vertical-align: -3px; }
+.jenga__ctrl { display: flex; gap: 8px; }
+.jenga__ctrl button { min-width: 38px; height: 38px; border-radius: 999px; border: 1.5px solid #f4f2ec; color: #f4f2ec; font-size: 17px; padding: 0 12px; transition: background .2s, color .2s; }
+.jenga__ctrl button:hover { background: #f4f2ec; color: #111; }
+.jenga__rebuild { font-size: 14px !important; font-weight: 600; background: #ffe14d; color: #111 !important; border-color: #111 !important; }
+.jenga__scene { position: relative; height: 460px; perspective: 1100px; perspective-origin: 50% 30%; cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+.jenga__scene:active { cursor: grabbing; }
+.jenga__tower { position: absolute; left: 50%; top: 58%; width: 0; height: 0; transform-style: preserve-3d; transition: transform .5s var(--ease); }
+.jenga__floor { position: absolute; left: 50%; top: 80%; width: 420px; height: 60px; margin-left: -210px; border-radius: 50%; background: radial-gradient(closest-side, rgba(0,0,0,.55), transparent); pointer-events: none; }
+.jl { position: absolute; left: 0; top: 0; transform-style: preserve-3d; transition: transform 1s cubic-bezier(.55,0,.85,.45); }
+.jb { position: absolute; left: 0; top: 0; width: 0; height: 0; padding: 0; border: 0; background: none; transform-style: preserve-3d; transition: transform .6s var(--ease), opacity .4s .5s; cursor: pointer; }
+.jb.is-out { opacity: 0; pointer-events: none; }
+.jf { position: absolute; left: 0; top: 0; display: grid; place-items: center; backface-visibility: hidden; font-style: normal; }
+.jf.s { background: linear-gradient(180deg, rgba(255,255,255,.08), transparent 40%), repeating-linear-gradient(90deg, #d9a86c 0 9px, #cf9c5f 9px 11px, #dcae74 11px 22px); box-shadow: inset 0 0 0 1px rgba(90,55,20,.45); }
+.jf.t { background: repeating-linear-gradient(0deg, #e8bf86 0 10px, #deb277 10px 12px, #ebc38d 12px 24px); box-shadow: inset 0 0 0 1px rgba(90,55,20,.4); }
+.jf.f { background: radial-gradient(circle at 50% 50%, #f1cf9b 0 30%, #e2b77c 31% 55%, #d6a86b 56%); box-shadow: inset 0 0 0 1px rgba(90,55,20,.5); }
+.jf.f span { font-size: 22px; line-height: 1; filter: drop-shadow(0 1px 0 rgba(0,0,0,.25)); }
+.jb:hover .jf, .jb:focus-visible .jf { filter: brightness(1.15) saturate(1.1); }
+.jb:hover .jf.f, .jb:focus-visible .jf.f { box-shadow: inset 0 0 0 3px #ff3fa4; }
+.jb:focus { outline: none; }
+.jenga.is-wobble .jenga__tower { animation: jgWobble .5s ease-in-out; }
+@keyframes jgWobble { 25% { margin-left: -6px; } 50% { margin-left: 6px; } 75% { margin-left: -4px; } }
+.jenga.is-down .jenga__rebuild, .jenga.is-won .jenga__rebuild { animation: labNudge 1.4s ease-in-out infinite; }
+.jenga__caption { margin: 0; min-height: 52px; padding: 14px 18px; border-top: 1px solid rgba(244,242,236,.18); background: #111; font-size: 15.5px; color: #e9e7e1; }
+.jenga__caption b { color: #fff; }
+.jenga.is-down .jenga__caption { background: #ff3fa4; color: #111; } .jenga.is-down .jenga__caption b { color: #111; }
+.jenga.is-won .jenga__caption { background: #ffe14d; color: #111; } .jenga.is-won .jenga__caption b { color: #111; }
+.jenga__caption .mono { color: #a8a59d; }
+@media (max-width: 640px) { .jenga__scene { height: 360px; } .jenga__tower { top: 60%; scale: .78; } }
+@media (prefers-reduced-motion: reduce) { .jl, .jb, .jenga__tower { transition: none; } .jenga.is-wobble .jenga__tower { animation: none; } }
+@media (min-width: 641px) { .jenga__tower { scale: 1.3; } }

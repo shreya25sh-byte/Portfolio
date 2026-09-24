@@ -320,61 +320,20 @@
           <div class="section-head">
             <span class="sec-num" aria-hidden="true">04</span>
             <span class="mono">How I work</span>
-            <h2 class="h2 split">Curiosity, <span class="serif">with a method.</span></h2>
+            <h2 class="h2 split">Design Jenga: <span class="serif">building blocks of design.</span></h2>
           </div>
-          <p class="lede reveal lab-lede">Don't read about my process. Run a tiny study with it: four moves, about a minute.</p>
-          <div class="lab reveal" id="lab">
-            <ol class="lab__track" aria-label="The four moves">
-              <li><button type="button" data-go="0" aria-current="step"><i>01</i><b>Immerse</b><small>MSES</small></button></li>
-              <li><button type="button" data-go="1"><i>02</i><b>Synthesize</b><small>Godrej</small></button></li>
-              <li><button type="button" data-go="2"><i>03</i><b>Make</b><small>Totsecure</small></button></li>
-              <li><button type="button" data-go="3"><i>04</i><b>Measure</b><small>Lattices</small></button></li>
-            </ol>
-            <div class="lab__stage">
-              <section class="lab__step is-on" data-step="0" aria-label="Immerse">
-                <header><h3>Watch before asking.</h3><p>Six students, six backgrounds. Tap each one to hear how the makerspace feels to them. <b class="lab__pill" id="lab-heard">0 / 6 heard</b></p></header>
-                <div class="lab__people" id="lab-floor"></div>
-                <p class="lab__fine mono">Illustrative students and quotes, in the spirit of what the MSES measures</p>
-              </section>
-              <section class="lab__step" data-step="1" aria-label="Synthesize">
-                <header><h3>Patterns, not anecdotes.</h3><p>Pick a note, then drop it in the theme it belongs to. <b class="lab__pill" id="lab-sorted">0 / 6 sorted</b></p></header>
-                <div class="lab__sort">
-                  <div class="lab__pile" id="lab-pile"></div>
-                  <div class="lab__lanes">
-                    <button type="button" class="lab__lane" data-t="conf"><span class="mono">Theme A</span><b>Confidence</b><div></div></button>
-                    <button type="button" class="lab__lane" data-t="acc"><span class="mono">Theme B</span><b>Access</b><div></div></button>
-                  </div>
-                </div>
-                <p class="lab__insight" id="lab-insight">Insight: <b>background shapes confidence before anyone touches a tool</b>, so the fix is onboarding and access, not just more machines.</p>
-              </section>
-              <section class="lab__step" data-step="2" aria-label="Make">
-                <header><h3>Prototype rough, test early.</h3><p>Press and hold to build Totsecure, from sketch to working lock.</p></header>
-                <div class="lab__build" id="lab-build">
-                  <div class="lab__frames">
-                    <img data-f="0" src="assets/img/totsecure-sketches.webp" alt="Pencil sketches of latch mechanisms" loading="lazy">
-                    <img data-f="1" src="assets/img/totsecure-render.webp" alt="CAD render of the lock under a cabinet" loading="lazy">
-                    <img data-f="2" src="assets/img/totsecure-prototype-crop.webp" alt="The working 3D-printed prototype, opened up" loading="lazy">
-                  </div>
-                  <div class="lab__buildbar"><span data-l="0">Sketch</span><span data-l="1">CAD</span><span data-l="2">Working prototype</span><i id="lab-buildfill"></i></div>
-                  <button type="button" class="lab__hold" id="lab-hold">Hold to build</button>
-                </div>
-              </section>
-              <section class="lab__step" data-step="3" aria-label="Measure">
-                <header><h3>Let data settle it.</h3><p>Play a tone through the enclosure and read the meter. Three trials each. <b class="lab__pill" id="lab-trials">0 / 3 trials</b></p></header>
-                <div class="lab__exp">
-                  <div class="lab__row" data-r="ctrl"><span>No lattice <small class="mono">control</small></span><div class="lab__scale"></div><b>–</b></div>
-                  <div class="lab__row" data-r="hex"><span>Honeycomb <small class="mono">lattice</small></span><div class="lab__scale"></div><b>–</b></div>
-                  <div class="lab__axis mono"><span>55 dB</span><span>quieter ←</span><span>72 dB</span></div>
-                  <button type="button" class="lab__run" id="lab-run">▶ Run trial</button>
-                  <p class="lab__result" id="lab-result"></p>
-                </div>
-              </section>
+          <p class="lede reveal lab-lede">Pull out the blocks a good process can live without. Pull the wrong one and it all comes down.</p>
+          <div class="jenga reveal" id="jenga">
+            <div class="jenga__hud">
+              <span class="mono jenga__score"><b id="jg-score">0</b> / <span id="jg-total">6</span> fluff blocks pulled</span>
+              <div class="jenga__ctrl">
+                <button type="button" data-rot="-1" aria-label="Rotate left">↺</button>
+                <button type="button" data-rot="1" aria-label="Rotate right">↻</button>
+                <button type="button" class="jenga__rebuild" id="jg-rebuild">Rebuild</button>
+              </div>
             </div>
-            <div class="lab__foot">
-              <span class="mono" id="lab-status">Move 1 of 4</span><span class="lab__xp" aria-live="polite"><b id="lab-xp">0</b> XP<i><em id="lab-xpbar"></em></i></span>
-              <a class="lab__proof" id="lab-proof" href="work/idetc.html">See it in the MSES study →</a>
-              <button type="button" class="lab__next" id="lab-next" disabled>Next move →</button>
-            </div>
+            <div class="jenga__scene" id="jg-scene"><div class="jenga__tower" id="jg-tower"></div><div class="jenga__floor" aria-hidden="true"></div></div>
+            <p class="jenga__caption" id="jg-caption" aria-live="polite"><span class="mono">Hover a block · tap to pull · drag to spin</span></p>
           </div>
       </div>
     </section>
