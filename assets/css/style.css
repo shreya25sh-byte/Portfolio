@@ -2446,3 +2446,4 @@ button[aria-pressed="true"] .rq__w i.on { background: #111; }
 .jenga.is-3d .jenga__tower, .jenga.is-3d .jenga__floor { display: none; }
 .jenga.is-3d .jenga__scene { height: 520px; background: radial-gradient(ellipse at 50% 75%, #33281f 0%, #161616 62%); }
 @media (max-width: 640px) { .jenga.is-3d .jenga__scene { height: 440px; } }
+.extra--work .xrow { grid-template-columns: 1fr auto; }
