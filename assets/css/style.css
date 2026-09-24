@@ -2455,3 +2455,8 @@ button[aria-pressed="true"] .rq__w i.on { background: #111; }
 .nav__links li { display: flex; align-items: center; }
 .nav__links li + li::before { content: ""; width: 1px; height: 14px; background: var(--text); opacity: .35; margin: 0 6px; flex: none; }
 @media (max-width: 900px) { .nav__links li + li::before { display: none; } }
+/* Let the tape overhang the featured card; clip only the photo */
+.featured__card { overflow: visible !important; }
+.featured__card::before { top: -12px; }
+.featured__img { overflow: hidden; border-radius: calc(var(--radius) - 1px) 0 0 calc(var(--radius) - 1px); }
+@media (max-width: 900px) { .featured__img { border-radius: calc(var(--radius) - 1px) calc(var(--radius) - 1px) 0 0; } }
