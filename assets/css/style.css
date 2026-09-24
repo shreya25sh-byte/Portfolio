@@ -2332,3 +2332,48 @@ button[aria-pressed="true"] .rq__w i.on { background: #111; }
 .about-stats span { font-size: 13.5px; line-height: 1.2; color: var(--body-ink); }
 @media (max-width: 1100px) { .about-stats { grid-template-columns: 1fr 1fr; } .about-stats > div:nth-child(3) { border-left: 0 !important; } .about-stats > div:nth-child(n+3) { border-top: 1px solid var(--line-strong) !important; } }
 .about-stats > div { flex-wrap: nowrap; } .about-stats span { white-space: nowrap; }
+
+/* DFAM hero toy: sound through a lattice */
+.lattoy { border: 1.5px solid var(--text); border-radius: 12px; background: var(--bg-2); box-shadow: 6px 6px 0 var(--dfam); padding: 14px 16px 12px; display: grid; gap: 8px; margin: 28px 0 8px; max-width: 460px; }
+.lattoy__bar { display: flex; justify-content: space-between; align-items: center; }
+.lattoy__bar .mono { color: var(--muted); }
+.lattoy__hear { border: 1.5px solid var(--text); border-radius: 999px; padding: 4px 10px; color: var(--text); background: var(--bg); }
+.lattoy__hear[aria-pressed="true"] { background: var(--dfam); color: #fff; }
+.lattoy__svg { width: 100%; height: auto; }
+.lattoy__svg pattern path, .lattoy__svg pattern circle { fill: none; stroke: #111; stroke-width: 1.6; }
+.lattoy__spk { fill: #111; }
+.lattoy__wave { fill: none; stroke: var(--dfam); stroke-width: 3; stroke-linecap: round; animation: latWave 1.2s linear infinite; }
+.lattoy__out { transform-box: fill-box; transform-origin: 50% 50%; transition: transform .6s var(--ease), opacity .6s; }
+.lattoy__panel { fill: #fff; stroke: #111; stroke-width: 1.5; }
+.lattoy__fill { stroke: none; transition: opacity .3s; }
+.lattoy.is-empty .lattoy__panel { fill: transparent; stroke-dasharray: 5 5; }
+@keyframes latWave { to { transform: translateX(-40px); } }
+.lattoy__meter { display: flex; align-items: baseline; gap: 6px; }
+.lattoy__meter b { font-family: var(--f-display); font-weight: 400; font-size: 44px; line-height: 1; font-variant-numeric: tabular-nums; }
+.lattoy__meter span { font-size: 15px; color: var(--muted); }
+.lattoy__meter em { font-style: normal; margin-left: 10px; font-size: 12px; padding: 3px 8px; border-radius: 3px; background: var(--surface, #e2e0d9); color: var(--text); }
+.lattoy__meter em.is-down { background: #c9f0d6; }
+.lattoy__meter em.is-up { background: #ffd0cc; }
+.lattoy__chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.lattoy__chips button { font-size: 13px; padding: 5px 11px; border-radius: 999px; border: 1.5px solid var(--line-strong); color: var(--text); background: var(--bg); transition: background .2s, border-color .2s; }
+.lattoy__chips button:hover { border-color: var(--text); }
+.lattoy__chips button[aria-pressed="true"] { background: #111; color: #fff; border-color: #111; }
+.lattoy__note { margin: 0; color: var(--muted); font-size: 10.5px; }
+@media (min-width: 1150px) {
+  .case--dfam .case-hero .wrap { position: relative; }
+  .case--dfam .lattoy { position: absolute; right: var(--gutter, 32px); top: 70px; width: 440px; margin: 0; }
+  .case--dfam .case-hero h1, .case--dfam .case-hero__sub { max-width: calc(100% - 500px); }
+}
+@media (prefers-reduced-motion: reduce) { .lattoy__wave { animation: none; } }
+.datatable-wrap { box-shadow: 5px 5px 0 var(--text); }
+.datatable { width: 100%; border-collapse: collapse; font-size: 14.5px; font-variant-numeric: tabular-nums; }
+.datatable th, .datatable td { padding: 11px 16px; border-top: 1px solid var(--line-strong); text-align: right; color: var(--body-ink); }
+.datatable th[scope="row"], .datatable thead th:first-child { text-align: left; }
+.datatable thead th { background: #111; color: #f4f2ec; border-top: 0; font-family: var(--f-mono); font-size: 11px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; }
+.datatable tbody th { font-weight: 500; color: var(--text); }
+.datatable tbody tr:nth-child(even) { background: color-mix(in srgb, var(--text) 3.5%, transparent); }
+.datatable td:nth-child(5) b { color: var(--text); font-weight: 600; }
+.datatable tr.is-ctrl th, .datatable tr.is-ctrl td { font-style: italic; }
+.datatable tr.is-best td:last-child { color: #11643a; font-weight: 600; }
+.datatable tr.is-worse td:last-child { color: #b3261e; font-weight: 600; }
+.case--godrej .cover { max-width: 520px; margin-inline: auto; margin-top: 40px; }
