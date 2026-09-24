@@ -2809,3 +2809,25 @@ ul.work .work__item { container-type: inline-size; }
   .wwm__line { flex-basis: 100%; font-size: 22px; min-height: 2.4em; }
 }
 @media (prefers-reduced-motion: reduce) { .wwm__line.is-in { animation: none; } }
+
+/* Hero pins: numbered research markers on real objects in the photo */
+.hero-photo .pin {
+  position: absolute; z-index: 4; width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%;
+  background: #111; color: #fff; border: 2px solid #fff; font: 600 13px/1 var(--f-mono); cursor: pointer;
+  display: grid; place-items: center; transition: transform .25s var(--ease), background .25s, color .25s;
+}
+.hero-photo .pin::after { content: ""; position: absolute; inset: -7px; border-radius: 50%; border: 2px solid #111; opacity: 0; animation: pin-ping 2.2s ease-out infinite; }
+.hero-photo .pin:hover { transform: scale(1.15); }
+.hero-photo .pin.is-on { background: var(--riso-yellow, #ffe14d); color: #111; border-color: #111; }
+.hero-photo .pin.is-on::after { animation: none; }
+.pin--1 { left: 22%; top: 9%; }
+.pin--2 { left: 6%; top: 53%; }
+.pin--3 { left: 22%; top: 72%; }
+.pin--4 { left: 86%; top: 60%; }
+.pin--2::after { animation-delay: .5s !important; }
+.pin--3::after { animation-delay: 1s !important; }
+.pin--4::after { animation-delay: 1.5s !important; }
+@keyframes pin-ping { 0% { opacity: .8; transform: scale(.7); } 80%, 100% { opacity: 0; transform: scale(1.5); } }
+@media (prefers-reduced-motion: reduce) { .hero-photo .pin::after { animation: none; } }
+.hero-photo.lens .pin { cursor: pointer; }
+.hero-photo .doodles text { font-size: 30px; }
