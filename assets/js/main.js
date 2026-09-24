@@ -1627,10 +1627,38 @@ if (demo) {
     dfam: {
       kicker: "Lattice acoustics", title: "Which lattice makes it quieter?", href: "work/dfam.html", note: "Averages of 3 real readings each",
       render() {
-        const L = [["No lattice", 69.7], ["Honeycomb", 58.3], ["BCC", 59.7], ["Fluorite", 64.4], ["Diamond", 65.7], ["FCC", 68.0], ["IsoTruss", 73.0]];
-        body.innerHTML = `<p class="demo__lede">Guess first, then tap each lattice to see what the meter read.</p><div class="dd__chips">${L.map(([n, v], i) => `<button type="button" data-i="${i}" ${i ? "" : 'class="on"'}>${n}</button>`).join("")}</div><div class="dd__meter"><div class="dd__bar"><i></i></div><b>69.7 dB</b><span class="mono">control</span></div>`;
-        const bar = $(".dd__bar i", body), val = $(".dd__meter b", body), tag = $(".dd__meter span", body);
-        const show = (i) => { const [n, v] = L[i], d = v - 69.7; bar.style.width = `${((v - 55) / 20) * 100}%`; bar.style.background = d > 0 ? "#d9362b" : d < -5 ? "#0b8a78" : "#111"; val.textContent = `${v.toFixed(1)} dB`; tag.textContent = i ? `${d > 0 ? "+" : "−"}${Math.abs(d).toFixed(1)} dB vs no lattice` : "control"; $$(".dd__chips button", body).forEach((b) => b.classList.toggle("on", +b.dataset.i === i)); };
+        const P = {
+          none: "",
+          hex: '<path d="M12 0 24 6.9v13.9L12 27.7 0 20.8V6.9zM12 27.7v13.9"/>',
+          bcc: '<path d="M0 0h24v24H0zM0 0l24 24M24 0 0 24"/>',
+          flu: '<circle cx="12" cy="12" r="5"/><path d="M0 0 7 7M24 0l-7 7M0 24l7-7M24 24l-7-7"/>',
+          dia: '<path d="M0 6 6 0 12 6 18 0 24 6M0 18l6-6 6 6 6-6 6 6"/>',
+          fcc: '<path d="M0 0h24v24H0zM12 0l12 12-12 12L0 12z"/>',
+          iso: '<path d="M6 0v24M18 0v24M6 12h12"/>',
+        };
+        const L = [["none", "No lattice", 69.7], ["hex", "Honeycomb", 58.3], ["bcc", "BCC", 59.7], ["flu", "Fluorite", 64.4], ["dia", "Diamond", 65.7], ["fcc", "FCC", 68.0], ["iso", "IsoTruss", 73.0]];
+        const pat = (k, id) => k === "none" ? "" : `<pattern id="${id}" width="24" height="${k === "hex" ? 41.6 : 24}" patternUnits="userSpaceOnUse">${P[k]}</pattern>`;
+        const defs = L.map(([k]) => pat(k, "dmp-" + k)).join("") + L.map(([k]) => pat(k, "dmt-" + k)).join("");
+        body.innerHTML = `<p class="demo__lede">Guess first, then tap each lattice to see what the meter read.</p>
+          <svg class="dd__scene" viewBox="0 0 420 150" aria-hidden="true"><defs>${defs}</defs>
+            <g class="dd__spk"><rect x="10" y="52" width="22" height="46" rx="4"/><path d="M32 60 52 42v66L32 90z"/></g>
+            <path class="dd__wave" d="M60 75 q10 -30 20 0 t20 0 t20 0 t20 0 t20 0"/>
+            <rect class="dd__panel" x="170" y="10" width="80" height="130" rx="6"/>
+            <rect class="dd__fill" x="170" y="10" width="80" height="130" rx="6" fill="none"/>
+            <g class="dd__out"><path class="dd__wave" d="M262 75 q10 -30 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0"/></g>
+          </svg>
+          <div class="dd__chips">${L.map(([k, n], i) => `<button type="button" data-i="${i}"><svg viewBox="0 0 24 24" aria-hidden="true">${k === "none" ? '<path d="M4 4l16 16" />' : `<rect width="24" height="24" fill="url(#dmt-${k})"/>`}</svg>${n}</button>`).join("")}</div>
+          <div class="dd__meter"><div class="dd__bar"><i></i></div><b>69.7 dB</b><span class="mono">control</span></div>`;
+        const bar = $(".dd__bar i", body), val = $(".dd__meter b", body), tag = $(".dd__meter span", body), fill = $(".dd__fill", body), out = $(".dd__out", body), scene = $(".dd__scene", body);
+        const show = (i) => {
+          const [k, n, v] = L[i], d = v - 69.7, amp = Math.pow(10, d / 20);
+          fill.setAttribute("fill", k === "none" ? "none" : `url(#dmp-${k})`);
+          scene.classList.toggle("is-empty", k === "none");
+          out.style.transform = `scaleY(${Math.min(1.5, amp).toFixed(2)})`; out.style.opacity = Math.min(1, 0.35 + amp * 0.65).toFixed(2);
+          bar.style.width = `${((v - 55) / 20) * 100}%`; bar.style.background = d > 0 ? "#d9362b" : d < -5 ? "#0b8a78" : "#111";
+          val.textContent = `${v.toFixed(1)} dB`; tag.textContent = i ? `${d > 0 ? "+" : "−"}${Math.abs(d).toFixed(1)} dB vs no lattice` : "control";
+          $$(".dd__chips button", body).forEach((b) => b.classList.toggle("on", +b.dataset.i === i));
+        };
         $$(".dd__chips button", body).forEach((b) => b.addEventListener("click", () => show(+b.dataset.i)));
         show(0);
       },
