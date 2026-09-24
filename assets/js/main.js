@@ -1263,20 +1263,20 @@ if (jenga) {
   const tower = $("#jg-tower"), scene = $("#jg-scene"), cap = $("#jg-caption"), scoreEl = $("#jg-score");
   const L = 172, W = 64, H = 36, GAP = 2, LAYERS = 8;
   const CORE = [
-    ["👂", "Listen to users", "No research, no foundation."], ["🎯", "Define the problem", "Solving the wrong problem, beautifully."],
-    ["💡", "Ideate", "One idea is not a choice."], ["✏️", "Sketch", "Straight to pixels? Wobbly."],
-    ["🧱", "Prototype", "Nothing to put in front of users."], ["🧪", "Test", "Shipped on a hunch. Down it goes."],
-    ["🔁", "Iterate", "First drafts don't hold weight."], ["📊", "Measure", "No data, no proof it worked."],
-    ["♿", "Accessibility", "Designed for some, fails for many."], ["🗺️", "Journey map", "Lost the thread of the experience."],
-    ["🤝", "Collaborate", "Built alone, falls alone."], ["🧭", "Clear goals", "No goal, no direction."],
-    ["🗣️", "Interviews", "Guessing what people think. Crash."], ["🧩", "Synthesize", "Piles of notes, zero insight."],
-    ["🔍", "Competitor scan", "Reinvented a worse wheel."], ["📐", "Wireframe", "Skipped the skeleton. It sags."],
+    ["", "User interviews", "No real voices, no foundation."], ["", "Observe users", "You only heard what people say, not what they do."],
+    ["", "Define the problem", "Solving the wrong problem, beautifully."], ["", "Synthesize", "Piles of notes, zero insight."],
+    ["", "Personas from research", "Designing for nobody in particular."], ["", "Ideate", "One idea is not a choice."],
+    ["", "Sketch", "Straight to pixels? Wobbly."], ["", "Wireframe", "Skipped the skeleton. It sags."],
+    ["", "Prototype", "Nothing to put in front of users."], ["", "Usability testing", "Shipped on a hunch. Down it goes."],
+    ["", "Iterate", "First drafts don't hold weight."], ["", "Measure outcomes", "No proof it worked."],
+    ["", "Accessibility", "Designed for some, fails for many."], ["", "Competitor scan", "Reinvented a worse wheel."],
+    ["", "Journey map", "Lost the thread of the experience."], ["", "Clear goals", "No goal, no direction."],
   ];
   const FLUFF = [
-    ["🦄", "Buzzwords", "Nobody missed them."], ["📅", "Another meeting", "Calendar freed. Tower fine."],
-    ["✨", "Extra sparkle", "Still stands. Still ships."], ["🔤", "A 10th font", "Honestly an improvement."],
-    ["📢", "Loudest opinion", "Data wins. Tower holds."], ["🐱", "Cat GIF", "…okay, we miss the cat. Still standing."],
-    ["🌈", "Gradient on everything", "Calmer already."], ["🏆", "Award-bait animation", "Users didn't notice. Tower didn't either."],
+    ["", "Fake readings", "Made-up data holds nothing up."], ["", "Ignore biases", "Blind spots aren't a method."],
+    ["", "Cherry-pick data", "Picking the quotes that agree isn't evidence."], ["", "Survey friends", "Polite answers, zero signal."],
+    ["", "Skip the pilot", "Didn't test the test."], ["", "Copy the competitor", "Their users aren't your users."],
+    ["", "Loudest opinion", "Volume isn't validity."], ["", "Stereotypes", "Fiction isn't research."],
   ];
   $("#jg-total").textContent = FLUFF.length;
   let ry = 32, dead = false, score = 0, drag = null, moved = false;
@@ -1328,7 +1328,7 @@ if (jenga) {
       score++; scoreEl.textContent = score;
       say(`<b>${b.dataset.name}</b> pulled. ${b.dataset.why}`);
       const r = b.getBoundingClientRect(); burst(r.left + r.width / 2, r.top, 5);
-      if (score === FLUFF.length) { dead = true; jenga.classList.add("is-won"); say("<b>Lean process, still standing.</b> Everything left is load-bearing."); confetti(50); }
+      if (score === FLUFF.length) { dead = true; jenga.classList.add("is-won"); say("<b>You spotted every look-alike.</b> Everything left is load-bearing."); confetti(50); }
       return;
     }
     dead = true;
