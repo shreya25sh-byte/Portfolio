@@ -1652,3 +1652,27 @@ if (demo) {
   demo.addEventListener("close", () => { body.innerHTML = ""; });
   demo.addEventListener("click", (e) => { if (e.target === demo) demo.close(); });
 }
+
+/* Working-with-me strip: cycle short personality lines */
+{
+  const line = document.getElementById("wwm-line"), next = document.getElementById("wwm-next"), count = document.getElementById("wwm-count");
+  if (line && next) {
+    const LINES = [
+      "I'll ask \"why?\" until the real answer shows up.",
+      "Stage-trained dancer, so presenting findings doesn't scare me.",
+      "I'll read every open-ended survey comment. Yes, all 1,910.",
+      "I sketch in meetings. It's a feature, not a bug.",
+      "I bring a camera to site visits and come back with the problem.",
+      "I'll turn your team's hunch into something we can test.",
+      "Happy to talk design, books and conspiracy theories, in that order.",
+      "More likely found in the makerspace than at my desk.",
+    ];
+    let i = 0;
+    next.addEventListener("click", () => {
+      i = (i + 1) % LINES.length;
+      line.classList.remove("is-in"); void line.offsetWidth;
+      line.textContent = LINES[i]; line.classList.add("is-in");
+      count.textContent = `${i + 1}/${LINES.length}`;
+    });
+  }
+}
