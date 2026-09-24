@@ -1257,31 +1257,154 @@ if (journey) {
   );
 }
 
-/* How I work: flip cards for proof */
-const mvs = $$(".mv");
-if (mvs.length) {
-  const count = $("#mv-count"), fill = $("#mv-fill"), all = $("#mv-all");
-  const seen = new Set();
-  const upd = () => {
-    count.textContent = `${seen.size} / 4 moves flipped`;
-    fill.style.transform = `scaleX(${seen.size / 4})`;
-    all.textContent = mvs.every((m) => m.classList.contains("is-flipped")) ? "Flip back" : "Flip all";
+/* How I work: a one-minute mini study */
+const lab = $("#lab");
+if (lab) {
+  const steps = $$(".lab__step", lab), track = $$(".lab__track button", lab);
+  const next = $("#lab-next"), status = $("#lab-status"), proof = $("#lab-proof");
+  const PROOF = [["work/idetc.html", "See it in the MSES study →"], ["work/godrej.html", "See it in the Godrej research →"], ["work/totsecure.html", "See it in Totsecure →"], ["work/dfam.html", "See it in the lattice experiment →"]];
+  const done = [false, false, false, false];
+  let cur = 0, xp = 0;
+  const xpEl = $("#lab-xp"), xpBar = $("#lab-xpbar"), MAXXP = 250;
+  const addXP = (n, el) => {
+    xp = Math.max(0, xp + n);
+    xpEl.textContent = xp; xpBar.style.transform = `scaleX(${Math.min(1, xp / MAXXP)})`;
+    xpEl.parentElement.animate([{ transform: "scale(1.15)" }, { transform: "none" }], { duration: 250 });
+    if (el && n > 0) { const r = el.getBoundingClientRect(); const f = document.createElement("span"); f.className = "lab__float"; f.textContent = `+${n}`; f.style.left = r.left + r.width / 2 + "px"; f.style.top = r.top + "px"; document.body.appendChild(f); setTimeout(() => f.remove(), 900); }
   };
-  const flip = (m, on, quiet) => {
-    m.classList.toggle("is-flipped", on);
-    $(".mv__front", m).setAttribute("aria-expanded", on);
-    if (on && !seen.has(m.dataset.mv)) {
-      seen.add(m.dataset.mv);
-      if (seen.size === 4 && !quiet) { toast("Immerse → Synthesize → Make → Measure. That's the whole method."); confetti(24); }
-    }
+  const RANKS = [[230, "Principal investigator"], [180, "Senior researcher"], [120, "Field researcher"], [0, "Research intern"]];
+  const go = (i) => {
+    cur = i;
+    steps.forEach((st, k) => st.classList.toggle("is-on", k === i));
+    track.forEach((t, k) => { t.toggleAttribute("aria-current", k === i); if (k === i) t.setAttribute("aria-current", "step"); t.classList.toggle("is-done", done[k]); });
+    lab.style.setProperty("--pos", i);
+    status.textContent = `Move ${i + 1} of 4`;
+    [proof.href, proof.textContent] = PROOF[i];
     upd();
   };
-  mvs.forEach((m) => {
-    $(".mv__front", m).addEventListener("click", () => { flip(m, true); $(".mv__close", m).focus({ preventScroll: true }); });
-    $(".mv__close", m).addEventListener("click", () => { flip(m, false); $(".mv__front", m).focus({ preventScroll: true }); });
+  const upd = () => {
+    next.disabled = !done[cur];
+    next.textContent = cur === 3 ? (done[3] ? "Run it again ↺" : "Finish") : "Next move →";
+    track.forEach((t, k) => t.classList.toggle("is-done", done[k]));
+  };
+  const complete = (i, msg) => { if (done[i]) return; done[i] = true; upd(); toast(msg); };
+  track.forEach((t, k) => t.addEventListener("click", () => go(k)));
+  next.addEventListener("click", () => {
+    if (cur < 3) return go(cur + 1);
+    const rank = RANKS.find(([m]) => xp >= m)[1];
+    confetti(40); toast(`${xp} XP · rank: ${rank}. That's how I work.`);
+    reset(); go(0);
   });
-  all.addEventListener("click", () => { const on = !mvs.every((m) => m.classList.contains("is-flipped")); mvs.forEach((m, i) => setTimeout(() => flip(m, on, i < 3), i * 120)); });
-  upd();
+
+  // 01 Immerse
+  const QUOTES = [
+    ["I'm not really a “maker” type.", "conf"], ["Nobody told me we could use the laser cutter.", "acc"],
+    ["What if I break something expensive?", "conf"], ["My roommate showed me the 3D printer.", "acc"],
+    ["Everyone else already seems to know CAD.", "conf"], ["The open hours clash with my job.", "acc"],
+  ];
+  const SPOTS = [[12, 58], [30, 30], [47, 66], [63, 34], [78, 62], [88, 28]];
+  const floor = $("#lab-floor"), bubble = $("#lab-bubble"), heardEl = $("#lab-heard");
+  let heard = new Set();
+  const person = (i) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "lab__person"; b.dataset.i = i;
+    b.setAttribute("aria-label", `Listen to student ${i + 1}`);
+    b.innerHTML = '<svg viewBox="0 0 40 56" aria-hidden="true"><circle cx="20" cy="12" r="9"/><path d="M5 54c0-12 6-22 15-22s15 10 15 22z"/></svg>';
+    b.style.left = SPOTS[i][0] + "%"; b.style.top = SPOTS[i][1] + "%"; b.style.animationDelay = `${i * -0.7}s`;
+    b.addEventListener("click", () => {
+      if (!heard.has(i)) addXP(10, b);
+      heard.add(i); b.classList.add("is-heard");
+      bubble.textContent = QUOTES[i][0];
+      bubble.style.left = Math.min(70, Math.max(4, SPOTS[i][0] - 12)) + "%";
+      bubble.style.top = Math.max(2, SPOTS[i][1] - 26) + "%";
+      bubble.classList.remove("is-on"); void bubble.offsetWidth; bubble.classList.add("is-on");
+      heardEl.textContent = `${heard.size} / 6 heard`;
+      if (heard.size === 6) complete(0, "6 people heard. Now find the pattern.");
+    });
+    return b;
+  };
+  SPOTS.forEach((_, i) => floor.appendChild(person(i)));
+
+  // 02 Synthesize
+  const pile = $("#lab-pile"), lanes = $$(".lab__lane", lab), sortedEl = $("#lab-sorted"), insight = $("#lab-insight");
+  let picked = null, sorted = 0;
+  const buildPile = () => {
+    pile.innerHTML = ""; sorted = 0; picked = null; insight.classList.remove("is-on");
+    lanes.forEach((l) => ($("div", l).innerHTML = ""));
+    sortedEl.textContent = "0 / 6 sorted";
+    [...QUOTES.keys()].sort(() => Math.random() - 0.5).forEach((i) => {
+      const n = document.createElement("button");
+      n.type = "button"; n.className = "lab__note"; n.textContent = QUOTES[i][0]; n.dataset.t = QUOTES[i][1];
+      n.style.setProperty("--r", `${(Math.random() * 6 - 3).toFixed(1)}deg`);
+      n.addEventListener("click", () => { $$(".lab__note", pile).forEach((x) => x.classList.toggle("is-picked", x === n && !n.classList.contains("is-picked"))); picked = n.classList.contains("is-picked") ? n : null; lab.classList.toggle("is-picking", !!picked); });
+      pile.appendChild(n);
+    });
+  };
+  lanes.forEach((l) => l.addEventListener("click", () => {
+    if (!picked) { l.animate([{ transform: "translateX(-3px)" }, { transform: "translateX(3px)" }, { transform: "none" }], { duration: 200 }); return; }
+    if (picked.dataset.t !== l.dataset.t) { picked.animate([{ transform: "rotate(-4deg)" }, { transform: "rotate(4deg)" }, { transform: "none" }], { duration: 260 }); toast("Hmm, re-read that one. −5 XP"); addXP(-5); return; }
+    addXP(15, l);
+    const chip = document.createElement("span"); chip.textContent = picked.textContent; $("div", l).appendChild(chip);
+    picked.remove(); picked = null; lab.classList.remove("is-picking"); sorted++;
+    sortedEl.textContent = `${sorted} / 6 sorted`;
+    if (sorted === 6) { insight.classList.add("is-on"); complete(1, "Two themes, one insight."); }
+  }));
+
+  // 03 Make
+  const hold = $("#lab-hold"), fill = $("#lab-buildfill"), frames = $$(".lab__frames img", lab), labels = $$(".lab__buildbar span", lab);
+  let raf, t0, prog = 0;
+  const showBuild = (p) => {
+    fill.style.transform = `scaleX(${p})`;
+    const f = p >= 1 ? 2 : p >= 0.5 ? 1 : 0;
+    frames.forEach((im) => im.classList.toggle("is-on", +im.dataset.f === f));
+    labels.forEach((l) => l.classList.toggle("is-on", +l.dataset.l <= f));
+  };
+  const startHold = (e) => {
+    e.preventDefault(); if (done[2]) return;
+    t0 = performance.now() - prog * 2200;
+    const f = (t) => { prog = Math.min(1, (t - t0) / 2200); showBuild(prog); if (prog < 1) raf = requestAnimationFrame(f); else { hold.textContent = "Built ✓"; addXP(40, hold); burst(hold.getBoundingClientRect().left + 60, hold.getBoundingClientRect().top, 8); complete(2, "Sketch → CAD → working prototype."); } };
+    raf = requestAnimationFrame(f);
+  };
+  const stopHold = () => cancelAnimationFrame(raf);
+  hold.addEventListener("pointerdown", startHold);
+  ["pointerup", "pointerleave", "pointercancel"].forEach((ev) => hold.addEventListener(ev, stopHold));
+  hold.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); prog = 1; showBuild(1); hold.textContent = "Built ✓"; if (!done[2]) addXP(40, hold); complete(2, "Sketch → CAD → working prototype."); } });
+
+  // 04 Measure (simulated readings around the real averages)
+  const AVG = { ctrl: 69.7, hex: 58.3 }, MIN = 55, MAX = 72;
+  const run = $("#lab-run"), trialsEl = $("#lab-trials"), result = $("#lab-result");
+  let trial = 0, jit = [];
+  const x = (v) => ((v - MIN) / (MAX - MIN)) * 100;
+  const resetExp = () => {
+    trial = 0; const j = +(Math.random() * 0.8 + 0.3).toFixed(1); jit = [j, -j, 0].sort(() => Math.random() - 0.5);
+    $$(".lab__row", lab).forEach((r) => { $(".lab__scale", r).innerHTML = ""; $("b", r).textContent = "–"; });
+    trialsEl.textContent = "0 / 3 trials"; result.textContent = ""; result.classList.remove("is-on"); run.disabled = false; run.textContent = "▶ Run trial";
+  };
+  run.addEventListener("click", () => {
+    if (trial >= 3) return;
+    const t = trial++;
+    $$(".lab__row", lab).forEach((r) => {
+      const v = AVG[r.dataset.r] + jit[t] * (r.dataset.r === "ctrl" ? 1 : 0.7);
+      const dot = document.createElement("i"); dot.style.left = x(v) + "%"; dot.title = `${v.toFixed(1)} dB`;
+      $(".lab__scale", r).appendChild(dot);
+      $("b", r).textContent = `${v.toFixed(1)} dB`;
+    });
+    trialsEl.textContent = `${trial} / 3 trials`;
+    addXP(20, run);
+    if (trial === 3) {
+      $$(".lab__row", lab).forEach((r) => { $("b", r).textContent = `avg ${AVG[r.dataset.r]} dB`; const m = document.createElement("u"); m.style.left = x(AVG[r.dataset.r]) + "%"; $(".lab__scale", r).appendChild(m); });
+      result.innerHTML = "<b>−11.4 dB</b> quieter with the honeycomb lattice. Intuition was a hypothesis; the data settled it.";
+      result.classList.add("is-on"); run.disabled = true; run.textContent = "3 trials done";
+      complete(3, "−11.4 dB. The data settled it.");
+    }
+  });
+
+  const reset = () => {
+    done.fill(false); xp = 0; xpEl.textContent = 0; xpBar.style.transform = "scaleX(0)";
+    heard = new Set(); $$(".lab__person", lab).forEach((p) => p.classList.remove("is-heard")); bubble.classList.remove("is-on"); heardEl.textContent = "0 / 6 heard";
+    buildPile(); prog = 0; showBuild(0); hold.textContent = "Hold to build"; resetExp();
+  };
+  reset(); go(0);
 }
 
 /* Autoplay case-study videos only while visible */

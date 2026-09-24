@@ -229,6 +229,11 @@
             </a>
           </li>
         </ul>
+        <div class="extra extra--work reveal">
+          <span class="mono extra__label">Extra work · industry projects</span>
+          <a class="xrow xrow--calidus" href="work/calidus.html"><span class="mono xrow__i">E1</span><span class="xrow__t">Calidus<em>pharma stability chamber</em></span><span class="xrow__n">−67%</span></a>
+              <a class="xrow xrow--godrej" href="work/godrej.html"><span class="mono xrow__i">E2</span><span class="xrow__t">Godrej<em>gamers without gaming chairs</em></span><span class="xrow__n">93.6%</span></a>
+        </div>
       </div>
       <div class="work-preview" aria-hidden="true"></div>
     </section>
@@ -346,59 +351,61 @@
             <span class="mono">How I work</span>
             <h2 class="h2 split">Curiosity, <span class="serif">with a method.</span></h2>
           </div>
-          <div class="mv-bar"><span class="mono" id="mv-count">0 / 4 moves flipped</span><div class="mv-bar__track"><i id="mv-fill"></i></div><button type="button" class="mono mv-bar__all" id="mv-all">Flip all</button></div>
-          <div class="mvs reveal">
-            <div class="mv" data-mv="01">
-              <button type="button" class="mv__front" aria-expanded="false" aria-controls="mv-01">
-                <span class="mono">01</span>
-                <svg viewBox="0 0 48 48" width="44" height="44" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="6"/><path d="M4 24s7-12 20-12 20 12 20 12-7 12-20 12S4 24 4 24z"/></svg>
-                <h3>Immerse</h3><p>Watch before asking.</p><span class="mv__cue mono">Flip for proof ↻</span>
-              </button>
-              <div class="mv__back" id="mv-01">
-                <span class="mono">01 · Immerse · in practice</span>
-                <p>I start where people already are: 1,910 students surveyed across two rounds before a single scale item was written.</p>
-                <a href="work/idetc.html">See the MSES survey →</a>
-                <button type="button" class="mv__close mono" aria-label="Flip back">↺ flip back</button>
-              </div>
+          <p class="lede reveal lab-lede">Don't read about my process. Run a tiny study with it: four moves, about a minute.</p>
+          <div class="lab reveal" id="lab">
+            <ol class="lab__track" aria-label="The four moves">
+              <li><button type="button" data-go="0" aria-current="step"><i>01</i><b>Immerse</b><small>MSES</small></button></li>
+              <li><button type="button" data-go="1"><i>02</i><b>Synthesize</b><small>Godrej</small></button></li>
+              <li><button type="button" data-go="2"><i>03</i><b>Make</b><small>Totsecure</small></button></li>
+              <li><button type="button" data-go="3"><i>04</i><b>Measure</b><small>Lattices</small></button></li>
+            </ol>
+            <div class="lab__stage">
+              <section class="lab__step is-on" data-step="0" aria-label="Immerse">
+                <header><h3>Watch before asking.</h3><p>Tap the students in this makerspace to hear what they'd tell you. <b class="lab__pill" id="lab-heard">0 / 6 heard</b></p></header>
+                <div class="lab__floor" id="lab-floor">
+                  <span class="lab__zone z1">3D printers</span><span class="lab__zone z2">Laser cutter</span><span class="lab__zone z3">Workbench</span>
+                  <div class="lab__bubble" id="lab-bubble" aria-live="polite"></div>
+                </div>
+                <p class="lab__fine mono">Illustrative quotes, in the spirit of what the MSES measures</p>
+              </section>
+              <section class="lab__step" data-step="1" aria-label="Synthesize">
+                <header><h3>Patterns, not anecdotes.</h3><p>Pick a note, then drop it in the theme it belongs to. <b class="lab__pill" id="lab-sorted">0 / 6 sorted</b></p></header>
+                <div class="lab__sort">
+                  <div class="lab__pile" id="lab-pile"></div>
+                  <div class="lab__lanes">
+                    <button type="button" class="lab__lane" data-t="conf"><span class="mono">Theme A</span><b>Confidence</b><div></div></button>
+                    <button type="button" class="lab__lane" data-t="acc"><span class="mono">Theme B</span><b>Access</b><div></div></button>
+                  </div>
+                </div>
+                <p class="lab__insight" id="lab-insight">Insight: <b>background shapes confidence before anyone touches a tool</b>, so the fix is onboarding and access, not just more machines.</p>
+              </section>
+              <section class="lab__step" data-step="2" aria-label="Make">
+                <header><h3>Prototype rough, test early.</h3><p>Press and hold to build Totsecure, from sketch to working lock.</p></header>
+                <div class="lab__build" id="lab-build">
+                  <div class="lab__frames">
+                    <img data-f="0" src="assets/img/totsecure-sketches.webp" alt="Pencil sketches of latch mechanisms" loading="lazy">
+                    <img data-f="1" src="assets/img/totsecure-render.webp" alt="CAD render of the lock under a cabinet" loading="lazy">
+                    <img data-f="2" src="assets/img/totsecure-prototype-crop.webp" alt="The working 3D-printed prototype, opened up" loading="lazy">
+                  </div>
+                  <div class="lab__buildbar"><span data-l="0">Sketch</span><span data-l="1">CAD</span><span data-l="2">Working prototype</span><i id="lab-buildfill"></i></div>
+                  <button type="button" class="lab__hold" id="lab-hold">Hold to build</button>
+                </div>
+              </section>
+              <section class="lab__step" data-step="3" aria-label="Measure">
+                <header><h3>Let data settle it.</h3><p>Play a tone through the enclosure and read the meter. Three trials each. <b class="lab__pill" id="lab-trials">0 / 3 trials</b></p></header>
+                <div class="lab__exp">
+                  <div class="lab__row" data-r="ctrl"><span>No lattice <small class="mono">control</small></span><div class="lab__scale"></div><b>–</b></div>
+                  <div class="lab__row" data-r="hex"><span>Honeycomb <small class="mono">lattice</small></span><div class="lab__scale"></div><b>–</b></div>
+                  <div class="lab__axis mono"><span>55 dB</span><span>quieter ←</span><span>72 dB</span></div>
+                  <button type="button" class="lab__run" id="lab-run">▶ Run trial</button>
+                  <p class="lab__result" id="lab-result"></p>
+                </div>
+              </section>
             </div>
-            <div class="mv" data-mv="02">
-              <button type="button" class="mv__front" aria-expanded="false" aria-controls="mv-02">
-                <span class="mono">02</span>
-                <svg viewBox="0 0 48 48" width="44" height="44" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="20" height="14" rx="2"/><rect x="20" y="18" width="20" height="14" rx="2"/><rect x="10" y="28" width="20" height="12" rx="2"/></svg>
-                <h3>Synthesize</h3><p>Patterns, not anecdotes.</p><span class="mv__cue mono">Flip for proof ↻</span>
-              </button>
-              <div class="mv__back" id="mv-02">
-                <span class="mono">02 · Synthesize · in practice</span>
-                <p>90 survey responses and 10 interviews became 4 personas and 3 design briefs, one per price tier.</p>
-                <a href="work/godrej.html">See the Godrej personas →</a>
-                <button type="button" class="mv__close mono" aria-label="Flip back">↺ flip back</button>
-              </div>
-            </div>
-            <div class="mv" data-mv="03">
-              <button type="button" class="mv__front" aria-expanded="false" aria-controls="mv-03">
-                <span class="mono">03</span>
-                <svg viewBox="0 0 48 48" width="44" height="44" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 38 30 18M26 14l8 8M30 10l8 8-4 4-8-8zM10 38l-2 4 4-2"/></svg>
-                <h3>Make</h3><p>Prototype rough, test early.</p><span class="mv__cue mono">Flip for proof ↻</span>
-              </button>
-              <div class="mv__back" id="mv-03">
-                <span class="mono">03 · Make · in practice</span>
-                <p>A 3D-printed, ESP32-driven child lock and its app, tested with the people who would install it.</p>
-                <a href="work/totsecure.html">See the Totsecure build →</a>
-                <button type="button" class="mv__close mono" aria-label="Flip back">↺ flip back</button>
-              </div>
-            </div>
-            <div class="mv" data-mv="04">
-              <button type="button" class="mv__front" aria-expanded="false" aria-controls="mv-04">
-                <span class="mono">04</span>
-                <svg viewBox="0 0 48 48" width="44" height="44" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 42h36M12 36V24M20 36V14M28 36V28M36 36V8"/></svg>
-                <h3>Measure</h3><p>Let data settle it.</p><span class="mv__cue mono">Flip for proof ↻</span>
-              </button>
-              <div class="mv__back" id="mv-04">
-                <span class="mono">04 · Measure · in practice</span>
-                <p>Two UI versions, 5 real tasks, NASA-TLX and time on task: a study kit to put numbers on habit.</p>
-                <a href="work/habit.html">See the habit study →</a>
-                <button type="button" class="mv__close mono" aria-label="Flip back">↺ flip back</button>
-              </div>
+            <div class="lab__foot">
+              <span class="mono" id="lab-status">Move 1 of 4</span><span class="lab__xp" aria-live="polite"><b id="lab-xp">0</b> XP<i><em id="lab-xpbar"></em></i></span>
+              <a class="lab__proof" id="lab-proof" href="work/idetc.html">See it in the MSES study →</a>
+              <button type="button" class="lab__next" id="lab-next" disabled>Next move →</button>
             </div>
           </div>
       </div>
@@ -411,33 +418,32 @@
           <span class="sec-num" aria-hidden="true">06</span>
           <span class="mono">Field notes</span>
           <h2 class="h2 split">What my research <span class="serif">taught me.</span></h2>
-          <p class="lede reveal">Real findings from my projects, scattered like a synthesis wall. Drag them around, then hit <b>Cluster</b> to see the affinity map I'd make from them.</p>
+          <p class="lede reveal">Real findings from my projects. Drag them, then hit <b>Cluster</b>.</p>
         </div>
         <div class="board-wrap reveal">
           <div class="board-bar">
-            <span class="mono">Synthesis wall · 11 notes · 5 projects</span>
+            <span class="mono">Synthesis wall · 10 notes · 5 projects</span>
             <div class="board-actions">
               <button class="btn st-7" data-board="scatter">Scatter</button>
               <button class="btn btn--accent st-7" data-board="cluster">Cluster into themes</button>
             </div>
           </div>
           <div class="board">
-            <span class="cluster-label" data-theme="habits">Design with existing habits</span>
-            <span class="cluster-label" data-theme="friction">Remove friction</span>
-            <span class="cluster-label" data-theme="safety">Hygiene &amp; safety first</span>
+            <span class="cluster-label" data-theme="habits">Design for real habits</span>
+            <span class="cluster-label" data-theme="friction">Friction hides in the task</span>
+            <span class="cluster-label" data-theme="safety">Safety is a UX feature</span>
             <span class="cluster-label" data-theme="measure">Measure, don't assume</span>
 
-            <div class="sticky" data-p="calidus" data-theme="friction">A confusing HMI led directly to wrong temperature and humidity settings.<small>Calidus · task analysis</small></div>
-            <div class="sticky" data-p="dfam" data-theme="measure">Not every lattice helps. IsoTruss made things 3.3 dB louder.<small>DFAM · experiment</small></div>
-            <div class="sticky" data-p="totsecure" data-theme="safety">A lock parents can't override in an emergency is a hazard, not a feature.<small>Totsecure · requirement</small></div>
-            <div class="sticky" data-p="idetc" data-theme="measure">Existing self-efficacy scales missed the actual process of making.<small>MSES · literature review</small></div>
-            <div class="sticky" data-p="totsecure" data-theme="habits">Parents want safety actions they can do fast, not another system to manage.<small>Totsecure · persona</small></div>
-            <div class="sticky" data-p="calidus" data-theme="friction">Repair technicians fought the wiring. Redesigned dismantling cut assembly from 15 steps to 5.<small>Calidus · interviews</small></div>
-            <div class="sticky" data-p="calidus" data-theme="safety">Dead spaces, visible hinges and joints made chambers hard to clean.<small>Calidus · site visit</small></div>
-            <div class="sticky" data-p="idetc" data-theme="measure">Confidence varies with background, so segment before you generalize.<small>MSES · IRT</small></div>
-            <div class="sticky" data-p="godrej" data-theme="habits">90.7% of people game regularly, yet 93.6% have no gaming chair. The gap is the brief.<small>Godrej · survey</small></div>
-            <div class="sticky" data-p="calidus" data-theme="habits">Technicians follow shutdown steps from memory because labels don't help.<small>Calidus · task analysis</small></div>
-            <div class="sticky" data-p="totsecure" data-theme="friction">“I just need to know what's most dangerous right now, and fix it fast.”<small>Totsecure · Amy, persona</small></div>
+            <div class="sticky" data-p="calidus" data-theme="friction">A confusing screen, not the user, caused wrong settings.<small>Calidus · task analysis</small></div>
+            <div class="sticky" data-p="dfam" data-theme="measure">One lattice made it 3.3 dB louder. Intuition is a hypothesis.<small>DFAM · experiment</small></div>
+            <div class="sticky" data-p="totsecure" data-theme="safety">A lock you can't override in an emergency is a hazard.<small>Totsecure · requirements</small></div>
+            <div class="sticky" data-p="idetc" data-theme="measure">Off-the-shelf scales missed making. So I built one.<small>MSES · literature review</small></div>
+            <div class="sticky" data-p="totsecure" data-theme="friction">Parents don't want more features. They want what's dangerous, now.<small>Totsecure · persona</small></div>
+            <div class="sticky" data-p="calidus" data-theme="friction">Fixing the wiring cut assembly from 15 steps to 5.<small>Calidus · technician interviews</small></div>
+            <div class="sticky" data-p="calidus" data-theme="safety">Hinges and dead spaces trap dirt. Clean is a safety spec.<small>Calidus · site visit</small></div>
+            <div class="sticky" data-p="idetc" data-theme="measure">Averages hid who felt less confident. Segment first.<small>MSES · IRT</small></div>
+            <div class="sticky" data-p="godrej" data-theme="habits">90.7% game. 93.6% own no gaming chair. The gap is the brief.<small>Godrej · survey</small></div>
+            <div class="sticky" data-p="calidus" data-theme="habits">People follow steps from memory when labels fail them.<small>Calidus · task analysis</small></div>
           </div>
           <div class="board-legend" aria-hidden="true">
             <span><i class="st-24"></i>Totsecure</span>
@@ -464,7 +470,9 @@
               <figure class="polaroid polaroid--logo"><div class="logo-story"><img src="assets/img/logo.webp" alt="Shreya's logo" loading="lazy" width="256" height="256"><p><span lang="mr">श</span><small>first letter of my first name, in my mother tongue</small></p><p><span>H</span><small>first letter of my last name, in English</small></p></div><figcaption>my mark: श + H</figcaption></figure>
               <figure class="polaroid"><img src="assets/img/totsecure-prototype-crop.webp" alt="The working Totsecure prototype, opened up to show its electronics" loading="lazy" width="800" height="800"><figcaption>Totsecure, opened up</figcaption></figure>
               <figure class="polaroid"><img src="assets/img/dfam-rig-crop.webp" alt="A phone playing a test tone beside an Apple Watch reading 69 dB, from the lattice acoustics experiment" loading="lazy" width="620" height="620"><figcaption>69 dB, measured</figcaption></figure>
-              <figure class="polaroid"><img src="assets/img/shreya-lab.webp" alt="Shreya at work in the lab" loading="lazy" width="750" height="793"><figcaption>Whiteboard season</figcaption></figure>
+              <figure class="polaroid polaroid--book"><div class="pbook" aria-hidden="true"><i></i><i></i></div><figcaption>Phantom limb pain, an editorial</figcaption></figure>
+              <figure class="polaroid"><img src="assets/img/quest-photo.webp" alt="A lit-up Ganesh pandal at night, photographed by Shreya" loading="lazy" width="1000" height="842"><figcaption>Behind my camera</figcaption></figure>
+              <figure class="polaroid"><img src="assets/img/quest-dance.webp" alt="Shreya performing Bharatanatyam on stage in a red and gold costume" loading="lazy" width="1000" height="841"><figcaption>Bharatanatyam, on stage</figcaption></figure>
               <figure class="polaroid"><img src="assets/img/about.webp" alt="Shreya smiling on the marble staircase of the New York Public Library" width="900" height="1200"><figcaption>Off duty, still curious</figcaption></figure>
             </div>
             <span class="sticker sticker--violet sk-1">Bharatanatyam dancer</span>
@@ -476,6 +484,7 @@
             <blockquote class="about-quote reveal">“Ever since childhood, stories have held me in their grip. My storytelling grew from daydreaming into writing, dance and doodling, and eventually into prototypes, designs and research.”</blockquote>
             <p class="reveal">I trained as an industrial designer (B.Des, MIT Institute of Design, Pune) and spent five internships making products, the kind that end up in usability reports. <span class="muted">That's why I moved toward research.</span></p>
             <p class="reveal">Now I'm finishing an M.S. in Engineering Design at Penn State ('26), studying how people's backgrounds shape their confidence and decisions. I've taught 520+ first-year engineers to prototype and presented at ASME IDETC-CIE twice.</p>
+            <p class="reveal">Off the clock: Bharatanatyam (arangetram and Visharad), photography, and an editorial on phantom limb pain. <span class="muted">Shuffle the stack to see them.</span></p>
             <p class="reveal">Looking for <span class="accent">UX Researcher / UX Designer</span> roles where research and making sit at the same table.</p>
             <div class="about-stats reveal">
               <div><b>5+</b><span>design roles</span></div>
@@ -502,51 +511,18 @@
       </div>
     </section>
 
-    <!-- SIDE QUESTS -->
-    <section class="section st-5" id="side-quests">
-      <div class="wrap">
-        <div class="section-head">
-          <span class="sec-num" aria-hidden="true">08</span>
-          <span class="mono">Side quests</span>
-          <h2 class="h2 split">When I'm not <span class="serif">asking why.</span></h2>
-          <p class="lede reveal">What keeps me curious off the clock, plus a little extra work.</p>
-        </div>
-        <div class="quests">
-          <article class="quest quest--dance reveal">
-            <span class="mono">001 · Dance career</span>
-            <div class="quest__art quest__photo"><img src="assets/img/quest-dance.webp" alt="Shreya performing Bharatanatyam on stage in a red and gold costume" loading="lazy" width="1000" height="841"></div>
-            <h3>Bharatanatyam</h3>
-            <p>Arangetram, a 4-year diploma (T.M.V, Pune) and Visharad. Rehearsal taught me patience, rhythm, and how to read a room.</p>
-          </article>
-          <article class="quest quest--photo reveal">
-            <span class="mono">002 · Photography</span>
-            <div class="quest__art quest__photo"><img src="assets/img/quest-photo.webp" alt="A lit-up Ganesh pandal at night, photographed by Shreya" loading="lazy" width="1000" height="842"></div>
-            <h3>Pandals, streets, staircases</h3>
-            <p>Noticing details is the same muscle as field research. I just point a camera instead of a clipboard.</p>
-          </article>
-          <article class="quest quest--book reveal">
-            <span class="mono">003 · Personal project</span>
-            <div class="quest__art quest__book" aria-hidden="true"><i></i><i></i></div>
-            <h3>Phantom limb pain</h3>
-            <p>An editorial publication exploring phantom limb pain, turning research into a story people can hold.</p>
-          </article>
-          <article class="quest quest--extra reveal">
-            <span class="mono">004 · Extra work</span>
-            <h3>Industry projects</h3>
-            <p>Design work from my internships, with research at the front.</p>
-            <div class="extra">
-              <a class="xrow xrow--calidus" href="work/calidus.html"><span class="mono xrow__i">E1</span><span class="xrow__t">Calidus<em>pharma stability chamber</em></span><span class="xrow__n">−67%</span></a>
-              <a class="xrow xrow--godrej" href="work/godrej.html"><span class="mono xrow__i">E2</span><span class="xrow__t">Godrej<em>gamers without gaming chairs</em></span><span class="xrow__n">93.6%</span></a>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
     <!-- CONTACT -->
     <section class="contact" id="contact">
       <div class="wrap">
-        <span class="mono muted"><span class="sec-num sec-num--inline" aria-hidden="true">09</span>Contact</span>
+        <span class="mono muted"><span class="sec-num sec-num--inline" aria-hidden="true">08</span>Contact</span>
+        <svg class="contact__doodle" viewBox="0 0 420 360" aria-hidden="true">
+          <path class="dd-loop" d="M78 292 C 150 300, 190 250, 170 200 C 150 150, 90 170, 110 210 C 130 250, 230 230, 270 160 C 300 108, 330 80, 372 62" />
+          <g class="dd-env" transform="translate(28 262) rotate(-8)"><rect width="104" height="70" rx="6"/><path d="M4 6 52 42 100 6"/><path class="dd-heart" d="M52 58c-6-5-14-9-14-16a7 7 0 0 1 14-3 7 7 0 0 1 14 3c0 7-8 11-14 16z"/></g>
+          <g class="dd-plane"><path d="M0 0 44 16 0 32 9 16z"/><path d="M9 16h35"/></g>
+          <path class="dd-q" d="M300 250c0-18 26-20 26-36 0-10-8-17-19-17s-18 6-19 14"/><circle class="dd-dot" cx="300" cy="272" r="4"/>
+          <path class="dd-star" d="M360 180l5 12 12 5-12 5-5 12-5-12-12-5 12-5z"/><path class="dd-star s2" d="M236 300l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/>
+          <path class="dd-scribble" d="M200 40c14-8 28 8 42 0s28 8 42 0 28 8 42 0"/>
+        </svg>
         <h2 class="contact__big split">What's on <span class="serif">your mind?</span></h2>
         <p class="lede reveal">Let's discuss design, books, opportunities and conspiracy theories.</p>
         <div class="contact__row reveal">
@@ -561,7 +537,7 @@
         <footer class="footer">
           <div class="footer__name">Shreya Hirpathak</div>
           <div><small class="mono">Based in</small>State College, PA, USA</div>
-          <div><small class="mono">© <span data-year>2026</span></small>Press <kbd>?</kbd> for a question. Or type “hire”.</div>
+          <div><small class="mono">© <span data-year>2026</span></small>Designed and researched by me, one question at a time.</div>
         </footer>
       </div>
     </section>
