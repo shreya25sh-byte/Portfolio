@@ -2453,5 +2453,5 @@ button[aria-pressed="true"] .rq__w i.on { background: #111; }
 /* Nav: separate the items with a pink dot so "Work · Experience" never reads as one phrase */
 .nav__links { gap: 0 !important; }
 .nav__links li { display: flex; align-items: center; }
-.nav__links li + li::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: #ff3fa4; margin: 0 4px; flex: none; }
+.nav__links li + li::before { content: ""; width: 1px; height: 14px; background: var(--text); opacity: .35; margin: 0 6px; flex: none; }
 @media (max-width: 900px) { .nav__links li + li::before { display: none; } }
