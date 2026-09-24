@@ -1545,3 +1545,14 @@ if (lattoy) {
   };
   $$(".lattoy__chips button", lattoy).forEach((b) => b.addEventListener("click", () => pick(b)));
 }
+
+/* Totsecure cover: gentle tilt toward the cursor */
+const tsCover = $("#ts-cover");
+if (tsCover && finePointer && !reduced) {
+  tsCover.addEventListener("pointermove", (e) => {
+    const r = tsCover.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+    tsCover.style.setProperty("--ry", `${(x - 0.5) * 6}deg`); tsCover.style.setProperty("--rx", `${(0.5 - y) * 5}deg`);
+    tsCover.style.setProperty("--mx", `${x * 100}%`); tsCover.style.setProperty("--my", `${y * 100}%`);
+  });
+  tsCover.addEventListener("pointerleave", () => ["--rx", "--ry"].forEach((k) => tsCover.style.setProperty(k, "0deg")));
+}
