@@ -36,6 +36,7 @@ work/godrej.html      Extra · Godrej Interio gaming-chair research (survey funn
 study/index.html      Before/after habit study kit (runs the A/B tasks and exports CSV)
 assets/css/style.css  All styles
 assets/js/main.js     All interactions (no dependencies)
+assets/js/jenga3d.js  3D Design Jenga (three.js + cannon-es, vendored in assets/js/vendor, loaded lazily)
 assets/img/           Images and renders
 assets/Shreya_Hirpathak_Resume.pdf
 ```

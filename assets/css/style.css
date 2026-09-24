@@ -2441,3 +2441,8 @@ button[aria-pressed="true"] .rq__w i.on { background: #111; }
 .jenga__scene { height: 480px; }
 .jenga__tower { top: 62%; }
 .jenga__tower { top: 55%; } .jenga__floor { top: 86%; }
+/* Design Jenga: real 3D canvas replaces the CSS tower once loaded */
+.jenga__canvas { position: absolute; inset: 0; width: 100% !important; height: 100% !important; display: block; cursor: grab; touch-action: pan-y; }
+.jenga.is-3d .jenga__tower, .jenga.is-3d .jenga__floor { display: none; }
+.jenga.is-3d .jenga__scene { height: 520px; background: radial-gradient(ellipse at 50% 75%, #33281f 0%, #161616 62%); }
+@media (max-width: 640px) { .jenga.is-3d .jenga__scene { height: 440px; } }

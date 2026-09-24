@@ -1348,9 +1348,30 @@ if (jenga) {
   scene.addEventListener("pointerdown", (e) => { drag = e.clientX; moved = false; });
   window.addEventListener("pointermove", (e) => { if (drag === null) return; const dx = e.clientX - drag; if (Math.abs(dx) > 4) moved = true; ry += dx * 0.5; drag = e.clientX; spin(); });
   window.addEventListener("pointerup", () => { drag = null; setTimeout(() => (moved = false), 0); });
-  $$("[data-rot]", jenga).forEach((b) => b.addEventListener("click", () => { ry += 45 * b.dataset.rot; spin(); }));
-  $("#jg-rebuild").addEventListener("click", () => { build(); spin(); });
+  let three = null;
+  $$("[data-rot]", jenga).forEach((b) => b.addEventListener("click", () => { if (three) return three.rotate(+b.dataset.rot); ry += 45 * b.dataset.rot; spin(); }));
+  $("#jg-rebuild").addEventListener("click", () => { if (three) return three.rebuild(); build(); spin(); });
   build(); spin();
+
+  // Upgrade to real 3D + physics when the section is near (the CSS tower stays as the fallback)
+  const webgl = (() => { try { return !!document.createElement("canvas").getContext("webgl2"); } catch { return false; } })();
+  if (webgl) {
+    const io3 = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      io3.disconnect();
+      import(new URL("assets/js/jenga3d.js", document.baseURI).href)
+        .then((m) => {
+          three = m.default(jenga, {
+            CORE, FLUFF, say,
+            onScore: (n) => (scoreEl.textContent = n),
+            onEnd: (won) => (won ? confetti(50) : null),
+          });
+          jenga.classList.add("is-3d");
+        })
+        .catch(() => {});
+    }, { rootMargin: "400px" });
+    io3.observe(jenga);
+  }
 }
 
 /* Autoplay case-study videos only while visible */
