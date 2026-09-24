@@ -2490,19 +2490,11 @@ body.has-cursor, body.has-cursor * { cursor: auto; }
 .hero-photo.is-drawn .doodles text { opacity: 1; }
 .hero__caption { max-width: 520px; margin-left: auto; }
 
-/* Flat surfaces: no hard offset shadows, tapes, tilts */
-.widget, .insight, .tldr > div, .likert, .impact, .board-wrap, .hmi-card, .xp-tabs, .method, .persona, .reqs__needs,
-.table-scroll, .datatable-wrap, .lattoy, .jenga, .ts-cover, .featured__side, .btn, .chip, .about-stats, .tapp--solo, .ht__phone,
-.fig__frame, .cover, .next, .tldr-panel, .hmi { box-shadow: none !important; }
-.insight:hover, .method:hover, .work__link:hover .work__thumb { transform: none !important; box-shadow: none !important; }
-.work__thumb { box-shadow: none !important; border-width: 1px !important; }
+/* Tapes stay off; the colourful offset shadows stay */
 .featured__card::before, .talk::before, .lens::before, .fig__frame::before, .cover::before { display: none !important; }
-.btn:hover { transform: none; }
-
 /* Headings: italic serif accent without the highlighter bar */
 .h2 .serif::after, .contact__big .serif::after, .featured__body h3 .serif::after, .case-hero__sub .serif::after { display: none !important; }
 .h2 .serif, .contact__big .serif, .case-hero__sub .serif, .hero__title .serif { background: none !important; color: var(--accent-ink-strong, #c4127a) !important; }
-.case-hero h1, .next:hover .next__title, .footer__name, .contact__big { text-shadow: none !important; }
 
 /* Section heads: quiet mono eyebrow, plain numbers */
 .section-head > .mono { background: none !important; color: var(--muted) !important; padding: 0 !important; }
@@ -2580,3 +2572,30 @@ ul.work .work__desc { padding-left: 0 !important; padding-right: 0 !important; d
 .hero__caption { flex-direction: column; align-items: flex-start; gap: 6px; }
 .hero__caption .lens__hint { border: 0 !important; }
 .hero-photo .doodles text { font-size: 42px; }
+/* Habit test: clearer instructions */
+.ht__big-heart { font-style: normal; font-size: 46px; line-height: 1; color: #ff3fa4; margin-bottom: 4px; }
+.ht__overlay span { text-transform: none; letter-spacing: 0; font-family: var(--f-sans); font-size: 14px; opacity: .9; max-width: 22ch; }
+.ht__go { margin-top: 12px; padding: 10px 20px; border-radius: 999px; background: #ff3fa4; color: #111; font-weight: 600; font-size: 14.5px; border: 0; cursor: pointer; }
+.ht__go:hover { background: #ff6cbc; }
+.ht__overlay.is-update .ht__big-heart { color: #fff; }
+.ht__overlay.is-update .ht__go { background: #fff; }
+.ht__steps { list-style: none; counter-reset: s; margin: 10px 0 0; padding: 0; display: grid; gap: 12px; }
+.ht__steps li { counter-increment: s; display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: start; font-size: 14.5px; line-height: 1.45; color: var(--body-ink); opacity: .55; transition: opacity .3s; }
+.ht__steps li::before { content: counter(s); width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-family: var(--f-mono); font-size: 12px; border: 1.5px solid var(--text); }
+.ht__steps li b { color: var(--text); font-weight: 600; }
+#habit-test:not(.is-running) .ht__steps li, .ht__steps li.is-now { opacity: 1; }
+.ht__steps li.is-now::before { background: #ff3fa4; border-color: #ff3fa4; color: #111; }
+.ht__hint { text-transform: none; letter-spacing: .02em; }
+.ht__verdict .ht__steps li b { display: inline; font-family: var(--f-sans); font-size: inherit; font-weight: 600; line-height: inherit; margin: 0; }
+#habit-test [hidden] { display: none !important; }
+.ht__verdict.is-done { box-shadow: none !important; }
+
+/* Colour shadows, back by request */
+ul.work .work__item { box-shadow: 6px 6px 0 var(--c, #ff3fa4); }
+ul.work .work__item:hover { box-shadow: 9px 9px 0 var(--c, #ff3fa4); transform: translate(-3px, -3px); }
+.next__title { text-shadow: 2px 2px 0 color-mix(in srgb, var(--nc, #ff3fa4) 70%, transparent); }
+.next:hover .next__title { text-shadow: 3px 3px 0 var(--nc, #ff3fa4); }
+.hero-photo { box-shadow: 8px 8px 0 #111; }
+.talks-strip { box-shadow: 5px 5px 0 #ff3fa4; }
+.work__item[data-id="idetc"] { --c: var(--idetc); } .work__item[data-id="habit"] { --c: var(--habit); }
+.work__item[data-id="totsecure"] { --c: var(--totsecure); } .work__item[data-id="dfam"] { --c: var(--dfam); }

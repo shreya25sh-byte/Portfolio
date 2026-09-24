@@ -101,15 +101,15 @@
           <h2 class="split">Feel the cost of a moved button.</h2>
           <div class="prose reveal"><p>Tap the <strong>heart</strong> 5 times, as fast as you can. Then the app ships a “redesign”: the heart is still there, but it moves to places a real redesign might put it: the header, a floating button, the tab bar, the other end of the action row.</p></div>
           <div class="widget reveal" id="habit-test">
-            <div class="widget__bar"><span class="mono" id="ht-stage">Ready · 2 rounds · 5 taps each</span><button class="btn btn--accent btn--sm" id="ht-start">Start test</button></div>
+            <div class="widget__bar"><span class="mono" id="ht-stage">Muscle-memory test · about 30 seconds</span><button class="btn btn--accent btn--sm" id="ht-start">Start test</button></div>
             <div class="widget__body ht">
               <div class="ht__left">
               <div class="ht__phone">
                 <div class="ht__screen" id="ht-screen">
-                  <div class="ht__overlay" id="ht-overlay"><b>Like 5 posts as fast as you can</b><span>Press “Start test”</span></div>
+                  <div class="ht__overlay" id="ht-overlay"><em class="ht__big-heart" aria-hidden="true">♥</em><b>Like 5 posts, fast</b><span>Tap the heart under each post</span><button type="button" class="ht__go" data-ht-go>Start round 1</button></div>
                 </div>
               </div>
-              <p class="ht__hint mono" id="ht-hint">Round 1: the heart is where it always is.</p>
+              <p class="ht__hint mono" id="ht-hint">Round 1 of 2 · the app you know</p>
               </div>
               <div class="ht__results">
                 <div class="ht__race">
@@ -117,9 +117,14 @@
                   <div class="ht__lane is-b"><span class="mono">Redesigned</span><div class="ht__track"><i id="ht-bar-b"></i></div><b id="ht-b">–</b></div>
                 </div>
                 <div class="ht__verdict" id="ht-verdict">
-                  <span class="mono">Your result</span>
-                  <b id="ht-big">?</b>
-                  <p id="ht-msg">Round 1 uses the layout your thumb knows. Round 2 is a plausible “redesign”: the heart moves to a different sensible spot on every post.</p>
+                  <span class="mono">How it works</span>
+                  <ol class="ht__steps" id="ht-steps">
+                    <li data-s="1"><span><b>Like 5 posts</b> in an app layout your thumb already knows.</span></li>
+                    <li data-s="2"><span><b>The app “updates”.</b> The heart moves to a new, sensible spot on every post.</span></li>
+                    <li data-s="3"><span><b>Like 5 more.</b> We time both rounds and compare.</span></li>
+                  </ol>
+                  <b id="ht-big" hidden>?</b>
+                  <p id="ht-msg" hidden></p>
                 </div>
               </div>
             </div>

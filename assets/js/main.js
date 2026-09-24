@@ -1424,45 +1424,57 @@ if (ht) {
     times.push(performance.now() - t0); taps++; likes++;
     el.innerHTML = IC.heartF; el.classList.add("is-liked");
     burst(e.clientX, e.clientY, 4);
-    stage.textContent = `Round ${round} · ${round === 1 ? "familiar" : "redesigned"} · ${taps}/5`;
+    stage.textContent = `Round ${round} of 2 · ${taps}/5 liked`;
     if (taps < 5) {
-      setTimeout(() => { post++; if (round === 2) nextSpot(); draw(); if (round === 2) hint.textContent = `Now: ${SPOTS[spot]}`; t0 = performance.now(); }, 180);
+      setTimeout(() => { post++; if (round === 2) nextSpot(); draw(); if (round === 2) hint.textContent = `Heart is now in ${SPOTS[spot]}`; t0 = performance.now(); }, 180);
       return;
     }
     res.push(avg(times));
     if (round === 1) {
       $("#ht-a").textContent = `${Math.round(res[0])} ms`;
-      round = 0; overlay.innerHTML = "<b>✨ New update!</b><span>We've refreshed the design</span>"; overlay.classList.add("is-on", "is-update");
-      setTimeout(() => {
-        overlay.classList.remove("is-on", "is-update"); round = 2; taps = 0; times = []; post++;
-        order = ["home", "search", "reels", "plus", "user"].sort(() => Math.random() - 0.5);
-        nextSpot(); draw(); hint.textContent = `Round 2: the heart moved to ${SPOTS[spot]}.`;
-        stage.textContent = "Round 2 · redesigned · 0/5"; t0 = performance.now();
-      }, 1500);
+      round = 0; step(2);
+      overlay.innerHTML = '<em class="ht__big-heart" aria-hidden="true">✨</em><b>App updated!</b><span>The heart has moved. Find it and like 5 more posts.</span><button type="button" class="ht__go" data-ht-go>Start round 2</button>';
+      overlay.classList.add("is-on", "is-update");
+      stage.textContent = "Round 1 done · ready for round 2";
     } else {
       round = 0; $("#ht-b").textContent = `${Math.round(res[1])} ms`;
       const mx = Math.max(...res), ratio = res[1] / res[0];
       $("#ht-bar-a").style.width = `${(res[0] / mx) * 100}%`; $("#ht-bar-b").style.width = `${(res[1] / mx) * 100}%`;
-      $("#ht-verdict").classList.add("is-done");
+      $("#ht-verdict").classList.add("is-done"); step(0);
+      $("#ht-steps").hidden = true; $("#ht-big").hidden = false; $("#ht-msg").hidden = false; $("#ht-verdict > .mono").textContent = "Your result";
       $("#ht-big").textContent = ratio >= 1.05 ? `${ratio.toFixed(1)}× slower` : "Unfazed!";
       $("#ht-msg").innerHTML = ratio >= 2 ? "Your thumb had to <b>think</b> again. That extra time is the cognitive load this study sets out to measure."
         : ratio >= 1.05 ? `You lost <b>${Math.round((ratio - 1) * 100)}%</b> of your speed to a redesign. Imagine that across every app update.`
         : "Impressive, but real redesigns move whole flows, not one icon. That's what the study measures.";
       if (ratio >= 2) confetti(30);
-      stage.textContent = "Done · try again?"; btn.textContent = "Restart"; btn.disabled = false;
-      hint.textContent = "Every spot was a sensible place for a like button. Your thumb still had to search.";
-      overlay.innerHTML = "<b>Done ✓</b><span>See your result →</span>"; overlay.classList.add("is-on");
+      stage.textContent = "Done · see your result"; btn.textContent = "Try again"; btn.disabled = false;
+      hint.textContent = "Every spot was sensible. Your thumb still had to search.";
+      overlay.innerHTML = '<em class="ht__big-heart" aria-hidden="true">✓</em><b>Done</b><span>See your result →</span><button type="button" class="ht__go" data-ht-go>Try again</button>'; overlay.classList.add("is-on");
     }
   });
   const reset = () => { spot = "row"; last = ""; order = ["home", "search", "plus", "reels", "user"]; draw(); };
-  reset(); overlay.classList.add("is-on");
-  btn.addEventListener("click", () => {
-    reset(); overlay.classList.remove("is-on");
+  const step = (n) => $$("#ht-steps li").forEach((li) => li.classList.toggle("is-now", +li.dataset.s === n));
+  const startRound1 = () => {
+    reset(); overlay.classList.remove("is-on", "is-update");
     round = 1; taps = 0; times = []; res = []; likes = 0;
     $("#ht-a").textContent = $("#ht-b").textContent = "–"; $("#ht-bar-a").style.width = $("#ht-bar-b").style.width = "0%";
-    $("#ht-verdict").classList.remove("is-done"); $("#ht-big").textContent = "…";
-    hint.textContent = "Round 1: the heart is where it always is.";
-    stage.textContent = "Round 1 · familiar · 0/5"; btn.disabled = true; t0 = performance.now();
+    $("#ht-verdict").classList.remove("is-done"); $("#ht-steps").hidden = false; $("#ht-big").hidden = true; $("#ht-msg").hidden = true;
+    $("#ht-verdict > .mono").textContent = "How it works"; step(1);
+    hint.textContent = "Round 1 of 2 · tap the heart under each post";
+    stage.textContent = "Round 1 of 2 · 0/5 liked"; btn.disabled = true; t0 = performance.now();
+  };
+  const startRound2 = () => {
+    overlay.classList.remove("is-on", "is-update"); round = 2; taps = 0; times = []; post++; step(3);
+    order = ["home", "search", "reels", "plus", "user"].sort(() => Math.random() - 0.5);
+    nextSpot(); draw(); hint.textContent = `Heart is now in ${SPOTS[spot]}`;
+    stage.textContent = "Round 2 of 2 · 0/5 liked"; t0 = performance.now();
+  };
+  reset(); overlay.classList.add("is-on");
+  btn.addEventListener("click", startRound1);
+  overlay.addEventListener("click", (e) => {
+    if (!e.target.closest("[data-ht-go]")) return;
+    e.stopPropagation();
+    if (overlay.classList.contains("is-update")) startRound2(); else startRound1();
   });
 }
 
