@@ -2377,3 +2377,4 @@ button[aria-pressed="true"] .rq__w i.on { background: #111; }
 .datatable tr.is-best td:last-child { color: #11643a; font-weight: 600; }
 .datatable tr.is-worse td:last-child { color: #b3261e; font-weight: 600; }
 .case--godrej .cover { max-width: 520px; margin-inline: auto; margin-top: 40px; }
+.bench-label { margin: 22px 0 8px; color: var(--muted); }
