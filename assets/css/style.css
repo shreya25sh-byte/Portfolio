@@ -2471,3 +2471,4 @@ button[aria-pressed="true"] .rq__w i.on { background: #111; }
 .ts-cover__chip i { width: 8px; height: 8px; border-radius: 50%; background: #3ee06a; box-shadow: 0 0 0 0 rgba(62,224,106,.6); animation: tsPing 2.2s ease-out infinite; }
 @keyframes tsPing { 70% { box-shadow: 0 0 0 8px rgba(62,224,106,0); } 100% { box-shadow: 0 0 0 0 rgba(62,224,106,0); } }
 @media (prefers-reduced-motion: reduce) { .ts-cover__led, .ts-cover__chip i { animation: none; } .ts-cover img { transform: none; } }
+.polaroid--logo .logo-story img:first-child { filter: drop-shadow(2px 2px 0 #ff3fa4) !important; }
