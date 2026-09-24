@@ -101,6 +101,7 @@
         </div>
         <ul class="work">
           <li class="work__item" data-id="idetc" data-tags="research" data-img="assets/img/idetc-slide.webp">
+            <button type="button" class="demo-btn" data-demo="idetc" aria-haspopup="dialog">▶ Try it · 20s</button>
             <a class="work__link" href="work/idetc.html" data-cursor="Read">
               <span class="work__idx mono">01</span>
               <span class="work__title">How students' backgrounds affect makerspaces<span class="serif">Makerspace Self-Efficacy Scale (MSES) · thesis</span></span>
@@ -113,6 +114,7 @@
             </a>
           </li>
           <li class="work__item" data-id="habit" data-tags="research interface" data-img="assets/img/habit-cover.webp">
+            <button type="button" class="demo-btn" data-demo="habit" aria-haspopup="dialog">▶ Try it · 20s</button>
             <a class="work__link" href="work/habit.html" data-cursor="Read">
               <span class="work__idx mono">02</span>
               <span class="work__title">Innovation vs habit<span class="serif">what does a moved button cost users?</span></span>
@@ -125,6 +127,7 @@
             </a>
           </li>
           <li class="work__item" data-id="totsecure" data-tags="interface hardware research" data-img="assets/img/totsecure-thumb.webp">
+            <button type="button" class="demo-btn" data-demo="totsecure" aria-haspopup="dialog">▶ Try it · 20s</button>
             <a class="work__link" href="work/totsecure.html" data-cursor="Read">
               <span class="work__idx mono">03</span>
               <span class="work__title">Totsecure<span class="serif">a child lock parents control remotely</span></span>
@@ -137,6 +140,7 @@
             </a>
           </li>
           <li class="work__item" data-id="dfam" data-tags="research hardware" data-img="assets/img/dfam-rig.webp">
+            <button type="button" class="demo-btn" data-demo="dfam" aria-haspopup="dialog">▶ Try it · 20s</button>
             <a class="work__link" href="work/dfam.html" data-cursor="Read">
               <span class="work__idx mono">04</span>
               <span class="work__title">Can lattices make products quieter?<span class="serif">a controlled acoustics experiment</span></span>
@@ -373,7 +377,12 @@
         </footer>
       </div>
     </section>
-  </main>
+    <dialog class="demo" id="demo" aria-labelledby="demo-title">
+    <div class="demo__head"><div><span class="mono demo__kicker" id="demo-kicker"></span><h3 id="demo-title"></h3></div><button type="button" class="demo__x" data-demo-close aria-label="Close">✕</button></div>
+    <div class="demo__body" id="demo-body"></div>
+    <div class="demo__foot"><span class="mono" id="demo-note"></span><a class="demo__link" id="demo-link" href="#">Read the case study →</a></div>
+  </dialog>
+</main>
 
   <button class="tldr-fab" data-tldr aria-haspopup="dialog"><span class="timer" aria-hidden="true"></span>30-second version</button>
   <div class="tldr-panel" role="dialog" aria-modal="true" aria-labelledby="tldr-title" aria-hidden="true">

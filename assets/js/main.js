@@ -1564,3 +1564,85 @@ if (heroPhoto) {
   heroPhoto.addEventListener("pointermove", check);
   heroPhoto.addEventListener("pointerdown", check);
 }
+
+/* Work cards: 20-second demos */
+const demo = $("#demo");
+if (demo) {
+  const body = $("#demo-body"), note = $("#demo-note"), link = $("#demo-link");
+  const HEART = '<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M12 20.5s-7.5-4.4-7.5-10A4.3 4.3 0 0 1 12 7.7a4.3 4.3 0 0 1 7.5 2.8c0 5.6-7.5 10-7.5 10z"/></svg>';
+  const DEMOS = {
+    idetc: {
+      kicker: "MSES · thesis", title: "How confident do you feel making things?", href: "work/idetc.html", note: "The real scale has 17 validated items",
+      render() {
+        const Q = [["Ideate", "…come up with an idea for something to build?"], ["Build", "…make a first prototype with a 3D printer or laser cutter?"], ["Iterate", "…fix it when the prototype fails?"]];
+        body.innerHTML = `<p class="demo__lede">How confident are you that you could…</p>` + Q.map(([d, q]) => `<div class="dq" data-d="${d}"><p>${q}</p><div class="dq__s">${[1, 2, 3, 4, 5].map((v) => `<button type="button" data-v="${v}">${v}</button>`).join("")}</div></div>`).join("") + `<div class="demo__out" hidden></div>`;
+        const ans = {};
+        $$(".dq", body).forEach((q) => $$("button", q).forEach((b) => b.addEventListener("click", () => {
+          ans[q.dataset.d] = +b.dataset.v; $$("button", q).forEach((x) => x.classList.toggle("on", x === b));
+          if (Object.keys(ans).length < 3) return;
+          const avg = (ans.Ideate + ans.Build + ans.Iterate) / 3, low = Object.entries(ans).sort((a, c) => a[1] - c[1])[0][0];
+          const out = $(".demo__out", body); out.hidden = false;
+          out.innerHTML = `<b>${avg.toFixed(1)} / 5</b><span>Your lowest phase: <strong>${low}</strong>. My thesis found confidence like this varies with students' backgrounds, so the fix is in how makerspaces welcome people, not just more machines.</span>`;
+        })));
+      },
+    },
+    habit: {
+      kicker: "Innovation vs habit", title: "Tap the heart. Then we move it.", href: "work/habit.html", note: "3 taps per round · measured in ms",
+      render() {
+        body.innerHTML = `<p class="demo__lede" id="dh-msg">Round 1: tap the <b>♥</b> 3 times, as fast as you can.</p><div class="dh__grid" id="dh-grid"></div><div class="demo__out" hidden></div>`;
+        const grid = $("#dh-grid", body), msg = $("#dh-msg", body);
+        let round = 1, taps = 0, t0, times = [[], []], pos = 7;
+        const draw = () => {
+          grid.innerHTML = Array.from({ length: 9 }, (_, i) => i === pos ? `<button type="button" class="dh__c is-heart">${HEART}</button>` : `<button type="button" class="dh__c"><i></i></button>`).join("");
+          t0 = performance.now();
+        };
+        grid.addEventListener("click", (e) => {
+          const b = e.target.closest(".dh__c"); if (!b || !round) return;
+          if (!b.classList.contains("is-heart")) { b.animate([{ transform: "translateX(-3px)" }, { transform: "translateX(3px)" }, { transform: "none" }], { duration: 180 }); return; }
+          times[round - 1].push(performance.now() - t0); taps++;
+          if (taps < 3) { if (round === 2) { let n; do n = Math.floor(Math.random() * 9); while (n === pos); pos = n; } draw(); return; }
+          if (round === 1) { round = 2; taps = 0; msg.innerHTML = "✨ <b>App updated.</b> Same heart, new spots. Tap it 3 more times."; let n; do n = Math.floor(Math.random() * 9); while (n === pos); pos = n; draw(); return; }
+          round = 0;
+          const a = times[0].reduce((x, y) => x + y) / 3, c = times[1].reduce((x, y) => x + y) / 3, r = c / a;
+          const out = $(".demo__out", body); out.hidden = false;
+          out.innerHTML = `<b>${r >= 1.05 ? r.toFixed(1) + "× slower" : "Unfazed!"}</b><span>${Math.round(a)} ms when the heart stayed put, ${Math.round(c)} ms once it moved. ${r >= 1.05 ? "That gap is the cognitive load of a redesign, which is what my study measures." : "Nice reflexes. Real redesigns move whole flows, not one icon, and that's what my study measures."}</span>`;
+        });
+        draw();
+      },
+    },
+    totsecure: {
+      kicker: "Totsecure", title: "Hold to unlock the knife drawer", href: "work/totsecure.html", note: "A deliberate hold prevents accidental unlocks",
+      render() {
+        body.innerHTML = `<div class="dt"><div class="dt__imgs"><img data-s="locked" src="assets/img/totsecure-locked.webp" alt="Totsecure locked"><img data-s="open" src="assets/img/totsecure-unlocked.webp" alt="Totsecure unlocked"></div><button type="button" class="dt__btn"><i></i><span>Hold to unlock</span></button><p class="dt__state mono">Locked · online</p></div>`;
+        const wrap = $(".dt", body), btn = $(".dt__btn", body), fill = $("i", btn), label = $("span", btn), state = $(".dt__state", body);
+        let locked = true, raf, t0;
+        const set = (l) => { locked = l; wrap.classList.toggle("is-open", !l); label.textContent = l ? "Hold to unlock" : "Hold to lock"; state.textContent = l ? "Locked · online" : "Unlocked · an adult can open it"; };
+        const start = (e) => { e.preventDefault(); t0 = performance.now(); const f = (t) => { const p = Math.min(1, (t - t0) / 700); fill.style.transform = `scaleX(${p})`; if (p < 1) raf = requestAnimationFrame(f); else { fill.style.transform = "scaleX(0)"; set(!locked); } }; raf = requestAnimationFrame(f); };
+        const stop = () => { cancelAnimationFrame(raf); fill.style.transform = "scaleX(0)"; };
+        btn.addEventListener("pointerdown", start); ["pointerup", "pointerleave", "pointercancel"].forEach((ev) => btn.addEventListener(ev, stop));
+        btn.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); set(!locked); } });
+        set(true);
+      },
+    },
+    dfam: {
+      kicker: "Lattice acoustics", title: "Which lattice makes it quieter?", href: "work/dfam.html", note: "Averages of 3 real readings each",
+      render() {
+        const L = [["No lattice", 69.7], ["Honeycomb", 58.3], ["BCC", 59.7], ["Fluorite", 64.4], ["Diamond", 65.7], ["FCC", 68.0], ["IsoTruss", 73.0]];
+        body.innerHTML = `<p class="demo__lede">Guess first, then tap each lattice to see what the meter read.</p><div class="dd__chips">${L.map(([n, v], i) => `<button type="button" data-i="${i}" ${i ? "" : 'class="on"'}>${n}</button>`).join("")}</div><div class="dd__meter"><div class="dd__bar"><i></i></div><b>69.7 dB</b><span class="mono">control</span></div>`;
+        const bar = $(".dd__bar i", body), val = $(".dd__meter b", body), tag = $(".dd__meter span", body);
+        const show = (i) => { const [n, v] = L[i], d = v - 69.7; bar.style.width = `${((v - 55) / 20) * 100}%`; bar.style.background = d > 0 ? "#d9362b" : d < -5 ? "#0b8a78" : "#111"; val.textContent = `${v.toFixed(1)} dB`; tag.textContent = i ? `${d > 0 ? "+" : "−"}${Math.abs(d).toFixed(1)} dB vs no lattice` : "control"; $$(".dd__chips button", body).forEach((b) => b.classList.toggle("on", +b.dataset.i === i)); };
+        $$(".dd__chips button", body).forEach((b) => b.addEventListener("click", () => show(+b.dataset.i)));
+        show(0);
+      },
+    },
+  };
+  const open = (id) => {
+    const d = DEMOS[id]; if (!d) return;
+    $("#demo-kicker").textContent = d.kicker; $("#demo-title").textContent = d.title; note.textContent = d.note; link.href = d.href;
+    demo.dataset.c = id; d.render();
+    demo.showModal ? demo.showModal() : demo.setAttribute("open", "");
+  };
+  $$("[data-demo]").forEach((b) => b.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); open(b.dataset.demo); }));
+  $$("[data-demo-close]", demo).forEach((b) => b.addEventListener("click", () => demo.close()));
+  demo.addEventListener("click", (e) => { if (e.target === demo) demo.close(); });
+}
