@@ -45,9 +45,6 @@ export default function initJenga3D(root, { CORE, FLUFF, say, onScore, onEnd }) 
   ground.rotation.x = -Math.PI / 2;
   ground.receiveShadow = true;
   scene.add(ground);
-  const disc = new THREE.Mesh(new THREE.CircleGeometry(3.4, 64), new THREE.MeshStandardMaterial({ color: 0x1c1916, roughness: 0.95 }));
-  disc.rotation.x = -Math.PI / 2; disc.position.y = 0.002; disc.receiveShadow = true;
-  scene.add(disc);
 
   // ---------- textures ----------
   const woodCanvas = (w, h, rings) => {
