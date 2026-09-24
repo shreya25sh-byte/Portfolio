@@ -1542,7 +1542,7 @@ if (heroPhoto) {
     found.add(n); n.classList.add("is-found");
     $$(".d", n).forEach((p, i) => { p.style.transition = `stroke-dashoffset ${reduced ? 0 : 0.6}s ${reduced ? 0 : i * 0.2}s ease-out`; p.style.strokeDashoffset = 0; });
     hint.textContent = found.size;
-    if (found.size === notes.length) { heroPhoto.classList.add("is-complete"); $("#lens-hint").innerHTML = "All 3 found ✦ nice eye"; confetti(30); }
+    if (found.size === notes.length) { heroPhoto.classList.add("is-complete"); $("#lens-hint").classList.add("is-complete"); $("#lens-hint").innerHTML = "All 3 found ✦ nice eye"; confetti(30); }
   };
   const check = (e) => {
     const r = heroPhoto.getBoundingClientRect(), sx = 750 / r.width, sy = 793 / r.height;

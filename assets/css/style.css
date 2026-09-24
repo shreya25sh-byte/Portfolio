@@ -2572,3 +2572,11 @@ ul.work .work__desc { padding-left: 0 !important; padding-right: 0 !important; d
 /* Hero accent line: ink by default, turns pink on hover */
 .hero__title .serif, .hero__title .serif .ch { color: var(--text) !important; transition: color .45s var(--ease); }
 .hero__title:hover .serif, .hero__title:hover .serif .ch { color: #c4127a !important; }
+.hero-photo .doodles text { stroke: none !important; paint-order: normal; }
+.hero__caption { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.hero__caption .lens__hint { position: static; background: none; color: var(--muted); padding: 0; font-size: 11px; white-space: nowrap; }
+.hero__caption .lens__hint b { color: #c4127a; }
+.hero__caption .lens__hint.is-complete { color: #c4127a; }
+.hero__caption { flex-direction: column; align-items: flex-start; gap: 6px; }
+.hero__caption .lens__hint { border: 0 !important; }
+.hero-photo .doodles text { font-size: 42px; }
