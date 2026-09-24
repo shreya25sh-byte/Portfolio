@@ -2553,3 +2553,19 @@ ul.work .work__desc { padding-left: 0 !important; padding-right: 0 !important; d
 .talks-strip li::before { display: none; }
 .talks-strip li.is-win b::after { content: " ★"; color: #ff3fa4; font-size: .7em; }
 @media (max-width: 900px) { .talks-strip { grid-template-columns: 1fr; } .talks-strip ol { grid-template-columns: 1fr; } }
+/* Hero lens hunt */
+.hero-photo.lens { cursor: none; border: 1px solid var(--line-strong); max-width: 520px; margin-left: auto; }
+.hero-photo .lens__base { filter: grayscale(1) contrast(.95) brightness(1.22) !important; mix-blend-mode: multiply; }
+.hero-photo { background: color-mix(in srgb, #ff3fa4 52%, var(--bg-2)); }
+.hero-photo .lens__ring { border: 2px solid #111; box-shadow: none; }
+.hero-photo .doodles { z-index: 2; }
+.hero-photo .note text { opacity: 0; transition: opacity .4s ease .5s; }
+.hero-photo .note.is-found text { opacity: 1; }
+.hero-photo .lens__hint { background: #111; color: #f4f2ec; border: 0; z-index: 5; }
+.hero-photo .lens__hint b { color: #ff7ac2; }
+.hero-photo.is-complete .lens__hint { background: #ff3fa4; color: #111; }
+.hero-photo.lens.is-active .lens__hint { opacity: 1; }
+@media (hover: none) { .hero-photo.lens { cursor: auto; } }
+.hero-photo .doodles .d { stroke: #111; }
+.hero-photo .doodles text { fill: #111; stroke: rgba(255,255,255,.9); }
+.hero-photo .lens__hint { left: auto; right: 12px; bottom: 12px; font-size: 10.5px; padding: 6px 10px; }

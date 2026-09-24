@@ -1532,19 +1532,24 @@ if (tsCover && finePointer && !reduced) {
   tsCover.addEventListener("pointerleave", () => ["--rx", "--ry"].forEach((k) => tsCover.style.setProperty(k, "0deg")));
 }
 
-/* Hero: hand-drawn annotations draw themselves on (click to redraw) */
+/* Hero: colour lens hunt. Hidden field notes draw themselves when the lens finds them */
 const heroPhoto = $("#hero-photo");
 if (heroPhoto) {
-  const paths = $$(".doodles .d", heroPhoto);
-  paths.forEach((p) => { const l = p.getTotalLength(); p.style.strokeDasharray = l; p.style.strokeDashoffset = l; });
-  const draw = () => {
-    heroPhoto.classList.remove("is-drawn");
-    paths.forEach((p) => { p.style.transition = "none"; p.style.strokeDashoffset = p.getTotalLength(); });
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      heroPhoto.classList.add("is-drawn");
-      paths.forEach((p, i) => { p.style.transition = `stroke-dashoffset ${reduced ? 0 : 0.7}s ${reduced ? 0 : 0.35 + i * 0.22}s ease-out`; p.style.strokeDashoffset = 0; });
-    }));
+  const notes = $$(".doodles .note", heroPhoto), hint = $("#lens-hint b");
+  const found = new Set();
+  $$(".d", heroPhoto).forEach((p) => { const l = p.getTotalLength(); p.style.strokeDasharray = l; p.style.strokeDashoffset = l; });
+  const reveal = (n) => {
+    if (found.has(n)) return;
+    found.add(n); n.classList.add("is-found");
+    $$(".d", n).forEach((p, i) => { p.style.transition = `stroke-dashoffset ${reduced ? 0 : 0.6}s ${reduced ? 0 : i * 0.2}s ease-out`; p.style.strokeDashoffset = 0; });
+    hint.textContent = found.size;
+    if (found.size === notes.length) { heroPhoto.classList.add("is-complete"); $("#lens-hint").innerHTML = "All 3 found ✦ nice eye"; confetti(30); }
   };
-  new IntersectionObserver(([e], o) => { if (e.isIntersecting) { draw(); o.disconnect(); } }, { threshold: 0.4 }).observe(heroPhoto);
-  heroPhoto.addEventListener("click", draw);
+  const check = (e) => {
+    const r = heroPhoto.getBoundingClientRect(), sx = 750 / r.width, sy = 793 / r.height;
+    const x = (e.clientX - r.left) * sx, y = (e.clientY - r.top) * sy, rad = Math.max(70, r.width * 0.2) * sx;
+    notes.forEach((n) => { const [nx, ny] = n.dataset.spot.split(",").map(Number); if (Math.hypot(nx - x, ny - y) < rad * 0.9) reveal(n); });
+  };
+  heroPhoto.addEventListener("pointermove", check);
+  heroPhoto.addEventListener("pointerdown", check);
 }
