@@ -1261,7 +1261,7 @@ if (journey) {
 const jenga = $("#jenga");
 if (jenga) {
   const tower = $("#jg-tower"), scene = $("#jg-scene"), cap = $("#jg-caption"), scoreEl = $("#jg-score");
-  const L = 150, W = 48, H = 28, GAP = 2, LAYERS = 8;
+  const L = 172, W = 64, H = 36, GAP = 2, LAYERS = 8;
   const CORE = [
     ["👂", "Listen to users", "No research, no foundation."], ["🎯", "Define the problem", "Solving the wrong problem, beautifully."],
     ["💡", "Ideate", "One idea is not a choice."], ["✏️", "Sketch", "Straight to pixels? Wobbly."],
@@ -1306,13 +1306,13 @@ if (jenga) {
         b.dataset.base = `translateX(${off}px)`; b.style.transform = b.dataset.base;
         b.setAttribute("aria-label", `Pull ${name}`);
         Object.assign(b.dataset, { ico, name, why, core: core ? 1 : "" });
-        const end = `<span>${ico}</span>`;
+        const word = `<span>${name}</span>`;
         b.append(
-          face("f", W, H, `translateZ(${L / 2}px)`, end), face("f", W, H, `rotateY(180deg) translateZ(${L / 2}px)`, end),
-          face("s", L, H, `rotateY(90deg) translateZ(${W / 2}px)`), face("s", L, H, `rotateY(-90deg) translateZ(${W / 2}px)`),
+          face("f", W, H, `translateZ(${L / 2}px)`, word), face("f", W, H, `rotateY(180deg) translateZ(${L / 2}px)`, word),
+          face("s", L, H, `rotateY(90deg) translateZ(${W / 2}px)`, word), face("s", L, H, `rotateY(-90deg) translateZ(${W / 2}px)`, word),
           face("t", W, L, `rotateX(90deg) translateZ(${H / 2}px)`), face("t", W, L, `rotateX(-90deg) translateZ(${H / 2}px)`));
-        b.addEventListener("mouseenter", () => !dead && say(`<b>${ico} ${name}</b>`));
-        b.addEventListener("focus", () => !dead && say(`<b>${ico} ${name}</b>`));
+        b.addEventListener("mouseenter", () => !dead && say(`<b>${name}</b>`));
+        b.addEventListener("focus", () => !dead && say(`<b>${name}</b>`));
         b.addEventListener("click", () => pull(b, li));
         layer.appendChild(b);
       }
@@ -1326,13 +1326,13 @@ if (jenga) {
     b.style.transform = `${b.dataset.base} translateZ(${L * 1.25}px)`;
     if (!b.dataset.core) {
       score++; scoreEl.textContent = score;
-      say(`<b>${b.dataset.ico} ${b.dataset.name}</b> pulled. ${b.dataset.why}`);
+      say(`<b>${b.dataset.name}</b> pulled. ${b.dataset.why}`);
       const r = b.getBoundingClientRect(); burst(r.left + r.width / 2, r.top, 5);
       if (score === FLUFF.length) { dead = true; jenga.classList.add("is-won"); say("<b>Lean process, still standing.</b> Everything left is load-bearing."); confetti(50); }
       return;
     }
     dead = true;
-    say(`<b>${b.dataset.ico} ${b.dataset.name}</b> pulled. ${b.dataset.why}`);
+    say(`<b>${b.dataset.name}</b> pulled. ${b.dataset.why}`);
     jenga.classList.add("is-wobble");
     setTimeout(() => {
       jenga.classList.remove("is-wobble"); jenga.classList.add("is-down");
