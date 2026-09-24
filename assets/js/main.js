@@ -121,40 +121,6 @@ if (progress) {
   upd();
 }
 
-/* ---------- Custom cursor ---------- */
-if (finePointer && !reduced) {
-  const ring = document.createElement("div");
-  ring.className = "cursor";
-  ring.innerHTML = "<span></span>";
-  const dot = document.createElement("div");
-  dot.className = "cursor-dot";
-  document.body.append(ring, dot);
-  document.body.classList.add("has-cursor");
-  const label = $("span", ring);
-  let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my;
-  addEventListener("pointermove", (e) => {
-    mx = e.clientX; my = e.clientY;
-    dot.style.transform = `translate(${mx}px, ${my}px)`;
-  });
-  const loop = () => {
-    rx = lerp(rx, mx, 0.18); ry = lerp(ry, my, 0.18);
-    ring.style.transform = `translate(${rx}px, ${ry}px)`;
-    requestAnimationFrame(loop);
-  };
-  loop();
-  document.addEventListener("pointerover", (e) => {
-    const t = e.target.closest("[data-cursor], a, button, input");
-    ring.classList.remove("is-link", "is-label");
-    if (!t) return;
-    if (t.dataset.cursor) {
-      label.textContent = t.dataset.cursor;
-      ring.classList.add("is-label");
-    } else ring.classList.add("is-link");
-  });
-  document.addEventListener("pointerleave", () => { ring.classList.add("is-hidden"); dot.classList.add("is-hidden"); });
-  document.addEventListener("pointerenter", () => { ring.classList.remove("is-hidden"); dot.classList.remove("is-hidden"); });
-}
-
 /* ---------- Split text + reveal ---------- */
 $$(".split").forEach((el) => {
   const walk = (node) => {
@@ -1263,14 +1229,22 @@ if (jenga) {
   const tower = $("#jg-tower"), scene = $("#jg-scene"), cap = $("#jg-caption"), scoreEl = $("#jg-score");
   const L = 172, W = 64, H = 36, GAP = 2, LAYERS = 8;
   const CORE = [
-    ["", "User interviews", "No real voices, no foundation."], ["", "Observe users", "You only heard what people say, not what they do."],
-    ["", "Define the problem", "Solving the wrong problem, beautifully."], ["", "Synthesize", "Piles of notes, zero insight."],
-    ["", "Personas from research", "Designing for nobody in particular."], ["", "Ideate", "One idea is not a choice."],
-    ["", "Sketch", "Straight to pixels? Wobbly."], ["", "Wireframe", "Skipped the skeleton. It sags."],
-    ["", "Prototype", "Nothing to put in front of users."], ["", "Usability testing", "Shipped on a hunch. Down it goes."],
-    ["", "Iterate", "First drafts don't hold weight."], ["", "Measure outcomes", "No proof it worked."],
-    ["", "Accessibility", "Designed for some, fails for many."], ["", "Competitor scan", "Reinvented a worse wheel."],
-    ["", "Journey map", "Lost the thread of the experience."], ["", "Clear goals", "No goal, no direction."],
+    ["", "User interviews", "No real voices, no foundation.", "Calidus: on-site interviews with factory workers and repair technicians."],
+    ["", "Observe users", "You only heard what people say, not what they do.", "Calidus: site visits showed dead spaces and hinges that trap dirt."],
+    ["", "Define the problem", "Solving the wrong problem, beautifully.", "Totsecure: a brief built on parent injury data before any sketch."],
+    ["", "Synthesize", "Piles of notes, zero insight.", "Godrej: 90 surveys and 10 interviews into 4 personas and 3 briefs."],
+    ["", "Personas from research", "Designing for nobody in particular.", "Totsecure: “Amy” came straight from parent survey data."],
+    ["", "Ideate", "One idea is not a choice.", "Calidus: 3 concept directions before choosing one."],
+    ["", "Sketch", "Straight to pixels? Wobbly.", "Totsecure: pages of latch and hinge mechanism sketches."],
+    ["", "Wireframe", "Skipped the skeleton. It sags.", "Calidus: a 6-screen HMI flow mapped before styling."],
+    ["", "Prototype", "Nothing to put in front of users.", "Totsecure: a working ESP32 lock. Calidus: a 1:5 scale model."],
+    ["", "Usability testing", "Shipped on a hunch. Down it goes.", "Innovation vs habit: 5 real tasks on 2 UI versions, timed."],
+    ["", "Iterate", "First drafts don't hold weight.", "Calidus and Totsecure: I redesigned my own earlier app screens."],
+    ["", "Measure outcomes", "No proof it worked.", "MSES: 16 of 17 items validated. Lattices: −11.4 dB, measured."],
+    ["", "Accessibility", "Designed for some, fails for many.", "MSES: found 2 background factors that leave students behind."],
+    ["", "Competitor scan", "Reinvented a worse wheel.", "Godrej: 17 chairs across 7 brands, benchmarked."],
+    ["", "Journey map", "Lost the thread of the experience.", "Calidus: mapped a full stability-testing workflow."],
+    ["", "Clear goals", "No goal, no direction.", "Totsecure: 12 measurable requirements with target values."],
   ];
   const FLUFF = [
     ["", "Fake readings", "Made-up data holds nothing up."], ["", "Ignore biases", "Blind spots aren't a method."],
@@ -1291,7 +1265,7 @@ if (jenga) {
   const build = () => {
     dead = false; score = 0; scoreEl.textContent = 0;
     jenga.classList.remove("is-down", "is-won");
-    const pool = [...CORE.map((c) => [...c, true]), ...FLUFF.map((f) => [...f, false])].sort(() => Math.random() - 0.5);
+    const pool = [...CORE.map((c) => [c[0], c[1], c[2], true, c[3]]), ...FLUFF.map((f) => [...f, false, ""])].sort(() => Math.random() - 0.5);
     tower.innerHTML = "";
     for (let li = 0; li < LAYERS; li++) {
       const layer = document.createElement("div");
@@ -1299,20 +1273,21 @@ if (jenga) {
       layer.dataset.base = `translateY(${-li * (H + GAP)}px) rotateY(${li % 2 ? 90 : 0}deg)`;
       layer.style.transform = layer.dataset.base;
       for (let bi = 0; bi < 3; bi++) {
-        const [ico, name, why, core] = pool[li * 3 + bi];
+        const [ico, name, why, core, proof] = pool[li * 3 + bi];
         const off = (bi - 1) * (W + GAP);
         const b = document.createElement("button");
         b.type = "button"; b.className = "jb" + (core ? "" : " is-fluff");
         b.dataset.base = `translateX(${off}px)`; b.style.transform = b.dataset.base;
         b.setAttribute("aria-label", `Pull ${name}`);
-        Object.assign(b.dataset, { ico, name, why, core: core ? 1 : "" });
+        Object.assign(b.dataset, { ico, name, why, proof: proof || "", core: core ? 1 : "" });
         const word = `<span>${name}</span>`;
         b.append(
           face("f", W, H, `translateZ(${L / 2}px)`, word), face("f", W, H, `rotateY(180deg) translateZ(${L / 2}px)`, word),
           face("s", L, H, `rotateY(90deg) translateZ(${W / 2}px)`, word), face("s", L, H, `rotateY(-90deg) translateZ(${W / 2}px)`, word),
           face("t", W, L, `rotateX(90deg) translateZ(${H / 2}px)`), face("t", W, L, `rotateX(-90deg) translateZ(${H / 2}px)`));
-        b.addEventListener("mouseenter", () => !dead && say(`<b>${name}</b>`));
-        b.addEventListener("focus", () => !dead && say(`<b>${name}</b>`));
+        const hover = () => !dead && say(proof ? `<b>${name}</b> · ${proof}` : `<b>${name}</b>`);
+        b.addEventListener("mouseenter", hover);
+        b.addEventListener("focus", hover);
         b.addEventListener("click", () => pull(b, li));
         layer.appendChild(b);
       }
@@ -1332,7 +1307,7 @@ if (jenga) {
       return;
     }
     dead = true;
-    say(`<b>${b.dataset.name}</b> pulled. ${b.dataset.why}`);
+    say(`<b>${b.dataset.name}</b> pulled. ${b.dataset.why} <span class="jg-proof">I rely on it: ${b.dataset.proof}</span>`);
     jenga.classList.add("is-wobble");
     setTimeout(() => {
       jenga.classList.remove("is-wobble"); jenga.classList.add("is-down");
@@ -1555,4 +1530,21 @@ if (tsCover && finePointer && !reduced) {
     tsCover.style.setProperty("--mx", `${x * 100}%`); tsCover.style.setProperty("--my", `${y * 100}%`);
   });
   tsCover.addEventListener("pointerleave", () => ["--rx", "--ry"].forEach((k) => tsCover.style.setProperty(k, "0deg")));
+}
+
+/* Hero: hand-drawn annotations draw themselves on (click to redraw) */
+const heroPhoto = $("#hero-photo");
+if (heroPhoto) {
+  const paths = $$(".doodles .d", heroPhoto);
+  paths.forEach((p) => { const l = p.getTotalLength(); p.style.strokeDasharray = l; p.style.strokeDashoffset = l; });
+  const draw = () => {
+    heroPhoto.classList.remove("is-drawn");
+    paths.forEach((p) => { p.style.transition = "none"; p.style.strokeDashoffset = p.getTotalLength(); });
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      heroPhoto.classList.add("is-drawn");
+      paths.forEach((p, i) => { p.style.transition = `stroke-dashoffset ${reduced ? 0 : 0.7}s ${reduced ? 0 : 0.35 + i * 0.22}s ease-out`; p.style.strokeDashoffset = 0; });
+    }));
+  };
+  new IntersectionObserver(([e], o) => { if (e.isIntersecting) { draw(); o.disconnect(); } }, { threshold: 0.4 }).observe(heroPhoto);
+  heroPhoto.addEventListener("click", draw);
 }

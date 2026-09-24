@@ -65,3 +65,12 @@ Build them as live HTML/CSS/JS inside `.device-stage`, not static images.
 1. `node --check assets/js/main.js`
 2. Load pages at 1440px and 390px; confirm no console errors and no horizontal scroll (`scrollWidth === innerWidth`).
 3. Watch for duplicate element ids across pages (e.g. a section id colliding with a widget id).
+
+## 7. Minimal pass (senior-designer review, Sep 2026)
+
+Keep the zine identity (paper, ink, Instrument Serif, riso pink) but stay restrained:
+- Work comes first on the home page. Nothing heavy between the hero and the project cards.
+- No hard offset shadows, tape strips, highlighter bars under headings, grain, custom cursor or scrolling marquees.
+- Section eyebrows are quiet mono labels; the serif accent word is plain italic pink.
+- Every interactive piece must say something about Shreya as a designer (e.g. Jenga blocks cite where she used each step).
+- Prefer one clear idea per section; if a widget doesn't add evidence, cut it.

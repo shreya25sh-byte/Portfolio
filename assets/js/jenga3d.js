@@ -108,7 +108,7 @@ export default function initJenga3D(root, { CORE, FLUFF, say, onScore, onEnd }) 
   };
   const build = () => {
     clear(); dead = false; score = 0; onScore(0);
-    const pool = [...CORE.map((c) => ({ name: c[1], why: c[2], core: true })), ...FLUFF.map((f) => ({ name: f[1], why: f[2], core: false }))].sort(() => Math.random() - 0.5);
+    const pool = [...CORE.map((c) => ({ name: c[1], why: c[2], proof: c[3], core: true })), ...FLUFF.map((f) => ({ name: f[1], why: f[2], core: false }))].sort(() => Math.random() - 0.5);
     for (let li = 0; li < LAYERS; li++) {
       const rot = li % 2 ? Math.PI / 2 : 0;
       for (let bi = 0; bi < 3; bi++) {
@@ -150,7 +150,7 @@ export default function initJenga3D(root, { CORE, FLUFF, say, onScore, onEnd }) 
       drag = { x: e.clientX, y: e.clientY }; idle = 0; return;
     }
     const b = dead ? null : pick(e);
-    if (b !== hovered) { glow(hovered, 0); hovered = b; glow(b, 0.18); cv.style.cursor = b ? "pointer" : "grab"; if (b) say(`<b>${b.name}</b>`); }
+    if (b !== hovered) { glow(hovered, 0); hovered = b; glow(b, 0.18); cv.style.cursor = b ? "pointer" : "grab"; if (b) say(b.proof ? `<b>${b.name}</b> · ${b.proof}` : `<b>${b.name}</b>`); }
   });
   cv.addEventListener("pointerleave", () => { glow(hovered, 0); hovered = null; });
   cv.addEventListener("pointerup", (e) => { const wasDrag = moved; drag = null; if (!wasDrag) { const b = pick(e); if (b) pull(b); } });
@@ -169,7 +169,7 @@ export default function initJenga3D(root, { CORE, FLUFF, say, onScore, onEnd }) 
       return;
     }
     dead = true;
-    say(`<b>${b.name}</b> pulled. ${b.why}`);
+    say(`<b>${b.name}</b> pulled. ${b.why} <span class="jg-proof">I rely on it: ${b.proof}</span>`);
     root.classList.add("is-down");
     onEnd(false);
     // the real step was holding everything above it: wake the tower and give it a shove
