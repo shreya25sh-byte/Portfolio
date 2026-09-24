@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://shreya25sh-byte.github.io/Portfolio/sitemap.xml
