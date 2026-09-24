@@ -1556,8 +1556,8 @@ if (reqs) {
 const lattoy = $("#lattoy");
 if (lattoy) {
   const CONTROL = 69.7;
-  const dbEl = $("#lattoy-db"), delta = $("#lattoy-delta"), fill = $("#lattoy-fill"), out = $("#lattoy-out"), hear = $("#lattoy-hear");
-  let shown = CONTROL, raf, ctx, osc, gain;
+  const dbEl = $("#lattoy-db"), delta = $("#lattoy-delta"), fill = $("#lattoy-fill"), out = $("#lattoy-out");
+  let shown = CONTROL, raf;
   const count = (to) => {
     cancelAnimationFrame(raf);
     const from = shown, t0 = performance.now();
@@ -1576,20 +1576,6 @@ if (lattoy) {
     count(db);
     delta.textContent = l === "none" ? "control" : `${d > 0 ? "+" : "−"}${Math.abs(d).toFixed(1)} dB ${d > 0 ? "louder" : "quieter"}`;
     delta.className = "mono " + (l === "none" ? "" : d > 0 ? "is-up" : "is-down");
-    if (gain) gain.gain.setTargetAtTime(0.08 * amp(db), ctx.currentTime, 0.05);
   };
   $$(".lattoy__chips button", lattoy).forEach((b) => b.addEventListener("click", () => pick(b)));
-  hear.addEventListener("click", () => {
-    const on = hear.getAttribute("aria-pressed") !== "true";
-    hear.setAttribute("aria-pressed", on);
-    hear.textContent = on ? "🔊 Stop" : "🔈 Hear it";
-    if (on) {
-      ctx ||= new (window.AudioContext || window.webkitAudioContext)();
-      osc = ctx.createOscillator(); gain = ctx.createGain();
-      osc.frequency.value = 440; osc.type = "sine";
-      const db = +$(".lattoy__chips [aria-pressed=true]", lattoy).dataset.db;
-      gain.gain.value = 0.08 * amp(db);
-      osc.connect(gain).connect(ctx.destination); osc.start();
-    } else if (osc) { osc.stop(); osc = gain = null; }
-  });
 }
