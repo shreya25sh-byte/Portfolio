@@ -127,17 +127,39 @@
         <section class="chapter" id="users">
           <span class="mono">03 · Users</span>
           <h2 class="split">Meet Amy: three kids, zero spare minutes.</h2>
-          <div class="fig-row">
-            <div class="prose reveal">
-              <p>Amy (42, stay-at-home parent, suburban, medium tech literacy) spends most of her day managing the home and caring for three children <strong>at very different developmental stages</strong>.</p>
-              <p>Her youngest puts small objects in their mouth; her oldest can already reach tools and kitchen items. One lock setting can't fit all three.</p>
-              <blockquote class="quote st-23">“With three kids, I just need to know what's most dangerous right now, and fix it fast.”<cite>Amy · persona</cite></blockquote>
+          <article class="persona reveal" aria-label="Persona: Amy">
+            <div class="persona__id">
+              <img src="../assets/img/totsecure-amy.webp" alt="Stock photo representing Amy: a smiling parent pushing a laughing toddler in a laundry basket" width="300" height="300" loading="lazy">
+              <span class="mono persona__tag">Persona · built from parent survey data</span>
+              <h3>Amy</h3>
+              <dl class="persona__facts">
+                <div><dt>Age</dt><dd>42</dd></div>
+                <div><dt>Occupation</dt><dd>Stay-at-home parent</dd></div>
+                <div><dt>Family</dt><dd>Married, 3 kids</dd></div>
+                <div><dt>Lives in</dt><dd>Suburban neighbourhood</dd></div>
+                <div><dt>Tech literacy</dt><dd><span class="persona__meter" aria-label="Medium"><i class="on"></i><i class="on"></i><i></i></span> Medium</dd></div>
+              </dl>
             </div>
-            <figure class="fig reveal st-8">
-              <div class="fig__frame"><img src="../assets/img/totsecure-persona.webp" alt="Persona card for Amy with bio, core needs and frustrations" loading="lazy"></div>
-              <figcaption><span class="mono">Fig. 1</span>Persona: core needs and frustrations</figcaption>
-            </figure>
-          </div>
+            <div class="persona__body">
+              <blockquote>“With three kids, I just need to know what's most dangerous right now, and fix it fast.”</blockquote>
+              <p class="persona__bio">Amy spends most of her day managing the home and caring for three children at <strong>very different developmental stages</strong>, constantly juggling supervision, chores and routines.</p>
+              <div class="persona__kids">
+                <div><b>Youngest</b><span>Puts small objects in their mouth</span></div>
+                <div><b>Oldest</b><span>Reaches tools and kitchen items on their own</span></div>
+                <div class="is-note"><b>So</b><span>One lock setting can't fit all three</span></div>
+              </div>
+              <div class="persona__cols">
+                <div>
+                  <h4 class="mono">Core needs</h4>
+                  <ul><li>A secure, child-friendly home</li><li>Fewer accidents around the house</li><li>Stay on top of hazards without stress</li><li>Control the child locks remotely</li></ul>
+                </div>
+                <div>
+                  <h4 class="mono">Frustrations</h4>
+                  <ul><li>Can't monitor everything at once</li><li>Little time or energy to research safety</li><li>Needs safety steps she can do fast</li><li>No way to act remotely in an emergency</li></ul>
+                </div>
+              </div>
+            </div>
+          </article>
           <div class="insights">
             <div class="insight reveal"><span class="mono">Need</span><h4>Stay on top of hazards without stress.</h4><p>She can't monitor everything at once.</p><span class="arrow">Lock or unlock every cabinet from one app, from anywhere in the house.</span></div>
             <div class="insight reveal"><span class="mono">Frustration</span><h4>Limited time to research safety.</h4><p>She needs easy-to-follow actions she can do fast.</p><span class="arrow">One big hold-to-toggle button, and installation in minutes.</span></div>
@@ -151,18 +173,17 @@
           <div class="prose reveal">
             <p>I translated needs into performance measures with target values, then benchmarked them against existing products (installation from 5 to 15 minutes, prices from $30 to $120).</p>
           </div>
-          <div class="reqs reveal">
+          <div class="reqs reveal" id="reqs">
             <div class="reqs__needs">
               <h3>8 needs, weighted</h3>
-              <ul>
-                <li><b>10</b>Reliably keeps children out</li><li><b>10</b>Opens manually, like a normal child lock</li><li><b>10</b>Activates and deactivates remotely</li><li><b>10</b>Meets child-safety standards</li><li><b>7</b>Simple to install</li><li><b>7</b>Affordable</li><li><b>7</b>Intuitive</li><li><b>6</b>Fits many household products</li>
-              </ul>
+              <p class="mono reqs__hint">Tap a need to see how it's measured</p>
+              <ul><li><button type="button" data-need="1" aria-pressed="false"><span class="rq__n mono">N1</span><span class="rq__t">Reliably keeps children out</span><span class="rq__w" aria-label="Importance 10 of 10"><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><b class="mono">10</b></span></button></li><li><button type="button" data-need="2" aria-pressed="false"><span class="rq__n mono">N2</span><span class="rq__t">Opens manually, like a normal child lock</span><span class="rq__w" aria-label="Importance 10 of 10"><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><b class="mono">10</b></span></button></li><li><button type="button" data-need="3" aria-pressed="false"><span class="rq__n mono">N3</span><span class="rq__t">Activates and deactivates remotely</span><span class="rq__w" aria-label="Importance 10 of 10"><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><b class="mono">10</b></span></button></li><li><button type="button" data-need="5" aria-pressed="false"><span class="rq__n mono">N5</span><span class="rq__t">Meets child-safety standards</span><span class="rq__w" aria-label="Importance 10 of 10"><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><b class="mono">10</b></span></button></li><li><button type="button" data-need="6" aria-pressed="false"><span class="rq__n mono">N6</span><span class="rq__t">Simple to install</span><span class="rq__w" aria-label="Importance 7 of 10"><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i></i><i></i><i></i><b class="mono">7</b></span></button></li><li><button type="button" data-need="7" aria-pressed="false"><span class="rq__n mono">N7</span><span class="rq__t">Affordable</span><span class="rq__w" aria-label="Importance 7 of 10"><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i></i><i></i><i></i><b class="mono">7</b></span></button></li><li><button type="button" data-need="8" aria-pressed="false"><span class="rq__n mono">N8</span><span class="rq__t">Intuitive</span><span class="rq__w" aria-label="Importance 7 of 10"><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i></i><i></i><i></i><b class="mono">7</b></span></button></li><li><button type="button" data-need="4" aria-pressed="false"><span class="rq__n mono">N4</span><span class="rq__t">Fits many household products</span><span class="rq__w" aria-label="Importance 6 of 10"><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i></i><i></i><i></i><i></i><b class="mono">6</b></span></button></li></ul>
             </div>
             <div class="table-scroll">
               <table class="reqtable">
-                <caption class="mono">12 performance measures · target values</caption>
+                <caption><span class="mono">12 performance measures</span><span class="reqs__legend"><span class="rq__ideal">Ideal</span> target · plain = still acceptable</span></caption>
                 <thead><tr><th scope="col">Measure</th><th scope="col">Ideal</th><th scope="col">Acceptable</th></tr></thead>
-                <tbody><tr><th scope="row">Manual locking success rate</th><td>100%</td><td>≥ 99%</td></tr><tr><th scope="row">Force the lock withstands</th><td>No limit</td><td>≥ 45.3 lb</td></tr><tr><th scope="row">Force to unlock manually</th><td>3 lb</td><td>2.5–5 lb</td></tr><tr><th scope="row">Time to unlock manually</th><td>Instant</td><td>≤ 3 s</td></tr><tr><th scope="row">Remote activation success</th><td>100%</td><td>≥ 98%</td></tr><tr><th scope="row">Remote response time</th><td>Instant</td><td>≤ 3 s</td></tr><tr><th scope="row">Remote range</th><td>Anywhere</td><td>≥ 60 ft</td></tr><tr><th scope="row">Devices per account</th><td>Unlimited</td><td>≥ 3</td></tr><tr><th scope="row">Compatible with</th><td>Swinging &amp; sliding doors, cupboards, cabinets</td><td>Standard swinging doors</td></tr><tr><th scope="row">ASTM / EN / ISO compliance</th><td>100%</td><td>100%</td></tr><tr><th scope="row">Installation time</th><td>5 min</td><td>≤ 15 min</td></tr><tr><th scope="row">Product cost</th><td>$65</td><td>$30–120</td></tr></tbody>
+                <tbody><tr data-needs="1"><th scope="row"><span class="rq__m mono">M01</span>Manual locking success rate<span class="rq__tags"><em class=mono>N1</em></span></th><td><span class="rq__ideal">100%</span></td><td>≥ 99%</td></tr><tr data-needs="1"><th scope="row"><span class="rq__m mono">M02</span>Force the lock withstands<span class="rq__tags"><em class=mono>N1</em></span></th><td><span class="rq__ideal">No limit</span></td><td>≥ 45.3 lb</td></tr><tr data-needs="2"><th scope="row"><span class="rq__m mono">M03</span>Force to unlock manually<span class="rq__tags"><em class=mono>N2</em></span></th><td><span class="rq__ideal">3 lb</span></td><td>2.5–5 lb</td></tr><tr data-needs="2 8"><th scope="row"><span class="rq__m mono">M04</span>Time to unlock manually<span class="rq__tags"><em class=mono>N2</em><em class=mono>N8</em></span></th><td><span class="rq__ideal">Instant</span></td><td>≤ 3 s</td></tr><tr data-needs="3"><th scope="row"><span class="rq__m mono">M05</span>Remote activation success<span class="rq__tags"><em class=mono>N3</em></span></th><td><span class="rq__ideal">100%</span></td><td>≥ 98%</td></tr><tr data-needs="3"><th scope="row"><span class="rq__m mono">M06</span>Remote response time<span class="rq__tags"><em class=mono>N3</em></span></th><td><span class="rq__ideal">Instant</span></td><td>≤ 3 s</td></tr><tr data-needs="3"><th scope="row"><span class="rq__m mono">M07</span>Remote range<span class="rq__tags"><em class=mono>N3</em></span></th><td><span class="rq__ideal">Anywhere</span></td><td>≥ 60 ft</td></tr><tr data-needs="3"><th scope="row"><span class="rq__m mono">M08</span>Devices per account<span class="rq__tags"><em class=mono>N3</em></span></th><td><span class="rq__ideal">Unlimited</span></td><td>≥ 3</td></tr><tr data-needs="4"><th scope="row"><span class="rq__m mono">M09</span>Compatible with<span class="rq__tags"><em class=mono>N4</em></span></th><td><span class="rq__ideal">Swinging &amp; sliding doors, cupboards, cabinets</span></td><td>Standard swinging doors</td></tr><tr data-needs="5"><th scope="row"><span class="rq__m mono">M10</span>ASTM / EN / ISO compliance<span class="rq__tags"><em class=mono>N5</em></span></th><td><span class="rq__ideal">100%</span></td><td>100%</td></tr><tr data-needs="6 8"><th scope="row"><span class="rq__m mono">M11</span>Installation time<span class="rq__tags"><em class=mono>N6</em><em class=mono>N8</em></span></th><td><span class="rq__ideal">5 min</span></td><td>≤ 15 min</td></tr><tr data-needs="7"><th scope="row"><span class="rq__m mono">M12</span>Product cost<span class="rq__tags"><em class=mono>N7</em></span></th><td><span class="rq__ideal">$65</span></td><td>$30–120</td></tr></tbody>
               </table>
             </div>
           </div>
@@ -270,8 +291,12 @@
             </div>
           </div>
           <figure class="fig reveal">
-            <div class="fig__frame"><img src="../assets/img/totsecure-install.webp" alt="Installation steps: attach pin on door frame, install door mount" loading="lazy"></div>
-            <figcaption><span class="mono">Fig. 4</span>Two-step install: pin on the frame, mount on the door</figcaption>
+            <ol class="steps3">
+              <li><div class="fig__frame"><img src="../assets/img/totsecure-step-pin.webp" alt="Render: a metal pin fixed under the cabinet frame" loading="lazy" width="650" height="526"></div><span class="mono">01</span><b>Pin on the frame</b></li>
+              <li><div class="fig__frame"><img src="../assets/img/totsecure-step-mount.webp" alt="Render: an L-shaped mount fixed to the top of the door" loading="lazy" width="701" height="526"></div><span class="mono">02</span><b>Mount on the door</b></li>
+              <li><div class="fig__frame"><img src="../assets/img/totsecure-step-device.webp" alt="Render: the Totsecure unit clipped into the mount, status light green" loading="lazy" width="701" height="526"></div><span class="mono">03</span><b>Clip the lock in</b></li>
+            </ol>
+            <figcaption><span class="mono">Fig. 4</span>Install in minutes: pin on the frame, mount on the door, lock clipped into the mount</figcaption>
           </figure>
         </section>
 
@@ -286,10 +311,6 @@
               <video src="../assets/video/totsecure-mechanism.mp4" poster="../assets/img/totsecure-video-poster.webp" muted loop playsinline preload="metadata" controls aria-label="Animation of the Totsecure latch: the wall mount pulls away from the pin to unlock, and a servo-driven hook moves forward and back"></video>
             </div>
             <figcaption><span class="mono">Video</span>How the mechanism works: a servo-driven hook locks over the wall mount, and pulls back to release it</figcaption>
-          </figure>
-          <figure class="fig reveal">
-            <div class="fig__frame"><img src="../assets/img/totsecure-cutaway.webp" alt="Cutaway render of the lock housing showing the servo, rack and pinion, hook and electronics" loading="lazy" width="1300" height="629"></div>
-            <figcaption><span class="mono">Render</span>Cutaway: servo, rack and pinion, hook, and the electronics bay</figcaption>
           </figure>
           <figure class="fig reveal">
             <div class="fig__frame"><img src="../assets/img/totsecure-prototype.webp" alt="Open prototype showing the ESP32 microcontroller, servo mechanism, gear and battery" loading="lazy"></div>

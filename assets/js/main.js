@@ -1409,3 +1409,21 @@ if (tlxBox) {
   const upd = () => { ins.forEach((i) => (i.nextElementSibling.textContent = i.value)); out.textContent = Math.round(ins.reduce((a, i) => a + +i.value, 0) / ins.length); };
   ins.forEach((i) => i.addEventListener("input", upd)); upd();
 }
+
+/* Totsecure: link needs to the measures that test them */
+const reqs = $("#reqs");
+if (reqs) {
+  const btns = $$("[data-need]", reqs), rows = $$("tr[data-needs]", reqs);
+  let cur = null;
+  const show = (n) => {
+    cur = n;
+    reqs.classList.toggle("is-filtering", !!n);
+    btns.forEach((b) => b.setAttribute("aria-pressed", b.dataset.need === n));
+    rows.forEach((r) => r.classList.toggle("is-hit", !!n && r.dataset.needs.split(" ").includes(n)));
+  };
+  btns.forEach((b) => b.addEventListener("click", () => show(cur === b.dataset.need ? null : b.dataset.need)));
+  rows.forEach((r) => {
+    r.addEventListener("mouseenter", () => { if (!cur) btns.forEach((b) => b.classList.toggle("is-lit", r.dataset.needs.split(" ").includes(b.dataset.need))); });
+    r.addEventListener("mouseleave", () => btns.forEach((b) => b.classList.remove("is-lit")));
+  });
+}
