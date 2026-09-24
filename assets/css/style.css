@@ -2280,3 +2280,24 @@ button[aria-pressed="true"] .rq__w i.on { background: #111; }
 .polaroid--logo .logo-story .logo-story__img { width: 100%; height: auto; aspect-ratio: auto; object-fit: contain; filter: none !important; }
 .about__text p { font-size: clamp(15.5px, 1.2vw, 17px); line-height: 1.55; letter-spacing: 0; margin: 0 0 16px; }
 .about-quote { font-size: clamp(19px, 1.8vw, 24px) !important; margin-bottom: 22px; }
+
+/* Featured MSES card: full width, image beside the text */
+.featured { grid-template-columns: 1fr; }
+@media (min-width: 901px) {
+  .featured__card { flex-direction: row; }
+  .featured__img { flex: 0 0 52%; aspect-ratio: auto; min-height: 340px; }
+  .featured__body { align-content: center; padding: 32px; }
+}
+/* Compact "Try the method" quiz, in the talks section */
+.likert--compact { margin-top: 20px; padding: 18px 22px; gap: 4px; }
+.likert--compact .likert__head h4 { font-size: 20px; }
+.likert--compact > p { margin: 2px 0 6px !important; font-size: 14px !important; }
+.likert--compact .likert__q { grid-template-columns: 1fr auto; align-items: center; gap: 16px; padding: 10px 0; }
+.likert--compact .likert__q p { font-size: 15px; }
+.likert--compact .likert__scale { grid-template-columns: repeat(5, 38px); gap: 6px; }
+.likert--compact .likert__scale button { height: 38px; border-radius: 50%; }
+.likert--compact .likert__result { margin-top: 8px; }
+@media (max-width: 640px) { .likert--compact .likert__q { grid-template-columns: 1fr; gap: 8px; } .likert--compact .likert__scale { grid-template-columns: repeat(5, 1fr); } .likert--compact .likert__scale button { border-radius: 12px; } }
+.talks > .likert--compact { grid-column: 1 / -1; margin-top: 6px; }
+@media (min-width: 900px) { .likert--compact { display: grid; grid-template-columns: 1fr 1fr 1fr; column-gap: 28px; } .likert--compact .likert__head, .likert--compact > p, .likert--compact .likert__result { grid-column: 1 / -1; } .likert--compact .likert__q { grid-template-columns: 1fr; gap: 8px; } }
+@media (min-width: 900px) { .likert--compact .likert__q { grid-template-rows: 1fr auto; align-items: start; } }
