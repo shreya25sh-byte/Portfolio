@@ -2706,3 +2706,6 @@ ul.work .work__item:hover, ul.work .work__item:focus-within { box-shadow: 8px 8p
 ul.work .work__thumb { aspect-ratio: 16 / 10; }
 ul.work .work__item { container-type: inline-size; }
 .demo-btn { top: calc(100cqw * 0.625 - 52px); right: 14px; }
+/* Contact heading: pink shadow only on hover */
+.contact__big { text-shadow: none !important; transition: text-shadow .25s var(--ease); }
+.contact__big:hover { text-shadow: 2px 2px 0 rgba(255, 63, 164, .6) !important; }
