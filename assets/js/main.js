@@ -749,11 +749,10 @@ if (heroTitle && finePointer && !reduced) {
         const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
         const d = Math.hypot(dx, dy), k = Math.max(0, 1 - d / 160);
         c.style.transform = k ? `translate(${(-dx / d) * k * 10 || 0}px, ${-k * 14}px) rotate(${(dx / 160) * k * -12}deg)` : "";
-        c.style.color = k > 0.55 ? "var(--accent)" : "";
       });
     });
   });
-  heroTitle.addEventListener("pointerleave", () => chars.forEach((c) => { c.style.transform = ""; c.style.color = ""; }));
+  heroTitle.addEventListener("pointerleave", () => chars.forEach((c) => { c.style.transform = ""; }));
 }
 
 /* Click bursts of research glyphs */

@@ -2569,3 +2569,6 @@ ul.work .work__desc { padding-left: 0 !important; padding-right: 0 !important; d
 .hero-photo .doodles .d { stroke: #111; }
 .hero-photo .doodles text { fill: #111; stroke: rgba(255,255,255,.9); }
 .hero-photo .lens__hint { left: auto; right: 12px; bottom: 12px; font-size: 10.5px; padding: 6px 10px; }
+/* Hero accent line: ink by default, turns pink on hover */
+.hero__title .serif, .hero__title .serif .ch { color: var(--text) !important; transition: color .45s var(--ease); }
+.hero__title:hover .serif, .hero__title:hover .serif .ch { color: #c4127a !important; }
