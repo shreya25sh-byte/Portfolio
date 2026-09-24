@@ -2447,3 +2447,6 @@ button[aria-pressed="true"] .rq__w i.on { background: #111; }
 .jenga.is-3d .jenga__scene { height: 520px; background: radial-gradient(ellipse at 50% 75%, #33281f 0%, #161616 62%); }
 @media (max-width: 640px) { .jenga.is-3d .jenga__scene { height: 440px; } }
 .extra--work .xrow { grid-template-columns: 1fr auto; }
+/* Logo: solid ink mark (baked into logo-ink.webp) with a thin pink offset */
+.logo__mark img, .loader__logo { filter: drop-shadow(1.5px 1.5px 0 #ff3fa4) !important; }
+.logo:hover .logo__mark img { filter: drop-shadow(2.5px 2.5px 0 #ff3fa4) !important; }
