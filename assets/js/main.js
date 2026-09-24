@@ -1302,28 +1302,29 @@ if (lab) {
     ["What if I break something expensive?", "conf"], ["My roommate showed me the 3D printer.", "acc"],
     ["Everyone else already seems to know CAD.", "conf"], ["The open hours clash with my job.", "acc"],
   ];
-  const SPOTS = [[12, 58], [30, 30], [47, 66], [63, 34], [78, 62], [88, 28]];
-  const floor = $("#lab-floor"), bubble = $("#lab-bubble"), heardEl = $("#lab-heard");
+  const PEOPLE = [
+    ["Ava", "Mech E · year 1", "No shop class in school", "#ffb3d9"], ["Jordan", "Civil E · year 1", "First-gen student", "#a9c8ff"],
+    ["Priya", "Aero E · year 1", "International student", "#ffe14d"], ["Marcus", "EE · year 2", "Transfer student", "#9fe3ea"],
+    ["Lin", "BME · year 1", "Switched from biology", "#c9b8ff"], ["Sam", "IE · year 1", "Works 20 hrs a week", "#ffc79a"],
+  ];
+  const floor = $("#lab-floor"), heardEl = $("#lab-heard");
   let heard = new Set();
   const person = (i) => {
+    const [name, major, bg, col] = PEOPLE[i];
     const b = document.createElement("button");
     b.type = "button"; b.className = "lab__person"; b.dataset.i = i;
-    b.setAttribute("aria-label", `Listen to student ${i + 1}`);
-    b.innerHTML = '<svg viewBox="0 0 40 56" aria-hidden="true"><circle cx="20" cy="12" r="9"/><path d="M5 54c0-12 6-22 15-22s15 10 15 22z"/></svg>';
-    b.style.left = SPOTS[i][0] + "%"; b.style.top = SPOTS[i][1] + "%"; b.style.animationDelay = `${i * -0.7}s`;
+    b.setAttribute("aria-label", `${name}, ${bg}. Tap to listen`);
+    b.innerHTML = `<span class="lab__face"><i>${name[0]}</i><b>${name}</b><small>${major}</small><em>${bg}</em><u>Tap to listen</u></span><span class="lab__said"><q>${QUOTES[i][0]}</q><small>${name} · ${bg}</small></span>`;
+    $(".lab__face i", b).style.background = col;
     b.addEventListener("click", () => {
       if (!heard.has(i)) addXP(10, b);
       heard.add(i); b.classList.add("is-heard");
-      bubble.textContent = QUOTES[i][0];
-      bubble.style.left = Math.min(70, Math.max(4, SPOTS[i][0] - 12)) + "%";
-      bubble.style.top = Math.max(2, SPOTS[i][1] - 26) + "%";
-      bubble.classList.remove("is-on"); void bubble.offsetWidth; bubble.classList.add("is-on");
       heardEl.textContent = `${heard.size} / 6 heard`;
-      if (heard.size === 6) complete(0, "6 people heard. Now find the pattern.");
+      if (heard.size === 6) complete(0, "6 students heard. Now find the pattern.");
     });
     return b;
   };
-  SPOTS.forEach((_, i) => floor.appendChild(person(i)));
+  PEOPLE.forEach((_, i) => floor.appendChild(person(i)));
 
   // 02 Synthesize
   const pile = $("#lab-pile"), lanes = $$(".lab__lane", lab), sortedEl = $("#lab-sorted"), insight = $("#lab-insight");
@@ -1401,7 +1402,7 @@ if (lab) {
 
   const reset = () => {
     done.fill(false); xp = 0; xpEl.textContent = 0; xpBar.style.transform = "scaleX(0)";
-    heard = new Set(); $$(".lab__person", lab).forEach((p) => p.classList.remove("is-heard")); bubble.classList.remove("is-on"); heardEl.textContent = "0 / 6 heard";
+    heard = new Set(); $$(".lab__person", lab).forEach((p) => p.classList.remove("is-heard")); heardEl.textContent = "0 / 6 heard";
     buildPile(); prog = 0; showBuild(0); hold.textContent = "Hold to build"; resetExp();
   };
   reset(); go(0);
