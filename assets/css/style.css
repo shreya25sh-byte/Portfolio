@@ -2689,3 +2689,17 @@ ul.work .work__item:hover, ul.work .work__item:focus-within { box-shadow: 8px 8p
 .next__title { text-shadow: 1.5px 1.5px 0 color-mix(in srgb, var(--nc, #ff3fa4) 75%, transparent) !important; }
 .next:hover .next__title { text-shadow: 2px 2px 0 var(--nc, #ff3fa4) !important; }
 .case-hero h1 { text-shadow: 1.5px 1.5px 0 color-mix(in srgb, var(--c) 55%, transparent) !important; }
+/* Case studies: italic accent follows the project colour */
+.case .case-hero__sub .serif, .case .chapter h2 .serif { color: color-mix(in srgb, var(--c) 82%, #000) !important; }
+/* One consistent section number style everywhere */
+.section-head > .sec-num, #process .section-head > .sec-num, #process .process__sticky .section-head > .sec-num {
+  grid-column: 1; grid-row: 1 / span 4; font-family: var(--f-display); font-weight: 400; font-size: clamp(48px, 5.4vw, 84px) !important;
+  line-height: .8; letter-spacing: -0.04em; color: var(--text) !important; -webkit-text-stroke: 0 !important; text-shadow: none !important; background: none !important; opacity: 1;
+}
+#process .section-head > .sec-num { color: #f4f2ec !important; }
+#process .section-head { grid-template-columns: minmax(64px, 100px) 1fr !important; }
+#process .section-head > * { grid-column: 2; }
+#process .section-head > .sec-num { grid-column: 1 !important; }
+.contact-head { margin-bottom: 20px; }
+@media (max-width: 700px) { .section-head > .sec-num, #process .section-head > .sec-num { grid-row: auto; font-size: 56px !important; } #process .section-head { grid-template-columns: 1fr !important; } #process .section-head > * { grid-column: 1 !important; } }
+#process .h2 .serif { color: #ff6cbc !important; }

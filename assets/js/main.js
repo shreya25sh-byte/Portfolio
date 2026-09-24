@@ -873,7 +873,7 @@ $$(".likert").forEach((form) => {
     res.innerHTML =
       `<span class="mono muted">Your result</span><b>${label} · ${avg.toFixed(1)}/6</b>` +
       Object.entries(answers).map(([k, v]) => `<div class="likert__bar"><span>${k}</span><i style="--w:0%"></i><span>${v}</span></div>`).join("") +
-      `<p class="likert__note">Strongest domain: ${top}. This is how a Likert scale turns a feeling into data. These 3 items come from the real 17-item MSES, answered on its 6-point certainty scale.</p>`;
+      `<p class="likert__note">Strongest domain: ${top}. This is how a Likert scale turns a feeling into data. These items come from the real 17-item MSES, answered on its 6-point certainty scale.</p>`;
     form.classList.add("is-done");
     requestAnimationFrame(() => requestAnimationFrame(() => $$(".likert__bar", res).forEach((b, i) => ($("i", b).style.setProperty("--w", `${(vals[i] / 6) * 100}%`)))));
     if (avg >= 5) confetti(40);
@@ -1573,15 +1573,15 @@ if (demo) {
   const HEART = '<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M12 20.5s-7.5-4.4-7.5-10A4.3 4.3 0 0 1 12 7.7a4.3 4.3 0 0 1 7.5 2.8c0 5.6-7.5 10-7.5 10z"/></svg>';
   const DEMOS = {
     idetc: {
-      kicker: "MSES · thesis", title: "How certain are you?", href: "work/idetc.html", note: "3 of the 17 real MSES items",
+      kicker: "MSES · thesis", title: "How certain are you?", href: "work/idetc.html", note: "4 of the 17 real MSES items",
       render() {
-        const Q = [["Tinkering", "I can assemble things."], ["Design", "I can identify a design need."], ["Managing & execution", "I can improve a design after testing it."]];
+        const Q = [["Tinkering", "I can assemble things."], ["Makerspace & tools", "I can use makerspace tools to build things."], ["Design", "I can identify a design need."], ["Managing & execution", "I can improve a design after testing it."]];
         body.innerHTML = `<p class="demo__lede">Rate each statement: <b>1</b> = completely uncertain, <b>6</b> = completely certain.</p>` + Q.map(([d, q]) => `<div class="dq" data-d="${d}"><p>${q}</p><div class="dq__s">${[1, 2, 3, 4, 5, 6].map((v) => `<button type="button" data-v="${v}" title="${LIK[v - 1]}" aria-label="${v} of 6, ${LIK[v - 1]}">${v}</button>`).join("")}</div></div>`).join("") + `<div class="demo__out" hidden></div>`;
         const ans = {};
         $$(".dq", body).forEach((q) => $$("button", q).forEach((b) => b.addEventListener("click", () => {
           ans[q.dataset.d] = +b.dataset.v; $$("button", q).forEach((x) => x.classList.toggle("on", x === b));
-          if (Object.keys(ans).length < 3) return;
-          const avg = Object.values(ans).reduce((x, y) => x + y) / 3, low = Object.entries(ans).sort((a, c) => a[1] - c[1])[0][0];
+          if (Object.keys(ans).length < Q.length) return;
+          const avg = Object.values(ans).reduce((x, y) => x + y) / Q.length, low = Object.entries(ans).sort((a, c) => a[1] - c[1])[0][0];
           const out = $(".demo__out", body); out.hidden = false;
           out.innerHTML = `<b>${avg.toFixed(1)} / 6</b><span>Your least certain area: <strong>${low}</strong>. My thesis found confidence like this varies with students' backgrounds, so the fix is in how makerspaces welcome people, not just more machines.</span>`;
         })));
