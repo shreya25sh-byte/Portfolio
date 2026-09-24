@@ -2275,3 +2275,8 @@ button[aria-pressed="true"] .rq__w i.on { background: #111; }
 @media (prefers-reduced-motion: reduce) { .contact__doodle .dd-plane { animation: none; offset-distance: 100%; } .contact__doodle .dd-star { animation: none; } }
 @media (min-width: 821px) { .board { height: 560px; } }
 .footer__name { font-size: clamp(30px, 4vw, 60px) !important; line-height: .95; }
+.polaroid--logo .logo-story { grid-template-rows: auto 1fr; gap: 4px; padding: 16px 8px 6px; background: #fff; }
+.polaroid--logo .logo-story img:first-child { width: 42%; }
+.polaroid--logo .logo-story .logo-story__img { width: 100%; height: auto; aspect-ratio: auto; object-fit: contain; filter: none !important; }
+.about__text p { font-size: clamp(15.5px, 1.2vw, 17px); line-height: 1.55; letter-spacing: 0; margin: 0 0 16px; }
+.about-quote { font-size: clamp(19px, 1.8vw, 24px) !important; margin-bottom: 22px; }
