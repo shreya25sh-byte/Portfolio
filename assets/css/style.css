@@ -2709,3 +2709,13 @@ ul.work .work__item { container-type: inline-size; }
 /* Contact heading: pink shadow only on hover */
 .contact__big { text-shadow: none !important; transition: text-shadow .25s var(--ease); }
 .contact__big:hover { text-shadow: 2px 2px 0 rgba(255, 63, 164, .6) !important; }
+
+/* Solid, gap-free offset shadows: stacked 0.5px steps read as one extruded block */
+:root {
+  --ts-pink: .5px .5px 0 #ff3fa4, 1px 1px 0 #ff3fa4, 1.5px 1.5px 0 #ff3fa4, 2px 2px 0 #ff3fa4;
+}
+.contact__big:hover { text-shadow: var(--ts-pink) !important; }
+.footer__name { text-shadow: none !important; }
+.case-hero h1 { text-shadow: .5px .5px 0 var(--c), 1px 1px 0 var(--c), 1.5px 1.5px 0 var(--c) !important; }
+.next__title { text-shadow: .5px .5px 0 var(--nc, #ff3fa4), 1px 1px 0 var(--nc, #ff3fa4), 1.5px 1.5px 0 var(--nc, #ff3fa4) !important; }
+.next:hover .next__title { text-shadow: .5px .5px 0 var(--nc, #ff3fa4), 1px 1px 0 var(--nc, #ff3fa4), 1.5px 1.5px 0 var(--nc, #ff3fa4), 2px 2px 0 var(--nc, #ff3fa4), 2.5px 2.5px 0 var(--nc, #ff3fa4) !important; }
