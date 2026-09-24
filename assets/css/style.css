@@ -2671,3 +2671,21 @@ ul.work .work__item:hover, ul.work .work__item:focus-within { box-shadow: 8px 8p
 .dd__chips button { display: inline-flex; align-items: center; gap: 6px; }
 .dd__chips button svg { width: 18px; height: 18px; border: 1px solid currentColor; border-radius: 3px; background: #fff; stroke: #111; stroke-width: 1.6; fill: none; }
 .dd__chips button.on svg { border-color: #fff; }
+/* MSES items use the real 6-point certainty scale */
+.likert__scale { grid-template-columns: repeat(6, 1fr) !important; }
+.likert__bar { grid-template-columns: 150px 1fr 28px; }
+.dq__s { gap: 4px; }
+.dq__s button { width: 30px; height: 30px; }
+.demo--wide { width: min(940px, calc(100vw - 32px)); }
+.demo--wide .demo__body { padding: 12px; max-height: calc(100vh - 190px); overflow: auto; }
+.demo--wide .widget { margin: 0; box-shadow: none !important; border: 0; }
+.demo--wide .widget__body { padding: 16px; }
+.demo--wide .lockdemo { padding: 16px; }
+/* DFAM: toy now lives in the body, after the overview */
+.case--dfam #try .lattoy { position: static !important; width: auto !important; max-width: 640px; margin: 8px 0 0 !important; }
+.case--dfam .case-hero h1, .case--dfam .case-hero__sub { max-width: none !important; }
+/* Tighter title shadows; Calidus a touch bluer */
+:root { --calidus: #0a7c96; }
+.next__title { text-shadow: 1.5px 1.5px 0 color-mix(in srgb, var(--nc, #ff3fa4) 75%, transparent) !important; }
+.next:hover .next__title { text-shadow: 2px 2px 0 var(--nc, #ff3fa4) !important; }
+.case-hero h1 { text-shadow: 1.5px 1.5px 0 color-mix(in srgb, var(--c) 55%, transparent) !important; }

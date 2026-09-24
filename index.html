@@ -382,6 +382,71 @@
     <div class="demo__body" id="demo-body"></div>
     <div class="demo__foot"><span class="mono" id="demo-note"></span><a class="demo__link" id="demo-link" href="#">Read the case study →</a></div>
   </dialog>
+  <template id="tpl-habit"><div class="widget" id="habit-test">
+            <div class="widget__bar"><span class="mono" id="ht-stage">Muscle-memory test · about 30 seconds</span><button class="btn btn--accent btn--sm" id="ht-start">Start test</button></div>
+            <div class="widget__body ht">
+              <div class="ht__left">
+              <div class="ht__phone">
+                <div class="ht__screen" id="ht-screen">
+                  <div class="ht__overlay" id="ht-overlay"><em class="ht__big-heart" aria-hidden="true">♥</em><b>Like 5 posts, fast</b><span>Tap the heart under each post</span><button type="button" class="ht__go" data-ht-go>Start round 1</button></div>
+                </div>
+              </div>
+              <p class="ht__hint mono" id="ht-hint">Round 1 of 2 · the app you know</p>
+              </div>
+              <div class="ht__results">
+                <div class="ht__race">
+                  <div class="ht__lane"><span class="mono">Familiar</span><div class="ht__track"><i id="ht-bar-a"></i></div><b id="ht-a">–</b></div>
+                  <div class="ht__lane is-b"><span class="mono">Redesigned</span><div class="ht__track"><i id="ht-bar-b"></i></div><b id="ht-b">–</b></div>
+                </div>
+                <div class="ht__verdict" id="ht-verdict">
+                  <span class="mono">How it works</span>
+                  <ol class="ht__steps" id="ht-steps">
+                    <li data-s="1"><span><b>Like 5 posts</b> in an app layout your thumb already knows.</span></li>
+                    <li data-s="2"><span><b>The app “updates”.</b> The heart moves to a new, sensible spot on every post.</span></li>
+                    <li data-s="3"><span><b>Like 5 more.</b> We time both rounds and compare.</span></li>
+                  </ol>
+                  <b id="ht-big" hidden>?</b>
+                  <p id="ht-msg" hidden></p>
+                </div>
+              </div>
+            </div>
+          </div></template>
+  <template id="tpl-lock"><div class="widget"><div class="widget__body lockdemo" id="lockdemo">
+              <div class="tapp tapp--solo">
+                <div class="tapp__notch"></div>
+                <div class="tapp__screen">
+                  <div class="tapp__bar"><span>9:41</span><span>●●● 87%</span></div>
+                  <div class="tapp__views">
+                    <div class="tapp__view is-on">
+                      <div class="tapp__hi"><h5><small>Kitchen</small>Knife drawer</h5><span class="ld__batt">87%</span></div>
+                      <div class="ld__stage">
+                        <button type="button" class="ld__btn" aria-label="Hold to unlock the knife drawer">
+                          <svg class="ld__ring" viewBox="0 0 132 132" aria-hidden="true"><circle class="rb" cx="66" cy="66" r="60"/><circle class="rf" cx="66" cy="66" r="60"/></svg>
+                          <span class="ld__icon"></span>
+                        </button>
+                        <strong class="ld__state">Locked</strong>
+                        <p class="ld__hint">Press and hold to unlock</p>
+                      </div>
+                      <div class="ld__meta"><div><small>Connection</small><b>Connected</b></div><div><small>Auto-lock</small><b>8:00 PM</b></div></div>
+                    </div>
+                  </div>
+                  <div class="tapp__tabs" aria-hidden="true"><button class="is-on" data-t="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 12 4l9 7v9H3z"/></svg>Home</button><button data-t="sched"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>Schedules</button><button data-t="log"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg>Activity</button></div>
+                </div>
+              </div>
+              <div class="ld__device">
+                <div class="seg ld__seg" role="group" aria-label="Device view">
+                  <button type="button" data-ldv="ext" aria-pressed="true">Outside</button>
+                  <button type="button" data-ldv="int" aria-pressed="false">Inside the mechanism</button>
+                </div>
+                <div class="ld__imgs fig__frame">
+                  <img data-v="ext" data-s="locked" src="assets/img/totsecure-locked.webp" alt="Render: Totsecure locked, latch hooked over the pin" width="980" height="400">
+                  <img data-v="ext" data-s="open" src="assets/img/totsecure-unlocked.webp" alt="Render: Totsecure unlocked, latch pulled back from the pin" width="980" height="400" loading="lazy">
+                  <img data-v="int" data-s="locked" src="assets/img/totsecure-mech-locked.webp" alt="Cutaway render: servo-driven rack pushes the hook forward to lock" width="1200" height="570" loading="lazy">
+                  <img data-v="int" data-s="open" src="assets/img/totsecure-mech-open.webp" alt="Cutaway render: rack pulled back, hook released" width="1200" height="570" loading="lazy">
+                </div>
+                <div class="lockdemo__log" aria-live="polite"></div>
+              </div>
+            </div></div></template>
 </main>
 
   <button class="tldr-fab" data-tldr aria-haspopup="dialog"><span class="timer" aria-hidden="true"></span>30-second version</button>

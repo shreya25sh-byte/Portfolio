@@ -37,36 +37,6 @@
         <div class="crumbs mono"><a href="../index.html#work">Work</a><span>/</span><span>04</span></div>
         <h1 class="split is-long">Can lattice structures make products quieter?</h1>
         <p class="case-hero__sub split">A research project in design for additive manufacturing (DFAM): <span class="serif">testing six lattice geometries for acoustic damping.</span></p>
-        <div class="lattoy is-empty reveal" id="lattoy" aria-label="Try it: sound through a lattice">
-          <div class="lattoy__bar"><span class="mono">Try it · pick a lattice</span></div>
-          <svg class="lattoy__svg" viewBox="0 0 420 170" aria-hidden="true">
-            <defs>
-              <pattern id="lp-hex" width="24" height="41.6" patternUnits="userSpaceOnUse"><path d="M12 0 24 6.9v13.9L12 27.7 0 20.8V6.9zM12 27.7v13.9" /></pattern>
-              <pattern id="lp-bcc" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M0 0h24v24H0zM0 0l24 24M24 0 0 24" /></pattern>
-              <pattern id="lp-fcc" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M0 0h24v24H0zM12 0l12 12-12 12L0 12z" /></pattern>
-              <pattern id="lp-dia" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M0 6 6 0 12 6 18 0 24 6M0 18l6-6 6 6 6-6 6 6" /></pattern>
-              <pattern id="lp-flu" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="12" cy="12" r="5"/><path d="M0 0 7 7M24 0l-7 7M0 24l7-7M24 24l-7-7" /></pattern>
-              <pattern id="lp-iso" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M6 0v24M18 0v24M6 12h12" /></pattern>
-              <clipPath id="lp-in"><rect x="54" y="0" width="116" height="170"/></clipPath><clipPath id="lp-out"><rect x="250" y="0" width="170" height="170"/></clipPath>
-            </defs>
-            <g class="lattoy__spk"><rect x="10" y="62" width="22" height="46" rx="4"/><path d="M32 70 52 52v66L32 100z"/></g>
-            <g class="lattoy__in" clip-path="url(#lp-in)"><path class="lattoy__wave" d="M40 85 q10 -34 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0"/></g>
-            <rect class="lattoy__panel" x="170" y="14" width="80" height="142" rx="6"/>
-            <rect class="lattoy__fill" id="lattoy-fill" fill="none" x="170" y="14" width="80" height="142" rx="6"/>
-            <g clip-path="url(#lp-out)"><g class="lattoy__out" id="lattoy-out"><path class="lattoy__wave" d="M250 85 q10 -34 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0"/></g></g>
-          </svg>
-          <div class="lattoy__meter"><b id="lattoy-db">69.7</b><span>dB</span><em id="lattoy-delta" class="mono">control</em></div>
-          <div class="lattoy__chips" role="group" aria-label="Lattice">
-            <button type="button" data-l="none" data-db="69.7" aria-pressed="true">None</button>
-            <button type="button" data-l="hex" data-db="58.3" aria-pressed="false">Honeycomb</button>
-            <button type="button" data-l="bcc" data-db="59.7" aria-pressed="false">BCC</button>
-            <button type="button" data-l="flu" data-db="64.4" aria-pressed="false">Fluorite</button>
-            <button type="button" data-l="dia" data-db="65.7" aria-pressed="false">Diamond</button>
-            <button type="button" data-l="fcc" data-db="68.0" aria-pressed="false">FCC</button>
-            <button type="button" data-l="iso" data-db="73.0" aria-pressed="false">IsoTruss</button>
-          </div>
-          <p class="lattoy__note mono">Average of 3 real readings per lattice</p>
-        </div>
         <div class="meta reveal">
           <div><h4 class="mono">Role</h4><p>Researcher: experiment design, lattice modelling, testing, analysis</p></div>
           <div><h4 class="mono">Timeline</h4><p>2 months · 2025</p></div>
@@ -112,6 +82,41 @@
             <div><h4 class="mono">Method</h4><p>Six interchangeable lattice geometries in a sealed enclosure, a fixed tone source, three decibel readings each, against a no-lattice control.</p></div>
             <div><h4 class="mono">Finding</h4><p>Hexagonal Honeycomb (−11.4 dB) and Body-Centered Cubic (−10 dB) worked best. IsoTruss made things <em>louder</em> (+3.3 dB).</p></div>
           </div>
+        </section>
+
+        <section class="chapter" id="try">
+          <span class="mono">Try it</span>
+          <h2 class="split">Pick a lattice, see what the meter read.</h2>
+  <div class="lattoy is-empty reveal" id="lattoy" aria-label="Try it: sound through a lattice">
+          <div class="lattoy__bar"><span class="mono">Try it · pick a lattice</span></div>
+          <svg class="lattoy__svg" viewBox="0 0 420 170" aria-hidden="true">
+            <defs>
+              <pattern id="lp-hex" width="24" height="41.6" patternUnits="userSpaceOnUse"><path d="M12 0 24 6.9v13.9L12 27.7 0 20.8V6.9zM12 27.7v13.9" /></pattern>
+              <pattern id="lp-bcc" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M0 0h24v24H0zM0 0l24 24M24 0 0 24" /></pattern>
+              <pattern id="lp-fcc" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M0 0h24v24H0zM12 0l12 12-12 12L0 12z" /></pattern>
+              <pattern id="lp-dia" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M0 6 6 0 12 6 18 0 24 6M0 18l6-6 6 6 6-6 6 6" /></pattern>
+              <pattern id="lp-flu" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="12" cy="12" r="5"/><path d="M0 0 7 7M24 0l-7 7M0 24l7-7M24 24l-7-7" /></pattern>
+              <pattern id="lp-iso" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M6 0v24M18 0v24M6 12h12" /></pattern>
+              <clipPath id="lp-in"><rect x="54" y="0" width="116" height="170"/></clipPath><clipPath id="lp-out"><rect x="250" y="0" width="170" height="170"/></clipPath>
+            </defs>
+            <g class="lattoy__spk"><rect x="10" y="62" width="22" height="46" rx="4"/><path d="M32 70 52 52v66L32 100z"/></g>
+            <g class="lattoy__in" clip-path="url(#lp-in)"><path class="lattoy__wave" d="M40 85 q10 -34 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0"/></g>
+            <rect class="lattoy__panel" x="170" y="14" width="80" height="142" rx="6"/>
+            <rect class="lattoy__fill" id="lattoy-fill" fill="none" x="170" y="14" width="80" height="142" rx="6"/>
+            <g clip-path="url(#lp-out)"><g class="lattoy__out" id="lattoy-out"><path class="lattoy__wave" d="M250 85 q10 -34 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0"/></g></g>
+          </svg>
+          <div class="lattoy__meter"><b id="lattoy-db">69.7</b><span>dB</span><em id="lattoy-delta" class="mono">control</em></div>
+          <div class="lattoy__chips" role="group" aria-label="Lattice">
+            <button type="button" data-l="none" data-db="69.7" aria-pressed="true">None</button>
+            <button type="button" data-l="hex" data-db="58.3" aria-pressed="false">Honeycomb</button>
+            <button type="button" data-l="bcc" data-db="59.7" aria-pressed="false">BCC</button>
+            <button type="button" data-l="flu" data-db="64.4" aria-pressed="false">Fluorite</button>
+            <button type="button" data-l="dia" data-db="65.7" aria-pressed="false">Diamond</button>
+            <button type="button" data-l="fcc" data-db="68.0" aria-pressed="false">FCC</button>
+            <button type="button" data-l="iso" data-db="73.0" aria-pressed="false">IsoTruss</button>
+          </div>
+          <p class="lattoy__note mono">Average of 3 real readings per lattice</p>
+        </div>
         </section>
 
         <section class="chapter" id="design">

@@ -630,8 +630,7 @@ if (stepper) {
 }
 
 /* Totsecure: lock demo */
-const lockdemo = $("#lockdemo");
-if (lockdemo) {
+function initLockDemo(lockdemo) {
   const btn = $(".ld__btn", lockdemo), icon = $(".ld__icon", lockdemo), state = $(".ld__state", lockdemo), hint = $(".ld__hint", lockdemo);
   const log = $(".lockdemo__log", lockdemo), ringC = $(".ld__ring .rf", lockdemo);
   const ICON_LOCK = '<svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
@@ -675,6 +674,7 @@ if (lockdemo) {
   setState(true, true);
   addLog("device connected · battery 87%");
 }
+if ($("#lockdemo")) initLockDemo($("#lockdemo"));
 
 /* Totsecure: donuts + bars */
 $$(".donut").forEach((d) =>
@@ -842,22 +842,23 @@ addEventListener("keydown", (e) => {
 });
 
 /* Mini self-efficacy survey */
+const LIK = ["Completely uncertain", "Uncertain", "Somewhat uncertain", "Somewhat certain", "Certain", "Completely certain"];
 $$(".likert").forEach((form) => {
   const qs = $$(".likert__q", form);
   const answers = {};
   qs.forEach((q) => {
     const scale = $(".likert__scale", q);
-    for (let v = 1; v <= 5; v++) {
+    for (let v = 1; v <= 6; v++) {
       const b = document.createElement("button");
       b.type = "button";
       b.textContent = v;
       b.setAttribute("aria-pressed", "false");
-      b.setAttribute("aria-label", `${v} of 5: ${q.querySelector("p").textContent}`);
+      b.setAttribute("aria-label", `${v} of 6 (${LIK[v - 1]}): ${q.querySelector("p").textContent}`); b.title = LIK[v - 1];
       b.addEventListener("click", (e) => {
         answers[q.dataset.domain] = v;
         $$("button", scale).forEach((x) => x.setAttribute("aria-pressed", x === b));
         const r = b.getBoundingClientRect();
-        if (v >= 4) burst(r.left + r.width / 2, r.top, 5);
+        if (v >= 5) burst(r.left + r.width / 2, r.top, 5);
         if (Object.keys(answers).length === qs.length) done();
         void e;
       });
@@ -868,14 +869,14 @@ $$(".likert").forEach((form) => {
     const vals = Object.values(answers), avg = vals.reduce((a, b) => a + b, 0) / vals.length;
     const res = $(".likert__result", form);
     const top = Object.entries(answers).sort((a, b) => b[1] - a[1])[0][0];
-    const label = avg >= 4.3 ? "Fearless maker" : avg >= 3.3 ? "Confident tinkerer" : avg >= 2.3 ? "Curious builder" : "Future maker (everyone starts here)";
+    const label = avg >= 5.2 ? "Fearless maker" : avg >= 4 ? "Confident tinkerer" : avg >= 2.8 ? "Curious builder" : "Future maker (everyone starts here)";
     res.innerHTML =
-      `<span class="mono muted">Your result</span><b>${label} · ${avg.toFixed(1)}/5</b>` +
+      `<span class="mono muted">Your result</span><b>${label} · ${avg.toFixed(1)}/6</b>` +
       Object.entries(answers).map(([k, v]) => `<div class="likert__bar"><span>${k}</span><i style="--w:0%"></i><span>${v}</span></div>`).join("") +
-      `<p class="likert__note">Strongest domain: ${top}. This is how a Likert scale turns a feeling into data. The real MSES has 17 validated items; these 3 are just for fun.</p>`;
+      `<p class="likert__note">Strongest domain: ${top}. This is how a Likert scale turns a feeling into data. These 3 items come from the real 17-item MSES, answered on its 6-point certainty scale.</p>`;
     form.classList.add("is-done");
-    requestAnimationFrame(() => requestAnimationFrame(() => $$(".likert__bar", res).forEach((b, i) => ($("i", b).style.setProperty("--w", `${(vals[i] / 5) * 100}%`)))));
-    if (avg >= 4) confetti(40);
+    requestAnimationFrame(() => requestAnimationFrame(() => $$(".likert__bar", res).forEach((b, i) => ($("i", b).style.setProperty("--w", `${(vals[i] / 6) * 100}%`)))));
+    if (avg >= 5) confetti(40);
   };
 });
 
@@ -1355,8 +1356,7 @@ $$(".video-frame video").forEach((v) => {
 });
 
 /* Innovation vs habit: muscle-memory test */
-const ht = $("#habit-test");
-if (ht) {
+function initHabitTest(ht) {
   const screen = $("#ht-screen"), overlay = $("#ht-overlay"), stage = $("#ht-stage"), btn = $("#ht-start"), hint = $("#ht-hint");
   const P = (d, f) => `<svg viewBox="0 0 24 24" width="22" height="22" fill="${f ? "currentColor" : "none"}" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
   const IC = {
@@ -1477,6 +1477,7 @@ if (ht) {
     if (overlay.classList.contains("is-update")) startRound2(); else startRound1();
   });
 }
+if ($("#habit-test")) initHabitTest($("#habit-test"));
 
 /* NASA-TLX raw score */
 const tlxBox = $("#tlx");
@@ -1572,56 +1573,32 @@ if (demo) {
   const HEART = '<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M12 20.5s-7.5-4.4-7.5-10A4.3 4.3 0 0 1 12 7.7a4.3 4.3 0 0 1 7.5 2.8c0 5.6-7.5 10-7.5 10z"/></svg>';
   const DEMOS = {
     idetc: {
-      kicker: "MSES · thesis", title: "How confident do you feel making things?", href: "work/idetc.html", note: "The real scale has 17 validated items",
+      kicker: "MSES · thesis", title: "How certain are you?", href: "work/idetc.html", note: "3 of the 17 real MSES items",
       render() {
-        const Q = [["Ideate", "…come up with an idea for something to build?"], ["Build", "…make a first prototype with a 3D printer or laser cutter?"], ["Iterate", "…fix it when the prototype fails?"]];
-        body.innerHTML = `<p class="demo__lede">How confident are you that you could…</p>` + Q.map(([d, q]) => `<div class="dq" data-d="${d}"><p>${q}</p><div class="dq__s">${[1, 2, 3, 4, 5].map((v) => `<button type="button" data-v="${v}">${v}</button>`).join("")}</div></div>`).join("") + `<div class="demo__out" hidden></div>`;
+        const Q = [["Tinkering", "I can assemble things."], ["Design", "I can identify a design need."], ["Managing & execution", "I can improve a design after testing it."]];
+        body.innerHTML = `<p class="demo__lede">Rate each statement: <b>1</b> = completely uncertain, <b>6</b> = completely certain.</p>` + Q.map(([d, q]) => `<div class="dq" data-d="${d}"><p>${q}</p><div class="dq__s">${[1, 2, 3, 4, 5, 6].map((v) => `<button type="button" data-v="${v}" title="${LIK[v - 1]}" aria-label="${v} of 6, ${LIK[v - 1]}">${v}</button>`).join("")}</div></div>`).join("") + `<div class="demo__out" hidden></div>`;
         const ans = {};
         $$(".dq", body).forEach((q) => $$("button", q).forEach((b) => b.addEventListener("click", () => {
           ans[q.dataset.d] = +b.dataset.v; $$("button", q).forEach((x) => x.classList.toggle("on", x === b));
           if (Object.keys(ans).length < 3) return;
-          const avg = (ans.Ideate + ans.Build + ans.Iterate) / 3, low = Object.entries(ans).sort((a, c) => a[1] - c[1])[0][0];
+          const avg = Object.values(ans).reduce((x, y) => x + y) / 3, low = Object.entries(ans).sort((a, c) => a[1] - c[1])[0][0];
           const out = $(".demo__out", body); out.hidden = false;
-          out.innerHTML = `<b>${avg.toFixed(1)} / 5</b><span>Your lowest phase: <strong>${low}</strong>. My thesis found confidence like this varies with students' backgrounds, so the fix is in how makerspaces welcome people, not just more machines.</span>`;
+          out.innerHTML = `<b>${avg.toFixed(1)} / 6</b><span>Your least certain area: <strong>${low}</strong>. My thesis found confidence like this varies with students' backgrounds, so the fix is in how makerspaces welcome people, not just more machines.</span>`;
         })));
       },
     },
     habit: {
-      kicker: "Innovation vs habit", title: "Tap the heart. Then we move it.", href: "work/habit.html", note: "3 taps per round · measured in ms",
+      kicker: "Innovation vs habit", title: "Like 5 posts. Then the app updates.", href: "work/habit.html", note: "The same test used in the case study", wide: true,
       render() {
-        body.innerHTML = `<p class="demo__lede" id="dh-msg">Round 1: tap the <b>♥</b> 3 times, as fast as you can.</p><div class="dh__grid" id="dh-grid"></div><div class="demo__out" hidden></div>`;
-        const grid = $("#dh-grid", body), msg = $("#dh-msg", body);
-        let round = 1, taps = 0, t0, times = [[], []], pos = 7;
-        const draw = () => {
-          grid.innerHTML = Array.from({ length: 9 }, (_, i) => i === pos ? `<button type="button" class="dh__c is-heart">${HEART}</button>` : `<button type="button" class="dh__c"><i></i></button>`).join("");
-          t0 = performance.now();
-        };
-        grid.addEventListener("click", (e) => {
-          const b = e.target.closest(".dh__c"); if (!b || !round) return;
-          if (!b.classList.contains("is-heart")) { b.animate([{ transform: "translateX(-3px)" }, { transform: "translateX(3px)" }, { transform: "none" }], { duration: 180 }); return; }
-          times[round - 1].push(performance.now() - t0); taps++;
-          if (taps < 3) { if (round === 2) { let n; do n = Math.floor(Math.random() * 9); while (n === pos); pos = n; } draw(); return; }
-          if (round === 1) { round = 2; taps = 0; msg.innerHTML = "✨ <b>App updated.</b> Same heart, new spots. Tap it 3 more times."; let n; do n = Math.floor(Math.random() * 9); while (n === pos); pos = n; draw(); return; }
-          round = 0;
-          const a = times[0].reduce((x, y) => x + y) / 3, c = times[1].reduce((x, y) => x + y) / 3, r = c / a;
-          const out = $(".demo__out", body); out.hidden = false;
-          out.innerHTML = `<b>${r >= 1.05 ? r.toFixed(1) + "× slower" : "Unfazed!"}</b><span>${Math.round(a)} ms when the heart stayed put, ${Math.round(c)} ms once it moved. ${r >= 1.05 ? "That gap is the cognitive load of a redesign, which is what my study measures." : "Nice reflexes. Real redesigns move whole flows, not one icon, and that's what my study measures."}</span>`;
-        });
-        draw();
+        body.innerHTML = $("#tpl-habit").innerHTML;
+        initHabitTest($("#habit-test", body));
       },
     },
     totsecure: {
-      kicker: "Totsecure", title: "Hold to unlock the knife drawer", href: "work/totsecure.html", note: "A deliberate hold prevents accidental unlocks",
+      kicker: "Totsecure", title: "Hold to unlock the knife drawer", href: "work/totsecure.html", note: "The redesigned app, driving the real render", wide: true,
       render() {
-        body.innerHTML = `<div class="dt"><div class="dt__imgs"><img data-s="locked" src="assets/img/totsecure-locked.webp" alt="Totsecure locked"><img data-s="open" src="assets/img/totsecure-unlocked.webp" alt="Totsecure unlocked"></div><button type="button" class="dt__btn"><i></i><span>Hold to unlock</span></button><p class="dt__state mono">Locked · online</p></div>`;
-        const wrap = $(".dt", body), btn = $(".dt__btn", body), fill = $("i", btn), label = $("span", btn), state = $(".dt__state", body);
-        let locked = true, raf, t0;
-        const set = (l) => { locked = l; wrap.classList.toggle("is-open", !l); label.textContent = l ? "Hold to unlock" : "Hold to lock"; state.textContent = l ? "Locked · online" : "Unlocked · an adult can open it"; };
-        const start = (e) => { e.preventDefault(); t0 = performance.now(); const f = (t) => { const p = Math.min(1, (t - t0) / 700); fill.style.transform = `scaleX(${p})`; if (p < 1) raf = requestAnimationFrame(f); else { fill.style.transform = "scaleX(0)"; set(!locked); } }; raf = requestAnimationFrame(f); };
-        const stop = () => { cancelAnimationFrame(raf); fill.style.transform = "scaleX(0)"; };
-        btn.addEventListener("pointerdown", start); ["pointerup", "pointerleave", "pointercancel"].forEach((ev) => btn.addEventListener(ev, stop));
-        btn.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); set(!locked); } });
-        set(true);
+        body.innerHTML = $("#tpl-lock").innerHTML;
+        initLockDemo($("#lockdemo", body));
       },
     },
     dfam: {
@@ -1667,10 +1644,11 @@ if (demo) {
   const open = (id) => {
     const d = DEMOS[id]; if (!d) return;
     $("#demo-kicker").textContent = d.kicker; $("#demo-title").textContent = d.title; note.textContent = d.note; link.href = d.href;
-    demo.dataset.c = id; d.render();
+    demo.dataset.c = id; demo.classList.toggle("demo--wide", !!d.wide); d.render();
     demo.showModal ? demo.showModal() : demo.setAttribute("open", "");
   };
   $$("[data-demo]").forEach((b) => b.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); open(b.dataset.demo); }));
   $$("[data-demo-close]", demo).forEach((b) => b.addEventListener("click", () => demo.close()));
+  demo.addEventListener("close", () => { body.innerHTML = ""; });
   demo.addEventListener("click", (e) => { if (e.target === demo) demo.close(); });
 }
