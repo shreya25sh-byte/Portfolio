@@ -2378,3 +2378,20 @@ button[aria-pressed="true"] .rq__w i.on { background: #111; }
 .datatable tr.is-worse td:last-child { color: #b3261e; font-weight: 600; }
 .case--godrej .cover { max-width: 520px; margin-inline: auto; margin-top: 40px; }
 .bench-label { margin: 22px 0 8px; color: var(--muted); }
+
+/* Featured thesis: card + conferences sidebar, quiz underneath */
+.featured { grid-template-columns: minmax(0, 2.2fr) minmax(240px, 1fr); align-items: stretch; }
+.featured > .likert--compact { grid-column: 1 / -1; margin-top: 0; }
+.featured__side { border: 1.5px solid var(--text); border-radius: var(--radius); background: var(--bg-2); padding: 18px 20px; display: grid; gap: 12px; align-content: start; }
+.featured__side > .mono { color: var(--muted); }
+.featured__side ol { list-style: none; margin: 0; padding: 0 0 0 16px; display: grid; gap: 14px; border-left: 2px solid var(--text); }
+.featured__side li { position: relative; display: grid; gap: 2px; }
+.featured__side li::before { content: ""; position: absolute; left: -23px; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg); border: 2px solid var(--text); }
+.featured__side li.is-win::before { background: var(--accent); }
+.featured__side time { color: var(--muted); font-size: 11px; }
+.featured__side b { font-family: var(--f-display); font-weight: 400; font-size: 22px; line-height: 1.05; }
+.featured__side span { font-size: 13px; color: var(--body-ink); line-height: 1.4; }
+.featured__side-link { justify-self: start; font-size: 13.5px; border-bottom: 1.5px solid var(--accent); }
+@media (min-width: 901px) { .featured__img { flex-basis: 48%; min-height: 320px; } }
+@media (max-width: 900px) { .featured { grid-template-columns: 1fr; } }
+.featured__img img { object-position: 78% 40% !important; }
