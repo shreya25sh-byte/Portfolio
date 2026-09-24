@@ -2019,3 +2019,11 @@ img { height: auto; }
 .st-33 { margin-left:auto !important; }
 .st-34 { margin:12px 0 0 !important;padding-left:18px !important;color:var(--body-ink) !important;font-size:15px !important;display:grid !important;gap:8px !important; }
 .st-35 { font-size:.5em !important; }
+
+/* Tighter riso shadows: colour sits just behind the letters */
+.case-hero h1 { text-shadow: 2px 2px 0 color-mix(in srgb, var(--c) 55%, transparent); }
+.next:hover .next__title { text-shadow: 2px 2px 0 color-mix(in srgb, var(--nc, var(--accent)) 70%, transparent); }
+.footer__name, .contact__big { text-shadow: 2px 2px 0 rgba(255, 63, 164, .45); }
+@media (max-width: 700px) {
+  .case-hero h1, .next:hover .next__title, .footer__name, .contact__big { text-shadow: 1.5px 1.5px 0 color-mix(in srgb, var(--c, #ff3fa4) 55%, transparent); }
+}
