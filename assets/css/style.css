@@ -2840,3 +2840,16 @@ ul.work .work__item { container-type: inline-size; }
   .roles__row { padding-left: 0; padding-right: 0; }
   .roles__row li { font-size: 18px; padding: 12px 16px; display: flex; align-items: center; justify-content: center; }
 }
+
+/* Primary button: ink fill + white text for contrast, pink offset shadow keeps the pop */
+.btn--accent { background: #111 !important; color: #fff !important; border-color: #111 !important; box-shadow: 3px 3px 0 #ff3fa4 !important; }
+.btn--accent:hover { background: #111 !important; color: #fff !important; box-shadow: 5px 5px 0 #ff3fa4 !important; }
+.btn--accent:active { box-shadow: 1px 1px 0 #ff3fa4 !important; }
+
+/* Jenga: when the tower falls, the learning is the headline (ink bar, not pink) */
+.jenga.is-down .jenga__caption { background: #111 !important; color: #e9e7e1 !important; border-top: 4px solid #ff3fa4; padding: 18px 20px 20px; }
+.jg-down { display: block; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #ff7ac2 !important; margin-bottom: 8px; }
+.jg-learn { display: block; font-family: var(--f-display); font-size: clamp(22px, 2.4vw, 30px); line-height: 1.15; color: #fff; }
+.jenga.is-down .jenga__caption .jg-learn b { color: #ff7ac2 !important; font-weight: 400; font-style: italic; }
+.jg-proof { display: flex !important; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; margin-top: 12px !important; font-size: 15px !important; opacity: 1 !important; color: #f4f2ec; }
+.jg-tag { background: #ffe14d; color: #111 !important; padding: 3px 8px; border-radius: 3px; font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; }

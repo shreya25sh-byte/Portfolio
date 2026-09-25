@@ -1307,7 +1307,7 @@ if (jenga) {
       return;
     }
     dead = true;
-    say(`<b>${b.dataset.name}</b> pulled. ${b.dataset.why} <span class="jg-proof">I rely on it: ${b.dataset.proof}</span>`);
+    say(`<span class="jg-down mono">Tower down · that was a real step</span><span class="jg-learn"><b>${b.dataset.name}.</b> ${b.dataset.why}</span><span class="jg-proof"><span class="jg-tag mono">Where I learned it</span>${b.dataset.proof}</span>`);
     jenga.classList.add("is-wobble");
     setTimeout(() => {
       jenga.classList.remove("is-wobble"); jenga.classList.add("is-down");

@@ -169,7 +169,7 @@ export default function initJenga3D(root, { CORE, FLUFF, say, onScore, onEnd }) 
       return;
     }
     dead = true;
-    say(`<b>${b.name}</b> pulled. ${b.why} <span class="jg-proof">I rely on it: ${b.proof}</span>`);
+    say(`<span class="jg-down mono">Tower down · that was a real step</span><span class="jg-learn"><b>${b.name}.</b> ${b.why}</span><span class="jg-proof"><span class="jg-tag mono">Where I learned it</span>${b.proof}</span>`);
     root.classList.add("is-down");
     onEnd(false);
     // the real step was holding everything above it: wake the tower and give it a shove
