@@ -944,10 +944,14 @@ $$(".stack").forEach((stack) => {
       layout();
     }, reduced ? 0 : 420);
   };
+  const next = $("#stack-next"), count = $("#stack-count"), total = $$(".polaroid", stack).length;
+  let n = 1;
+  const step = () => { if ($(".polaroid:last-child", stack)?.classList.contains("is-out")) return; shuffle(); n = (n % total) + 1; if (count) count.textContent = `${n} / ${total}`; };
+  if (next) next.addEventListener("click", step);
   stack.setAttribute("tabindex", "0");
   stack.setAttribute("role", "button");
-  stack.addEventListener("click", shuffle);
-  stack.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); shuffle(); } });
+  stack.addEventListener("click", step);
+  stack.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); step(); } });
 });
 
 /* Draggable stickers */

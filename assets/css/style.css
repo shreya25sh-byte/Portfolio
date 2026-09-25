@@ -2853,3 +2853,14 @@ ul.work .work__item { container-type: inline-size; }
 .jenga.is-down .jenga__caption .jg-learn b { color: #ff7ac2 !important; font-weight: 400; font-style: italic; }
 .jg-proof { display: flex !important; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; margin-top: 12px !important; font-size: 15px !important; opacity: 1 !important; color: #f4f2ec; }
 .jg-tag { background: #ffe14d; color: #111 !important; padding: 3px 8px; border-radius: 3px; font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; }
+/* Industry rows: a one-line caption under each number */
+.xrow__n { display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
+.xrow__n small { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); margin-top: 4px; line-height: 1.3; }
+@media (max-width: 600px) { .xrow__n { align-items: flex-start; text-align: left; } }
+/* Photo stack: a real control instead of a hint the stickers covered */
+.stack-ctrl { position: relative; z-index: 6; display: flex; justify-content: center; align-items: center; gap: 14px; margin-top: 40px; }
+.stack-next { background: #111; color: #fff; border: 1.5px solid #111; border-radius: 999px; padding: 9px 18px; font: 500 14px/1 inherit; cursor: pointer; box-shadow: 3px 3px 0 #ff3fa4; transition: transform .15s, box-shadow .15s; }
+.stack-next:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 #ff3fa4; }
+.stack-next:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 #ff3fa4; }
+.stack-count { font-size: 12px; color: var(--muted); }
+.sk-3 { top: 3%; left: 2%; right: auto; bottom: auto; }
