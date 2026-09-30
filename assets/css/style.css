@@ -2947,3 +2947,4 @@ ul.work .work__badges { order: 1 !important; display: flex; flex-wrap: wrap; gap
 /* Badges: softer yellow, flat and straight (no offset shadow) */
 .work__talks .win-badge, .talks-strip .win-badge, .work__badges .wb--a { background: #fff4b8 !important; box-shadow: none !important; transform: none !important; rotate: none !important; border-width: 1px !important; }
 .work__badges .wb { border-width: 1px; }
+.footer__credit { grid-column: 1 / -1; margin: 18px 0 0; padding-top: 14px; border-top: 1px solid var(--line-strong); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
