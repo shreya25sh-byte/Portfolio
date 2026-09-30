@@ -2880,3 +2880,22 @@ ul.work .work__desc { padding-left: 22px !important; padding-right: 22px !import
 /* Masthead: equal rules, one type weight */
 .masthead { border-top: 1px solid var(--text) !important; border-bottom: 1px solid var(--text) !important; font-weight: 400; }
 .masthead b { font-weight: 400 !important; }
+/* MSES card: "Presented at" folded into the card */
+ul.work .work__talks { display: block; margin: 6px 22px 0 !important; padding: 12px 0 0 !important; border-top: 1px dashed var(--line-strong); }
+.work__talks-h { display: block; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.work__talks .wt { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 12px; padding: 5px 0; font-size: 14.5px; }
+.work__talks .wt time { font-size: 11.5px; color: var(--muted); width: 58px; flex: none; }
+.work__talks .wt b { font-weight: 500; color: var(--text); }
+.work__talks .win-badge { display: inline-block; background: #ffe14d; color: #111; border: 1.5px solid #111; border-radius: 999px; padding: 3px 9px; font-size: 10.5px; line-height: 1.2; box-shadow: 2px 2px 0 #111; transform: rotate(-2deg); }
+/* Desktop: MSES is the featured card (full width, image left), the other three sit in a row */
+@media (min-width: 1000px) {
+  ul.work { grid-template-columns: repeat(3, 1fr); }
+  ul.work .work__item[data-id="idetc"] { grid-column: 1 / -1; }
+  ul.work .work__item[data-id="idetc"] .work__link { display: grid !important; grid-template-columns: 1.15fr 1fr; grid-template-rows: auto auto auto 1fr; column-gap: 8px; padding: 0 !important; }
+  ul.work .work__item[data-id="idetc"] .work__thumb { grid-column: 1; grid-row: 1 / span 4; margin: 0; border-bottom: 0 !important; border-right: 1px solid var(--line-strong) !important; aspect-ratio: auto; height: 100%; min-height: 380px; }
+  ul.work .work__item[data-id="idetc"] .work__link > :not(.work__thumb) { grid-column: 2; }
+  ul.work .work__item[data-id="idetc"] .work__idx { padding-top: 26px !important; }
+  ul.work .work__item[data-id="idetc"] .work__talks { margin-bottom: 24px !important; align-self: start; }
+  ul.work .work__item[data-id="idetc"] .demo-btn { top: auto; bottom: 16px; right: auto; left: calc(53.5% - 150px); }
+  ul.work .work__item:not([data-id="idetc"]) .work__title { font-size: clamp(22px, 1.8vw, 26px) !important; }
+}
