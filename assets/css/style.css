@@ -2915,3 +2915,7 @@ ul.work .work__badges { order: 1 !important; display: flex; flex-wrap: wrap; gap
 .hero-photo .note .lbl rect { fill: #ffe14d; stroke: #111; stroke-width: 2.5; }
 .hero-photo .doodles .lbl text { font-family: var(--f-sans, 'Geist', system-ui, sans-serif) !important; font-style: normal !important; font-weight: 600; font-size: 30px !important; fill: #111 !important; opacity: 1 !important; stroke: none !important; }
 .hero-photo .note .d { stroke-width: 5; }
+/* Hero lens notes v2: yellow doodle lines, white bold text, no label box */
+.hero-photo .doodles .d { stroke: #ffe14d !important; stroke-width: 6; }
+.hero-photo .note .lbl rect { display: none; }
+.hero-photo .doodles .lbl text { fill: #fff !important; font-weight: 700; stroke: rgba(17,17,17,.55) !important; stroke-width: 5px; paint-order: stroke fill; stroke-linejoin: round; }
