@@ -2909,3 +2909,9 @@ ul.work .work__badges { order: 1 !important; display: flex; flex-wrap: wrap; gap
 .work__badges .wb--d { background: #e9e6df; }
 .work__item:hover .work__badges .wb--a { transform: rotate(0deg); transition: transform .25s; }
 @media (min-width: 1000px) { ul.work .work__item[data-id="idetc"] .work__badges { padding-top: 26px !important; } }
+/* Hero lens notes: legible labels (sans, ink on riso yellow) */
+.hero-photo .note .lbl { opacity: 0; transition: opacity .35s ease .45s; }
+.hero-photo .note.is-found .lbl { opacity: 1; }
+.hero-photo .note .lbl rect { fill: #ffe14d; stroke: #111; stroke-width: 2.5; }
+.hero-photo .doodles .lbl text { font-family: var(--f-sans, 'Geist', system-ui, sans-serif) !important; font-style: normal !important; font-weight: 600; font-size: 30px !important; fill: #111 !important; opacity: 1 !important; stroke: none !important; }
+.hero-photo .note .d { stroke-width: 5; }

@@ -1548,27 +1548,26 @@ if (tsCover && finePointer && !reduced) {
   tsCover.addEventListener("pointerleave", () => ["--rx", "--ry"].forEach((k) => tsCover.style.setProperty(k, "0deg")));
 }
 
-/* Hero: numbered pins on real objects; each one draws a handwritten field note */
+/* Hero: colour lens hunt. Hidden field notes draw themselves when the lens finds them */
 const heroPhoto = $("#hero-photo");
 if (heroPhoto) {
-  const pins = $$(".pin", heroPhoto), hint = $("#lens-hint b");
+  const notes = $$(".doodles .note", heroPhoto), hint = $("#lens-hint b");
   const found = new Set();
   $$(".d", heroPhoto).forEach((p) => { const l = p.getTotalLength(); p.style.strokeDasharray = l; p.style.strokeDashoffset = l; });
-  pins.forEach((pin) => pin.addEventListener("click", (e) => {
-    e.stopPropagation();
-    const k = pin.dataset.pin, n = $(`.note[data-note="${k}"]`, heroPhoto);
-    const on = !n.classList.contains("is-found");
-    n.classList.toggle("is-found", on); pin.classList.toggle("is-on", on);
-    $$(".d", n).forEach((p, i) => {
-      p.style.transition = `stroke-dashoffset ${reduced ? 0 : 0.6}s ${reduced ? 0 : i * 0.2}s ease-out`;
-      p.style.strokeDashoffset = on ? 0 : p.getTotalLength();
-    });
-    if (on && !found.has(k)) {
-      found.add(k); hint.textContent = found.size;
-      const r = pin.getBoundingClientRect(); burst(r.left + r.width / 2, r.top + r.height / 2, 4);
-      if (found.size === pins.length) { heroPhoto.classList.add("is-complete"); $("#lens-hint").classList.add("is-complete"); $("#lens-hint").innerHTML = "Case closed ✦ 4/4 field notes"; confetti(30); }
-    }
-  }));
+  const reveal = (n) => {
+    if (found.has(n)) return;
+    found.add(n); n.classList.add("is-found");
+    $$(".d", n).forEach((p, i) => { p.style.transition = `stroke-dashoffset ${reduced ? 0 : 0.6}s ${reduced ? 0 : i * 0.2}s ease-out`; p.style.strokeDashoffset = 0; });
+    hint.textContent = found.size;
+    if (found.size === notes.length) { heroPhoto.classList.add("is-complete"); $("#lens-hint").classList.add("is-complete"); $("#lens-hint").innerHTML = "All 4 found ✦ nice eye"; confetti(30); }
+  };
+  const check = (e) => {
+    const r = heroPhoto.getBoundingClientRect(), sx = 750 / r.width, sy = 793 / r.height;
+    const x = (e.clientX - r.left) * sx, y = (e.clientY - r.top) * sy, rad = Math.max(70, r.width * 0.2) * sx;
+    notes.forEach((n) => { const [nx, ny] = n.dataset.spot.split(",").map(Number); if (Math.hypot(nx - x, ny - y) < rad * 0.9) reveal(n); });
+  };
+  heroPhoto.addEventListener("pointermove", check);
+  heroPhoto.addEventListener("pointerdown", check);
 }
 
 /* Work cards: 20-second demos */
