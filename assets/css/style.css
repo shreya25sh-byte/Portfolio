@@ -2900,3 +2900,12 @@ ul.work .work__talks { display: block; margin: 6px 22px 0 !important; padding: 1
   ul.work .work__item:not([data-id="idetc"]) .work__title { font-size: clamp(22px, 1.8vw, 26px) !important; }
 }
 .xp__role .xp__type { display: block; margin-top: 3px; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+/* Work cards: what-it-is badges (replace the number · year line) */
+ul.work .work__badges { order: 1 !important; display: flex; flex-wrap: wrap; gap: 8px; padding-top: 4px !important; }
+.work__badges .wb { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: #111; border: 1.5px solid #111; border-radius: 999px; padding: 4px 10px; line-height: 1.2; background: #fff; }
+.work__badges .wb--a { background: #ffe14d; box-shadow: 2px 2px 0 #111; transform: rotate(-2deg); }
+.work__badges .wb--b { background: color-mix(in srgb, var(--c, #ff3fa4) 18%, #fff); }
+.work__badges .wb--c { background: #fff; }
+.work__badges .wb--d { background: #e9e6df; }
+.work__item:hover .work__badges .wb--a { transform: rotate(0deg); transition: transform .25s; }
+@media (min-width: 1000px) { ul.work .work__item[data-id="idetc"] .work__badges { padding-top: 26px !important; } }
