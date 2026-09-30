@@ -2919,3 +2919,6 @@ ul.work .work__badges { order: 1 !important; display: flex; flex-wrap: wrap; gap
 .hero-photo .doodles .d { stroke: #ffe14d !important; stroke-width: 6; }
 .hero-photo .note .lbl rect { display: none; }
 .hero-photo .doodles .lbl text { fill: #fff !important; font-weight: 700; stroke: rgba(17,17,17,.55) !important; stroke-width: 5px; paint-order: stroke fill; stroke-linejoin: round; }
+/* Hero greeting */
+.hero__hi { margin: 0 0 10px; font-family: var(--f-display); font-style: italic; font-size: clamp(20px, 1.8vw, 26px); line-height: 1.2; color: var(--body-ink); }
+.hero__hi span { color: #c4127a; }
