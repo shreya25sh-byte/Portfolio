@@ -2948,3 +2948,34 @@ ul.work .work__badges { order: 1 !important; display: flex; flex-wrap: wrap; gap
 .work__talks .win-badge, .talks-strip .win-badge, .work__badges .wb--a { background: #fff4b8 !important; box-shadow: none !important; transform: none !important; rotate: none !important; border-width: 1px !important; }
 .work__badges .wb { border-width: 1px; }
 .footer__credit { grid-column: 1 / -1; margin: 18px 0 0; padding-top: 14px; border-top: 1px solid var(--line-strong); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+/* Study panel v2: a printed spec table, not a UI card */
+.impact { box-shadow: none !important; border: 0 !important; border-top: 2px solid var(--text) !important; border-bottom: 2px solid var(--text) !important; border-radius: 0 !important; background: transparent !important; }
+.impact__hero { background: transparent !important; border-right: 1px solid var(--text) !important; padding: 26px 32px 26px 0 !important; }
+.impact__kicker { font-size: 11px; letter-spacing: .1em; }
+.impact__num { font-family: var(--f-display) !important; font-weight: 400 !important; color: var(--text) !important; letter-spacing: -0.02em !important; }
+.impact__num i, .impact__num sup { font-style: italic !important; color: var(--c); }
+.impact__label { font-family: var(--f-display); font-size: clamp(19px, 1.7vw, 23px) !important; line-height: 1.25 !important; }
+.impact__note { font-family: var(--f-mono); font-size: 11px !important; letter-spacing: .06em; text-transform: uppercase; }
+.impact__stats { border-bottom: 1px solid var(--text) !important; }
+.impact__stats > div { border-color: var(--text) !important; padding: 20px 24px !important; }
+.impact__stats b { font-family: var(--f-display); font-weight: 400 !important; font-size: clamp(34px, 3vw, 46px) !important; letter-spacing: -0.01em !important; }
+.impact__methods { padding: 18px 0 6px 24px !important; }
+.impact__methods > .mono { font-size: 11px; letter-spacing: .1em; }
+.impact .mgrid { display: block !important; }
+.impact .method { display: grid !important; grid-template-columns: 92px minmax(0, 1fr) minmax(0, 1.1fr) 18px; align-items: baseline; gap: 14px; padding: 11px 0 !important; margin: 0 !important; background: none !important; border: 0 !important; border-bottom: 1px dotted #9b988f !important; border-radius: 0 !important; box-shadow: none !important; min-height: 0 !important; transform: none !important; color: var(--text); text-decoration: none; }
+.impact .method:last-child { border-bottom: 0 !important; }
+.impact .method small { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted) !important; margin: 0 !important; }
+.impact .method b { font-weight: 500; font-size: 15.5px; margin: 0 !important; }
+.impact .method span { font-size: 14px; color: var(--muted); margin: 0 !important; }
+.impact .method::after { content: "↓"; font-size: 13px; color: var(--muted); justify-self: end; }
+.impact .method:hover { background: color-mix(in srgb, var(--c) 8%, transparent) !important; }
+.impact .method:hover b { color: var(--c); }
+@media (max-width: 900px) {
+  .impact__hero { border-right: 0 !important; border-bottom: 1px solid var(--text) !important; padding: 22px 0 !important; }
+  .impact__methods { padding: 16px 0 4px !important; }
+  .impact .method { grid-template-columns: 76px minmax(0, 1fr) 14px; }
+  .impact .method span { grid-column: 2; }
+  .impact .method::after { grid-row: 1; grid-column: 3; }
+  .impact__stats > div { padding: 16px 0 !important; }
+}
