@@ -2980,3 +2980,6 @@ ul.work .work__badges { order: 1 !important; display: flex; flex-wrap: wrap; gap
   .impact__stats > div { padding: 16px 0 !important; }
 }
 .chapter#talks { border-top: 2px solid var(--text) !important; }
+/* External conference / journal links */
+a.ext, .ext[data-href] { color: inherit; text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--c, #ff3fa4) 70%, transparent); text-decoration-thickness: 1.5px; text-underline-offset: 3px; cursor: pointer; }
+a.ext:hover, .ext[data-href]:hover { color: var(--c, #c4127a); }

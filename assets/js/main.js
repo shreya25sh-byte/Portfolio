@@ -1657,3 +1657,10 @@ if (demo) {
   demo.addEventListener("click", (e) => { if (e.target === demo) demo.close(); });
 }
 
+
+/* External links nested inside card links (open in a new tab without following the card) */
+$$("[data-href]").forEach((el) => {
+  const go = (e) => { e.preventDefault(); e.stopPropagation(); window.open(el.dataset.href, "_blank", "noopener"); };
+  el.addEventListener("click", go);
+  el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") go(e); });
+});
