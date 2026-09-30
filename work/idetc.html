@@ -68,6 +68,7 @@
           <li><a href="#overview">Overview</a></li>
           <li><a href="#motivation">Motivation</a></li>
           <li><a href="#phases">Research phases</a></li>
+          <li><a href="#findings">Findings</a></li>
           <li><a href="#talks">Thesis timeline</a></li>
           <li><a href="#ux">Why it's UX</a></li>
           <li><a href="#reflection">Reflection</a></li>
@@ -111,8 +112,49 @@
           </div>
         </section>
 
+        <section class="chapter" id="findings">
+          <span class="mono">04 · Findings</span>
+          <h2 class="split">Who feels less confident, and where.</h2>
+          <div class="prose reveal">
+            <p>I compared self-efficacy between demographic groups in each of the four MSES domains using Mann-Whitney U tests, with a strict <strong>Bonferroni-corrected α of 0.003125</strong>. Three gaps survived that correction, across two background factors: <strong>gender</strong> and <strong>English as a first language</strong>.</p>
+          </div>
+          <div class="findings">
+            <article class="finding reveal">
+              <figure class="fig finding__fig"><div class="fig__frame"><img src="../assets/img/mses-f-gender-tinkering.webp" alt="Density plot of Tinkering self-efficacy for men and women; the men’s median sits slightly higher" loading="lazy"></div></figure>
+              <div class="finding__body">
+                <span class="mono finding__tag">Gender · Tinkering</span>
+                <h3>Men reported higher Tinkering self-efficacy than women.</h3>
+                <p class="finding__stats mono">Median 18.52 vs 18.09 · p = .0025 · r = −0.162 (small)</p>
+                <p>The only significant gender gap. Design, Makerspace &amp; Tool Use and Execution showed no significant difference, so the gap is domain-specific, not a broad one. It may point to lower confidence among women when working hands-on with makerspace tools and processes.</p>
+              </div>
+            </article>
+
+            <article class="finding reveal">
+              <figure class="fig finding__fig"><div class="fig__frame"><img src="../assets/img/mses-f-lang-tools.webp" alt="Density plot of Makerspace and Tool Use self-efficacy for students with and without English as a first language" loading="lazy"></div></figure>
+              <div class="finding__body">
+                <span class="mono finding__tag">English as first language · Makerspace &amp; Tool Use</span>
+                <h3>Native English speakers felt more confident using makerspace tools.</h3>
+                <p class="finding__stats mono">Median 25.29 vs 24.78 · p = .0012 · r = −0.224 (small-to-medium)</p>
+                <p>Likely reflects prior exposure: hands-on making is more often built into US K-12 education, and many international students had fewer chances to use comparable makerspaces.</p>
+              </div>
+            </article>
+
+            <article class="finding reveal">
+              <figure class="fig finding__fig"><div class="fig__frame"><img src="../assets/img/mses-f-lang-execution.webp" alt="Density plot of Execution self-efficacy for students with and without English as a first language" loading="lazy"></div></figure>
+              <div class="finding__body">
+                <span class="mono finding__tag">English as first language · Execution</span>
+                <h3>Native English speakers also reported higher Execution self-efficacy.</h3>
+                <p class="finding__stats mono">p = .0003</p>
+                <p>Language background produced the most consistent effects of any demographic factor examined.</p>
+              </div>
+            </article>
+
+          </div>
+          <div class="insight reveal"><span class="mono">What it means</span><h4>Language is a baseline factor, not a single skill gap.</h4><p>English-first-language students scored higher in all four domains. Tinkering (p = .0078) and Design (p = .0371) didn't survive correction, but pointed the same way. For a product team, that is the case for segmenting before designing: the average user hides the group that quietly feels least capable.</p></div>
+        </section>
+
         <section class="chapter" id="talks">
-          <span class="mono">04 · Thesis timeline</span>
+          <span class="mono">05 · Thesis timeline</span>
           <h2 class="split">Two years, one question, three stages.</h2>
           <ol class="thesis-tl reveal">
             <li><time class="mono">Nov ’24</time><b>Joined the lab</b><span>Graduate student researcher, Penn State College of Engineering</span></li>
@@ -136,7 +178,7 @@
         </section>
 
         <section class="chapter" id="ux">
-          <span class="mono">05 · Why it's UX</span>
+          <span class="mono">06 · Why it's UX</span>
           <h2 class="split">Self-efficacy is “does the user feel capable?”, measured properly.</h2>
           <div class="likert reveal st-21" aria-label="Try three items from the Makerspace Self-Efficacy Scale">
             <div class="likert__head"><h4>Feel it from the participant's side</h4><span class="mono muted">4 of the 17 real MSES items</span></div>
@@ -156,7 +198,7 @@
         </section>
 
         <section class="chapter" id="reflection">
-          <span class="mono">06 · Reflection</span>
+          <span class="mono">07 · Reflection</span>
           <h2 class="split">Where this goes next.</h2>
           <div class="prose reveal">
             <p>The scale is validated and the two background factors are identified. Next I'd pair those numbers with <strong>qualitative interviews</strong> to understand <em>why</em> those groups feel less confident, so the findings turn into concrete changes to makerspace onboarding, tools and support.</p>
