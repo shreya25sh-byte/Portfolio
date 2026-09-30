@@ -2899,3 +2899,4 @@ ul.work .work__talks { display: block; margin: 6px 22px 0 !important; padding: 1
   ul.work .work__item[data-id="idetc"] .demo-btn { top: auto; bottom: 16px; right: auto; left: calc(53.5% - 150px); }
   ul.work .work__item:not([data-id="idetc"]) .work__title { font-size: clamp(22px, 1.8vw, 26px) !important; }
 }
+.xp__role .xp__type { display: block; margin-top: 3px; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
