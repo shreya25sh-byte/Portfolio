@@ -2979,3 +2979,4 @@ ul.work .work__badges { order: 1 !important; display: flex; flex-wrap: wrap; gap
   .impact .method::after { grid-row: 1; grid-column: 3; }
   .impact__stats > div { padding: 16px 0 !important; }
 }
+.chapter#talks { border-top: 2px solid var(--text) !important; }
