@@ -2877,3 +2877,6 @@ ul.work .work__desc { padding-left: 22px !important; padding-right: 22px !import
 .talks-strip .win-badge { display: inline-block; vertical-align: middle; margin-left: 8px; background: #ffe14d; color: #111; border: 1.5px solid #111; border-radius: 999px; padding: 4px 10px; font-size: 11px; letter-spacing: .02em; line-height: 1.2; box-shadow: 2px 2px 0 #111; transform: rotate(-2deg); font-family: var(--f-mono); font-weight: 500; }
 .talks-strip li q { display: block; margin-top: 4px; font-family: var(--f-display); font-style: italic; font-size: 17px; line-height: 1.3; color: var(--body-ink); quotes: "“" "”"; }
 .talks-strip .win-badge { display: table; margin: 6px 0 6px -2px; }
+/* Masthead: equal rules, one type weight */
+.masthead { border-top: 1px solid var(--text) !important; border-bottom: 1px solid var(--text) !important; font-weight: 400; }
+.masthead b { font-weight: 400 !important; }
