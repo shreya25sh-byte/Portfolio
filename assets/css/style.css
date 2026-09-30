@@ -2924,3 +2924,4 @@ ul.work .work__badges { order: 1 !important; display: flex; flex-wrap: wrap; gap
 .hero__hi span { color: #c4127a; }
 /* Chapter labels hang from the rule above like tabs (no double line) */
 .chapter > .mono { border-top: 0 !important; border-radius: 0 0 4px 4px !important; margin-top: 0 !important; }
+.hero-photo .lens__ring { border: 0 !important; box-shadow: none !important; }
