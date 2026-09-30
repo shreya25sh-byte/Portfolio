@@ -2925,3 +2925,10 @@ ul.work .work__badges { order: 1 !important; display: flex; flex-wrap: wrap; gap
 /* Chapter labels hang from the rule above like tabs (no double line) */
 .chapter > .mono { border-top: 0 !important; border-radius: 0 0 4px 4px !important; margin-top: 0 !important; }
 .hero-photo .lens__ring { border: 0 !important; box-shadow: none !important; }
+/* Work sits right under the roles strip */
+.now-strip + #work { padding-top: 40px !important; }
+@media (max-width: 700px) { .now-strip + #work { padding-top: 28px !important; } }
+/* Hero lens notes v3: regular-weight yellow text */
+.hero-photo .doodles .lbl text { fill: #ffe14d !important; font-weight: 400 !important; stroke: rgba(17,17,17,.7) !important; stroke-width: 5px; }
+/* Badges sit straight */
+.work__talks .win-badge, .talks-strip .win-badge, .work__badges .wb--a { transform: none !important; }
