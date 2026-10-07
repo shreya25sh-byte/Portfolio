@@ -774,14 +774,25 @@ const burst = (x, y, n = 9) => {
     ).onfinish = () => g.remove();
   }
 };
-const STAMPS = ["WHY?", "HOW?", "SO WHAT?", "WHO?", "TELL ME MORE", "VALIDATED ✓", "ASK AGAIN"];
+const STAMPS = ["WHY?", "HOW?", "SO WHAT?", "WHO FOR?", "TELL ME MORE", "VALIDATED ✓", "ASK AGAIN", "n = 1,910", "p < .05", "SAY MORE…",
+  "OBSERVED", "NOTED ✎", "BUT WHY?", "TEST IT", "PROTOTYPE IT", "ITERATE", "USER FIRST", "EVIDENCE?", "INSIGHT!", "SEGMENT IT",
+  "HYPOTHESIS", "FIELD NOTE", "5 WHYS", "DATA SAYS…", "RETEST", "SHIP IT?"];
+let stampDeck = [];
+const nextStamp = () => {
+  if (!stampDeck.length) {
+    const last = nextStamp.last;
+    stampDeck = STAMPS.slice().sort(() => Math.random() - 0.5);
+    if (stampDeck[stampDeck.length - 1] === last) stampDeck.unshift(stampDeck.pop());
+  }
+  return (nextStamp.last = stampDeck.pop());
+};
 $$(".hero, .contact").forEach((sec) =>
   sec.addEventListener("click", (e) => {
     if (e.target.closest("a, button, .lens, input, .stamp-spin")) return;
     const r = sec.getBoundingClientRect();
     const st = document.createElement("span");
     st.className = "inkstamp" + (Math.random() < 0.35 ? " b" : "");
-    st.textContent = STAMPS[Math.floor(Math.random() * STAMPS.length)];
+    st.textContent = nextStamp();
     st.style.left = `${e.clientX - r.left}px`;
     st.style.top = `${e.clientY - r.top}px`;
     sec.appendChild(st);
