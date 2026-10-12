@@ -1,4 +1,4 @@
-/* Shreya Hirpathak — portfolio interactions (no dependencies) */
+/* Shreya Hirpathak: portfolio interactions (no dependencies) */
 
 // ---- Edit these to your real links ------------------------------------
 const CONFIG = {
@@ -550,7 +550,7 @@ const explorer = $("#task-explorer");
 if (explorer) {
   const TASKS = {
     "Switch on": {
-      "Physical load": "Physical effort to flip the switch — the same effort again for shutdown.",
+      "Physical load": "Physical effort to flip the switch, and the same effort again for shutdown.",
       "Cognitive load": "Simple action, minimal mental effort, but a shutdown procedure has to be followed.",
       "Emotional level": "Routine, familiar task.",
       "Possible error": "Misaligned power switch → delay in starting experiments, loss of data or experiment integrity.",
@@ -566,14 +566,14 @@ if (explorer) {
     "Set up": {
       "Physical load": "Requires manual adjustments on the panel.",
       "Cognitive load": "Concentrating on temperature / humidity settings and intervals.",
-      "Emotional level": "Pressure to understand exactly which setting the experiment needs — and be precise.",
+      "Emotional level": "Pressure to know exactly which setting the experiment needs, and to be precise.",
       "Possible error": "Incorrect temperature/humidity; a confusing HMI → compromised experiment integrity.",
       "Root cause": "Lack of attention to detail, amplified by an unclear interface.",
     },
     "Observe": {
       "Physical load": "Regularly checking displays or gauges for readings.",
       "Cognitive load": "Tracking progress even when it isn't easily visible.",
-      "Emotional level": "Constantly conscious — watching for small changes and tweaks.",
+      "Emotional level": "Constantly alert, watching for small changes and tweaks.",
       "Possible error": "Failing to record data accurately or to notice fluctuations → misinterpreted results.",
       "Root cause": "Lack of proper monitoring protocols.",
     },
@@ -586,7 +586,7 @@ if (explorer) {
   const tabs = $(".tabs", explorer.closest(".widget"));
   const render = (k) => {
     explorer.innerHTML = Object.entries(TASKS[k])
-      .map(([h, p]) => `<div class="${/error|root|impact/i.test(h) ? "is-risk" : ""}"><h5>${h}</h5><p>${p}</p></div>`)
+      .map(([h, p]) => `<div class="${/error|root|impact/i.test(h) ? "is-risk" : ""}"><h4 class="h-5">${h}</h4><p>${p}</p></div>`)
       .join("");
   };
   Object.keys(TASKS).forEach((k, i) => {
@@ -607,8 +607,8 @@ if (explorer) {
 const stepper = $("#phase-stepper");
 if (stepper) {
   const PHASES = [
-    ["Survey & segment", "Survey 1,910 students & collect demographic data", "Designed and administered a two-round survey to 1,910 first-year engineering students to collect baseline self-efficacy data alongside demographic information — gender, first-generation status and race/ethnicity."],
-    ["Build the MSES", "Existing scales fall short — so I built one", "SEED, EMSE, ISE and CESES were designed for broad engineering contexts and miss the process of making. I developed the Makerspace Self-Efficacy Scale (MSES) to capture the full breadth of skills in a making project."],
+    ["Survey & segment", "Survey 1,910 students & collect demographic data", "Designed and administered a two-round survey to 1,910 first-year engineering students to collect baseline self-efficacy data alongside demographic information: gender, first-generation status and race/ethnicity."],
+    ["Build the MSES", "Existing scales fell short, so I built one", "SEED, EMSE, ISE and CESES were designed for broad engineering contexts and miss the process of making. I developed the Makerspace Self-Efficacy Scale (MSES) to capture the full breadth of skills in a making project."],
     ["Validate", "Validate the MSES", "Confirmatory Factor Analysis (CFA) on 1,190+ responses across two independent student cohorts validated 16 of the 17 items (94%) and confirmed a stable four-domain structure."],
     ["Pre / post", "Collect pre & post self-efficacy data", "A second round captured student self-efficacy before and after the cornerstone makerspace project, enabling direct measurement of change in each domain."],
     ["Correlate", "Connect confidence to background", "Item response theory (IRT) isolated 2 background factors that call for system-level improvement, not individual fixes: the kind of finding that changes how a space is designed."],
@@ -621,12 +621,12 @@ if (stepper) {
     b.innerHTML = `<b>PHASE 0${i + 1}</b><span>${short}</span>`;
     b.addEventListener("click", () => {
       $$("button", stepper).forEach((x) => x.setAttribute("aria-selected", x === b));
-      panel.innerHTML = `<h4>${title}</h4><p>${body}</p>`;
+      panel.innerHTML = `<h3 class="h-4">${title}</h3><p>${body}</p>`;
       panel.animate?.([{ opacity: 0, transform: "translateY(8px)" }, { opacity: 1, transform: "none" }], { duration: 400, easing: "ease-out" });
     });
     stepper.appendChild(b);
   });
-  panel.innerHTML = `<h4>${PHASES[0][1]}</h4><p>${PHASES[0][2]}</p>`;
+  panel.innerHTML = `<h3 class="h-4">${PHASES[0][1]}</h3><p>${PHASES[0][2]}</p>`;
 }
 
 /* Totsecure: lock demo */

@@ -39,9 +39,9 @@
         <h1 class="split">Totsecure</h1>
         <p class="case-hero__sub split">A lock toddlers can't beat, <span class="serif">and parents can control from anywhere.</span></p>
         <div class="meta reveal">
-          <div><h4 class="mono">Role</h4><p>Research, mechanism design, app UI, prototyping</p></div>
-          <div><h4 class="mono">Timeline</h4><p>3 months · 2025</p></div>
-          <div><h4 class="mono">Context</h4><p>Graduate university project</p></div>
+          <div><p class="h-4 mono">Role</p><p>Research, mechanism design, app UI, prototyping</p></div>
+          <div><p class="h-4 mono">Timeline</p><p>3 months · 2025</p></div>
+          <div><p class="h-4 mono">Context</p><p>Graduate university project</p></div>
         </div>
         <div class="impact reveal">
           <div class="impact__hero">
@@ -80,17 +80,17 @@
 
       <div>
         <section class="chapter" id="overview">
-          <span class="mono">01 · Overview</span>
+          <span class="mono">Overview</span>
           <h2 class="split">Child locks are designed for children. The parents were forgotten.</h2>
           <div class="tldr reveal">
-            <div><h4 class="mono">Challenge</h4><p>Design a child-safety lock for doors and cupboards that adults can open manually, that can be switched on or off remotely, and that stays reliable.</p></div>
-            <div><h4 class="mono">Research</h4><p>Parent injury and smart-home adoption data, a room-by-room risk ranking, a persona (“Amy”), and a measurable requirements matrix.</p></div>
-            <div><h4 class="mono">Outcome</h4><p>Totsecure: a remote-controlled lock with an app, scheduled locking, battery backup and an emergency manual override, built as a working ESP32 prototype.</p></div>
+            <div><h3 class="h-4 mono">Challenge</h3><p>Design a child-safety lock for doors and cupboards that adults can open manually, that can be switched on or off remotely, and that stays reliable.</p></div>
+            <div><h3 class="h-4 mono">Research</h3><p>Parent injury and smart-home adoption data, a room-by-room risk ranking, a persona (“Amy”), and a measurable requirements matrix.</p></div>
+            <div><h3 class="h-4 mono">Outcome</h3><p>Totsecure: a remote-controlled lock with an app, scheduled locking, battery backup and an emergency manual override, built as a working ESP32 prototype.</p></div>
           </div>
         </section>
 
         <section class="chapter" id="problem">
-          <span class="mono">02 · The problem</span>
+          <span class="mono">The problem</span>
           <h2 class="split">Most home injuries are preventable, according to parents.</h2>
           <div class="donuts">
             <div class="donut" data-value="55" data-animate>
@@ -120,7 +120,7 @@
               <p class="muted small-note">Ranked safest to least safe</p>
               <div class="hbars rooms" data-animate><div class="hbar" data-value="100"><span>Bedroom</span><span class="hbar__t"><i></i></span><span>1st</span></div><div class="hbar" data-value="92"><span>Living room</span><span class="hbar__t"><i></i></span><span>2nd</span></div><div class="hbar" data-value="87"><span>Parents' room</span><span class="hbar__t"><i></i></span><span>3rd</span></div><div class="hbar" data-value="68"><span>Backyard</span><span class="hbar__t"><i></i></span><span>4th</span></div><div class="hbar" data-value="65"><span>Bathroom</span><span class="hbar__t"><i></i></span><span>5th</span></div><div class="hbar" data-value="54"><span>Front yard</span><span class="hbar__t"><i></i></span><span>6th</span></div><div class="hbar is-risk" data-value="46"><span>Kitchen</span><span class="hbar__t"><i></i></span><span>7th</span></div><div class="hbar is-risk" data-value="42"><span>Basement</span><span class="hbar__t"><i></i></span><span>8th</span></div><div class="hbar is-risk" data-value="22"><span>Garage</span><span class="hbar__t"><i></i></span><span>9th</span></div></div>
             </div>
-            <div class="insight reveal defn"><span class="mono">Definition</span><h4>What is baby proofing?</h4><p>Modifying a home to remove dangers and reduce injury risk for infants and toddlers as they become mobile: covering outlets, installing safety gates, securing heavy furniture, and <strong>locking cabinets</strong>.</p><span class="arrow">Totsecure sits in that last category, and makes it remote.</span></div>
+            <div class="insight reveal defn"><span class="mono">Definition</span><h3 class="h-4">What is baby proofing?</h3><p>Modifying a home to remove dangers and reduce injury risk for infants and toddlers as they become mobile: covering outlets, installing safety gates, securing heavy furniture, and <strong>locking cabinets</strong>.</p><span class="arrow">Totsecure sits in that last category, and makes it remote.</span></div>
           </div>
           <div class="prose reveal">
             <p>Smart locks are already trusted by more than half of parents, but they're built for front doors, not kitchen cabinets. Parents ranked the <strong>kitchen, basement and garage</strong> as the least safe rooms in the house. That's where the chemicals and tools are, and where a remote-controllable lock matters most.</p>
@@ -128,7 +128,7 @@
         </section>
 
         <section class="chapter" id="users">
-          <span class="mono">03 · Users</span>
+          <span class="mono">Users</span>
           <h2 class="split">Meet Amy: three kids, no time to spare.</h2>
           <article class="persona reveal" aria-label="Persona: Amy">
             <div class="persona__id">
@@ -153,11 +153,11 @@
               </div>
               <div class="persona__cols">
                 <div>
-                  <h4 class="mono">Core needs</h4>
+                  <h3 class="h-4 mono">Core needs</h3>
                   <ul><li>A secure, child-friendly home</li><li>Fewer accidents around the house</li><li>Stay on top of hazards without stress</li><li>Control the child locks remotely</li></ul>
                 </div>
                 <div>
-                  <h4 class="mono">Frustrations</h4>
+                  <h3 class="h-4 mono">Frustrations</h3>
                   <ul><li>Can't monitor everything at once</li><li>Little time or energy to research safety</li><li>Needs safety steps she can do fast</li><li>No way to act remotely in an emergency</li></ul>
                 </div>
               </div>
@@ -166,7 +166,7 @@
         </section>
 
         <section class="chapter" id="requirements">
-          <span class="mono">04 · Requirements</span>
+          <span class="mono">Requirements</span>
           <h2 class="split">Turning needs into numbers I could test against.</h2>
           <div class="prose reveal">
             <p>I translated needs into performance measures with target values, then benchmarked them against existing products (installation from 5 to 15 minutes, prices from $30 to $120).</p>
@@ -188,7 +188,7 @@
         </section>
 
         <section class="chapter" id="ideation">
-          <span class="mono">05 · Ideation</span>
+          <span class="mono">Ideation</span>
           <h2 class="split">Every sketch had to answer: adult opens, child can't.</h2>
           <figure class="fig reveal">
             <div class="fig__frame"><img src="../assets/img/totsecure-sketches.webp" alt="Pages of mechanism sketches for latches, hinges and sliders with lock states" loading="lazy"></div>
@@ -197,7 +197,7 @@
         </section>
 
         <section class="chapter" id="solution">
-          <span class="mono">06 · Solution</span>
+          <span class="mono">Solution</span>
           <h2 class="split">Hold to lock. Hold to unlock. That's the whole interface.</h2>
           <div class="prose reveal">
             <p>A deliberate <strong>press-and-hold</strong> interaction prevents accidental unlocks (by adults or curious kids with a phone). Try it:</p>
@@ -211,7 +211,7 @@
                   <div class="tapp__bar"><span>9:41</span><span>●●● 87%</span></div>
                   <div class="tapp__views">
                     <div class="tapp__view is-on">
-                      <div class="tapp__hi"><h5><small>Kitchen</small>Knife drawer</h5><span class="ld__batt">87%</span></div>
+                      <div class="tapp__hi"><p class="h-5"><small>Kitchen</small>Knife drawer</p><span class="ld__batt">87%</span></div>
                       <div class="ld__stage">
                         <button type="button" class="ld__btn" aria-label="Hold to unlock the knife drawer">
                           <svg class="ld__ring" viewBox="0 0 132 132" aria-hidden="true"><circle class="rb" cx="66" cy="66" r="60"/><circle class="rf" cx="66" cy="66" r="60"/></svg>
@@ -253,7 +253,7 @@
                   <div class="tapp__bar"><span id="tapp-clock">9:41</span><span>●●● 87%</span></div>
                   <div class="tapp__views">
                     <div class="tapp__view is-on" data-view="home">
-                      <div class="tapp__hi"><h5><small>Good evening</small>Hi, Amy</h5><span class="tapp__avatar">A</span></div>
+                      <div class="tapp__hi"><p class="h-5"><small>Good evening</small>Hi, Amy</p><span class="tapp__avatar">A</span></div>
                       <div class="tapp__hero" id="tapp-hero">
                         <div class="tapp__ring"><svg viewBox="0 0 70 70"><circle class="rb" cx="35" cy="35" r="30"/><circle class="rf" cx="35" cy="35" r="30" stroke-dasharray="188.5" stroke-dashoffset="0"/></svg><b id="tapp-count">4/5</b></div>
                         <div><strong id="tapp-title">1 lock open</strong><p id="tapp-sub">Knife drawer is unlocked.</p></div>
@@ -262,13 +262,13 @@
                       <div class="lock-card"><span class="lock-card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><div><b>Under-sink cabinet</b><small data-sub="cleaning supplies">Kitchen · Locked</small></div><button class="lk" role="switch" aria-checked="true" aria-label="Under-sink cabinet lock"></button></div><div class="lock-card"><span class="lock-card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><div><b>Tool cabinet</b><small data-sub="power tools">Garage · Locked</small></div><button class="lk" role="switch" aria-checked="true" aria-label="Tool cabinet lock"></button></div><div class="lock-card"><span class="lock-card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><div><b>Medicine drawer</b><small data-sub="medication">Bathroom · Locked</small></div><button class="lk" role="switch" aria-checked="true" aria-label="Medicine drawer lock"></button></div><div class="lock-card"><span class="lock-card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><div><b>Stair door</b><small data-sub="steep stairs">Basement · Locked</small></div><button class="lk" role="switch" aria-checked="true" aria-label="Stair door lock"></button></div><div class="lock-card is-open"><span class="lock-card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><div><b>Knife drawer</b><small data-sub="sharp objects">Kitchen · Unlocked</small></div><button class="lk" role="switch" aria-checked="false" aria-label="Knife drawer lock"></button></div>
                     </div>
                     <div class="tapp__view" data-view="sched">
-                      <div class="tapp__hi"><h5><small>Auto-lock</small>Schedules</h5></div>
+                      <div class="tapp__hi"><p class="h-5"><small>Auto-lock</small>Schedules</p></div>
                       <div class="sched"><div><b>8:00 PM</b><small>Bedtime · lock everything</small></div><button class="toggle" role="switch" aria-checked="true" aria-label="Bedtime schedule"></button><div class="days"><span class="on">S</span><span class="on">M</span><span class="on">T</span><span class="on">W</span><span class="on">T</span><span class="on">F</span><span class="on">S</span></div></div>
                       <div class="sched"><div><b>3:30 PM</b><small>After school · kitchen &amp; garage</small></div><button class="toggle" role="switch" aria-checked="true" aria-label="After school schedule"></button><div class="days"><span class="">S</span><span class="on">M</span><span class="on">T</span><span class="on">W</span><span class="on">T</span><span class="on">F</span><span class="">S</span></div></div>
                       <div class="sched"><div><b>7:00 AM</b><small>Morning · unlock kitchen</small></div><button class="toggle" role="switch" aria-checked="false" aria-label="Morning schedule"></button><div class="days"><span class="">S</span><span class="on">M</span><span class="on">T</span><span class="on">W</span><span class="on">T</span><span class="on">F</span><span class="">S</span></div></div>
                     </div>
                     <div class="tapp__view" data-view="log">
-                      <div class="tapp__hi"><h5><small>Today</small>Activity</h5></div>
+                      <div class="tapp__hi"><p class="h-5"><small>Today</small>Activity</p></div>
                       <div class="log" id="tapp-log">
                         <div><i class="o"></i><span>Knife drawer unlocked by Amy</span><time>6:12 PM</time></div>
                         <div><i></i><span>Garage auto-locked (after school)</span><time>3:30 PM</time></div>
@@ -299,7 +299,7 @@
         </section>
 
         <section class="chapter" id="prototype">
-          <span class="mono">07 · Prototype</span>
+          <span class="mono">Prototype</span>
           <h2 class="split">Then I built it, for real.</h2>
           <div class="prose reveal">
             <p>A working 3D-printed prototype: an <strong>ESP32-C3 mini</strong> microcontroller, a servo-driven gear and rack latch, buck converter, battery, status LED, switch and a manual override, all documented in full CAD drawings.</p>
@@ -321,7 +321,7 @@
         </section>
 
         <section class="chapter" id="reflection">
-          <span class="mono">08 · Reflection</span>
+          <span class="mono">Reflection</span>
           <h2 class="split">What I'd validate next.</h2>
           <div class="prose reveal">
             <p><strong>Talk to real parents, not just the data.</strong> The persona is grounded in survey statistics. Interviews and in-home observation would test whether “remote” is a real need or a nice-to-have.</p>
