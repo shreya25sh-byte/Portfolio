@@ -3101,3 +3101,38 @@ ul.work .work__item:not([data-id="idetc"]) .work__title { font-size: clamp(20px,
 }
 ul.work .work__item:not([data-id="idetc"]) .work__badges .wb:nth-child(n+3) { display: none; }
 ul.work .work__badges { flex-wrap: nowrap !important; white-space: nowrap; overflow: hidden; }
+
+/* Work cards v3: editorial blog-card style (square, ink border, pill on image, meta row) */
+ul.work { gap: 28px !important; }
+ul.work .work__item { display: flex; flex-direction: column; position: relative; background: #fff !important; border: 1.5px solid #111 !important; border-radius: 0 !important; box-shadow: none !important; overflow: hidden; transform: none !important; }
+ul.work .work__item::after { display: none !important; }
+ul.work .work__item:hover, ul.work .work__item:focus-within { box-shadow: 6px 6px 0 var(--c, #ff3fa4) !important; transform: translate(-3px, -3px) !important; }
+ul.work .work__link { display: block !important; padding: 0 !important; gap: 0 !important; height: auto !important; color: var(--text); text-decoration: none; }
+ul.work .work__link::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+ul.work .work__link > * { padding: 0 !important; }
+ul.work .work__thumb { position: relative; display: block !important; aspect-ratio: 16 / 9 !important; margin: 0 !important; border: 0 !important; border-bottom: 1.5px solid #111 !important; border-radius: 0 !important; box-shadow: none !important; overflow: hidden; background: var(--bg-2); }
+ul.work .work__thumb img { width: 100%; height: 100%; object-fit: cover; }
+.work__pill { position: absolute; top: 14px; left: 14px; z-index: 2; background: #fff; border: 1.5px solid #111; border-radius: 999px; padding: 5px 12px; font-size: 12px; letter-spacing: .04em; color: #111; line-height: 1.2; }
+ul.work .work__title { display: block; margin: 20px 22px 0 !important; padding: 0 !important; font-family: var(--f-sans) !important; font-weight: 600 !important; font-size: clamp(19px, 1.45vw, 22px) !important; line-height: 1.25 !important; letter-spacing: -0.01em !important; color: var(--text) !important; }
+.work__meta { display: flex; align-items: center; gap: 10px; margin: 14px 22px 0; padding-bottom: 14px; border-bottom: 1px solid var(--line-strong); font-size: 14px; color: var(--muted); }
+.work__name { font-weight: 500; color: var(--text); }
+.work__kind { margin-left: auto; white-space: nowrap; }
+ul.work .demo-btn { position: relative !important; inset: auto !important; z-index: 2; background: #fff4b8 !important; color: #111 !important; border: 0 !important; border-radius: 3px !important; padding: 4px 9px !important; font-size: 13px !important; font-weight: 600 !important; box-shadow: none !important; transform: none !important; white-space: nowrap; }
+ul.work .demo-btn:hover { background: #ffe14d !important; }
+ul.work .work__desc { display: block; margin: 14px 22px 22px !important; padding: 0 !important; font-size: 16px !important; line-height: 1.5; color: var(--body-ink) !important; }
+ul.work .work__talks { position: relative; z-index: 2; margin: 0 22px 22px !important; }
+@media (min-width: 1000px) {
+  ul.work .work__item[data-id="idetc"] { display: grid; grid-template-columns: 1.15fr 1fr; grid-template-rows: auto auto auto 1fr; }
+  ul.work .work__item[data-id="idetc"] .work__link { display: contents !important; }
+  ul.work .work__item[data-id="idetc"] .work__thumb { grid-column: 1; grid-row: 1 / span 4; aspect-ratio: auto !important; height: 100%; min-height: 360px; border-bottom: 0 !important; border-right: 1.5px solid #111 !important; }
+  ul.work .work__item[data-id="idetc"] > :not(.work__link), ul.work .work__item[data-id="idetc"] .work__title { grid-column: 2; }
+  ul.work .work__item[data-id="idetc"] .work__title { margin-top: 26px !important; font-size: clamp(24px, 2.2vw, 32px) !important; line-height: 1.15 !important; }
+  ul.work .work__item[data-id="idetc"] .work__desc { margin-bottom: 14px !important; }
+}
+@media (max-width: 520px) { .work__meta { flex-wrap: wrap; } .work__kind { margin-left: 0; } }
+ul.work .work__title, ul.work .work__thumb, .work__meta, ul.work .work__desc, ul.work .work__talks { order: 0 !important; }
+.work__name { white-space: nowrap; }
+ul.work .work__item:not([data-id="idetc"]) .work__kind { display: none; }
+ul.work .work__item:not([data-id="idetc"]) .demo-btn { margin-left: auto; }
+ul.work .work__link { position: static !important; }
+ul.work .work__item { cursor: pointer; }
