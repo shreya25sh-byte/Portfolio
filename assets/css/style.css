@@ -3188,3 +3188,22 @@ ul.work .work__item { cursor: pointer; }
 @media (max-width: 760px) { .role-btn__icon { width: 8px; height: 8px; } }
 .toolbox__panel { grid-template-columns: 1fr !important; padding-right: 50px !important; }
 .toolbox__tools li { font-size: 14px; padding: 7px 14px; }
+
+/* Industry projects: compact horizontal cards in the work-card style */
+.xcards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; margin-top: 18px; }
+.xcard { position: relative; display: grid; grid-template-columns: 42% minmax(0, 1fr); background: #fff; border: 1.5px solid #111; color: var(--text); text-decoration: none; transition: transform .3s var(--ease, ease), box-shadow .3s var(--ease, ease); }
+.xcard:hover, .xcard:focus-visible { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--xc, #ff3fa4); }
+.xcard__img { position: relative; overflow: hidden; border-right: 1.5px solid #111; background: var(--bg-2); min-height: 190px; }
+.xcard__img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.xcard__img .work__pill { top: 12px; left: 12px; font-size: 11px; padding: 4px 10px; }
+.xcard__body { display: flex; flex-direction: column; gap: 8px; padding: 18px 20px 18px; }
+.xcard__name { font-family: var(--f-sans); font-weight: 600; font-size: 20px; line-height: 1.2; }
+.xcard__desc { font-size: 15px; line-height: 1.45; color: var(--muted); }
+.xcard__stat { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--line-strong); display: flex; align-items: baseline; gap: 10px; }
+.xcard__stat strong { font-family: var(--f-display); font-weight: 400; font-size: 34px; line-height: 1; color: color-mix(in srgb, var(--xc, #111) 85%, #000); }
+.xcard__stat span { font-size: 13.5px; line-height: 1.35; color: var(--body-ink); }
+@media (max-width: 900px) { .xcards { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .xcard { grid-template-columns: 1fr; } .xcard__img { border-right: 0; border-bottom: 1.5px solid #111; aspect-ratio: 16 / 9; min-height: 0; } }
+.xrow--calidus .xcard__img img { object-position: 50% 35%; }
+.xrow--calidus .xcard__img img { object-position: 50% 60%; } .xrow--godrej .xcard__img img { object-position: 0 50%; }
+@media (max-width: 520px) { .xrow--calidus .xcard__img img { object-position: 50% 25%; } }
