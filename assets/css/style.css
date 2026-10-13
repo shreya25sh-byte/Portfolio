@@ -3084,3 +3084,20 @@ figcaption, .thesis-tl span, .impact__note { font-size: max(15px, 1em) !importan
 .skim dt { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--c); }
 .skim dd { margin: 0; font-size: 17px; line-height: 1.45; color: var(--text); }
 @media (max-width: 520px) { .skim > div { grid-template-columns: 1fr; gap: 4px; } }
+
+/* Work cards, decluttered: one quiet tag line, shorter image, smaller type */
+ul.work .work__thumb { aspect-ratio: 16 / 9 !important; margin-bottom: 4px !important; }
+.demo-btn { top: calc(100cqw * 0.5625 - 44px); padding: 6px 12px; font-size: 12.5px; }
+ul.work .work__link { gap: 6px !important; padding-bottom: 20px !important; }
+ul.work .work__badges { gap: 0 !important; padding-top: 6px !important; }
+.work__badges .wb { background: none !important; border: 0 !important; box-shadow: none !important; padding: 0 !important; border-radius: 0 !important; font-size: 11px; letter-spacing: .08em; color: var(--muted) !important; }
+.work__badges .wb + .wb::before { content: "·"; margin: 0 8px; color: var(--muted); }
+.work__badges .wb--a { color: color-mix(in srgb, var(--c, #c4127a) 80%, #000) !important; }
+.work__badges .wb:nth-child(n+4) { display: none; }
+ul.work .work__item:not([data-id="idetc"]) .work__title { font-size: clamp(20px, 1.6vw, 23px) !important; }
+@media (min-width: 1000px) {
+  ul.work .work__item[data-id="idetc"] .work__badges { padding-top: 22px !important; }
+  ul.work .work__item[data-id="idetc"] .work__title { font-size: clamp(26px, 2.6vw, 38px) !important; }
+}
+ul.work .work__item:not([data-id="idetc"]) .work__badges .wb:nth-child(n+3) { display: none; }
+ul.work .work__badges { flex-wrap: nowrap !important; white-space: nowrap; overflow: hidden; }
