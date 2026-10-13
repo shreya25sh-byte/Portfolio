@@ -3186,3 +3186,5 @@ ul.work .work__item { cursor: pointer; }
 .roles__row:has(.role-btn[aria-expanded="true"]) .role-btn:not([aria-expanded="true"]) { opacity: .7; }
 .roles__row:has(.role-btn[aria-expanded="true"]) .role-btn:not([aria-expanded="true"]):hover { opacity: 1; }
 @media (max-width: 760px) { .role-btn__icon { width: 8px; height: 8px; } }
+.toolbox__panel { grid-template-columns: 1fr !important; padding-right: 50px !important; }
+.toolbox__tools li { font-size: 14px; padding: 7px 14px; }
