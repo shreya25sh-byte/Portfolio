@@ -3136,3 +3136,39 @@ ul.work .work__item:not([data-id="idetc"]) .work__kind { display: none; }
 ul.work .work__item:not([data-id="idetc"]) .demo-btn { margin-left: auto; }
 ul.work .work__link { position: static !important; }
 ul.work .work__item { cursor: pointer; }
+
+/* Roles strip: each role opens a toolbox drawer */
+.roles__row li { padding: 0 !important; }
+.role-btn { width: 100%; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 16px 12px; background: transparent; border: 0; font: inherit; color: inherit; cursor: pointer; transition: background .2s, color .2s; }
+.role-btn__icon { position: relative; width: 22px; height: 22px; flex: none; border: 1.5px solid currentColor; border-radius: 50%; }
+.role-btn__icon::before, .role-btn__icon::after { content: ""; position: absolute; left: 50%; top: 50%; width: 10px; height: 1.5px; margin: -.75px 0 0 -5px; background: currentColor; transition: transform .25s; }
+.role-btn__icon::after { transform: rotate(90deg); }
+.role-btn:hover { background: color-mix(in srgb, #111 7%, transparent); }
+.role-btn[aria-expanded="true"] { background: #111; color: #ffe14d; }
+.role-btn[aria-expanded="true"] .role-btn__icon::after { transform: rotate(0deg); }
+.role-btn:focus-visible { outline: 2px solid #111; outline-offset: -6px; }
+.toolbox { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .35s var(--ease, ease); background: var(--bg); }
+.toolbox.is-open { grid-template-rows: 1fr; border-top: 1.5px solid var(--text); }
+.toolbox__inner { position: relative; overflow: hidden; min-height: 0; }
+.toolbox__panel { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; padding: 26px 0 30px; }
+.toolbox__panel[hidden] { display: none; }
+.toolbox__h { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+.toolbox__tools { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.toolbox__tools li { font-family: var(--f-mono); font-size: 13px; padding: 6px 12px; border: 1.5px solid #111; border-radius: 999px; background: #fff; }
+.toolbox__tools li:nth-child(3n+1) { background: #fff4b8; }
+.toolbox__projects { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line-strong); }
+.toolbox__projects a { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: baseline; gap: 14px; padding: 11px 0; border-bottom: 1px solid var(--line-strong); color: var(--text); text-decoration: none; }
+.toolbox__projects b { font-weight: 600; }
+.toolbox__projects span { font-size: 14px; color: var(--muted); }
+.toolbox__projects i { font-style: normal; transition: transform .2s; }
+.toolbox__projects a:hover b { color: #c4127a; }
+.toolbox__projects a:hover i { transform: translateX(4px); }
+.toolbox__close { position: absolute; top: 14px; right: 0; width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid #111; background: #fff; font-size: 20px; line-height: 1; cursor: pointer; }
+.toolbox__close:hover { background: #111; color: #fff; }
+@media (max-width: 760px) {
+  .role-btn { flex-direction: column; gap: 6px; padding: 12px 6px; font-size: 16px; line-height: 1.15; }
+  .role-btn__icon { width: 18px; height: 18px; }
+  .role-btn__icon::before, .role-btn__icon::after { width: 8px; margin-left: -4px; }
+  .toolbox__panel { grid-template-columns: 1fr; gap: 22px; padding: 22px 0 24px; }
+  .toolbox__close { top: 12px; }
+}

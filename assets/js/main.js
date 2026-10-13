@@ -1675,3 +1675,19 @@ $$("[data-href]").forEach((el) => {
   el.addEventListener("click", go);
   el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") go(e); });
 });
+
+/* Roles strip: toolbox drawer */
+(() => {
+  const box = document.getElementById("toolbox");
+  if (!box) return;
+  const btns = [...document.querySelectorAll(".role-btn")];
+  const close = () => { box.classList.remove("is-open"); btns.forEach((b) => b.setAttribute("aria-expanded", "false")); };
+  btns.forEach((b) => b.addEventListener("click", () => {
+    const open = b.getAttribute("aria-expanded") === "true";
+    if (open) return close();
+    btns.forEach((x) => { x.setAttribute("aria-expanded", String(x === b)); document.getElementById(x.getAttribute("aria-controls")).hidden = x !== b; });
+    box.classList.add("is-open");
+  }));
+  box.querySelector(".toolbox__close")?.addEventListener("click", close);
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && box.classList.contains("is-open")) close(); });
+})();

@@ -100,13 +100,19 @@
       </div>
     </section>
 
-    <!-- ROLES STRIP: the three hats, in riso yellow -->
+    <!-- ROLES STRIP: the three hats; each opens a toolbox drawer -->
     <aside class="now-strip roles" aria-label="What I do">
       <ul class="wrap roles__row">
-        <li>UX Researcher</li>
-        <li>Industrial Designer</li>
-        <li>Design Engineer</li>
+        <li><button type="button" class="role-btn" id="role-ux" aria-expanded="false" aria-controls="tb-ux">UX Researcher<span class="role-btn__icon" aria-hidden="true"></span></button></li>
+        <li><button type="button" class="role-btn" id="role-id" aria-expanded="false" aria-controls="tb-id">Industrial Designer<span class="role-btn__icon" aria-hidden="true"></span></button></li>
+        <li><button type="button" class="role-btn" id="role-de" aria-expanded="false" aria-controls="tb-de">Design Engineer<span class="role-btn__icon" aria-hidden="true"></span></button></li>
       </ul>
+      <div class="toolbox" id="toolbox"><div class="toolbox__inner wrap">
+        <div class="toolbox__panel" id="tb-ux" role="region" aria-labelledby="role-ux" hidden><div><p class="mono toolbox__h">Toolbox</p><ul class="toolbox__tools"><li>Survey &amp; scale design</li><li>Usability testing</li><li>NASA-TLX</li><li>CFA · IRT</li><li>RStudio · Tableau</li><li>Data visualisation</li></ul></div><div><p class="mono toolbox__h">Used it in</p><ul class="toolbox__projects"><li><a href="work/idetc.html"><b>MSES</b><span>~2,000 students surveyed</span><i aria-hidden="true">→</i></a></li><li><a href="work/habit.html"><b>Innovation vs habit</b><span>5 timed tasks, 2 UIs</span><i aria-hidden="true">→</i></a></li><li><a href="work/godrej.html"><b>Godrej</b><span>90-person survey</span><i aria-hidden="true">→</i></a></li></ul></div></div>
+        <div class="toolbox__panel" id="tb-id" role="region" aria-labelledby="role-id" hidden><div><p class="mono toolbox__h">Toolbox</p><ul class="toolbox__tools"><li>Rhino · Fusion 360</li><li>KeyShot · Blender</li><li>Photoshop · Illustrator</li><li>Interaction &amp; HMI design</li><li>Packaging</li></ul></div><div><p class="mono toolbox__h">Used it in</p><ul class="toolbox__projects"><li><a href="work/calidus.html"><b>Calidus</b><span>assembly 15 → 5 steps</span><i aria-hidden="true">→</i></a></li><li><a href="work/totsecure.html"><b>Totsecure</b><span>lock + app</span><i aria-hidden="true">→</i></a></li><li><a href="work/godrej.html"><b>Godrej</b><span>gaming chair briefs</span><i aria-hidden="true">→</i></a></li></ul></div></div>
+        <div class="toolbox__panel" id="tb-de" role="region" aria-labelledby="role-de" hidden><div><p class="mono toolbox__h">Toolbox</p><ul class="toolbox__tools"><li>Mechanism design</li><li>ESP32 prototyping</li><li>3D printing</li><li>Acoustic testing</li><li>Figma · Framer</li></ul></div><div><p class="mono toolbox__h">Used it in</p><ul class="toolbox__projects"><li><a href="work/dfam.html"><b>DFAM</b><span>11.4 dB quieter</span><i aria-hidden="true">→</i></a></li><li><a href="work/totsecure.html"><b>Totsecure</b><span>working prototype</span><i aria-hidden="true">→</i></a></li><li><a href="work/calidus.html"><b>Calidus</b><span>970 mm footprint</span><i aria-hidden="true">→</i></a></li></ul></div></div>
+        <button type="button" class="toolbox__close" aria-label="Close toolbox">×</button>
+      </div></div>
     </aside>
 
 
@@ -125,7 +131,7 @@
               <span class="work__title">Understanding how different demographic backgrounds affect user experiences</span>
             </a>
             <div class="work__meta"><span class="work__name">MSES</span><button type="button" class="demo-btn" data-demo="idetc" aria-haspopup="dialog">▶ Quick Demo · 20s</button><span class="work__kind">UX research</span></div>
-            <p class="work__desc">17-item scale, 1,910 students</p>
+            <p class="work__desc">17-item scale, ~2,000 students</p>
             <div class="work__talks"><span class="mono work__talks-h">Presented at</span>
                 <span class="wt is-win"><time class="mono">Aug ’26</time><b class="ext" role="link" tabindex="0" data-href="https://event.asme.org/IDETC-CIE-2026">ASME IDETC-CIE, Houston ↗</b><span class="win-badge mono">★ 2nd place Best Paper</span></span>
                 <span class="wt"><time class="mono">Apr ’26</time><b class="ext" role="link" tabindex="0" data-href="https://www.cers.psu.edu/">CERS 2026, Penn State ↗</b></span>
