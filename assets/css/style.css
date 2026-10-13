@@ -2929,6 +2929,65 @@ ul.work .work__badges { order: 1 !important; display: flex; flex-wrap: wrap; gap
   .impact .method::after { grid-row: 1; grid-column: 3; }
   .impact__stats > div { padding: 16px 0 !important; }
 }
+/* Study panel: methods as a flow track (Flow 2) */
+.impact{display:block!important}
+.impact__hero{display:grid!important;grid-template-columns:auto minmax(0,1fr) auto;align-items:end;column-gap:28px;border-right:0!important;border-bottom:1px solid var(--text)!important;padding:22px 0!important}
+.impact__hero .impact__kicker{grid-column:1/-1;margin-bottom:6px}
+.impact__hero .impact__num{font-size:88px!important;line-height:.8!important}
+.impact__hero .impact__label{max-width:36ch!important;margin:0!important;align-self:end}
+.impact__hero .impact__note{align-self:end;text-align:right}
+.impact__side{display:block!important}
+.impact__stats{grid-template-columns:repeat(3,1fr)!important}
+.impact__stats>div:first-child{padding-left:0!important}
+.impact__methods{padding:14px 0 4px!important;counter-reset:m}
+.impact__methods>.mono{display:none!important}
+.impact .mgrid::before{content:"#\00a0\00a0\00a0\00a0\00a0\00a0\00a0Phase\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0Method";display:block;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:6px 0 8px;border-bottom:1px solid var(--text)}
+.impact .method{grid-template-columns:44px 92px minmax(0,1fr) minmax(0,1.1fr) 18px!important;counter-increment:m}
+.impact .method::before{content:counter(m,decimal-leading-zero);font-family:var(--f-display);font-size:22px;color:var(--c);line-height:1}
+.impact .method:nth-child(even){background:color-mix(in srgb,var(--text) 3.5%,transparent)!important}
+@media (max-width: 900px) {
+.impact__hero{grid-template-columns:auto minmax(0,1fr)!important;column-gap:18px}
+.impact__hero .impact__num{font-size:64px!important}
+.impact__hero .impact__note{grid-column:1/-1;text-align:left;margin-top:12px}
+.impact .mgrid::before{content:"#\00a0\00a0\00a0\00a0Method"}
+.impact .method{grid-template-columns:34px minmax(0,1fr) 14px!important;row-gap:2px!important}
+.impact .method small{grid-column:2;grid-row:1}
+.impact .method b{grid-column:2;grid-row:2}
+.impact .method span{grid-column:2!important;grid-row:3}
+.impact .method::before{grid-column:1;grid-row:1/span 3;align-self:start}
+.impact .method::after{grid-column:3!important;grid-row:1/span 3!important;align-self:center}
+}
+
+.impact__methods>.mono{display:block!important;margin-bottom:18px}
+.impact .mgrid{display:grid!important;grid-template-columns:none!important;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:0;counter-reset:m;position:relative;padding:0 0 10px}
+.impact .mgrid::before{content:""!important;display:block!important;position:absolute;left:15px;right:calc(100% / 12);top:15px;height:2px;background:var(--text);padding:0!important;border:0!important}
+.impact .method{display:flex!important;flex-direction:column;gap:5px;position:relative;padding:0 18px 10px 0!important;border:0!important;background:transparent!important;min-height:0!important;counter-increment:m}
+.impact .method:nth-child(even){background:transparent!important}
+.impact .method::before{content:counter(m)!important;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;border:2px solid var(--text);background:var(--bg);font-family:var(--f-mono)!important;font-size:12px!important;color:var(--text)!important;margin-bottom:12px;position:relative;z-index:1;transition:background .2s,color .2s}
+.impact .method:last-child::before{background:var(--c);border-color:var(--c);color:#fff!important}
+.impact .method::after{display:none!important}
+.impact .method small{color:var(--c)!important}
+.impact .method b{font-size:15px!important;line-height:1.25}
+.impact .method span{font-size:13.5px!important;line-height:1.35}
+.impact .method:hover{background:transparent!important}
+.impact .method:hover::before{background:var(--text);color:#fff!important}
+@media (max-width:900px){
+.impact .mgrid{grid-auto-flow:row;grid-template-columns:1fr!important;gap:18px}
+.impact .mgrid::before{left:15px;right:auto;top:16px;bottom:40px;width:2px;height:auto}
+.impact .method{display:grid!important;grid-template-columns:32px minmax(0,1fr)!important;column-gap:16px!important;row-gap:2px!important;padding:0!important}
+.impact .method::before{grid-column:1!important;grid-row:1/span 3!important;margin:0}
+.impact .method small,.impact .method b,.impact .method span{grid-column:2!important;grid-row:auto!important}
+}
+
+@media (min-width:901px){
+.impact .mgrid:has(> .method:nth-child(3):last-child)::before{right:calc(100% / 3 - 16px)}
+.impact .mgrid:has(> .method:nth-child(4):last-child)::before{right:calc(100% / 4 - 16px)}
+.impact .mgrid:has(> .method:nth-child(5):last-child)::before{right:calc(100% / 5 - 16px)}
+.impact .mgrid:has(> .method:nth-child(6):last-child)::before{right:calc(100% / 6 - 16px)}
+.impact .mgrid:has(> .method:nth-child(7):last-child)::before{right:calc(100% / 7 - 16px)}
+.impact .mgrid:has(> .method:nth-child(8):last-child)::before{right:calc(100% / 8 - 16px)}
+.impact .mgrid:has(> .method:nth-child(9):last-child)::before{right:calc(100% / 9 - 16px)}
+}
 .chapter#talks { border-top: 2px solid var(--text) !important; }
 /* External conference / journal links */
 a.ext, .ext[data-href] { color: inherit; text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--c, #ff3fa4) 70%, transparent); text-decoration-thickness: 1.5px; text-underline-offset: 3px; cursor: pointer; }
