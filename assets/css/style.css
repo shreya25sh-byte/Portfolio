@@ -3207,3 +3207,7 @@ ul.work .work__item { cursor: pointer; }
 .xrow--calidus .xcard__img img { object-position: 50% 35%; }
 .xrow--calidus .xcard__img img { object-position: 50% 60%; } .xrow--godrej .xcard__img img { object-position: 0 50%; }
 @media (max-width: 520px) { .xrow--calidus .xcard__img img { object-position: 50% 25%; } }
+/* Industry cards: text only */
+.xcard { grid-template-columns: 1fr !important; }
+.xcard__body { padding: 20px 22px !important; }
+.xcard__tag { align-self: flex-start; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; border: 1.5px solid #111; border-radius: 999px; padding: 4px 10px; background: #fff; color: #111; margin-bottom: 4px; }
