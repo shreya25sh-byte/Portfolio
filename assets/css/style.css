@@ -3172,3 +3172,17 @@ ul.work .work__item { cursor: pointer; }
   .toolbox__panel { grid-template-columns: 1fr; gap: 22px; padding: 22px 0 24px; }
   .toolbox__close { top: 12px; }
 }
+
+/* Role buttons v2: folder tabs with a chevron, the open role joins the drawer */
+.role-btn__icon { width: 10px; height: 10px; border: 0; border-radius: 0; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: translateY(-3px) rotate(45deg); transition: transform .25s var(--ease, ease); }
+.role-btn__icon::before, .role-btn__icon::after { display: none; }
+.role-btn:hover .role-btn__icon { transform: translateY(0) rotate(45deg); }
+.role-btn { position: relative; }
+.role-btn:hover { background: color-mix(in srgb, #fff 35%, transparent); }
+.role-btn[aria-expanded="true"] { background: var(--bg); color: var(--text); }
+.role-btn[aria-expanded="true"] .role-btn__icon { transform: translateY(3px) rotate(-135deg); }
+.role-btn[aria-expanded="true"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 4px; background: var(--bg); z-index: 2; }
+.roles__row li:has(.role-btn[aria-expanded="true"]) + li, .roles__row li:has(.role-btn[aria-expanded="true"]) { border-color: var(--text); }
+.roles__row:has(.role-btn[aria-expanded="true"]) .role-btn:not([aria-expanded="true"]) { opacity: .7; }
+.roles__row:has(.role-btn[aria-expanded="true"]) .role-btn:not([aria-expanded="true"]):hover { opacity: 1; }
+@media (max-width: 760px) { .role-btn__icon { width: 8px; height: 8px; } }
