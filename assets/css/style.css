@@ -3018,3 +3018,10 @@ figcaption, .thesis-tl span, .impact__note { font-size: max(15px, 1em) !importan
 .redesign-tag { color: color-mix(in srgb, var(--c) 65%, #000) !important; }
 /* Photo stack: one clean ink shadow on the top card, flat paper underneath */
 .polaroid { background: #fbfaf7 !important; border: 1px solid rgba(17,17,17,.14) !important; box-shadow: 0 1px 2px rgba(17,17,17,.10), 0 6px 14px rgba(17,17,17,.08) !important; }
+
+/* Skim layer: three lines a recruiter can read in ten seconds */
+.skim { margin: 28px 0 8px; max-width: 760px; border-top: 1.5px solid var(--text); }
+.skim > div { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 16px; align-items: baseline; padding: 12px 0; border-bottom: 1px dotted #9b988f; }
+.skim dt { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--c); }
+.skim dd { margin: 0; font-size: 17px; line-height: 1.45; color: var(--text); }
+@media (max-width: 520px) { .skim > div { grid-template-columns: 1fr; gap: 4px; } }
