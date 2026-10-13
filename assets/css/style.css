@@ -3016,3 +3016,6 @@ figcaption, .thesis-tl span, .impact__note { font-size: max(15px, 1em) !importan
 .ht__ph::before { content: ""; position: absolute; left: 22%; top: 18%; width: 22%; aspect-ratio: 1; border-radius: 50%; background: #ffd166; }
 .ht__ph { position: relative; }
 .redesign-tag { color: color-mix(in srgb, var(--c) 65%, #000) !important; }
+/* Photo stack: one clean ink shadow on the top card, flat paper underneath */
+.polaroid { background: #fbfaf7 !important; border: 1.5px solid #111 !important; box-shadow: none !important; }
+.stack .polaroid:last-child { box-shadow: 6px 6px 0 #111 !important; }
