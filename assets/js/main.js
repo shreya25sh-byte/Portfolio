@@ -1676,18 +1676,15 @@ $$("[data-href]").forEach((el) => {
   el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") go(e); });
 });
 
-/* Roles strip: toolbox drawer */
+/* Roles strip: skills pop out as bubbles on hover; tap toggles them on touch screens */
 (() => {
-  const box = document.getElementById("toolbox");
-  if (!box) return;
-  const btns = [...document.querySelectorAll(".role-btn")];
-  const close = () => { box.classList.remove("is-open"); btns.forEach((b) => b.setAttribute("aria-expanded", "false")); };
-  btns.forEach((b) => b.addEventListener("click", () => {
-    const open = b.getAttribute("aria-expanded") === "true";
-    if (open) return close();
-    btns.forEach((x) => { x.setAttribute("aria-expanded", String(x === b)); document.getElementById(x.getAttribute("aria-controls")).hidden = x !== b; });
-    box.classList.add("is-open");
+  const roles = [...document.querySelectorAll(".roles .role")];
+  if (!roles.length) return;
+  const set = (r, on) => { r.classList.toggle("is-on", on); r.querySelector(".role-btn").setAttribute("aria-expanded", String(on)); };
+  roles.forEach((r) => r.querySelector(".role-btn").addEventListener("click", () => {
+    const on = !r.classList.contains("is-on");
+    roles.forEach((x) => set(x, x === r && on));
   }));
-  box.querySelector(".toolbox__close")?.addEventListener("click", close);
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && box.classList.contains("is-open")) close(); });
+  document.addEventListener("click", (e) => { if (!e.target.closest(".roles")) roles.forEach((x) => set(x, false)); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") roles.forEach((x) => set(x, false)); });
 })();

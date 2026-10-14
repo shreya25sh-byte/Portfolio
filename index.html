@@ -100,19 +100,13 @@
       </div>
     </section>
 
-    <!-- ROLES STRIP: the three hats; each opens a toolbox drawer -->
+    <!-- ROLES STRIP: hover (or tap) a role and its skills pop out as bubbles -->
     <aside class="now-strip roles" aria-label="What I do">
       <ul class="wrap roles__row">
-        <li><button type="button" class="role-btn" id="role-ux" aria-expanded="false" aria-controls="tb-ux">UX Researcher<span class="role-btn__icon" aria-hidden="true"></span></button></li>
-        <li><button type="button" class="role-btn" id="role-id" aria-expanded="false" aria-controls="tb-id">Industrial Designer<span class="role-btn__icon" aria-hidden="true"></span></button></li>
-        <li><button type="button" class="role-btn" id="role-de" aria-expanded="false" aria-controls="tb-de">Design Engineer<span class="role-btn__icon" aria-hidden="true"></span></button></li>
+        <li class="role" data-n="6"><button type="button" class="role-btn" aria-expanded="false" aria-describedby="sk-ux">UX Researcher</button><span class="bubbles" id="sk-ux" aria-label="UX Researcher skills"><span class="bub b1">Survey &amp; scale design</span><span class="bub b2">Usability testing</span><span class="bub b3">NASA-TLX</span><span class="bub b4">CFA · IRT</span><span class="bub b5">RStudio · Tableau</span><span class="bub b6">Data visualisation</span></span></li>
+        <li class="role" data-n="5"><button type="button" class="role-btn" aria-expanded="false" aria-describedby="sk-id">Industrial Designer</button><span class="bubbles" id="sk-id" aria-label="Industrial Designer skills"><span class="bub b1">Rhino · Fusion 360</span><span class="bub b2">KeyShot · Blender</span><span class="bub b3">Photoshop · Illustrator</span><span class="bub b4">HMI design</span><span class="bub b5">Packaging</span></span></li>
+        <li class="role" data-n="5"><button type="button" class="role-btn" aria-expanded="false" aria-describedby="sk-de">Design Engineer</button><span class="bubbles" id="sk-de" aria-label="Design Engineer skills"><span class="bub b1">Mechanism design</span><span class="bub b2">ESP32 prototyping</span><span class="bub b3">3D printing</span><span class="bub b4">Acoustic testing</span><span class="bub b5">Figma · Framer</span></span></li>
       </ul>
-      <div class="toolbox" id="toolbox"><div class="toolbox__inner wrap">
-        <div class="toolbox__panel" id="tb-ux" role="region" aria-labelledby="role-ux" hidden><div><p class="mono toolbox__h">Toolbox</p><ul class="toolbox__tools"><li>Survey &amp; scale design</li><li>Usability testing</li><li>NASA-TLX</li><li>CFA · IRT</li><li>RStudio · Tableau</li><li>Data visualisation</li></ul></div></div>
-        <div class="toolbox__panel" id="tb-id" role="region" aria-labelledby="role-id" hidden><div><p class="mono toolbox__h">Toolbox</p><ul class="toolbox__tools"><li>Rhino · Fusion 360</li><li>KeyShot · Blender</li><li>Photoshop · Illustrator</li><li>Interaction &amp; HMI design</li><li>Packaging</li></ul></div></div>
-        <div class="toolbox__panel" id="tb-de" role="region" aria-labelledby="role-de" hidden><div><p class="mono toolbox__h">Toolbox</p><ul class="toolbox__tools"><li>Mechanism design</li><li>ESP32 prototyping</li><li>3D printing</li><li>Acoustic testing</li><li>Figma · Framer</li></ul></div></div>
-        <button type="button" class="toolbox__close" aria-label="Close toolbox">×</button>
-      </div></div>
     </aside>
 
 

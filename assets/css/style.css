@@ -3211,3 +3211,47 @@ ul.work .work__item { cursor: pointer; }
 .xcard { grid-template-columns: 1fr !important; }
 .xcard__body { padding: 20px 22px !important; }
 .xcard__tag { align-self: flex-start; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; border: 1.5px solid #111; border-radius: 999px; padding: 4px 10px; background: #fff; color: #111; margin-bottom: 4px; }
+
+/* Roles strip v3: skill bubbles pop out around the role */
+.now-strip.roles { position: relative; z-index: 20; overflow: visible; }
+.roles__row .role { position: relative; }
+.roles .role-btn { justify-content: center; }
+.roles .role-btn:hover, .roles .role.is-on .role-btn { background: #111; color: #ffe14d; }
+.bubbles { position: absolute; inset: 0; pointer-events: none; }
+.bub { position: absolute; left: 50%; top: 50%; z-index: 3; white-space: nowrap; font-family: var(--f-mono); font-size: 13px; line-height: 1; padding: 8px 13px; border: 1.5px solid #111; border-radius: 999px; background: #fff; color: #111; box-shadow: 2px 2px 0 #111;
+  opacity: 0; transform: translate(-50%, -50%) scale(.2); transition: opacity .18s ease, left .45s cubic-bezier(.34,1.56,.64,1), top .45s cubic-bezier(.34,1.56,.64,1), transform .45s cubic-bezier(.34,1.56,.64,1); }
+.bub:nth-child(3n+1) { background: #fff4b8; }
+.bub:nth-child(3n+2) { background: #ffd6ec; }
+.role:hover .bub, .role:focus-within .bub, .role.is-on .bub { opacity: 1; }
+.role:hover .b1, .role:focus-within .b1, .role.is-on .b1 { left: 12%; top: calc(50% - 64px); transform: translate(-50%, -50%) rotate(-5deg); transition-delay: 0s; }
+.role:hover .b2, .role:focus-within .b2, .role.is-on .b2 { left: 50%; top: calc(50% - 82px); transform: translate(-50%, -50%) rotate(2deg); transition-delay: .04s; }
+.role:hover .b3, .role:focus-within .b3, .role.is-on .b3 { left: 88%; top: calc(50% - 62px); transform: translate(-50%, -50%) rotate(6deg); transition-delay: .08s; }
+.role:hover .b4, .role:focus-within .b4, .role.is-on .b4 { left: 86%; top: calc(50% + 66px); transform: translate(-50%, -50%) rotate(-4deg); transition-delay: .12s; }
+.role:hover .b5, .role:focus-within .b5, .role.is-on .b5 { left: 48%; top: calc(50% + 84px); transform: translate(-50%, -50%) rotate(3deg); transition-delay: .16s; }
+.role:hover .b6, .role:focus-within .b6, .role.is-on .b6 { left: 14%; top: calc(50% + 64px); transform: translate(-50%, -50%) rotate(-3deg); transition-delay: .2s; }
+@media (prefers-reduced-motion: reduce) { .bub { transition: opacity .15s !important; } }
+/* Phones: the cells are narrow, so the bubbles pop out as a cloud under the strip */
+@media (max-width: 760px) {
+  .roles__row .role { position: static; }
+  .roles__row { position: relative; }
+  .bubbles { inset: auto; left: 0; right: 0; top: 100%; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; padding: 12px 12px 14px; }
+  .role.is-on .bubbles { background: var(--bg); border-bottom: 1.5px solid var(--text); pointer-events: auto; }
+  .bub { position: static; transform: scale(.2); display: none; }
+  .role.is-on .bub, .role:focus-within .bub { display: inline-block; opacity: 1; transform: scale(1) rotate(0) !important; left: auto !important; top: auto !important; animation: bubpop .4s cubic-bezier(.34,1.56,.64,1) both; }
+  .role.is-on .bub:nth-child(2) { animation-delay: .04s; } .role.is-on .bub:nth-child(3) { animation-delay: .08s; } .role.is-on .bub:nth-child(4) { animation-delay: .12s; } .role.is-on .bub:nth-child(5) { animation-delay: .16s; } .role.is-on .bub:nth-child(6) { animation-delay: .2s; }
+  .role:hover .bub:not(.role.is-on .bub) { opacity: 0; }
+}
+@keyframes bubpop { from { transform: scale(.2); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+/* Bubble layout v2: staircase above and below, so no two bubbles collide */
+@media (min-width: 761px) {
+  .role { --sh: 0px; }
+  .role:first-child { --sh: 44px; } .role:last-child { --sh: -44px; }
+  .role:hover .b1, .role:focus-within .b1, .role.is-on .b1 { left: calc(50% - 135px + var(--sh)); top: calc(50% - 56px); }
+  .role:hover .b2, .role:focus-within .b2, .role.is-on .b2 { left: calc(50% + var(--sh)); top: calc(50% - 94px); }
+  .role:hover .b3, .role:focus-within .b3, .role.is-on .b3 { left: calc(50% + 135px + var(--sh)); top: calc(50% - 56px); }
+  .role:hover .b4, .role:focus-within .b4, .role.is-on .b4 { left: calc(50% + 135px + var(--sh)); top: calc(50% + 56px); }
+  .role:hover .b5, .role:focus-within .b5, .role.is-on .b5 { left: calc(50% + var(--sh)); top: calc(50% + 94px); }
+  .role:hover .b6, .role:focus-within .b6, .role.is-on .b6 { left: calc(50% - 135px + var(--sh)); top: calc(50% + 56px); }
+  .role[data-n="5"]:hover .b4, .role[data-n="5"]:focus-within .b4, .role[data-n="5"].is-on .b4 { left: calc(50% + 80px + var(--sh)); top: calc(50% + 58px); }
+  .role[data-n="5"]:hover .b5, .role[data-n="5"]:focus-within .b5, .role[data-n="5"].is-on .b5 { left: calc(50% - 80px + var(--sh)); top: calc(50% + 92px); }
+}
