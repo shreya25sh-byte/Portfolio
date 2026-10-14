@@ -1684,7 +1684,7 @@ $$("[data-href]").forEach((el) => {
   const rnd = (a, b) => a + Math.random() * (b - a);
   const layout = (li) => {
     const pops = [...li.querySelectorAll(".pop")];
-    pops.forEach((p) => p.style.setProperty("--fs", rnd(12.5, 16).toFixed(1) + "px"));
+    pops.forEach((p) => p.style.setProperty("--fs", rnd(11, 13.5).toFixed(1) + "px"));
     const lr = li.getBoundingClientRect(), wr = li.querySelector(".rn").getBoundingClientRect();
     const cx = lr.left + lr.width / 2, cy = lr.top + lr.height / 2, half = lr.height / 2;
     const word = { l: wr.left - cx - 6, r: wr.right - cx + 6, t: wr.top - cy - 4, b: wr.bottom - cy + 4 };
