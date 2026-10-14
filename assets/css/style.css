@@ -3307,3 +3307,6 @@ ul.work .work__item { cursor: pointer; }
 @keyframes pop-bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -6px; } }
 @media (prefers-reduced-motion: reduce) { .roles .role.is-on .pop { animation: none; } }
 @media (max-width: 760px) { .roles .rn { font-size: 17px; padding: 10px 6px; } .roles .pop { font-size: 12.5px; padding: 7px 11px; } }
+/* Roles strip: no underline; bubbles in ink with yellow text */
+.roles .rn::after { display: none !important; }
+.roles .pop { background: #2b2a28; color: #ffe14d; }
