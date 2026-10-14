@@ -3264,3 +3264,30 @@ ul.work .work__item { cursor: pointer; }
 /* Bubbles v4 (from sketch): flat dark pills of one size, no tilt, no shadow */
 .roles .bub, .roles .bub:nth-child(n) { background: #3d3b38 !important; color: #f4efe4 !important; border: 0 !important; box-shadow: none !important; font-family: var(--f-sans); font-size: 14px; font-weight: 500; height: 35px; min-width: 179px; padding: 0 18px; display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; }
 @media (max-width: 760px) { .roles .bub, .roles .bub:nth-child(n) { min-width: 0; height: 32px; font-size: 13px; padding: 0 14px; } .role.is-on .bub { display: inline-flex !important; } }
+
+/* Roles strip v5: a role shows its skill count; hovering darkens it and drops a panel of skills from it */
+.roles .role-btn { flex-direction: row; gap: 12px; }
+.role-count { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; padding: 4px 9px; border: 1.5px solid currentColor; border-radius: 999px; line-height: 1; opacity: .75; transition: opacity .2s; }
+.roles .role-btn:hover, .roles .role.is-open .role-btn { background: #111 !important; color: #ffe14d !important; }
+.roles .role.is-open .role-count { opacity: 1; }
+.roles.has-open .role:not(.is-open) .role-btn { opacity: .55; }
+.roles .skills { position: absolute; left: 0; right: 0; top: 100%; z-index: 30; display: flex; flex-wrap: wrap; justify-content: center; align-content: flex-start; gap: 10px 8px; padding: 18px 18px 22px; background: #111; border-top: 1.5px solid #111; clip-path: inset(0 0 100% 0); pointer-events: none; transition: clip-path .28s cubic-bezier(.2,.8,.2,1); }
+.roles .role.is-open .skills { clip-path: inset(0 0 0 0); pointer-events: auto; }
+.roles .sk { font-family: var(--f-sans); font-size: 14px; font-weight: 500; line-height: 1; padding: 10px 16px; border-radius: 999px; background: #f4efe4; color: #111; white-space: nowrap; opacity: 0; transform: translateY(8px) scale(.6); transition: opacity .15s, transform .35s cubic-bezier(.34,1.7,.6,1); }
+.roles .sk:nth-child(3n+2) { background: #ffe14d; }
+.roles .sk:nth-child(5n+3) { background: #ffd6ec; }
+.roles .role.is-open .sk { opacity: 1; }
+.roles .role.is-open .sk:nth-child(1) { transform: translateY(-3px) rotate(-2deg); transition-delay: .06s; }
+.roles .role.is-open .sk:nth-child(2) { transform: translateY(4px) rotate(1.5deg); transition-delay: .10s; }
+.roles .role.is-open .sk:nth-child(3) { transform: translateY(-1px) rotate(-1deg); transition-delay: .14s; }
+.roles .role.is-open .sk:nth-child(4) { transform: translateY(5px) rotate(2deg); transition-delay: .18s; }
+.roles .role.is-open .sk:nth-child(5) { transform: translateY(-4px) rotate(-1.5deg); transition-delay: .22s; }
+.roles .role.is-open .sk:nth-child(6) { transform: translateY(2px) rotate(1deg); transition-delay: .26s; }
+@media (prefers-reduced-motion: reduce) { .roles .skills, .roles .sk { transition: none !important; } }
+@media (max-width: 760px) {
+  .roles .role-btn { flex-direction: column; gap: 6px; }
+  .role-count { font-size: 10px; padding: 3px 7px; }
+  .roles__row { position: relative; }
+  .roles__row .role { position: static; }
+  .roles .sk { font-size: 13px; padding: 9px 13px; }
+}

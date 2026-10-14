@@ -1676,56 +1676,27 @@ $$("[data-href]").forEach((el) => {
   el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") go(e); });
 });
 
-/* Roles strip: skills spawn as bubbles at scattered spots near the role on hover; tap toggles on phones */
+/* Roles strip: hover (or tap) a role and a panel drops down from it with that role's skills */
 (() => {
   const roles = [...document.querySelectorAll(".roles .role")];
   if (!roles.length) return;
-  const wide = () => matchMedia("(min-width: 761px)").matches;
-  const rnd = (a, b) => a + Math.random() * (b - a);
-  // Cluster layout around the word (from Shreya's sketch): two staggered on top, two stacked left,
-  // one low right, one underneath. A few px of jitter keeps it loose.
-  const scatter = (r) => {
-    const word = (r.querySelector(".role-btn").firstChild.nodeType === 3 ? (() => { const g = document.createRange(); g.selectNodeContents(r.querySelector(".role-btn")); return g.getBoundingClientRect(); })() : r.querySelector(".role-btn").getBoundingClientRect());
-    const cell = r.getBoundingClientRect();
-    const bubs = [...r.querySelectorAll(".bub")];
-    const W = word.width, gap = 22;
-    const ws = bubs.map((b) => b.offsetWidth), h = bubs[0] ? bubs[0].offsetHeight : 35;
-    const T = cell.height / 2 + h / 2;  // first row that clears the yellow strip
-    const slots = [
-      (w) => ({ x: -10 - w / 2, y: -(T + 50) }),                  // top left, higher
-      (w) => ({ x: -8 + w / 2, y: -(T + 8) }),                    // top right, lower
-      (w) => ({ x: -W / 2 - gap - w / 2, y: -(T + 8) }),          // left, just above the strip
-      (w) => ({ x: W / 2 + gap + 18 + w / 2, y: T + 8 }),         // low right
-      (w) => ({ x: -W / 2 + 30 + w / 2, y: T + 50 }),             // underneath
-      (w) => ({ x: -W / 2 - gap - w / 2, y: T + 8 }),             // left, just below the strip
-    ];
-    const order = bubs.length >= 6 ? [0, 1, 2, 5, 3, 4] : [0, 1, 2, 3, 4];
-    const pos = bubs.map((b, i) => { const p = slots[order[i]](ws[i]); return { x: p.x + rnd(-6, 6), y: p.y + rnd(-4, 4), w: ws[i] }; });
-    // keep the whole cluster on screen
-    const cx = cell.left + cell.width / 2;
-    const minL = Math.min(...pos.map((p) => cx + p.x - p.w / 2)), maxR = Math.max(...pos.map((p) => cx + p.x + p.w / 2));
-    const shift = minL < 12 ? 12 - minL : maxR > innerWidth - 12 ? innerWidth - 12 - maxR : 0;
-    bubs.forEach((b, i) => {
-      b.style.setProperty("--bx", (pos[i].x + shift).toFixed(0) + "px");
-      b.style.setProperty("--by", pos[i].y.toFixed(0) + "px");
-      b.style.setProperty("--br", "0deg");
-      b.style.setProperty("--bd", (i * 0.035 + rnd(0, .05)).toFixed(2) + "s");
-    });
+  let timer;
+  const open = (r) => {
+    clearTimeout(timer);
+    roles.forEach((x) => { const on = x === r; x.classList.toggle("is-open", on); x.querySelector(".role-btn").setAttribute("aria-expanded", String(on)); });
+    r.closest(".roles").classList.toggle("has-open", !!r);
   };
-  const show = (r) => { if (wide()) scatter(r); requestAnimationFrame(() => r.classList.add("is-pop")); };
-  const hide = (r) => r.classList.remove("is-pop");
-  const setOn = (r, on) => { r.classList.toggle("is-on", on); r.querySelector(".role-btn").setAttribute("aria-expanded", String(on)); on ? show(r) : hide(r); };
+  const closeAll = () => { roles.forEach((x) => { x.classList.remove("is-open", "is-pinned"); x.querySelector(".role-btn").setAttribute("aria-expanded", "false"); }); document.querySelector(".roles").classList.remove("has-open"); };
   roles.forEach((r) => {
-    r.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") show(r); });
-    r.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse" && !r.classList.contains("is-on")) hide(r); });
-    r.addEventListener("focusin", () => show(r));
-    r.addEventListener("focusout", () => { if (!r.classList.contains("is-on")) hide(r); });
-    r.querySelector(".role-btn").addEventListener("click", (e) => {
-      if (e.pointerType === "mouse") return;
-      const on = !r.classList.contains("is-on");
-      roles.forEach((x) => setOn(x, x === r && on));
+    r.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") open(r); });
+    r.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse" && !r.classList.contains("is-pinned")) timer = setTimeout(closeAll, 120); });
+    r.addEventListener("focusin", () => open(r));
+    r.querySelector(".role-btn").addEventListener("click", () => {
+      const pinned = r.classList.contains("is-pinned");
+      closeAll();
+      if (!pinned) { open(r); r.classList.add("is-pinned"); }
     });
   });
-  document.addEventListener("click", (e) => { if (!e.target.closest(".roles")) roles.forEach((x) => x.classList.contains("is-on") && setOn(x, false)); });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") roles.forEach((x) => setOn(x, false)); });
+  document.addEventListener("click", (e) => { if (!e.target.closest(".roles")) closeAll(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeAll(); });
 })();
