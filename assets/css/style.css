@@ -3377,3 +3377,6 @@ ul.work .work__link:hover .work__thumb, .work__link:hover .work__thumb { transfo
 .ht__left { zoom: .8; }
 .ht__results { font-size: 15px; }
 @media (max-width: 760px) { .ht { grid-template-columns: 1fr !important; } }
+
+/* Totsecure cover: smaller */
+.cover.ts-cover { max-width: 780px !important; margin-left: auto !important; margin-right: auto !important; }
