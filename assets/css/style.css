@@ -3360,3 +3360,6 @@ ul.work .work__link:hover .work__thumb, .work__link:hover .work__thumb { transfo
 /* Hero photo: colour lens only, no game */
 .hero-photo.lens { cursor: none !important; }
 @media (hover: none) { .hero-photo.lens { cursor: auto !important; } }
+/* Hero photo: the pink layer is softly blurred; the lens shows the sharp photo */
+.hero-photo .lens__base { filter: grayscale(1) contrast(.95) brightness(1.22) blur(1.5px) !important; transform: scale(1.01); }
+.hero-photo { overflow: hidden !important; }
