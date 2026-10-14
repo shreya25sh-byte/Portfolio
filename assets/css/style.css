@@ -3310,3 +3310,5 @@ ul.work .work__item { cursor: pointer; }
 /* Roles strip: no underline; bubbles in ink with yellow text */
 .roles .rn::after { display: none !important; }
 .roles .pop { background: #2b2a28; color: #ffe14d; }
+/* Bubbles in the site's own riso button language: paper pill, ink outline, pink offset shadow */
+.roles .pop { background: #fffdf7; color: #111; border: 1.5px solid #111; box-shadow: 3px 3px 0 #ff3fa4; }
