@@ -3371,3 +3371,9 @@ ul.work .work__link:hover .work__thumb, .work__link:hover .work__thumb { transfo
 .likert__scale button[aria-pressed="true"] { transform: none !important; }
 .likert__ends { width: calc(6 * 44px + 5 * 8px); font-size: 10.5px !important; }
 .likert__q { padding: 12px 0 !important; gap: 8px !important; }
+
+/* Innovation vs habit test: smaller window */
+.ht { grid-template-columns: 240px 1fr !important; max-width: 860px; }
+.ht__left { zoom: .8; }
+.ht__results { font-size: 15px; }
+@media (max-width: 760px) { .ht { grid-template-columns: 1fr !important; } }
