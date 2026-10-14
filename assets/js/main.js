@@ -1676,15 +1676,57 @@ $$("[data-href]").forEach((el) => {
   el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") go(e); });
 });
 
-/* Roles strip: skills pop out as bubbles on hover; tap toggles them on touch screens */
+/* Roles strip: skills spawn as bubbles at scattered spots near the role on hover; tap toggles on phones */
 (() => {
   const roles = [...document.querySelectorAll(".roles .role")];
   if (!roles.length) return;
-  const set = (r, on) => { r.classList.toggle("is-on", on); r.querySelector(".role-btn").setAttribute("aria-expanded", String(on)); };
-  roles.forEach((r) => r.querySelector(".role-btn").addEventListener("click", () => {
-    const on = !r.classList.contains("is-on");
-    roles.forEach((x) => set(x, x === r && on));
-  }));
-  document.addEventListener("click", (e) => { if (!e.target.closest(".roles")) roles.forEach((x) => set(x, false)); });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") roles.forEach((x) => set(x, false)); });
+  const wide = () => matchMedia("(min-width: 761px)").matches;
+  const rnd = (a, b) => a + Math.random() * (b - a);
+  const scatter = (r) => {
+    const word = r.querySelector(".role-btn").getBoundingClientRect();
+    const cell = r.getBoundingClientRect();
+    const bubs = [...r.querySelectorAll(".bub")];
+    const placed = [];
+    const half = bubs.length / 2;
+    bubs.forEach((b, i) => {
+      const w = b.offsetWidth + 8, h = b.offsetHeight + 8;
+      const top = i < Math.ceil(half);
+      let best = null;
+      for (let t = 0; t < 120 && !best; t++) {
+        const k = 1 + t / 40;
+        const x = rnd(-(word.width * .32 + 110) * k, (word.width * .32 + 110) * k);
+        const y = (top ? -1 : 1) * rnd(cell.height / 2 + h / 2 - 4, cell.height / 2 + h / 2 + 40 * k);
+        const cx = cell.left + cell.width / 2 + x;
+        if (cx - w / 2 < 8 || cx + w / 2 > innerWidth - 8) continue;
+        const hit = placed.some((p) => Math.abs(p.x - x) < (p.w + w) / 2 + 8 && Math.abs(p.y - y) < (p.h + h) / 2 + 6);
+        if (!hit) best = { x, y, w, h };
+      }
+      if (!best) {
+        const side = placed.filter((p) => (p.y < 0) === top);
+        const far = side.reduce((m, p) => Math.max(m, Math.abs(p.y) + p.h / 2), cell.height / 2);
+        best = { x: rnd(-30, 30), y: (top ? -1 : 1) * (far + h / 2 + 2), w, h };
+      }
+      placed.push(best);
+      b.style.setProperty("--bx", best.x.toFixed(0) + "px");
+      b.style.setProperty("--by", best.y.toFixed(0) + "px");
+      b.style.setProperty("--br", rnd(-6, 6).toFixed(1) + "deg");
+      b.style.setProperty("--bd", rnd(0, .22).toFixed(2) + "s");
+    });
+  };
+  const show = (r) => { if (wide()) scatter(r); requestAnimationFrame(() => r.classList.add("is-pop")); };
+  const hide = (r) => r.classList.remove("is-pop");
+  const setOn = (r, on) => { r.classList.toggle("is-on", on); r.querySelector(".role-btn").setAttribute("aria-expanded", String(on)); on ? show(r) : hide(r); };
+  roles.forEach((r) => {
+    r.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") show(r); });
+    r.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse" && !r.classList.contains("is-on")) hide(r); });
+    r.addEventListener("focusin", () => show(r));
+    r.addEventListener("focusout", () => { if (!r.classList.contains("is-on")) hide(r); });
+    r.querySelector(".role-btn").addEventListener("click", (e) => {
+      if (e.pointerType === "mouse") return;
+      const on = !r.classList.contains("is-on");
+      roles.forEach((x) => setOn(x, x === r && on));
+    });
+  });
+  document.addEventListener("click", (e) => { if (!e.target.closest(".roles")) roles.forEach((x) => x.classList.contains("is-on") && setOn(x, false)); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") roles.forEach((x) => setOn(x, false)); });
 })();

@@ -3255,3 +3255,9 @@ ul.work .work__item { cursor: pointer; }
   .role[data-n="5"]:hover .b4, .role[data-n="5"]:focus-within .b4, .role[data-n="5"].is-on .b4 { left: calc(50% + 80px + var(--sh)); top: calc(50% + 58px); }
   .role[data-n="5"]:hover .b5, .role[data-n="5"]:focus-within .b5, .role[data-n="5"].is-on .b5 { left: calc(50% - 80px + var(--sh)); top: calc(50% + 92px); }
 }
+/* Bubbles v3: spawn in place at scattered spots (positions set by JS), no flying from the centre */
+@media (min-width: 761px) {
+  .roles .role .bub { left: calc(50% + var(--bx, 0px)) !important; top: calc(50% + var(--by, 0px)) !important; opacity: 0 !important; transform: translate(-50%, -50%) scale(0) rotate(var(--br, 0deg)) !important; transition: transform .38s cubic-bezier(.34, 1.9, .6, 1) var(--bd, 0s), opacity .12s linear var(--bd, 0s) !important; }
+  .roles .role.is-pop .bub { opacity: 1 !important; transform: translate(-50%, -50%) scale(1) rotate(var(--br, 0deg)) !important; }
+  .roles .role:not(.is-pop) .bub { transition: transform .18s ease-in, opacity .18s linear !important; }
+}
