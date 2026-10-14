@@ -3321,3 +3321,5 @@ ul.work .work__item:hover, ul.work .work__item:focus-within, .xcard:hover, .xcar
 ul.work .work__link:hover .work__thumb, .work__link:hover .work__thumb { transform: none !important; }
 .work-preview { display: none !important; }
 .xp__when { white-space: nowrap; }
+/* About stats: static, no hover change */
+.about-stats > div:hover { background: transparent !important; box-shadow: none !important; transform: none !important; border-color: inherit; }
