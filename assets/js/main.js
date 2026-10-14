@@ -1702,13 +1702,17 @@ $$("[data-href]").forEach((el) => {
     if (!svg) { svg = document.createElementNS(NS, "svg"); svg.setAttribute("class", "pop-links"); svg.setAttribute("aria-hidden", "true"); li.querySelector(".pops").prepend(svg); }
     svg.innerHTML = "";
     placed.forEach((q, i) => {
-      const sx = Math.min(word.r - 12, Math.max(word.l + 12, q.x * .55)), sy = q.top ? word.t + 4 : word.b - 4;
-      const ex = q.x, ey = q.y + (q.top ? q.h / 2 - 6 : -(q.h / 2 - 6));
+      // straight leader line: from the strip edge (within the word's span) to the bubble's near edge
+      const sx = Math.min(word.r - 10, Math.max(word.l + 10, q.x)), sy = q.top ? -half : half;
+      const ex = q.x, ey = q.y + (q.top ? q.h / 2 - 5 : -(q.h / 2 - 5));
       const path = document.createElementNS(NS, "path");
-      path.setAttribute("d", `M${sx.toFixed(1)} ${sy.toFixed(1)} C${sx.toFixed(1)} ${((sy + ey) / 2).toFixed(1)} ${ex.toFixed(1)} ${((sy + ey) / 2).toFixed(1)} ${ex.toFixed(1)} ${ey.toFixed(1)}`);
+      path.setAttribute("d", `M${sx.toFixed(1)} ${sy.toFixed(1)} L${ex.toFixed(1)} ${ey.toFixed(1)}`);
       path.setAttribute("pathLength", "1");
       path.style.setProperty("--d", (i * .045).toFixed(2) + "s");
-      svg.appendChild(path);
+      const dot = document.createElementNS(NS, "circle");
+      dot.setAttribute("cx", sx.toFixed(1)); dot.setAttribute("cy", sy.toFixed(1)); dot.setAttribute("r", "2.5");
+      dot.style.setProperty("--d", (i * .045).toFixed(2) + "s");
+      svg.append(path, dot);
     });
   };
   const set = (li) => {

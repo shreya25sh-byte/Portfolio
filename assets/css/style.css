@@ -3353,3 +3353,6 @@ ul.work .work__link:hover .work__thumb, .work__link:hover .work__thumb { transfo
 .polaroid--fit img { object-fit: contain !important; background: #0b0b0d !important; }
 .roles .pop::before { display: none; }
 .roles .pop { padding: 7px 13px; }
+.roles .pop-links path { opacity: .8; }
+.roles .pop-links circle { fill: #111; opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(0); transition: transform .15s, opacity .15s; }
+.roles .role.is-on .pop-links circle { opacity: 1; transform: scale(1); transition: transform .3s cubic-bezier(.34,1.56,.64,1) var(--d, 0s), opacity .1s var(--d, 0s); }
