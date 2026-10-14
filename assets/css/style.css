@@ -3337,3 +3337,17 @@ ul.work .work__link:hover .work__thumb, .work__link:hover .work__thumb { transfo
 .heat-reset[hidden] { display: none; }
 /* Roles strip: slightly faded yellow */
 .now-strip.roles { background: #fbe788 !important; }
+
+/* Skill bubbles, hi-fi pass: one size, balanced arc, connector lines, pink dot */
+.roles .pop { font-size: 13px !important; font-weight: 400; padding: 7px 13px 7px 11px; display: inline-flex; align-items: center; gap: 7px; background: var(--bg); color: #111; border: 1px solid #111; box-shadow: 2px 2px 0 #111; letter-spacing: -.005em; }
+.roles .pop::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #ff3fa4; flex: none; }
+.roles .role.is-on .pop { animation: none; transition: transform .45s cubic-bezier(.34, 1.56, .64, 1) var(--d, 0s), opacity .15s linear var(--d, 0s); }
+.roles .pop-links { position: absolute; left: 50%; top: 50%; width: 1px; height: 1px; overflow: visible; pointer-events: none; z-index: -1; }
+.roles .pop-links path { fill: none; stroke: #111; stroke-width: 1; stroke-dasharray: 1; stroke-dashoffset: 1; opacity: .55; transition: stroke-dashoffset .2s ease-in; }
+.roles .role.is-on .pop-links path { stroke-dashoffset: 0; transition: stroke-dashoffset .4s cubic-bezier(.2, .8, .2, 1) var(--d, 0s); }
+.roles .role .rn { transition: opacity .25s, transform .3s cubic-bezier(.34, 1.56, .64, 1); }
+.roles .role.is-on .rn { transform: scale(1.04); }
+@media (prefers-reduced-motion: reduce) { .roles .pop-links path { transition: none !important; } }
+@media (max-width: 760px) { .roles .pop-links { display: none; } }
+/* Photo stack: show the whole dance photo, stage-black behind it */
+.polaroid--fit img { object-fit: contain !important; background: #0b0b0d !important; }

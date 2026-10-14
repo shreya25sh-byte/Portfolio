@@ -1668,33 +1668,47 @@ $$("[data-href]").forEach((el) => {
   const roles = [...document.querySelectorAll(".roles .role")];
   if (!strip || !roles.length) return;
   const rnd = (a, b) => a + Math.random() * (b - a);
+  const NS = "http://www.w3.org/2000/svg";
   const layout = (li) => {
     const pops = [...li.querySelectorAll(".pop")];
-    pops.forEach((p) => p.style.setProperty("--fs", rnd(11, 13.5).toFixed(1) + "px"));
     const lr = li.getBoundingClientRect(), wr = li.querySelector(".rn").getBoundingClientRect();
+    const vw = document.documentElement.clientWidth;
     const cx = lr.left + lr.width / 2, cy = lr.top + lr.height / 2, half = lr.height / 2;
-    const word = { l: wr.left - cx - 6, r: wr.right - cx + 6, t: wr.top - cy - 4, b: wr.bottom - cy + 4 };
-    const placed = [];
+    const word = { l: wr.left - cx, r: wr.right - cx, t: wr.top - cy, b: wr.bottom - cy };
+    const n = pops.length, nTop = Math.ceil(n / 2), placed = [];
+    const maxW = Math.max(...pops.map((p) => p.offsetWidth + 14));
+    const spanX = Math.min(Math.max(wr.width * .62, 150), Math.max(30, (vw - 24 - maxW) / 2));
     pops.forEach((p, i) => {
-      const w = p.offsetWidth + 16, h = p.offsetHeight + 12;
-      let best = null;
-      for (let t = 0; t < 200 && !best; t++) {
-        const k = 1 + t / 70, up = i % 2 === 0;
-        const x = rnd(-(wr.width / 2 + w * .2) * k, (wr.width / 2 + w * .2) * k);
-        const y = (up ? -1 : 1) * rnd(half * .45 + h / 2, half + h / 2 + 6 + 18 * (k - 1));
-        const L = x - w / 2, R = x + w / 2, T = y - h / 2, B = y + h / 2;
-        if (cx + L < 6 || cx + R > innerWidth - 6) continue;
-        if (R > word.l && L < word.r && B > word.t && T < word.b) continue;              // keep the word readable
-        if (Math.abs(y) < half && (cx + L < lr.left - 4 || cx + R > lr.right + 4)) continue; // stay off the other roles
-        if (placed.some((q) => Math.abs(q.x - x) < (q.w + w) / 2 && Math.abs(q.y - y) < (q.h + h) / 2)) continue;
-        best = { x, y, w, h };
-      }
-      if (!best) best = { x: rnd(-40, 40), y: (i % 2 ? 1 : -1) * (half + h / 2 + 60), w, h };
-      placed.push(best);
-      p.style.setProperty("--x", best.x.toFixed(0) + "px");
-      p.style.setProperty("--y", best.y.toFixed(0) + "px");
-      p.style.setProperty("--r", rnd(-9, 9).toFixed(1) + "deg");
-      p.style.setProperty("--d", (i * .05 + rnd(0, .06)).toFixed(2) + "s");
+      const top = i < nTop, k = top ? i : i - nTop, m = top ? nTop : n - nTop;
+      const w = p.offsetWidth + 14, h = p.offsetHeight + 10;
+      // even arc: middle bubbles sit further from the strip than the outer ones
+      const u = m === 1 ? 0 : (k / (m - 1)) * 2 - 1;
+      let x = u * spanX + rnd(-8, 8);
+      let y = (top ? -1 : 1) * (half + h / 2 + 6 + (1 - u * u) * 22 + rnd(-3, 3));
+      // push outward until it doesn't touch an earlier bubble
+      for (let t = 0; t < 30 && placed.some((q) => Math.abs(q.x - x) < (q.w + w) / 2 && Math.abs(q.y - y) < (q.h + h) / 2); t++) y += top ? -10 : 10;
+      placed.push({ x, y, w, h, top });
+      p.style.setProperty("--x", x.toFixed(0) + "px");
+      p.style.setProperty("--y", y.toFixed(0) + "px");
+      p.style.setProperty("--r", rnd(-4, 4).toFixed(1) + "deg");
+      p.style.setProperty("--d", (i * .045 + .05).toFixed(2) + "s");
+    });
+    // slide the whole arc (not single bubbles) so it stays on screen
+    const minL = Math.min(...placed.map((q) => cx + q.x - q.w / 2)), maxR = Math.max(...placed.map((q) => cx + q.x + q.w / 2));
+    const shift = minL < 12 ? 12 - minL : maxR > vw - 12 ? vw - 12 - maxR : 0;
+    if (shift) placed.forEach((q, i) => { q.x += shift; pops[i].style.setProperty("--x", q.x.toFixed(0) + "px"); });
+    // connector lines from the word to each bubble
+    let svg = li.querySelector(".pop-links");
+    if (!svg) { svg = document.createElementNS(NS, "svg"); svg.setAttribute("class", "pop-links"); svg.setAttribute("aria-hidden", "true"); li.querySelector(".pops").prepend(svg); }
+    svg.innerHTML = "";
+    placed.forEach((q, i) => {
+      const sx = Math.min(word.r - 12, Math.max(word.l + 12, q.x * .55)), sy = q.top ? word.t + 4 : word.b - 4;
+      const ex = q.x, ey = q.y + (q.top ? q.h / 2 - 6 : -(q.h / 2 - 6));
+      const path = document.createElementNS(NS, "path");
+      path.setAttribute("d", `M${sx.toFixed(1)} ${sy.toFixed(1)} C${sx.toFixed(1)} ${((sy + ey) / 2).toFixed(1)} ${ex.toFixed(1)} ${((sy + ey) / 2).toFixed(1)} ${ex.toFixed(1)} ${ey.toFixed(1)}`);
+      path.setAttribute("pathLength", "1");
+      path.style.setProperty("--d", (i * .045).toFixed(2) + "s");
+      svg.appendChild(path);
     });
   };
   const set = (li) => {
