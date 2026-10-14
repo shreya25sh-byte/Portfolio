@@ -3351,3 +3351,5 @@ ul.work .work__link:hover .work__thumb, .work__link:hover .work__thumb { transfo
 @media (max-width: 760px) { .roles .pop-links { display: none; } }
 /* Photo stack: show the whole dance photo, stage-black behind it */
 .polaroid--fit img { object-fit: contain !important; background: #0b0b0d !important; }
+.roles .pop::before { display: none; }
+.roles .pop { padding: 7px 13px; }
