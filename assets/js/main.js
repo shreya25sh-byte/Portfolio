@@ -1690,14 +1690,14 @@ $$("[data-href]").forEach((el) => {
     const word = { l: wr.left - cx - 6, r: wr.right - cx + 6, t: wr.top - cy - 4, b: wr.bottom - cy + 4 };
     const placed = [];
     pops.forEach((p, i) => {
-      const w = p.offsetWidth + 10, h = p.offsetHeight + 10;
+      const w = p.offsetWidth + 16, h = p.offsetHeight + 12;
       let best = null;
       for (let t = 0; t < 200 && !best; t++) {
-        const k = 1 + t / 60, up = i % 2 === 0;
-        const x = rnd(-(wr.width / 2 + w * .6) * k, (wr.width / 2 + w * .6) * k);
-        const y = (up ? -1 : 1) * rnd(half * .15 + h / 2, half + h / 2 + 34 * k);
+        const k = 1 + t / 70, up = i % 2 === 0;
+        const x = rnd(-(wr.width / 2 + w * .2) * k, (wr.width / 2 + w * .2) * k);
+        const y = (up ? -1 : 1) * rnd(half * .45 + h / 2, half + h / 2 + 6 + 18 * (k - 1));
         const L = x - w / 2, R = x + w / 2, T = y - h / 2, B = y + h / 2;
-        if (cx + L < 10 || cx + R > innerWidth - 10) continue;
+        if (cx + L < 6 || cx + R > innerWidth - 6) continue;
         if (R > word.l && L < word.r && B > word.t && T < word.b) continue;              // keep the word readable
         if (Math.abs(y) < half && (cx + L < lr.left - 4 || cx + R > lr.right + 4)) continue; // stay off the other roles
         if (placed.some((q) => Math.abs(q.x - x) < (q.w + w) / 2 && Math.abs(q.y - y) < (q.h + h) / 2)) continue;
