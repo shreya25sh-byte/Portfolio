@@ -3323,3 +3323,5 @@ ul.work .work__link:hover .work__thumb, .work__link:hover .work__thumb { transfo
 .xp__when { white-space: nowrap; }
 /* About stats: static, no hover change */
 .about-stats > div:hover { background: transparent !important; box-shadow: none !important; transform: none !important; border-color: inherit; }
+/* Bubbles match the Copy email button: page-coloured fill, 1px ink outline, black offset shadow */
+.roles .pop { background: var(--bg); color: #111; border: 1px solid #111; box-shadow: 2px 2px 0 #111; }
