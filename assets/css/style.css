@@ -3320,3 +3320,4 @@ ul.work .work__item { cursor: pointer; }
 ul.work .work__item:hover, ul.work .work__item:focus-within, .xcard:hover, .xcard:focus-visible { transform: none !important; }
 ul.work .work__link:hover .work__thumb, .work__link:hover .work__thumb { transform: none !important; }
 .work-preview { display: none !important; }
+.xp__when { white-space: nowrap; }
