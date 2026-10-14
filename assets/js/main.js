@@ -1676,27 +1676,59 @@ $$("[data-href]").forEach((el) => {
   el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") go(e); });
 });
 
-/* Roles strip: hover (or tap) a role and a panel drops down from it with that role's skills */
+/* Roles strip: hover (or tap) a role and its skills pop up as bubbles around it; the other roles fade */
 (() => {
+  const strip = document.querySelector(".roles");
   const roles = [...document.querySelectorAll(".roles .role")];
-  if (!roles.length) return;
-  let timer;
-  const open = (r) => {
-    clearTimeout(timer);
-    roles.forEach((x) => { const on = x === r; x.classList.toggle("is-open", on); x.querySelector(".role-btn").setAttribute("aria-expanded", String(on)); });
-    r.closest(".roles").classList.toggle("has-open", !!r);
+  if (!strip || !roles.length) return;
+  const rnd = (a, b) => a + Math.random() * (b - a);
+  const layout = (li) => {
+    const pops = [...li.querySelectorAll(".pop")];
+    pops.forEach((p) => p.style.setProperty("--fs", rnd(12.5, 16).toFixed(1) + "px"));
+    const lr = li.getBoundingClientRect(), wr = li.querySelector(".rn").getBoundingClientRect();
+    const cx = lr.left + lr.width / 2, cy = lr.top + lr.height / 2, half = lr.height / 2;
+    const word = { l: wr.left - cx - 6, r: wr.right - cx + 6, t: wr.top - cy - 4, b: wr.bottom - cy + 4 };
+    const placed = [];
+    pops.forEach((p, i) => {
+      const w = p.offsetWidth + 10, h = p.offsetHeight + 10;
+      let best = null;
+      for (let t = 0; t < 200 && !best; t++) {
+        const k = 1 + t / 60, up = i % 2 === 0;
+        const x = rnd(-(wr.width / 2 + w * .6) * k, (wr.width / 2 + w * .6) * k);
+        const y = (up ? -1 : 1) * rnd(half * .15 + h / 2, half + h / 2 + 34 * k);
+        const L = x - w / 2, R = x + w / 2, T = y - h / 2, B = y + h / 2;
+        if (cx + L < 10 || cx + R > innerWidth - 10) continue;
+        if (R > word.l && L < word.r && B > word.t && T < word.b) continue;              // keep the word readable
+        if (Math.abs(y) < half && (cx + L < lr.left - 4 || cx + R > lr.right + 4)) continue; // stay off the other roles
+        if (placed.some((q) => Math.abs(q.x - x) < (q.w + w) / 2 && Math.abs(q.y - y) < (q.h + h) / 2)) continue;
+        best = { x, y, w, h };
+      }
+      if (!best) best = { x: rnd(-40, 40), y: (i % 2 ? 1 : -1) * (half + h / 2 + 60), w, h };
+      placed.push(best);
+      p.style.setProperty("--x", best.x.toFixed(0) + "px");
+      p.style.setProperty("--y", best.y.toFixed(0) + "px");
+      p.style.setProperty("--r", rnd(-9, 9).toFixed(1) + "deg");
+      p.style.setProperty("--d", (i * .05 + rnd(0, .06)).toFixed(2) + "s");
+    });
   };
-  const closeAll = () => { roles.forEach((x) => { x.classList.remove("is-open", "is-pinned"); x.querySelector(".role-btn").setAttribute("aria-expanded", "false"); }); document.querySelector(".roles").classList.remove("has-open"); };
-  roles.forEach((r) => {
-    r.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") open(r); });
-    r.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse" && !r.classList.contains("is-pinned")) timer = setTimeout(closeAll, 120); });
-    r.addEventListener("focusin", () => open(r));
-    r.querySelector(".role-btn").addEventListener("click", () => {
-      const pinned = r.classList.contains("is-pinned");
-      closeAll();
-      if (!pinned) { open(r); r.classList.add("is-pinned"); }
+  const set = (li) => {
+    roles.forEach((r) => { const on = r === li; r.classList.toggle("is-on", on); r.querySelector(".rn").setAttribute("aria-expanded", String(on)); });
+    strip.classList.toggle("has-on", !!li);
+    if (li) layout(li);
+  };
+  roles.forEach((li) => {
+    li.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") set(li); });
+    li.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse") set(null); });
+    li.addEventListener("focusin", () => { if (li.querySelector(".rn").matches(":focus-visible")) set(li); });
+    li.addEventListener("focusout", () => { if (!li.classList.contains("is-tapped")) set(null); });
+    li.querySelector(".rn").addEventListener("click", (e) => {
+      if (e.pointerType === "mouse") return;
+      const open = !li.classList.contains("is-tapped");
+      roles.forEach((r) => r.classList.remove("is-tapped"));
+      if (open) li.classList.add("is-tapped");
+      set(open ? li : null);
     });
   });
-  document.addEventListener("click", (e) => { if (!e.target.closest(".roles")) closeAll(); });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeAll(); });
+  document.addEventListener("click", (e) => { if (!e.target.closest(".roles")) { roles.forEach((r) => r.classList.remove("is-tapped")); set(null); } });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") { roles.forEach((r) => r.classList.remove("is-tapped")); set(null); } });
 })();
