@@ -3261,3 +3261,6 @@ ul.work .work__item { cursor: pointer; }
   .roles .role.is-pop .bub { opacity: 1 !important; transform: translate(-50%, -50%) scale(1) rotate(var(--br, 0deg)) !important; }
   .roles .role:not(.is-pop) .bub { transition: transform .18s ease-in, opacity .18s linear !important; }
 }
+/* Bubbles v4 (from sketch): flat dark pills of one size, no tilt, no shadow */
+.roles .bub, .roles .bub:nth-child(n) { background: #3d3b38 !important; color: #f4efe4 !important; border: 0 !important; box-shadow: none !important; font-family: var(--f-sans); font-size: 14px; font-weight: 500; height: 35px; min-width: 179px; padding: 0 18px; display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; }
+@media (max-width: 760px) { .roles .bub, .roles .bub:nth-child(n) { min-width: 0; height: 32px; font-size: 13px; padding: 0 14px; } .role.is-on .bub { display: inline-flex !important; } }

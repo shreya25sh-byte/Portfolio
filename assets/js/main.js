@@ -1682,35 +1682,34 @@ $$("[data-href]").forEach((el) => {
   if (!roles.length) return;
   const wide = () => matchMedia("(min-width: 761px)").matches;
   const rnd = (a, b) => a + Math.random() * (b - a);
+  // Cluster layout around the word (from Shreya's sketch): two staggered on top, two stacked left,
+  // one low right, one underneath. A few px of jitter keeps it loose.
   const scatter = (r) => {
-    const word = r.querySelector(".role-btn").getBoundingClientRect();
+    const word = (r.querySelector(".role-btn").firstChild.nodeType === 3 ? (() => { const g = document.createRange(); g.selectNodeContents(r.querySelector(".role-btn")); return g.getBoundingClientRect(); })() : r.querySelector(".role-btn").getBoundingClientRect());
     const cell = r.getBoundingClientRect();
     const bubs = [...r.querySelectorAll(".bub")];
-    const placed = [];
-    const half = bubs.length / 2;
+    const W = word.width, gap = 22;
+    const ws = bubs.map((b) => b.offsetWidth), h = bubs[0] ? bubs[0].offsetHeight : 35;
+    const T = cell.height / 2 + h / 2;  // first row that clears the yellow strip
+    const slots = [
+      (w) => ({ x: -10 - w / 2, y: -(T + 50) }),                  // top left, higher
+      (w) => ({ x: -8 + w / 2, y: -(T + 8) }),                    // top right, lower
+      (w) => ({ x: -W / 2 - gap - w / 2, y: -(T + 8) }),          // left, just above the strip
+      (w) => ({ x: W / 2 + gap + 18 + w / 2, y: T + 8 }),         // low right
+      (w) => ({ x: -W / 2 + 30 + w / 2, y: T + 50 }),             // underneath
+      (w) => ({ x: -W / 2 - gap - w / 2, y: T + 8 }),             // left, just below the strip
+    ];
+    const order = bubs.length >= 6 ? [0, 1, 2, 5, 3, 4] : [0, 1, 2, 3, 4];
+    const pos = bubs.map((b, i) => { const p = slots[order[i]](ws[i]); return { x: p.x + rnd(-6, 6), y: p.y + rnd(-4, 4), w: ws[i] }; });
+    // keep the whole cluster on screen
+    const cx = cell.left + cell.width / 2;
+    const minL = Math.min(...pos.map((p) => cx + p.x - p.w / 2)), maxR = Math.max(...pos.map((p) => cx + p.x + p.w / 2));
+    const shift = minL < 12 ? 12 - minL : maxR > innerWidth - 12 ? innerWidth - 12 - maxR : 0;
     bubs.forEach((b, i) => {
-      const w = b.offsetWidth + 8, h = b.offsetHeight + 8;
-      const top = i < Math.ceil(half);
-      let best = null;
-      for (let t = 0; t < 120 && !best; t++) {
-        const k = 1 + t / 40;
-        const x = rnd(-(word.width * .32 + 110) * k, (word.width * .32 + 110) * k);
-        const y = (top ? -1 : 1) * rnd(cell.height / 2 + h / 2 - 4, cell.height / 2 + h / 2 + 40 * k);
-        const cx = cell.left + cell.width / 2 + x;
-        if (cx - w / 2 < 8 || cx + w / 2 > innerWidth - 8) continue;
-        const hit = placed.some((p) => Math.abs(p.x - x) < (p.w + w) / 2 + 8 && Math.abs(p.y - y) < (p.h + h) / 2 + 6);
-        if (!hit) best = { x, y, w, h };
-      }
-      if (!best) {
-        const side = placed.filter((p) => (p.y < 0) === top);
-        const far = side.reduce((m, p) => Math.max(m, Math.abs(p.y) + p.h / 2), cell.height / 2);
-        best = { x: rnd(-30, 30), y: (top ? -1 : 1) * (far + h / 2 + 2), w, h };
-      }
-      placed.push(best);
-      b.style.setProperty("--bx", best.x.toFixed(0) + "px");
-      b.style.setProperty("--by", best.y.toFixed(0) + "px");
-      b.style.setProperty("--br", rnd(-6, 6).toFixed(1) + "deg");
-      b.style.setProperty("--bd", rnd(0, .22).toFixed(2) + "s");
+      b.style.setProperty("--bx", (pos[i].x + shift).toFixed(0) + "px");
+      b.style.setProperty("--by", pos[i].y.toFixed(0) + "px");
+      b.style.setProperty("--br", "0deg");
+      b.style.setProperty("--bd", (i * 0.035 + rnd(0, .05)).toFixed(2) + "s");
     });
   };
   const show = (r) => { if (wide()) scatter(r); requestAnimationFrame(() => r.classList.add("is-pop")); };
