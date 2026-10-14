@@ -3357,5 +3357,6 @@ ul.work .work__link:hover .work__thumb, .work__link:hover .work__thumb { transfo
 .roles .pop-links circle { fill: #111; opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(0); transition: transform .15s, opacity .15s; }
 .roles .role.is-on .pop-links circle { opacity: 1; transform: scale(1); transition: transform .3s cubic-bezier(.34,1.56,.64,1) var(--d, 0s), opacity .1s var(--d, 0s); }
 
-/* Heatmap photo: a gaze-dot cursor instead of the crosshair */
-.hero-photo.lens { cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%229%22%20fill%3D%22rgba%28255%2C63%2C164%2C.35%29%22%20stroke%3D%22%23111%22%20stroke-width%3D%221.5%22/%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%222.5%22%20fill%3D%22%23111%22/%3E%3C/svg%3E") 12 12, pointer !important; }
+/* Hero photo: colour lens only, no game */
+.hero-photo.lens { cursor: none !important; }
+@media (hover: none) { .hero-photo.lens { cursor: auto !important; } }

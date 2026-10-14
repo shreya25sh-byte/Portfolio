@@ -1520,51 +1520,44 @@ if (tsCover && finePointer && !reduced) {
   tsCover.addEventListener("pointerleave", () => ["--rx", "--ry"].forEach((k) => tsCover.style.setProperty(k, "0deg")));
 }
 
-/* Hero: eye-tracking heatmap. Where the visitor looks glows; the readout names the spot they looked at most */
-const heroPhoto = $("#hero-photo");
-if (heroPhoto && $(".heat", heroPhoto)) {
-  const cv = $(".heat", heroPhoto), ctx = cv.getContext("2d"), W = 120, H = 127;
-  cv.width = W; cv.height = H;
-  const g = new Float32Array(W * H), ro = $("#heat-readout"), reset = $("#heat-reset");
-  const ZONES = [
-    { k: "whiteboard", t: "the <b>whiteboard</b> · that’s where the research gets messy first", hit: (x, y) => y < .40 && !(x > .33 && x < .64 && y > .25) },
-    { k: "laptop", t: "the <b>laptop</b> · where ~2,000 survey responses got analysed", hit: (x, y) => x < .32 && y > .6 },
-    { k: "chair", t: "the <b>chair</b> · I once surveyed 90 gamers about chairs", hit: (x, y) => x > .7 && y > .45 },
-    { k: "me", t: "<b>me</b> · hi, I’m Shreya", hit: (x, y) => x > .3 && x < .72 && y > .25 },
-  ];
-  // riso palette: transparent → yellow → orange → hot pink → deep magenta
-  const ST = [[0, 255, 225, 77, 0], [.3, 255, 225, 77, .6], [.6, 255, 140, 60, .75], [.85, 255, 63, 164, .85], [1, 150, 10, 85, .9]];
-  const pal = (v) => { for (let i = 1; i < ST.length; i++) if (v <= ST[i][0]) { const a = ST[i - 1], b = ST[i], k = (v - a[0]) / (b[0] - a[0]); return [1, 2, 3, 4].map((j) => a[j] + (b[j] - a[j]) * k); } return ST[ST.length - 1].slice(1); };
-  let dwell = {}, last = 0, dirty = false, raf = null;
-  const draw = () => {
-    raf = null; if (!dirty) return; dirty = false;
-    let mx = 1.2; for (let i = 0; i < g.length; i++) if (g[i] > mx) mx = g[i];
-    const im = ctx.createImageData(W, H);
-    for (let i = 0; i < g.length; i++) { const c = pal(Math.min(1, g[i] / mx)); im.data[i * 4] = c[0]; im.data[i * 4 + 1] = c[1]; im.data[i * 4 + 2] = c[2]; im.data[i * 4 + 3] = c[3] * 255; }
-    ctx.putImageData(im, 0, 0);
+/* ---------- Hero: research lens ---------- */
+const lens = $(".lens");
+if (lens) {
+  const color = $(".lens__color", lens);
+  const ring = $(".lens__ring", lens);
+  let tx = 0, ty = 0, cx = 0, cy = 0, tr = 0, cr = 0, raf;
+  const R = () => Math.max(70, lens.clientWidth * 0.2);
+  const set = () => {
+    cx = lerp(cx, tx, 0.2); cy = lerp(cy, ty, 0.2); cr = lerp(cr, tr, 0.15);
+    color.style.setProperty("--x", `${cx}px`);
+    color.style.setProperty("--y", `${cy}px`);
+    color.style.setProperty("--r", `${cr}px`);
+    ring.style.left = `${cx}px`; ring.style.top = `${cy}px`;
+    ring.style.width = ring.style.height = `${cr * 2}px`;
+    if (Math.abs(cr - tr) > 0.5 || Math.abs(cx - tx) > 0.5 || Math.abs(cy - ty) > 0.5) raf = requestAnimationFrame(set);
+    else raf = null;
   };
-  const stamp = (nx, ny, amt) => {
-    const cx = nx * W, cy = ny * H, R = 9;
-    for (let y = Math.max(0, (cy - R) | 0); y < Math.min(H, cy + R); y++)
-      for (let x = Math.max(0, (cx - R) | 0); x < Math.min(W, cx + R); x++) {
-        const d = ((x - cx) ** 2 + (y - cy) ** 2) / (R * R);
-        if (d < 1) g[y * W + x] += amt * (1 - d) * (1 - d);
-      }
-    dirty = true; if (!raf) raf = requestAnimationFrame(draw);
+  const kick = () => { if (!raf) raf = requestAnimationFrame(set); };
+  const move = (e) => {
+    const r = lens.getBoundingClientRect();
+    tx = e.clientX - r.left; ty = e.clientY - r.top;
+    if (!tr) { cx = tx; cy = ty; }
+    tr = R();
+    lens.classList.add("is-active");
+    kick();
   };
-  const look = (e) => {
-    const r = heroPhoto.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
-    if (x < 0 || y < 0 || x > 1 || y > 1) return;
-    const now = performance.now(), dt = Math.min(80, now - (last || now)); last = now;
-    stamp(x, y, .12 + dt / 120);
-    const z = ZONES.find((q) => q.hit(x, y)); if (z) dwell[z.k] = (dwell[z.k] || 0) + dt + 5;
-    let best = null, bv = 0; for (const k in dwell) if (dwell[k] > bv) { bv = dwell[k]; best = k; }
-    if (best && bv > 300) { ro.innerHTML = "You looked at " + ZONES.find((q) => q.k === best).t; ro.classList.add("is-on"); reset.hidden = false; }
-  };
-  heroPhoto.addEventListener("pointermove", look);
-  heroPhoto.addEventListener("pointerdown", look);
-  heroPhoto.addEventListener("pointerleave", () => { last = 0; });
-  reset.addEventListener("click", () => { g.fill(0); dwell = {}; dirty = true; draw(); ro.textContent = "Look around the photo · it notices where you look"; ro.classList.remove("is-on"); reset.hidden = true; });
+  lens.addEventListener("pointermove", move);
+  lens.addEventListener("pointerdown", move);
+  lens.addEventListener("pointerleave", () => { tr = 0; lens.classList.remove("is-active"); kick(); });
+  // idle demo sweep so people understand it
+  if (!reduced) {
+    setTimeout(() => {
+      if (lens.classList.contains("is-active")) return;
+      const w = lens.clientWidth, h = lens.clientHeight;
+      tx = cx = w * 0.45; ty = cy = h * 0.42; tr = R(); kick();
+      setTimeout(() => { if (!lens.matches(":hover")) { tr = 0; kick(); } }, 1600);
+    }, 2600);
+  }
 }
 
 /* Work cards: 20-second demos */
