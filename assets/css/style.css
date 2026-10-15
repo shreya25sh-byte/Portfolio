@@ -3595,3 +3595,10 @@ ul.work .work__item[data-id="idetc"] .work__thumb img { object-position: 82% 35%
   ul.work .work__item[data-id="idetc"] .work__talks { padding-top: 8px !important; }
 }
 @media (min-width: 1000px) { ul.work .work__item .work__cta { grid-row: 8; align-self: end; margin-bottom: 22px; } }
+/* stack thumbnails: mockups shown whole and centred on matching paper; photos cropped on their subject */
+@media (min-width: 1000px) {
+  ul.work .work__item[data-id="habit"] .work__thumb, ul.work .work__item[data-id="dfam"] .work__thumb { background: rgb(238, 236, 232) !important; }
+  ul.work .work__item[data-id="habit"] .work__thumb img, ul.work .work__item[data-id="dfam"] .work__thumb img { object-fit: contain !important; object-position: 50% 50% !important; padding: 0; transform: translateY(12px) scale(1.5) !important; }
+  ul.work .work__item[data-id="totsecure"] .work__thumb img { object-position: 88% 50% !important; }
+  ul.work .work__item[data-id="idetc"] .work__thumb img { object-position: 94% 40% !important; }
+}
