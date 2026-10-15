@@ -735,38 +735,6 @@ const burst = (x, y, n = 9) => {
     ).onfinish = () => g.remove();
   }
 };
-const STAMPS = ["WHY?", "HOW?", "SO WHAT?", "WHO FOR?", "TELL ME MORE", "VALIDATED ✓", "ASK AGAIN", "n = 1,910", "p < .05", "SAY MORE…",
-  "OBSERVED", "NOTED ✎", "BUT WHY?", "TEST IT", "PROTOTYPE IT", "ITERATE", "USER FIRST", "EVIDENCE?", "INSIGHT!", "SEGMENT IT",
-  "HYPOTHESIS", "FIELD NOTE", "5 WHYS", "DATA SAYS…", "RETEST", "SHIP IT?"];
-let stampDeck = [];
-const nextStamp = () => {
-  if (!stampDeck.length) {
-    const last = nextStamp.last;
-    stampDeck = STAMPS.slice().sort(() => Math.random() - 0.5);
-    if (stampDeck[stampDeck.length - 1] === last) stampDeck.unshift(stampDeck.pop());
-  }
-  return (nextStamp.last = stampDeck.pop());
-};
-$$(".hero, .contact").forEach((sec) =>
-  sec.addEventListener("click", (e) => {
-    if (e.target.closest("a, button, .lens, input, .stamp-spin")) return;
-    const r = sec.getBoundingClientRect();
-    const st = document.createElement("span");
-    st.className = "inkstamp" + (Math.random() < 0.35 ? " b" : "");
-    st.textContent = nextStamp();
-    st.style.left = `${e.clientX - r.left}px`;
-    st.style.top = `${e.clientY - r.top}px`;
-    sec.appendChild(st);
-    const rot = (Math.random() * 30 - 15).toFixed(1);
-    st.animate(
-      [{ transform: `translate(-50%,-50%) rotate(${rot}deg) scale(1.8)`, opacity: 0 },
-       { transform: `translate(-50%,-50%) rotate(${rot}deg) scale(.95)`, opacity: .9, offset: .25 },
-       { transform: `translate(-50%,-50%) rotate(${rot}deg) scale(1)`, opacity: .9, offset: .85 },
-       { transform: `translate(-50%,-50%) rotate(${rot}deg) scale(1)`, opacity: 0 }],
-      { duration: reduced ? 1500 : 3200, easing: "cubic-bezier(.22,1,.36,1)", fill: "forwards" }
-    ).onfinish = () => st.remove();
-  })
-);
 $$(".stamp-spin").forEach((sp) => {
   const go = (e) => { e.stopPropagation(); sp.classList.add("is-fast"); setTimeout(() => sp.classList.remove("is-fast"), 1200); confetti(30); };
   sp.addEventListener("click", go);
