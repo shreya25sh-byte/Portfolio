@@ -3851,3 +3851,5 @@ ul.work .work__item .demo-btn:hover .demo-btn__play { background: #ffe14d; }
 ul.work .work__item .work__title, ul.work .work__item[data-id="idetc"] .work__title, ul.work .work__item:not([data-id="idetc"]) .work__title {
   font-family: var(--f-serif) !important; font-weight: 400 !important; font-size: 30px !important; line-height: 1.05 !important; letter-spacing: -.01em !important; }
 @media (max-width: 999px) { ul.work .work__item .work__title, ul.work .work__item:not([data-id="idetc"]) .work__title { font-size: 26px !important; } }
+/* work card pills: soft yellow, like the industry card tags */
+ul.work .work__pill { background: #fbe788 !important; color: #111 !important; }
