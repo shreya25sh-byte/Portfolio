@@ -3640,3 +3640,10 @@ ul.work .work__item[data-id="idetc"] .work__thumb img { object-position: 82% 35%
 .xcard::after { content: "↗"; position: absolute; top: 18px; right: 18px; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: #111; color: #fff; font-size: 14px; transition: transform .3s var(--ease), background .3s, color .3s; }
 .xcard:hover::after, .xcard:focus-visible::after { background: #ff3fa4; color: #111; transform: rotate(45deg); }
 @media (prefers-reduced-motion: reduce) { .xcard, .xcard::after { transition: none !important; } }
+/* stack: identical column split on every card (content can't stretch a column), rounded corners like the industry cards */
+@media (min-width: 1000px) {
+  ul.work .work__item, ul.work .work__item[data-id="idetc"] { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr) !important; border-radius: 18px !important; }
+  ul.work .work__item[data-id="idetc"] .work__tags { flex-wrap: wrap; }
+  ul.work .work__item .work__thumb { border-radius: 0 !important; }
+}
+@media (min-width: 1000px) { ul.work .work__item .work__tags li, ul.work .work__item[data-id="idetc"] .work__tags li { padding: 4px 7px; font-size: 9.5px; letter-spacing: .05em; } }
