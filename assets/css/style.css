@@ -3647,3 +3647,8 @@ ul.work .work__item[data-id="idetc"] .work__thumb img { object-position: 82% 35%
   ul.work .work__item .work__thumb { border-radius: 0 !important; }
 }
 @media (min-width: 1000px) { ul.work .work__item .work__tags li, ul.work .work__item[data-id="idetc"] .work__tags li { padding: 4px 7px; font-size: 9.5px; letter-spacing: .05em; } }
+
+/* About copy: more air between ideas */
+.about__text p { line-height: 1.75 !important; margin: 0 0 22px !important; max-width: 60ch; }
+.about__text p.about__seek { margin-top: 30px !important; padding: 2px 0 2px 16px; border-left: 3px solid #ff3fa4; color: var(--text); }
+.about__text .about-stats { margin-top: 34px; }
