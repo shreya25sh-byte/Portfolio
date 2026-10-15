@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=20261015v">
+  <link rel="stylesheet" href="assets/css/style.css?v=20261015x">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -296,17 +296,20 @@
           <span class="mono">Contact</span>
         </div>
         <!-- Contact: a riso coffee-chat ticket; tearing the stub opens an email -->
-        <div class="ticket" role="group" aria-label="Coffee chat ticket">
+        <div class="ticket" role="group" aria-label="Coffee chat ticket: 20 minutes, video call or State College, topic of your choice">
           <div class="ticket__main">
-            <span class="ticket__kicker mono">Admit one · No. 0026</span>
-            <b class="ticket__title">Coffee chat</b>
-            <dl class="ticket__meta mono">
-              <div><dt>Length</dt><dd>20 min</dd></div>
-              <div><dt>Where</dt><dd>Video call or State College</dd></div>
-              <div><dt>Topic</dt><dd>Your call</dd></div>
-            </dl>
+            <svg class="ticket__line" viewBox="0 0 300 200" preserveAspectRatio="none" aria-hidden="true"><path d="M300 4 H4 L4 10 A6 6 0 0 0 4 22 L4 34 A6 6 0 0 0 4 46 L4 58 A6 6 0 0 0 4 70 L4 82 A6 6 0 0 0 4 94 L4 106 A6 6 0 0 0 4 118 L4 130 A6 6 0 0 0 4 142 L4 154 A6 6 0 0 0 4 166 L4 178 A6 6 0 0 0 4 190 L4 196 H300"/><path class="perf" d="M300 4 V196"/><rect x="18" y="18" width="268" height="164" rx="3"/><path d="M58 18 V182"/></svg>
+            <span class="ticket__no mono" aria-hidden="true">No. 0026</span>
+            <div class="ticket__body">
+              <b class="ticket__title" aria-hidden="true">Admit<br>one</b>
+              <span class="ticket__sub mono">Coffee chat · 20 min</span>
+              <span class="ticket__sub mono">Video call or State College</span>
+            </div>
           </div>
-          <button type="button" class="ticket__stub mono" aria-label="Tear off the stub to email Shreya about a coffee chat"><span>Tear here</span><i aria-hidden="true">✂</i></button>
+          <button type="button" class="ticket__stub mono" aria-label="Tear off the stub to email Shreya about a coffee chat">
+            <svg class="ticket__line" viewBox="0 0 100 200" preserveAspectRatio="none" aria-hidden="true"><path d="M0 4 H96 L96 10 A6 6 0 0 1 96 22 L96 34 A6 6 0 0 1 96 46 L96 58 A6 6 0 0 1 96 70 L96 82 A6 6 0 0 1 96 94 L96 106 A6 6 0 0 1 96 118 L96 130 A6 6 0 0 1 96 142 L96 154 A6 6 0 0 1 96 166 L96 178 A6 6 0 0 1 96 190 L96 196 H0"/><rect x="10" y="18" width="72" height="164" rx="3"/></svg>
+            <span class="ticket__tear">Tear here ✂</span>
+          </button>
         </div>
         <h2 class="contact__big split">What's on <span class="serif">your mind?</span></h2>
         <p class="lede reveal">Let's discuss design, books, opportunities and conspiracy theories.</p>
@@ -421,6 +424,6 @@
     </div>
   </div>
 
-  <script src="assets/js/main.js?v=20261015v"></script>
+  <script src="assets/js/main.js?v=20261015x"></script>
 </body>
 </html>

@@ -3751,26 +3751,33 @@ ul.work .work__item .demo-btn:hover .demo-btn__play { background: #ffe14d; }
 .roles .role:hover .rn__c, .roles .role:focus-within .rn__c { transform: translateY(-100%); }
 @media (prefers-reduced-motion: reduce) { .roles .rn__c { transition: none; } .roles .role:hover .rn__c { transform: none; } }
 
-/* Contact: coffee-chat ticket (replaces the response card) */
+/* Contact: coffee-chat ticket, drawn as an ink line drawing (scalloped edges, inner frame, outlined lettering) */
 .rcard { display: none !important; }
-.ticket { position: absolute; right: 0; top: 190px; display: flex; width: 380px; z-index: 2; transform: rotate(3deg); filter: drop-shadow(4px 4px 0 #111); }
-.ticket__main { flex: 1; background: #ffe14d; border: 1.5px solid #111; border-right: 0; border-radius: 16px 0 0 16px; padding: 18px 20px 18px 22px;
-  -webkit-mask: radial-gradient(circle 10px at 100% 0, #0000 98%, #000) top right / 100% 51% no-repeat, radial-gradient(circle 10px at 100% 100%, #0000 98%, #000) bottom right / 100% 51% no-repeat;
-          mask: radial-gradient(circle 10px at 100% 0, #0000 98%, #000) top right / 100% 51% no-repeat, radial-gradient(circle 10px at 100% 100%, #0000 98%, #000) bottom right / 100% 51% no-repeat; }
-.ticket__kicker { display: block; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #111; }
-.ticket__title { display: block; margin: 6px 0 12px; font: italic 400 40px/1 var(--f-serif); color: #111; letter-spacing: -.01em; }
-.ticket__meta { margin: 0; display: grid; gap: 4px; font-size: 12px; letter-spacing: .04em; }
-.ticket__meta div { display: flex; gap: 10px; }
-.ticket__meta dt { width: 58px; text-transform: uppercase; color: #3a3520; }
-.ticket__meta dd { margin: 0; color: #111; }
-.ticket__stub { position: relative; width: 88px; flex: none; border: 1.5px solid #111; border-left: 2px dashed #111; border-radius: 0 16px 16px 0; background: #ff3fa4; color: #111; cursor: pointer;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
-  transform-origin: 0 100%; transition: transform .25s cubic-bezier(.34,1.56,.64,1); }
-.ticket__stub span { writing-mode: vertical-rl; transform: rotate(180deg); }
-.ticket__stub i { font-style: normal; font-size: 18px; transform: rotate(-90deg); }
+.ticket { position: absolute; right: 0; top: 190px; display: flex; width: 400px; aspect-ratio: 2 / 1; z-index: 2; transform: rotate(3deg); }
+.ticket__line { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.ticket__line path, .ticket__line rect { fill: none; stroke: #111; stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.ticket__line path:first-child { fill: var(--bg, #eeede8); }
+.ticket__line .perf { stroke-dasharray: 5 5; }
+.ticket__line rect { stroke-width: 1; }
+.ticket__main { position: relative; flex: 0 0 75%; }
+.ticket__no { position: absolute; left: 6%; top: 50%; transform: translate(-50%, -50%) rotate(-90deg); transform-origin: center; margin-left: 4.6%; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; color: #111; }
+.ticket__body { position: absolute; left: 22%; right: 6%; top: 9%; bottom: 9%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 4px; }
+.ticket__title { font: 700 40px/.95 var(--f-sans); text-transform: uppercase; letter-spacing: .02em; color: transparent; -webkit-text-stroke: 1.3px #111; margin-bottom: 8px; }
+.ticket__sub { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #111; }
+.ticket__stub { position: relative; flex: 1; padding: 0; margin: 0; background: none; border: 0; cursor: pointer; color: #111; transform-origin: 0 100%; transition: transform .25s cubic-bezier(.34,1.56,.64,1); }
+.ticket__tear { position: absolute; left: 46%; top: 50%; transform: translate(-50%, -50%) rotate(90deg); white-space: nowrap; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; transition: color .2s; }
 .ticket__stub:hover, .ticket__stub:focus-visible { transform: rotate(-6deg); }
-.ticket__stub:focus-visible { outline: 2px solid #111; outline-offset: 3px; }
+.ticket__stub:hover .ticket__tear, .ticket__stub:focus-visible .ticket__tear { color: #c4127a; }
+.ticket__stub:hover .ticket__line path:first-child { fill: #fff0f7; }
+.ticket__stub:focus-visible { outline: 2px solid #111; outline-offset: 4px; }
 .ticket.is-torn .ticket__stub { animation: tearOff .65s cubic-bezier(.5,0,.75,0) forwards; }
 @keyframes tearOff { 0% { transform: rotate(-6deg); } 35% { transform: rotate(-18deg) translate(6px, -4px); } 100% { transform: rotate(-40deg) translate(140px, 260px); opacity: 0; } }
-@media (max-width: 1000px) { .ticket { position: relative; top: 0; order: 1; margin: 48px 0 56px 4px; width: min(380px, 100%); transform: rotate(-1.5deg); } }
+@media (max-width: 1000px) { .ticket { position: relative; top: 0; order: 1; margin: 48px 0 56px 4px; width: min(400px, 100%); transform: rotate(-1.5deg); } }
+@media (max-width: 420px) { .ticket__title { font-size: 32px; } .ticket__sub { font-size: 10px; } }
 @media (prefers-reduced-motion: reduce) { .ticket.is-torn .ticket__stub { animation: none; } }
+/* role roll: both rows share one grid cell so the box is as wide as the wider (italic) word */
+.roles .rn__w { display: inline-grid !important; padding: 0 .3em !important; margin: 0 -.3em !important; }
+.roles .rn__a, .roles .rn__b { grid-area: 1 / 1; position: static !important; justify-self: center; white-space: nowrap; }
+.roles .rn__b .rn__c { transform: translateY(105%); }
+.roles .role:hover .rn__a .rn__c, .roles .role:focus-within .rn__a .rn__c { transform: translateY(-105%); }
+.roles .role:hover .rn__b .rn__c, .roles .role:focus-within .rn__b .rn__c { transform: none; }
