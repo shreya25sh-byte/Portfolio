@@ -1278,7 +1278,7 @@ if (jenga) {
     const io3 = new IntersectionObserver(([e]) => {
       if (!e.isIntersecting) return;
       io3.disconnect();
-      import(new URL("assets/js/jenga3d.js", document.baseURI).href)
+      import(new URL("assets/js/jenga3d.js?v=20261016b", document.baseURI).href)
         .then((m) => {
           three = m.default(jenga, {
             CORE, FLUFF, say,
@@ -1641,7 +1641,7 @@ $$("[data-href]").forEach((el) => {
   const go = () => {
     void hero.offsetWidth;
     hero.classList.add("is-go");
-    setTimeout(() => { hero.classList.remove("is-intro", "is-go"); $(".hero-ink", hero)?.remove(); startRoll(); }, 2600);
+    setTimeout(() => { hero.classList.remove("is-intro", "is-go"); title.classList.add("is-settled"); $(".hero-ink", hero)?.remove(); startRoll(); }, 2600);
   };
   const goNext = () => requestAnimationFrame(() => requestAnimationFrame(go));
   if (title.classList.contains("is-in")) goNext(); else title.addEventListener("reveal", goNext, { once: true });
@@ -1694,10 +1694,12 @@ $$("[data-href]").forEach((el) => {
   const st = new Map();
   let top = 10, raf = 0;
   const clampR = (r) => Math.max(-22, Math.min(22, r));
-  const draw = (c) => { const s = st.get(c); c.style.transform = `translate(-50%, -50%) translate(${s.x}px, ${s.y}px) rotate(${s.r}deg)`; };
+  let depth = 12;
+  // each print gets its own depth inside the 3D-tilted stack, so overlapping prints never z-fight; the one you grab comes nearest
+  const draw = (c) => { const s = st.get(c); c.style.transform = `translate(-50%, -50%) translate(${s.x}px, ${s.y}px) translateZ(${s.z}px) rotate(${s.r}deg)`; };
   const wake = () => {
     if (stack.classList.contains("has-dragged")) return;
-    cards.forEach((c) => { const [r, x, y] = SLOT[c.dataset.slot]; st.set(c, { x, y, r, vx: 0, vy: 0, vr: 0, held: false }); draw(c); });
+    cards.forEach((c) => { const [r, x, y] = SLOT[c.dataset.slot]; st.set(c, { x, y, r, z: +c.dataset.slot * 3, vx: 0, vy: 0, vr: 0, held: false }); draw(c); });
     stack.classList.add("has-dragged");
   };
   const bounds = () => {
@@ -1734,7 +1736,7 @@ $$("[data-href]").forEach((el) => {
       if (!moved) {
         if (Math.hypot(e.clientX - sx, e.clientY - sy) < 5) return;
         moved = true; wake();
-        const s = st.get(c); s.held = true; s.vx = s.vy = s.vr = 0;
+        const s = st.get(c); s.held = true; s.vx = s.vy = s.vr = 0; s.z = (depth += 3);
         c.classList.add("is-dragging"); c.style.zIndex = ++top;
       }
       const s = st.get(c), now = performance.now(), dt = Math.max(8, now - lt), dx = e.clientX - lx, dy = e.clientY - ly;

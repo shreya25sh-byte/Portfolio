@@ -90,11 +90,11 @@ export default function initJenga3D(root, { CORE, FLUFF, say, onScore, onEnd }) 
   const geo = new THREE.BoxGeometry(L, H, W);
 
   // ---------- physics ----------
-  const world = new CANNON.World({ gravity: new CANNON.Vec3(0, -22, 0) });
+  const world = new CANNON.World({ gravity: new CANNON.Vec3(0, -16, 0) });
   world.allowSleep = true;
   world.solver.iterations = 24;
   const woodM = new CANNON.Material("wood");
-  world.defaultContactMaterial = new CANNON.ContactMaterial(woodM, woodM, { friction: 0.45, restitution: 0.02 });
+  world.defaultContactMaterial = new CANNON.ContactMaterial(woodM, woodM, { friction: 0.55, restitution: 0.08, contactEquationStiffness: 1e7, contactEquationRelaxation: 4 });
   const floor = new CANNON.Body({ mass: 0, shape: new CANNON.Plane(), material: woodM });
   floor.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
   world.addBody(floor);
@@ -115,7 +115,7 @@ export default function initJenga3D(root, { CORE, FLUFF, say, onScore, onEnd }) 
         const d = pool[li * 3 + bi], off = (bi - 1) * (W + GAP);
         const mesh = new THREE.Mesh(geo, mats(d.name));
         mesh.castShadow = mesh.receiveShadow = true;
-        const body = new CANNON.Body({ mass: 1, shape: new CANNON.Box(half), material: woodM, sleepSpeedLimit: 0.2, sleepTimeLimit: 0.4, linearDamping: 0.05, angularDamping: 0.08 });
+        const body = new CANNON.Body({ mass: 1, shape: new CANNON.Box(half), material: woodM, sleepSpeedLimit: 0.15, sleepTimeLimit: 0.6, linearDamping: 0.03, angularDamping: 0.03 });
         const x = rot ? off : 0, z = rot ? 0 : off;
         body.position.set(x, H / 2 + li * (H + 0.002), z);
         body.quaternion.setFromEuler(0, rot, 0);
@@ -158,10 +158,11 @@ export default function initJenga3D(root, { CORE, FLUFF, say, onScore, onEnd }) 
   const pull = (b) => {
     if (dead || b.out) return;
     b.out = true; glow(b, 0);
-    // slide it out along its long axis, toward whichever end faces the camera
+    // slide it out along its long axis, toward whichever end faces the camera: quick start, easing to a stop
     const toCam = new THREE.Vector3().subVectors(camera.position, b.mesh.position).projectOnVector(b.axis).normalize();
-    b.body.type = CANNON.Body.KINEMATIC; b.body.velocity.set(toCam.x * 9, 0, toCam.z * 9);
-    sliding.push({ b, t: 0 });
+    b.body.type = CANNON.Body.KINEMATIC; b.body.velocity.set(0, 0, 0); b.body.angularVelocity.set(0, 0, 0);
+    const from = b.body.position.clone();
+    sliding.push({ b, t: 0, from, dir: toCam, dist: L + 0.25, dur: reduced ? 0.01 : 0.6 });
     if (!b.core) {
       score++; onScore(score);
       say(`<b>${b.name}</b> pulled. ${b.why}`);
@@ -172,18 +173,34 @@ export default function initJenga3D(root, { CORE, FLUFF, say, onScore, onEnd }) 
     say(`<span class="jg-down mono">Tower down · that was a real step</span><span class="jg-learn"><b>${b.name}.</b> ${b.why}</span><span class="jg-proof"><span class="jg-tag mono">Where I learned it</span>${b.proof}</span>`);
     root.classList.add("is-down");
     onEnd(false);
-    // the real step was holding everything above it: wake the tower and give it a shove
-    const dir = new THREE.Vector3(Math.random() - 0.5, 0, Math.random() - 0.5).normalize();
+    // it was holding everything above it: a short creak, then the upper section leans as one piece toward the gap and topples
+    const side = new THREE.Vector3(b.body.position.x, 0, b.body.position.z);
+    const lean = side.lengthSq() > 0.01 ? side.normalize() : new THREE.Vector3(Math.random() - 0.5, 0, Math.random() - 0.5).normalize();
+    const axis = new THREE.Vector3(0, 1, 0).cross(lean).normalize();          // tip over this horizontal axis
+    const pivot = new THREE.Vector3(lean.x * (L / 2), b.body.position.y + H / 2, lean.z * (L / 2));
+    const creak = (amp) => blocks.forEach((o) => { if (!o.out && o.li > b.li) { o.body.wakeUp(); const w = axis.clone().multiplyScalar(amp); o.body.angularVelocity.set(w.x, w.y, w.z); } });
+    setTimeout(() => creak(0.25), 260);
+    setTimeout(() => creak(-0.15), 420);
     setTimeout(() => {
+      const w = axis.clone().multiplyScalar(2.1);                                 // angular velocity of the rigid lean
       blocks.forEach((o) => {
         if (o.out) return;
         o.body.wakeUp();
         if (o.li > b.li) {
-          const k = 1 + (o.li - b.li) * 0.35;
-          o.body.applyImpulse(new CANNON.Vec3(dir.x * 2.2 * k, 0.4, dir.z * 2.2 * k), new CANNON.Vec3(0, H / 2, 0));
-        } else if (o.li === b.li) o.body.applyImpulse(new CANNON.Vec3(dir.x * 0.6, 0, dir.z * 0.6), new CANNON.Vec3(0, 0, 0));
+          const r = new THREE.Vector3(o.body.position.x, o.body.position.y, o.body.position.z).sub(pivot);
+          const v = w.clone().cross(r);                                           // v = ω × r, same rotation for the whole stack
+          const jitter = 0.08;
+          o.body.velocity.set(v.x + (Math.random() - 0.5) * jitter, v.y, v.z + (Math.random() - 0.5) * jitter);
+          o.body.angularVelocity.set(w.x, w.y, w.z);
+        } else if (o.li === b.li) {
+          // the rest of the weakened layer gives way, squeezed out sideways
+          const out = new THREE.Vector3(o.body.position.x, 0, o.body.position.z);
+          const d = out.lengthSq() > 0.01 ? out.normalize() : lean;
+          o.body.velocity.set(d.x * 2.4 + lean.x * 1.2, 0.2, d.z * 2.4 + lean.z * 1.2);
+          o.body.angularVelocity.set((Math.random() - 0.5) * 2, (Math.random() - 0.5) * 3, (Math.random() - 0.5) * 2);
+        }
       });
-    }, 180);
+    }, 560);
   };
 
   // ---------- loop ----------
@@ -203,8 +220,19 @@ export default function initJenga3D(root, { CORE, FLUFF, say, onScore, onEnd }) 
     if (!drag && !reduced) { idle += dt; if (idle > 1.5) theta += dt * 0.12; }
     sliding = sliding.filter((s) => {
       s.t += dt;
-      if (s.t > 0.55) { world.removeBody(s.b.body); scene.remove(s.b.mesh); return false; }
-      s.b.mesh.material.forEach((m) => { m.transparent = true; m.opacity = Math.max(0, 1 - Math.max(0, s.t - 0.3) / 0.25); });
+      const b = s.b.body;
+      if (s.t <= s.dur) {
+        const k = 1 - Math.pow(1 - Math.min(1, s.t / s.dur), 3);                    // ease-out cubic
+        b.position.set(s.from.x + s.dir.x * s.dist * k, s.from.y, s.from.z + s.dir.z * s.dist * k);
+        return true;
+      }
+      if (!s.released) {                                                           // clear of the tower: let gravity have it
+        s.released = true; b.type = CANNON.Body.DYNAMIC; b.mass = 1; b.updateMassProperties();
+        b.velocity.set(s.dir.x * 1.2, 0, s.dir.z * 1.2); b.angularVelocity.set(s.dir.z * 2, 0, -s.dir.x * 2); b.wakeUp();
+      }
+      const fadeFrom = s.dur + 1.6;
+      if (s.t > fadeFrom) s.b.mesh.material.forEach((m) => { m.transparent = true; m.opacity = Math.max(0, 1 - (s.t - fadeFrom) / 0.5); });
+      if (s.t > fadeFrom + 0.5) { world.removeBody(b); scene.remove(s.b.mesh); return false; }
       return true;
     });
     world.step(1 / 60, dt, 4);

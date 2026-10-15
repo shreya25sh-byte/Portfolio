@@ -3781,3 +3781,16 @@ ul.work .work__item .demo-btn:hover .demo-btn__play { background: #ffe14d; }
 .roles .rn__b .rn__c { transform: translateY(105%); }
 .roles .role:hover .rn__a .rn__c, .roles .role:focus-within .rn__a .rn__c { transform: translateY(-105%); }
 .roles .role:hover .rn__b .rn__c, .roles .role:focus-within .rn__b .rn__c { transform: none; }
+/* while prints are being dragged/tossed, depth (set by JS) decides what's on top, not hover */
+.hero-stack.has-dragged .hero-card:hover, .hero-stack.has-dragged .hero-card:focus-visible { z-index: auto !important; }
+@media (min-width: 1001px) { .ticket { right: clamp(24px, 5vw, 80px); width: min(380px, 32vw); transform: rotate(2deg); } .ticket__title { font-size: clamp(30px, 2.8vw, 40px); } }
+/* hero prints: slight fillets */
+.hero-card { border-radius: 10px; }
+.hero-card img { border-radius: 5px; }
+/* once the headline has revealed, stop clipping each word so hover-lifted letters and the rolling word aren't cut off */
+.hero__title.is-settled .word { overflow: visible; }
+@media (prefers-reduced-motion: reduce) { .hero__title .word { overflow: visible; } }
+/* Quick demo: bottom-right of every card on desktop, level with "Read case study" */
+@media (min-width: 1000px) {
+  ul.work .work__item .demo-btn.demo-btn { left: auto !important; right: 22px !important; bottom: 22px !important; }
+}
