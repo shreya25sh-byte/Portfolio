@@ -3829,3 +3829,21 @@ ul.work .work__item .demo-btn:hover .demo-btn__play { background: #ffe14d; }
 @media (max-width: 420px) { .land2__grid { grid-template-columns: repeat(2, 1fr); } }
 .case .land2 .land2__h, .land2 h3.land2__h { font: 500 16px/1.4 var(--f-sans) !important; letter-spacing: 0 !important; color: var(--body-ink) !important; }
 .scope2__h, .umap__note { font-size: 11px !important; line-height: 1.5 !important; }
+/* stack cards: centre the text block vertically between the top and the buttons, with more air between items */
+@media (min-width: 1000px) {
+  ul.work .work__item, ul.work .work__item[data-id="idetc"] { grid-template-rows: minmax(0, 1fr) repeat(7, auto) minmax(0, 1fr) auto; }
+  ul.work .work__item .work__thumb { grid-row: 1 / -1 !important; }
+  ul.work .work__item .work__title { grid-row: 2; margin-top: 0 !important; }
+  ul.work .work__item .work__cta { grid-row: 10 !important; }
+  ul.work .work__item:not([data-id="idetc"]) .work__meta { margin-top: 14px; padding-bottom: 14px; }
+  ul.work .work__item:not([data-id="idetc"]) .work__desc { margin-top: 16px !important; margin-bottom: 10px !important; }
+  ul.work .work__item:not([data-id="idetc"]) .work__about { margin-bottom: 16px; }
+}
+@media (min-width: 1000px) {
+  ul.work .work__item .work__meta { grid-row: 3 !important; }
+  ul.work .work__item .work__desc { grid-row: 4 !important; }
+  ul.work .work__item .work__about { grid-row: 5 !important; }
+  ul.work .work__item .work__tags { grid-row: 6 !important; }
+  ul.work .work__item .work__ext { grid-row: 7 !important; }
+  ul.work .work__item .work__talks { grid-row: 8 !important; }
+}
