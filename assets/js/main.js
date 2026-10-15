@@ -1729,3 +1729,47 @@ $$("[data-href]").forEach((el) => {
   document.addEventListener("click", (e) => { if (!e.target.closest(".roles")) { roles.forEach((r) => r.classList.remove("is-tapped")); set(null); } });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") { roles.forEach((r) => r.classList.remove("is-tapped")); set(null); } });
 })();
+
+/* Hero halftone field: dots swell pink around the cursor; drifts on its own when idle or on touch */
+(() => {
+  const hero = $(".hero");
+  if (!hero || reduced) return;
+  const cv = document.createElement("canvas");
+  cv.className = "hero-dots";
+  cv.setAttribute("aria-hidden", "true");
+  hero.prepend(cv);
+  const ctx = cv.getContext("2d");
+  const dpr = Math.min(2, devicePixelRatio || 1);
+  let W = 0, H = 0, mx = 0, my = 0, last = -1e9, ex = 0, ey = 0, on = true, raf = 0;
+  const size = () => {
+    W = hero.clientWidth; H = hero.clientHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
+  size();
+  ex = W / 2; ey = H / 2;
+  addEventListener("resize", size);
+  hero.addEventListener("pointermove", (e) => {
+    const r = hero.getBoundingClientRect();
+    mx = e.clientX - r.left; my = e.clientY - r.top; last = performance.now();
+  });
+  hero.addEventListener("pointerleave", () => { last = -1e9; });
+  const draw = (t) => {
+    let x = mx, y = my;
+    if (t - last > 2500) { const a = t / 2600; x = W * (0.5 + 0.33 * Math.sin(a)); y = H * (0.5 + 0.3 * Math.sin(a * 1.7)); }
+    ex += (x - ex) * 0.12; ey += (y - ey) * 0.12;
+    ctx.clearRect(0, 0, W, H);
+    const g = W < 700 ? 18 : 22, R = W < 700 ? 120 : 190;
+    for (let j = g / 2; j < H; j += g) for (let i = g / 2; i < W; i += g) {
+      const k = Math.max(0, 1 - Math.hypot(i - ex, j - ey) / R), s = k * k * (3 - 2 * k);
+      ctx.fillStyle = s > 0.04 ? `rgba(255,63,164,${0.12 + s * 0.33})` : "rgba(17,17,17,.09)";
+      ctx.beginPath(); ctx.arc(i, j, 1 + s * g * 0.24, 0, 6.283); ctx.fill();
+    }
+    if (on) raf = requestAnimationFrame(draw);
+  };
+  new IntersectionObserver(([e]) => {
+    on = e.isIntersecting;
+    cancelAnimationFrame(raf);
+    if (on) raf = requestAnimationFrame(draw);
+  }).observe(hero);
+})();
