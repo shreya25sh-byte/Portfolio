@@ -3729,3 +3729,48 @@ ul.work .work__item .demo-btn:hover .demo-btn__play { background: #ffe14d; }
   ul.work .work__item .demo-btn.demo-btn { position: absolute !important; left: 18px !important; bottom: 18px !important; top: auto !important; right: auto !important; z-index: 6; margin: 0 !important; }
 }
 @media (max-width: 999px) { ul.work .work__item .demo-btn.demo-btn { margin-left: auto !important; } }
+
+/* Hero prints fly in on load: each comes from a different direction, spinning, and lands with a small bounce */
+.hero.is-intro .hero-card { opacity: 0; }
+.hero.is-intro .hero-card:nth-child(1) { translate: -70vw -30vh; rotate: -70deg; }
+.hero.is-intro .hero-card:nth-child(2) { translate: 60vw -60vh; rotate: 80deg; }
+.hero.is-intro .hero-card:nth-child(3) { translate: 40vw 70vh; rotate: -50deg; }
+.hero.is-intro .hero-card:nth-child(4) { translate: -20vw 90vh; rotate: 40deg; }
+.hero.is-go .hero-card:nth-child(n) { opacity: 1; translate: 0 0; rotate: 0deg;
+  transition: translate 1s cubic-bezier(.2, 1.25, .35, 1), rotate 1s cubic-bezier(.2, 1.25, .35, 1), opacity .25s ease !important; }
+.hero.is-go .hero-card:nth-child(1) { transition-delay: .25s !important; }
+.hero.is-go .hero-card:nth-child(2) { transition-delay: .45s !important; }
+.hero.is-go .hero-card:nth-child(3) { transition-delay: .65s !important; }
+.hero.is-go .hero-card:nth-child(4) { transition-delay: .85s !important; }
+
+/* Roles strip: hover a role and its letters roll up in a wave, returning as pink italic */
+.roles .rn { cursor: default; }
+.roles .rn__w { display: inline-block; position: relative; overflow: hidden; vertical-align: bottom; line-height: 1.15; padding: 0 .25em; margin: 0 -.25em; }
+.roles .rn__c { display: inline-block; transition: transform .45s cubic-bezier(.65, 0, .35, 1); transition-delay: calc(var(--i) * 22ms); white-space: pre; }
+.roles .rn__b { position: absolute; left: .25em; top: 100%; display: inline-block; white-space: nowrap; color: #c4127a; font-style: italic; }
+.roles .role:hover .rn__c, .roles .role:focus-within .rn__c { transform: translateY(-100%); }
+@media (prefers-reduced-motion: reduce) { .roles .rn__c { transition: none; } .roles .role:hover .rn__c { transform: none; } }
+
+/* Contact: coffee-chat ticket (replaces the response card) */
+.rcard { display: none !important; }
+.ticket { position: absolute; right: 0; top: 190px; display: flex; width: 380px; z-index: 2; transform: rotate(3deg); filter: drop-shadow(4px 4px 0 #111); }
+.ticket__main { flex: 1; background: #ffe14d; border: 1.5px solid #111; border-right: 0; border-radius: 16px 0 0 16px; padding: 18px 20px 18px 22px;
+  -webkit-mask: radial-gradient(circle 10px at 100% 0, #0000 98%, #000) top right / 100% 51% no-repeat, radial-gradient(circle 10px at 100% 100%, #0000 98%, #000) bottom right / 100% 51% no-repeat;
+          mask: radial-gradient(circle 10px at 100% 0, #0000 98%, #000) top right / 100% 51% no-repeat, radial-gradient(circle 10px at 100% 100%, #0000 98%, #000) bottom right / 100% 51% no-repeat; }
+.ticket__kicker { display: block; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #111; }
+.ticket__title { display: block; margin: 6px 0 12px; font: italic 400 40px/1 var(--f-serif); color: #111; letter-spacing: -.01em; }
+.ticket__meta { margin: 0; display: grid; gap: 4px; font-size: 12px; letter-spacing: .04em; }
+.ticket__meta div { display: flex; gap: 10px; }
+.ticket__meta dt { width: 58px; text-transform: uppercase; color: #3a3520; }
+.ticket__meta dd { margin: 0; color: #111; }
+.ticket__stub { position: relative; width: 88px; flex: none; border: 1.5px solid #111; border-left: 2px dashed #111; border-radius: 0 16px 16px 0; background: #ff3fa4; color: #111; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+  transform-origin: 0 100%; transition: transform .25s cubic-bezier(.34,1.56,.64,1); }
+.ticket__stub span { writing-mode: vertical-rl; transform: rotate(180deg); }
+.ticket__stub i { font-style: normal; font-size: 18px; transform: rotate(-90deg); }
+.ticket__stub:hover, .ticket__stub:focus-visible { transform: rotate(-6deg); }
+.ticket__stub:focus-visible { outline: 2px solid #111; outline-offset: 3px; }
+.ticket.is-torn .ticket__stub { animation: tearOff .65s cubic-bezier(.5,0,.75,0) forwards; }
+@keyframes tearOff { 0% { transform: rotate(-6deg); } 35% { transform: rotate(-18deg) translate(6px, -4px); } 100% { transform: rotate(-40deg) translate(140px, 260px); opacity: 0; } }
+@media (max-width: 1000px) { .ticket { position: relative; top: 0; order: 1; margin: 48px 0 56px 4px; width: min(380px, 100%); transform: rotate(-1.5deg); } }
+@media (prefers-reduced-motion: reduce) { .ticket.is-torn .ticket__stub { animation: none; } }

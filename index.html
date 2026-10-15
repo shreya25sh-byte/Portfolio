@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=20261015t">
+  <link rel="stylesheet" href="assets/css/style.css?v=20261015v">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -295,19 +295,19 @@
         <div class="section-head contact-head">
           <span class="mono">Contact</span>
         </div>
-        <!-- Contact: a mini survey response card; ticks write the subject line of "Send an email" -->
-        <form class="rcard" aria-label="Quick survey: what's on your mind?">
-          <div class="rcard__head mono"><span>Response card</span><span>n = you</span></div>
-          <fieldset>
-            <legend class="rcard__q">Q1. What's on your mind?</legend>
-            <label><input type="checkbox" value="Design"><span>Design</span></label>
-            <label><input type="checkbox" value="Books"><span>Books</span></label>
-            <label><input type="checkbox" value="Opportunities"><span>Opportunities</span></label>
-            <label><input type="checkbox" value="Conspiracy theories"><span>Conspiracy theories</span></label>
-          </fieldset>
-          <p class="rcard__foot mono" aria-live="polite">Tick any. It becomes your email subject.</p>
-          <span class="rcard__stamp mono" aria-hidden="true"><b>State College</b>PA · 2026</span>
-        </form>
+        <!-- Contact: a riso coffee-chat ticket; tearing the stub opens an email -->
+        <div class="ticket" role="group" aria-label="Coffee chat ticket">
+          <div class="ticket__main">
+            <span class="ticket__kicker mono">Admit one · No. 0026</span>
+            <b class="ticket__title">Coffee chat</b>
+            <dl class="ticket__meta mono">
+              <div><dt>Length</dt><dd>20 min</dd></div>
+              <div><dt>Where</dt><dd>Video call or State College</dd></div>
+              <div><dt>Topic</dt><dd>Your call</dd></div>
+            </dl>
+          </div>
+          <button type="button" class="ticket__stub mono" aria-label="Tear off the stub to email Shreya about a coffee chat"><span>Tear here</span><i aria-hidden="true">✂</i></button>
+        </div>
         <h2 class="contact__big split">What's on <span class="serif">your mind?</span></h2>
         <p class="lede reveal">Let's discuss design, books, opportunities and conspiracy theories.</p>
         <div class="contact__row reveal">
@@ -421,6 +421,6 @@
     </div>
   </div>
 
-  <script src="assets/js/main.js?v=20261015t"></script>
+  <script src="assets/js/main.js?v=20261015v"></script>
 </body>
 </html>

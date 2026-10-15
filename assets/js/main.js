@@ -1671,10 +1671,12 @@ $$("[data-href]").forEach((el) => {
   }
   hero.classList.add("is-intro");
   const go = () => {
+    void hero.offsetWidth;
     hero.classList.add("is-go");
     setTimeout(() => { hero.classList.remove("is-intro", "is-go"); $(".hero-ink", hero)?.remove(); startRoll(); }, 2600);
   };
-  if (title.classList.contains("is-in")) go(); else title.addEventListener("reveal", go, { once: true });
+  const goNext = () => requestAnimationFrame(() => requestAnimationFrame(go));
+  if (title.classList.contains("is-in")) goNext(); else title.addEventListener("reveal", goNext, { once: true });
 
   const WORDS = ["curiosity", "questions", "interviews", "field notes", "prototypes", "data"];
   const word = $$(".word", title).find((w) => w.textContent.trim() === "curiosity");
@@ -1829,17 +1831,39 @@ $$("[data-href]").forEach((el) => {
   upd();
 })();
 
-/* Contact response card: ticked topics become the subject of the "Send an email" link */
+/* Contact ticket: tear off the stub to open a "Coffee chat?" email */
 (() => {
-  const card = $(".rcard");
-  if (!card) return;
-  const foot = $(".rcard__foot", card);
-  const links = $$("[data-email]");
-  const upd = () => {
-    const picks = $$("input:checked", card).map((i) => i.value);
-    const subject = picks.length ? `Hi Shreya, about: ${picks.join(" + ")}` : "";
-    links.forEach((a) => { a.href = `mailto:${CONFIG.email}${subject ? `?subject=${encodeURIComponent(subject)}` : ""}`; });
-    foot.textContent = picks.length ? `Subject: “${picks.join(" + ")}”. Hit Send an email.` : "Tick any. It becomes your email subject.";
+  const tk = $(".ticket");
+  if (!tk) return;
+  const stub = $(".ticket__stub", tk);
+  const go = () => {
+    if (tk.classList.contains("is-torn")) { window.location.href = stub.dataset.href; return; }
+    tk.classList.add("is-torn");
+    setTimeout(() => { window.location.href = stub.dataset.href; }, reduced ? 0 : 650);
+    setTimeout(() => tk.classList.remove("is-torn"), 2600);
   };
-  card.addEventListener("change", upd);
+  stub.dataset.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent("Coffee chat?")}`;
+  stub.addEventListener("click", go);
 })();
+
+/* Roles strip: split each role into letters (ink row + pink italic row) for the hover roll */
+$$(".roles .rn").forEach((rn) => {
+  const text = rn.textContent.trim();
+  rn.textContent = "";
+  const sr = document.createElement("span");
+  sr.className = "sr-only"; sr.textContent = text;
+  const w = document.createElement("span");
+  w.className = "rn__w"; w.setAttribute("aria-hidden", "true");
+  ["rn__a", "rn__b"].forEach((cls) => {
+    const row = document.createElement("span");
+    row.className = cls;
+    [...text].forEach((ch, i) => {
+      const c = document.createElement("span");
+      c.className = "rn__c"; c.textContent = ch;
+      c.style.setProperty("--i", i);
+      row.appendChild(c);
+    });
+    w.appendChild(row);
+  });
+  rn.append(sr, w);
+});
