@@ -92,9 +92,10 @@ export default function initJenga3D(root, { CORE, FLUFF, say, onScore, onEnd }) 
   // ---------- physics ----------
   const world = new CANNON.World({ gravity: new CANNON.Vec3(0, -16, 0) });
   world.allowSleep = true;
-  world.solver.iterations = 24;
+  world.solver.iterations = 30;
+  world.broadphase = new CANNON.SAPBroadphase(world);
   const woodM = new CANNON.Material("wood");
-  world.defaultContactMaterial = new CANNON.ContactMaterial(woodM, woodM, { friction: 0.55, restitution: 0.08, contactEquationStiffness: 1e7, contactEquationRelaxation: 4 });
+  world.defaultContactMaterial = new CANNON.ContactMaterial(woodM, woodM, { friction: 0.5, restitution: 0.04 });
   const floor = new CANNON.Body({ mass: 0, shape: new CANNON.Plane(), material: woodM });
   floor.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
   world.addBody(floor);
@@ -108,20 +109,25 @@ export default function initJenga3D(root, { CORE, FLUFF, say, onScore, onEnd }) 
   };
   const build = () => {
     clear(); dead = false; score = 0; onScore(0);
-    const pool = [...CORE.map((c) => ({ name: c[1], why: c[2], proof: c[3], core: true })), ...FLUFF.map((f) => ({ name: f[1], why: f[2], core: false }))].sort(() => Math.random() - 0.5);
+    // one look-alike per layer (2 real steps + 1 look-alike), so pulling any look-alike leaves a layer real Jenga would hold
+    const shuffle = (a) => a.map((v) => [Math.random(), v]).sort((x, y) => x[0] - y[0]).map((x) => x[1]);
+    const cores = shuffle(CORE.map((c) => ({ name: c[1], why: c[2], proof: c[3], core: true })));
+    const fluffs = shuffle(FLUFF.map((f) => ({ name: f[1], why: f[2], core: false })));
+    const pool = [];
+    for (let li = 0; li < LAYERS; li++) pool.push(...shuffle([cores[li * 2], cores[li * 2 + 1], fluffs[li % fluffs.length]]));
     for (let li = 0; li < LAYERS; li++) {
       const rot = li % 2 ? Math.PI / 2 : 0;
       for (let bi = 0; bi < 3; bi++) {
         const d = pool[li * 3 + bi], off = (bi - 1) * (W + GAP);
         const mesh = new THREE.Mesh(geo, mats(d.name));
         mesh.castShadow = mesh.receiveShadow = true;
-        const body = new CANNON.Body({ mass: 1, shape: new CANNON.Box(half), material: woodM, sleepSpeedLimit: 0.15, sleepTimeLimit: 0.6, linearDamping: 0.03, angularDamping: 0.03 });
+        const body = new CANNON.Body({ mass: 1, type: CANNON.Body.KINEMATIC, shape: new CANNON.Box(half), material: woodM, sleepSpeedLimit: 0.1, sleepTimeLimit: 0.5, linearDamping: 0.04, angularDamping: 0.06 });
         const x = rot ? off : 0, z = rot ? 0 : off;
-        body.position.set(x, H / 2 + li * (H + 0.002), z);
+        body.position.set(x, H / 2 + li * H, z);                     // exactly touching: nothing settles or bounces on wake
         body.quaternion.setFromEuler(0, rot, 0);
-        world.addBody(body); body.sleep();
+        world.addBody(body);                                         // held still (kinematic) until the tower actually falls
         scene.add(mesh);
-        const b = { mesh, body, li, ...d, axis: rot ? new THREE.Vector3(0, 0, 1) : new THREE.Vector3(1, 0, 0) };
+        const b = { mesh, body, li, ...d, peek: 0, axis: rot ? new THREE.Vector3(0, 0, 1) : new THREE.Vector3(1, 0, 0) };
         mesh.userData.b = b; blocks.push(b);
       }
     }
@@ -131,7 +137,7 @@ export default function initJenga3D(root, { CORE, FLUFF, say, onScore, onEnd }) 
 
   // ---------- interaction ----------
   const ray = new THREE.Raycaster(), ptr = new THREE.Vector2();
-  let hovered = null, drag = null, moved = false, idle = 0;
+  let hovered = null, drag = null, moved = false, idle = 0, vTheta = 0;
   const pick = (e) => {
     const r = renderer.domElement.getBoundingClientRect();
     ptr.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
@@ -146,7 +152,7 @@ export default function initJenga3D(root, { CORE, FLUFF, say, onScore, onEnd }) 
     if (drag) {
       const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
       if (Math.abs(dx) + Math.abs(dy) > 4) moved = true;
-      theta -= dx * 0.008; phi = Math.min(1.1, Math.max(0.08, phi + dy * 0.004));
+      vTheta = -dx * 0.008; theta += vTheta; phi = Math.min(1.1, Math.max(0.08, phi + dy * 0.004));
       drag = { x: e.clientX, y: e.clientY }; idle = 0; return;
     }
     const b = dead ? null : pick(e);
@@ -178,7 +184,8 @@ export default function initJenga3D(root, { CORE, FLUFF, say, onScore, onEnd }) 
     const lean = side.lengthSq() > 0.01 ? side.normalize() : new THREE.Vector3(Math.random() - 0.5, 0, Math.random() - 0.5).normalize();
     const axis = new THREE.Vector3(0, 1, 0).cross(lean).normalize();          // tip over this horizontal axis
     const pivot = new THREE.Vector3(lean.x * (L / 2), b.body.position.y + H / 2, lean.z * (L / 2));
-    const creak = (amp) => blocks.forEach((o) => { if (!o.out && o.li > b.li) { o.body.wakeUp(); const w = axis.clone().multiplyScalar(amp); o.body.angularVelocity.set(w.x, w.y, w.z); } });
+    blocks.forEach((o) => { if (!o.out) { o.body.type = CANNON.Body.DYNAMIC; o.body.mass = 1; o.body.updateMassProperties(); o.body.velocity.set(0, 0, 0); o.body.angularVelocity.set(0, 0, 0); o.body.wakeUp(); } });
+    const creak = (amp) => blocks.forEach((o) => { if (!o.out && o.li > b.li) { o.body.wakeUp(); const w = axis.clone().multiplyScalar(amp); const r = new THREE.Vector3(o.body.position.x, o.body.position.y, o.body.position.z).sub(pivot); const v = w.clone().cross(r); o.body.velocity.set(v.x, Math.max(0, v.y), v.z); o.body.angularVelocity.set(w.x, w.y, w.z); } });
     setTimeout(() => creak(0.25), 260);
     setTimeout(() => creak(-0.15), 420);
     setTimeout(() => {
@@ -217,17 +224,20 @@ export default function initJenga3D(root, { CORE, FLUFF, say, onScore, onEnd }) 
     requestAnimationFrame(tick);
     if (!visible) { last = now; return; }
     const dt = Math.min(0.033, (now - last) / 1000); last = now;
+    if (!drag) { if (Math.abs(vTheta) > 1e-4 && !reduced) { theta += vTheta; vTheta *= 0.92; } else vTheta = 0; }
     if (!drag && !reduced) { idle += dt; if (idle > 1.5) theta += dt * 0.12; }
     sliding = sliding.filter((s) => {
       s.t += dt;
       const b = s.b.body;
       if (s.t <= s.dur) {
-        const k = 1 - Math.pow(1 - Math.min(1, s.t / s.dur), 3);                    // ease-out cubic
-        b.position.set(s.from.x + s.dir.x * s.dist * k, s.from.y, s.from.z + s.dir.z * s.dist * k);
+        // drive the kinematic block with a real velocity (ease-out), so neighbours feel friction instead of being teleported into
+        const k1 = 1 - Math.pow(1 - Math.min(1, s.t / s.dur), 3), k0 = 1 - Math.pow(1 - Math.min(1, (s.t - dt) / s.dur), 3);
+        const v = (s.dist * (k1 - k0)) / Math.max(dt, 1e-3);
+        b.velocity.set(s.dir.x * v, 0, s.dir.z * v);
         return true;
       }
       if (!s.released) {                                                           // clear of the tower: let gravity have it
-        s.released = true; b.type = CANNON.Body.DYNAMIC; b.mass = 1; b.updateMassProperties();
+        s.released = true; b.type = CANNON.Body.DYNAMIC; b.mass = 1; b.updateMassProperties(); b.velocity.set(0, 0, 0);
         b.velocity.set(s.dir.x * 1.2, 0, s.dir.z * 1.2); b.angularVelocity.set(s.dir.z * 2, 0, -s.dir.x * 2); b.wakeUp();
       }
       const fadeFrom = s.dur + 1.6;
@@ -235,8 +245,15 @@ export default function initJenga3D(root, { CORE, FLUFF, say, onScore, onEnd }) 
       if (s.t > fadeFrom + 0.5) { world.removeBody(b); scene.remove(s.b.mesh); return false; }
       return true;
     });
-    world.step(1 / 60, dt, 4);
-    blocks.forEach((b) => { b.mesh.position.copy(b.body.position); b.mesh.quaternion.copy(b.body.quaternion); });
+    world.step(1 / 120, dt, 8);
+    blocks.forEach((b) => {
+      // hovered block peeks out a little (visual only), easing in and out
+      const want = !reduced && b === hovered && !dead ? 0.18 : 0;
+      b.peek += (want - b.peek) * Math.min(1, dt * 12);
+      b.mesh.position.copy(b.body.position);
+      if (b.peek > 0.001) { const toCam = new THREE.Vector3().subVectors(camera.position, b.mesh.position).projectOnVector(b.axis).normalize(); b.mesh.position.addScaledVector(toCam, b.peek); }
+      b.mesh.quaternion.copy(b.body.quaternion);
+    });
     placeCam();
     renderer.render(scene, camera);
   };
