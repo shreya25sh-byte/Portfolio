@@ -3449,3 +3449,9 @@ ul.work .work__link:hover .work__thumb, .work__link:hover .work__thumb { transfo
 .nav .logo > span:last-child { display: inline-block; max-width: 0; overflow: hidden; white-space: nowrap; opacity: 0; transform: translateX(-8px); padding-left: 0; transition: max-width .5s var(--ease), opacity .3s ease, transform .5s var(--ease), padding-left .5s var(--ease); }
 .nav .logo:hover > span:last-child, .nav .logo:focus-visible > span:last-child { max-width: 260px; opacity: 1; transform: none; padding-left: 10px; }
 @media (prefers-reduced-motion: reduce) { .nav .logo > span:last-child { transition: none; } }
+/* Nav: links sit at the true centre of the page, whatever the logo/status widths */
+@media (min-width: 821px) {
+  .nav { display: grid; grid-template-columns: 1fr auto 1fr; }
+  .nav .logo { justify-self: start; }
+  .nav .status { justify-self: end; }
+}
