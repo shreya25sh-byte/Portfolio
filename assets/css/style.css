@@ -3853,3 +3853,18 @@ ul.work .work__item .work__title, ul.work .work__item[data-id="idetc"] .work__ti
 @media (max-width: 999px) { ul.work .work__item .work__title, ul.work .work__item:not([data-id="idetc"]) .work__title { font-size: 26px !important; } }
 /* work card pills: soft yellow, like the industry card tags */
 ul.work .work__pill { background: #fbe788 !important; color: #111 !important; }
+
+/* About: tidy layout — two columns that line up at the top, one reading measure, stickers tucked onto the stack */
+@media (min-width: 901px) {
+  .about { grid-template-columns: minmax(300px, 400px) minmax(0, 640px) !important; justify-content: space-between; column-gap: clamp(40px, 6vw, 96px) !important; align-items: start !important; }
+  .stack-wrap { padding: 0 24px 0 !important; margin-top: 6px; }
+  .about__text { padding-top: 0; }
+}
+.stack { width: min(300px, 72vw) !important; }
+.sticker { font-size: 11px !important; padding: 6px 10px !important; box-shadow: 1.5px 1.5px 0 var(--text) !important; }
+.sk-1, .sk-1.sk-1 { top: 10% !important; right: -4px !important; left: auto !important; bottom: auto !important; --r: 6deg !important; }
+.sk-2, .sk-2.sk-2 { bottom: 70px !important; left: -4px !important; right: auto !important; top: auto !important; --r: -5deg !important; }
+.sk-3, .sk-3.sk-3 { top: -6px !important; left: 0 !important; right: auto !important; bottom: auto !important; --r: -4deg !important; }
+.stack-ctrl { margin-top: 24px !important; }
+.about-quote { max-width: none; }
+.about__text p { max-width: 62ch; }
