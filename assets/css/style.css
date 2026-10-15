@@ -3421,7 +3421,3 @@ ul.work .work__link:hover .work__thumb, .work__link:hover .work__thumb { transfo
 .land__p { margin: 0; border: 1.5px solid var(--text); border-radius: 14px; background: #fff; padding: 14px 16px 16px; }
 .land__p figcaption { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--c); margin-bottom: 10px; }
 .land__p img { display: block; width: 100%; height: auto; }
-
-/* Hero halftone field: riso dot grid that swells pink around the cursor */
-.hero { position: relative; isolation: isolate; }
-.hero-dots { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
