@@ -1712,46 +1712,93 @@ $$("[data-href]").forEach((el) => {
   new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(title);
 })();
 
-/* Hero print stack: drag the prints around (they glide back once the stack scrolls out of view); tilts in 3D with the cursor */
+/* Hero print stack: drag a print to move it, flick it to toss it (momentum, spin, bounces off the hero edges).
+   Double-click the hero to tidy; the pile also tidies itself once it scrolls out of view. Tilts in 3D with the cursor. */
 (() => {
   const stack = $(".hero-stack");
   if (!stack) return;
   const tilt = $(".hero-stack__tilt", stack);
   const cards = $$(".hero-card", stack);
-  let top = 10;
-  cards.forEach((card) => {
-    let sx = 0, sy = 0, ox = 0, oy = 0, moved = false, id = null;
-    card.addEventListener("pointerdown", (e) => {
-      if (e.button !== 0) return;
-      id = e.pointerId; moved = false;
-      sx = e.clientX; sy = e.clientY;
-      ox = parseFloat(card.style.getPropertyValue("--dx")) || 0;
-      oy = parseFloat(card.style.getPropertyValue("--dy")) || 0;
-      card.setPointerCapture(id);
-    });
-    card.addEventListener("pointermove", (e) => {
-      if (e.pointerId !== id) return;
-      const dx = e.clientX - sx, dy = e.clientY - sy;
-      if (!moved && Math.hypot(dx, dy) < 5) return;
-      if (!moved) { moved = true; card.classList.add("is-dragging"); stack.classList.add("has-dragged"); card.style.zIndex = ++top; }
-      card.style.setProperty("--dx", `${ox + dx}px`);
-      card.style.setProperty("--dy", `${oy + dy}px`);
-    });
-    const end = (e) => { if (e.pointerId !== id) return; id = null; card.classList.remove("is-dragging"); };
-    card.addEventListener("pointerup", end);
-    card.addEventListener("pointercancel", end);
-    card.addEventListener("click", (e) => { if (moved) { e.preventDefault(); moved = false; } });
-    card.addEventListener("dragstart", (e) => e.preventDefault());
-  });
-  new IntersectionObserver(([e]) => {
-    if (e.isIntersecting || !stack.classList.contains("has-dragged")) return;
-    cards.forEach((c) => { c.style.removeProperty("--dx"); c.style.removeProperty("--dy"); c.style.zIndex = ""; });
-    stack.classList.remove("has-dragged");
-  }).observe(stack);
-  if (reduced) return;
-
   const hero = stack.closest(".hero");
-  if (!finePointer || !hero) return;
+  const SLOT = { 0: [-9, -30, 16], 1: [-3, -10, 5], 2: [4, 12, -5], 3: [8, 30, -16] };
+  const st = new Map();
+  let top = 10, raf = 0;
+  const clampR = (r) => Math.max(-22, Math.min(22, r));
+  const draw = (c) => { const s = st.get(c); c.style.transform = `translate(-50%, -50%) translate(${s.x}px, ${s.y}px) rotate(${s.r}deg)`; };
+  const wake = () => {
+    if (stack.classList.contains("has-dragged")) return;
+    cards.forEach((c) => { const [r, x, y] = SLOT[c.dataset.slot]; st.set(c, { x, y, r, vx: 0, vy: 0, vr: 0, held: false }); draw(c); });
+    stack.classList.add("has-dragged");
+  };
+  const bounds = () => {
+    const s = stack.getBoundingClientRect(), h = hero.getBoundingClientRect(), cx = s.left + s.width / 2, cy = s.top + s.height / 2;
+    const hw = cards[0].offsetWidth / 2, hh = cards[0].offsetHeight / 2;
+    return { l: h.left - cx + hw * .6, r: h.right - cx - hw * .6, t: h.top - cy + hh + 140, b: h.bottom - cy - hh * .4 };
+  };
+  const step = () => {
+    raf = 0;
+    const B = bounds();
+    let moving = false;
+    st.forEach((s, c) => {
+      if (s.held) return;
+      s.x += s.vx; s.y += s.vy; s.r = clampR(s.r + s.vr);
+      s.vx *= .94; s.vy *= .94; s.vr *= .9;
+      if (s.x < B.l) { s.x = B.l; s.vx = Math.abs(s.vx) * .6; s.vr += 2; }
+      if (s.x > B.r) { s.x = B.r; s.vx = -Math.abs(s.vx) * .6; s.vr -= 2; }
+      if (s.y < B.t) { s.y = B.t; s.vy = Math.abs(s.vy) * .6; }
+      if (s.y > B.b) { s.y = B.b; s.vy = -Math.abs(s.vy) * .6; }
+      if (Math.abs(s.vx) + Math.abs(s.vy) + Math.abs(s.vr) > .05) moving = true;
+      draw(c);
+    });
+    if (moving) raf = requestAnimationFrame(step);
+  };
+  cards.forEach((c) => {
+    let id = null, lx = 0, ly = 0, lt = 0, sx = 0, sy = 0, moved = false;
+    c.addEventListener("pointerdown", (e) => {
+      if (e.button !== 0) return;
+      id = e.pointerId; moved = false; lx = sx = e.clientX; ly = sy = e.clientY; lt = performance.now();
+      c.setPointerCapture(id);
+    });
+    c.addEventListener("pointermove", (e) => {
+      if (e.pointerId !== id) return;
+      if (!moved) {
+        if (Math.hypot(e.clientX - sx, e.clientY - sy) < 5) return;
+        moved = true; wake();
+        const s = st.get(c); s.held = true; s.vx = s.vy = s.vr = 0;
+        c.classList.add("is-dragging"); c.style.zIndex = ++top;
+      }
+      const s = st.get(c), now = performance.now(), dt = Math.max(8, now - lt), dx = e.clientX - lx, dy = e.clientY - ly;
+      s.x += dx; s.y += dy; s.vx = dx / dt * 16; s.vy = dy / dt * 16; s.r = clampR(s.r + dx * .05);
+      lx = e.clientX; ly = e.clientY; lt = now;
+      draw(c);
+    });
+    const up = (e) => {
+      if (e.pointerId !== id) return;
+      id = null;
+      c.classList.remove("is-dragging");
+      if (!moved) return;
+      const s = st.get(c);
+      if (performance.now() - lt > 90) { s.vx = s.vy = 0; }   // paused before letting go = a drop, not a throw
+      s.held = false; s.vr = s.vx * .4;
+      if (!raf && !reduced) raf = requestAnimationFrame(step);
+    };
+    c.addEventListener("pointerup", up);
+    c.addEventListener("pointercancel", up);
+    c.addEventListener("click", (e) => { if (moved) { e.preventDefault(); moved = false; } });
+    c.addEventListener("dragstart", (e) => e.preventDefault());
+  });
+  const tidy = () => {
+    if (!stack.classList.contains("has-dragged")) return;
+    cancelAnimationFrame(raf); raf = 0;
+    stack.classList.add("is-tidying");
+    cards.forEach((c) => { c.style.transform = ""; c.style.zIndex = ""; });
+    st.clear();
+    stack.classList.remove("has-dragged");
+    setTimeout(() => stack.classList.remove("is-tidying"), 800);
+  };
+  hero.addEventListener("dblclick", (e) => { if (!e.target.closest("a, button")) tidy(); });
+  new IntersectionObserver(([e]) => { if (!e.isIntersecting) tidy(); }).observe(stack);
+  if (reduced || !finePointer) return;
   hero.addEventListener("pointermove", (e) => {
     const r = stack.getBoundingClientRect();
     const dx = (e.clientX - (r.left + r.width / 2)) / innerWidth, dy = (e.clientY - (r.top + r.height / 2)) / innerHeight;

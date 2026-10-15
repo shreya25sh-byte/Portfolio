@@ -3682,3 +3682,9 @@ ul.work .work__tags li, .finding__tag, .footer__credit, .xcard__tag, .work__pill
 }
 .impact__label { line-height: 1.4 !important; }
 .chapter blockquote, .case blockquote { line-height: 1.3 !important; }
+
+/* Hero stack: drag & toss. While tossing, JS drives each print's transform directly; tidying glides them home. */
+.hero-stack.has-dragged .hero-card { transition: box-shadow .3s, opacity .7s ease !important; }
+.hero-stack.is-tidying .hero-card { transition: transform .75s cubic-bezier(.22,1,.36,1), box-shadow .3s !important; }
+.hero-stack__hint { position: absolute; left: 50%; bottom: -26px; transform: translateX(-50%); font: 500 11px/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); white-space: nowrap; pointer-events: none; }
+@media (hover: none) { .hero-stack__hint { display: none; } }
