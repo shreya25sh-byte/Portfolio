@@ -3421,3 +3421,25 @@ ul.work .work__link:hover .work__thumb, .work__link:hover .work__thumb { transfo
 .land__p { margin: 0; border: 1.5px solid var(--text); border-radius: 14px; background: #fff; padding: 14px 16px 16px; }
 .land__p figcaption { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--c); margin-bottom: 10px; }
 .land__p img { display: block; width: 100%; height: auto; }
+
+/* Hero intro "print run": masthead draws, photo prints with a pink pass, details fade in */
+.hero.is-intro .masthead { clip-path: inset(0 100% 0 0); }
+.hero.is-intro .hero__eyebrow, .hero.is-intro .hero__hi, .hero.is-intro .hero__cta, .hero.is-intro .hero__caption { opacity: 0; transform: translateY(14px); }
+.hero.is-intro .hero-photo { clip-path: inset(100% 0 0 0); }
+.hero.is-go .masthead { clip-path: inset(0 0 0 0); transition: clip-path 1.1s cubic-bezier(.65,0,.35,1); }
+.hero.is-go .hero__eyebrow, .hero.is-go .hero__hi, .hero.is-go .hero__cta, .hero.is-go .hero__caption { opacity: 1; transform: none; transition: opacity .7s ease, transform .8s var(--ease); }
+.hero.is-go .hero__eyebrow { transition-delay: .15s; }
+.hero.is-go .hero__hi { transition-delay: .3s; }
+.hero.is-go .hero__cta { transition-delay: 1.05s; }
+.hero.is-go .hero__caption { transition-delay: 1.6s; }
+.hero.is-go .hero-photo { clip-path: inset(0 0 0 0); transition: clip-path 1.2s cubic-bezier(.65,0,.35,1) .4s; }
+.hero-ink { position: absolute; inset: 0; z-index: 7; background: #ff3fa4; transform-origin: top; pointer-events: none; }
+.hero.is-go .hero-ink { transform: scaleY(0); transition: transform .8s cubic-bezier(.65,0,.35,1) 1.35s; }
+
+/* Hero rolling word: "curiosity" cycles through research methods */
+.roll { display: inline-block; position: relative; white-space: nowrap; transition: width .55s cubic-bezier(.65,0,.35,1); }
+.roll__size { visibility: hidden; font-family: var(--f-serif); font-style: italic; letter-spacing: -.02em; }
+.roll i { position: absolute; left: 0; top: 0; white-space: nowrap; font-family: var(--f-serif); font-style: italic; font-weight: 400; letter-spacing: -.02em; color: #c4127a; opacity: 0; transform: translateY(45%); transition: transform .6s cubic-bezier(.65,0,.35,1), opacity .4s; }
+.roll i.on { opacity: 1; transform: none; transition-delay: .12s; }
+.roll i.out { opacity: 0; transform: translateY(-45%); }
+.sr-only { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }

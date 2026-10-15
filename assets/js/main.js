@@ -1729,3 +1729,59 @@ $$("[data-href]").forEach((el) => {
   document.addEventListener("click", (e) => { if (!e.target.closest(".roles")) { roles.forEach((r) => r.classList.remove("is-tapped")); set(null); } });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") { roles.forEach((r) => r.classList.remove("is-tapped")); set(null); } });
 })();
+
+/* Hero intro (print run) + rolling word */
+(() => {
+  const hero = $(".hero");
+  const title = hero && $(".hero__title", hero);
+  if (!title || reduced) return;
+  let startRoll = () => {};
+  const photo = $(".hero-photo", hero);
+  if (photo) {
+    const ink = document.createElement("div");
+    ink.className = "hero-ink";
+    ink.setAttribute("aria-hidden", "true");
+    photo.appendChild(ink);
+  }
+  hero.classList.add("is-intro");
+  const go = () => {
+    hero.classList.add("is-go");
+    setTimeout(() => { hero.classList.remove("is-intro", "is-go"); $(".hero-ink", hero)?.remove(); startRoll(); }, 2600);
+  };
+  if (title.classList.contains("is-in")) go(); else title.addEventListener("reveal", go, { once: true });
+
+  const WORDS = ["curiosity", "questions", "interviews", "field notes", "prototypes", "data"];
+  const word = $$(".word", title).find((w) => w.textContent.trim() === "curiosity");
+  if (!word) return;
+  const roll = document.createElement("span");
+  roll.className = "roll";
+  roll.setAttribute("aria-hidden", "true");
+  const size = document.createElement("span");
+  size.className = "roll__size";
+  size.textContent = WORDS[0];
+  roll.appendChild(size);
+  const items = WORDS.map((w, i) => {
+    const el = document.createElement("i");
+    el.textContent = w;
+    if (!i) el.className = "on";
+    roll.appendChild(el);
+    return el;
+  });
+  word.classList.add("sr-only");
+  word.after(roll);
+  let at = 0, timer = 0, visible = true;
+  const fit = () => { roll.style.width = `${items[at].offsetWidth + 6}px`; };
+  requestAnimationFrame(fit);
+  addEventListener("resize", fit);
+  const step = () => {
+    if (!visible || document.hidden) return;
+    const prev = items[at];
+    prev.classList.replace("on", "out");
+    setTimeout(() => prev.classList.remove("out"), 650);
+    at = (at + 1) % items.length;
+    items[at].classList.add("on");
+    fit();
+  };
+  startRoll = () => { clearInterval(timer); timer = setInterval(step, 2200); };
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(title);
+})();
