@@ -1786,28 +1786,11 @@ $$("[data-href]").forEach((el) => {
   new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(title);
 })();
 
-/* Hero print stack: front print shuffles to the back every few seconds; stack tilts with the cursor */
+/* Hero print stack: tilts in 3D with the cursor */
 (() => {
   const stack = $(".hero-stack");
   if (!stack || reduced) return;
   const tilt = $(".hero-stack__tilt", stack);
-  const cards = $$(".hero-card", stack);
-  let paused = false, visible = true, busy = false;
-  const shuffle = () => {
-    if (paused || busy || !visible || document.hidden) return;
-    busy = true;
-    const front = cards.find((c) => c.dataset.slot === "3");
-    front.classList.add("is-flying");
-    setTimeout(() => {
-      cards.forEach((c) => { c.dataset.slot = c === front ? "0" : String(+c.dataset.slot + 1); });
-      front.classList.replace("is-flying", "is-tucking");
-      setTimeout(() => { front.classList.remove("is-tucking"); busy = false; }, 750);
-    }, 460);
-  };
-  setTimeout(() => setInterval(shuffle, 3400), 3600);
-  ["pointerenter", "focusin"].forEach((e) => stack.addEventListener(e, () => { paused = true; }));
-  ["pointerleave", "focusout"].forEach((e) => stack.addEventListener(e, () => { paused = false; }));
-  new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(stack);
 
   const hero = stack.closest(".hero");
   if (!finePointer || !hero) return;
