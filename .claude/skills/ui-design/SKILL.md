@@ -29,6 +29,7 @@ Rules learned the hard way:
 - Pattern for headings: plain sans + one serif-italic phrase, e.g. `Research, <span class="serif">presented.</span>`
 - Keep the scale restrained (headings were deliberately reduced). Use the existing clamps: `.h2`, `.chapter h2`, `.case-hero h1`. Don't invent new giant sizes.
 - Body 16px, line-height 1.6, max ~66ch per line.
+- Hard rules (Shreya, Oct 2026): only these 3 families; running text (paragraphs, list items, table cells, card descriptions, notes) is never below 16px with line-height ≥1.5; small mono labels never below 11px; long text is always left-aligned (no centred or justified paragraphs); titles clearly outrank body (bigger + bolder), subtitles in between; keep WCAG AA contrast (4.5:1) for text. The "Typography system" block at the end of `style.css` enforces the floor.
 
 ## 3. Layout & components (reuse before inventing)
 

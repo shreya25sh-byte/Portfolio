@@ -3657,3 +3657,28 @@ ul.work .work__item[data-id="idetc"] .work__thumb img { object-position: 82% 35%
 .about__text p { font-size: 15px !important; line-height: 1.6 !important; margin: 0 0 12px !important; }
 .about__text p.about__seek { margin-top: 18px !important; padding: 0 0 0 14px; border-left: 3px solid #ff3fa4; color: var(--text); }
 .about__text .about-stats { margin-top: 20px; }
+
+/* ==========================================================================
+   Typography system (applies site-wide)
+   3 families only: Instrument Serif = display/titles, Geist = body, Geist Mono = small labels.
+   Running text never below 16px, line-height 1.6, left-aligned.
+   Small mono labels never below 11px.
+   ========================================================================== */
+.about__text p, ul.work .work__about, ul.work .work__desc, ul.work .work__ext, .xcard__desc,
+.meta p, .insight li, .insight .arrow, .ht__steps li span, .rq__ideal, .methods li, .tapp-notes span,
+.chapter td, .chapter th, table td, .finding__body p, .prose p, .chapter p, .chapter li {
+  font-size: 16px !important; line-height: 1.6 !important; text-align: left; }
+ul.work .work__tags li, .finding__tag, .footer__credit, .xcard__tag, .work__pill { font-size: 11px !important; letter-spacing: .06em; }
+.mono { letter-spacing: .06em; }
+/* stack cards: clearer hierarchy (title > stat > body) and room for 16px text */
+@media (min-width: 1000px) {
+  ul.work .work__item .work__title, ul.work .work__item[data-id="idetc"] .work__title, ul.work .work__item:not([data-id="idetc"]) .work__title { font-size: 22px !important; line-height: 1.2 !important; }
+  ul.work .work__item .work__desc { font-weight: 500; }
+  ul.work .work__item .work__tags { flex-wrap: wrap !important; }
+}
+@media (min-width: 1000px) {
+  ul.work { max-width: 1000px; }
+  ul.work .work__item, ul.work .work__item[data-id="idetc"] { height: 500px; grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr) !important; }
+}
+.impact__label { line-height: 1.4 !important; }
+.chapter blockquote, .case blockquote { line-height: 1.3 !important; }
