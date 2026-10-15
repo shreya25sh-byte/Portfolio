@@ -3527,3 +3527,19 @@ ul.work .work__cta, ul.work .work__ext { justify-self: start; }
 
 /* Roles strip: bubbles only, no leader lines */
 .roles .pop-links { display: none !important; }
+
+/* Featured MSES card: keep Shreya in frame and keep the card compact */
+ul.work .work__item[data-id="idetc"] .work__thumb img { object-position: 82% 35% !important; }
+@media (min-width: 1000px) {
+  ul.work .work__item[data-id="idetc"] { grid-template-columns: 1fr 1fr; }
+  ul.work .work__item[data-id="idetc"] .work__title { font-size: clamp(22px, 1.8vw, 27px) !important; margin-top: 22px !important; }
+  ul.work .work__item[data-id="idetc"] .work__thumb { min-height: 0 !important; }
+  ul.work .work__item[data-id="idetc"] .work__meta { padding-bottom: 10px; margin-top: 10px; }
+  ul.work .work__item[data-id="idetc"] .work__desc { margin: 10px 22px 8px !important; font-size: 15px !important; }
+  ul.work .work__item[data-id="idetc"] .work__about { margin: 0 22px 10px; font-size: 14px; }
+  ul.work .work__item[data-id="idetc"] .work__tags { margin-bottom: 10px; }
+  ul.work .work__item[data-id="idetc"] .work__ext { margin-bottom: 8px; font-size: 13.5px; }
+  ul.work .work__item[data-id="idetc"] .work__talks { margin-bottom: 12px !important; }
+  ul.work .work__item[data-id="idetc"] .work__talks .wt { padding: 2px 0; font-size: 13.5px; }
+  ul.work .work__item[data-id="idetc"] .work__cta { margin-bottom: 20px; }
+}
