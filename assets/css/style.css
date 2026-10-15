@@ -3467,7 +3467,7 @@ ul.work .work__link:hover .work__thumb, .work__link:hover .work__thumb { transfo
 .hero-stack__tilt { position: absolute; inset: 0; transform-style: preserve-3d; transform: rotateX(var(--ty, 0deg)) rotateY(var(--tx, 0deg)); transition: transform .5s var(--ease); }
 .hero-card { position: absolute; left: 50%; top: 50%; width: min(370px, 80vw); background: #fff; border: 1px solid #111; padding: 9px 9px 0; color: #111; text-decoration: none;
   --r: 0deg; --x: 0px; --y: 0px; --z: 0px;
-  transform: translate(-50%, -50%) translateZ(var(--z)) rotate(var(--r)) translate(var(--x), var(--y));
+  transform: translate(-50%, -50%) translate(var(--dx, 0px), var(--dy, 0px)) translateZ(var(--z)) rotate(var(--r)) translate(var(--x), var(--y));
   transition: transform .75s cubic-bezier(.22,1,.36,1), box-shadow .3s, opacity .7s ease, translate .9s var(--ease), rotate .9s var(--ease); }
 .hero-card img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; }
 .hero-card span { display: flex; justify-content: space-between; gap: 8px; font: 500 11px/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; padding: 11px 2px 12px; }
@@ -3476,10 +3476,10 @@ ul.work .work__link:hover .work__thumb, .work__link:hover .work__thumb { transfo
 .hero-card[data-slot="1"] { --r: -3deg; --x: -10px; --y: 5px; --z: 25px; z-index: 2; }
 .hero-card[data-slot="2"] { --r: 4deg; --x: 12px; --y: -5px; --z: 50px; z-index: 3; }
 .hero-card[data-slot="3"] { --r: 8deg; --x: 30px; --y: -16px; --z: 75px; z-index: 4; box-shadow: 0 22px 44px -26px rgba(0,0,0,.45); }
-.hero-stack:hover .hero-card[data-slot="0"], .hero-stack:focus-within .hero-card[data-slot="0"] { --r: -12deg; --x: -170px; --y: 34px; }
-.hero-stack:hover .hero-card[data-slot="1"], .hero-stack:focus-within .hero-card[data-slot="1"] { --r: -5deg; --x: -92px; --y: 12px; }
-.hero-stack:hover .hero-card[data-slot="2"], .hero-stack:focus-within .hero-card[data-slot="2"] { --r: 3deg; --x: -14px; --y: -12px; }
-.hero-stack:hover .hero-card[data-slot="3"], .hero-stack:focus-within .hero-card[data-slot="3"] { --r: 10deg; --x: 44px; --y: -38px; }
+.hero-stack:not(.has-dragged):hover .hero-card[data-slot="0"], .hero-stack:not(.has-dragged):focus-within .hero-card[data-slot="0"] { --r: -12deg; --x: -170px; --y: 34px; }
+.hero-stack:not(.has-dragged):hover .hero-card[data-slot="1"], .hero-stack:not(.has-dragged):focus-within .hero-card[data-slot="1"] { --r: -5deg; --x: -92px; --y: 12px; }
+.hero-stack:not(.has-dragged):hover .hero-card[data-slot="2"], .hero-stack:not(.has-dragged):focus-within .hero-card[data-slot="2"] { --r: 3deg; --x: -14px; --y: -12px; }
+.hero-stack:not(.has-dragged):hover .hero-card[data-slot="3"], .hero-stack:not(.has-dragged):focus-within .hero-card[data-slot="3"] { --r: 10deg; --x: 44px; --y: -38px; }
 .hero-card:hover, .hero-card:focus-visible { z-index: 9 !important; --z: 110px; box-shadow: 0 26px 50px -22px rgba(0,0,0,.45); }
 /* intro: prints drop in one by one */
 .hero.is-intro .hero-card { opacity: 0; translate: 0 70px; }
@@ -3495,11 +3495,16 @@ ul.work .work__link:hover .work__thumb, .work__link:hover .work__thumb { transfo
   .hero .wrap { grid-template-columns: 1fr; }
   .hero-stack { height: 320px; }
   .hero-card { width: min(270px, 66vw); }
-  .hero-stack:hover .hero-card[data-slot="0"] { --x: -70px; }
-  .hero-stack:hover .hero-card[data-slot="1"] { --x: -36px; }
-  .hero-stack:hover .hero-card[data-slot="3"] { --x: 40px; }
+  .hero-stack:not(.has-dragged):hover .hero-card[data-slot="0"] { --x: -70px; }
+  .hero-stack:not(.has-dragged):hover .hero-card[data-slot="1"] { --x: -36px; }
+  .hero-stack:not(.has-dragged):hover .hero-card[data-slot="3"] { --x: 40px; }
 }
 @media (max-width: 760px) { .hero__title { font-size: clamp(38px, 10.4vw, 64px) !important; } }
+/* drag the prints around; they glide back to the pile once the stack scrolls out of view */
+.hero-card { cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; }
+.hero-card img { -webkit-user-drag: none; pointer-events: none; }
+.hero-card.is-dragging { cursor: grabbing; --z: 120px; transition: box-shadow .3s; box-shadow: 0 30px 60px -24px rgba(0,0,0,.5); }
+.hero-stack.has-dragged .hero-card:hover { --z: 0px; }
 @media (prefers-reduced-motion: reduce) { .hero-card, .hero-stack__tilt { transition: none; } }
 
 /* Work cards: context line, method tags, external link, read button */

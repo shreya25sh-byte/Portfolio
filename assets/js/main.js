@@ -1786,11 +1786,43 @@ $$("[data-href]").forEach((el) => {
   new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(title);
 })();
 
-/* Hero print stack: tilts in 3D with the cursor */
+/* Hero print stack: drag the prints around (they glide back once the stack scrolls out of view); tilts in 3D with the cursor */
 (() => {
   const stack = $(".hero-stack");
-  if (!stack || reduced) return;
+  if (!stack) return;
   const tilt = $(".hero-stack__tilt", stack);
+  const cards = $$(".hero-card", stack);
+  let top = 10;
+  cards.forEach((card) => {
+    let sx = 0, sy = 0, ox = 0, oy = 0, moved = false, id = null;
+    card.addEventListener("pointerdown", (e) => {
+      if (e.button !== 0) return;
+      id = e.pointerId; moved = false;
+      sx = e.clientX; sy = e.clientY;
+      ox = parseFloat(card.style.getPropertyValue("--dx")) || 0;
+      oy = parseFloat(card.style.getPropertyValue("--dy")) || 0;
+      card.setPointerCapture(id);
+    });
+    card.addEventListener("pointermove", (e) => {
+      if (e.pointerId !== id) return;
+      const dx = e.clientX - sx, dy = e.clientY - sy;
+      if (!moved && Math.hypot(dx, dy) < 5) return;
+      if (!moved) { moved = true; card.classList.add("is-dragging"); stack.classList.add("has-dragged"); card.style.zIndex = ++top; }
+      card.style.setProperty("--dx", `${ox + dx}px`);
+      card.style.setProperty("--dy", `${oy + dy}px`);
+    });
+    const end = (e) => { if (e.pointerId !== id) return; id = null; card.classList.remove("is-dragging"); };
+    card.addEventListener("pointerup", end);
+    card.addEventListener("pointercancel", end);
+    card.addEventListener("click", (e) => { if (moved) { e.preventDefault(); moved = false; } });
+    card.addEventListener("dragstart", (e) => e.preventDefault());
+  });
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting || !stack.classList.contains("has-dragged")) return;
+    cards.forEach((c) => { c.style.removeProperty("--dx"); c.style.removeProperty("--dy"); c.style.zIndex = ""; });
+    stack.classList.remove("has-dragged");
+  }).observe(stack);
+  if (reduced) return;
 
   const hero = stack.closest(".hero");
   if (!finePointer || !hero) return;
