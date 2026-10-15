@@ -1828,3 +1828,18 @@ $$("[data-href]").forEach((el) => {
   addEventListener("resize", upd);
   upd();
 })();
+
+/* Contact response card: ticked topics become the subject of the "Send an email" link */
+(() => {
+  const card = $(".rcard");
+  if (!card) return;
+  const foot = $(".rcard__foot", card);
+  const links = $$("[data-email]");
+  const upd = () => {
+    const picks = $$("input:checked", card).map((i) => i.value);
+    const subject = picks.length ? `Hi Shreya, about: ${picks.join(" + ")}` : "";
+    links.forEach((a) => { a.href = `mailto:${CONFIG.email}${subject ? `?subject=${encodeURIComponent(subject)}` : ""}`; });
+    foot.textContent = picks.length ? `Subject: “${picks.join(" + ")}”. Hit Send an email.` : "Tick any. It becomes your email subject.";
+  };
+  card.addEventListener("change", upd);
+})();
