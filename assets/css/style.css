@@ -3847,3 +3847,7 @@ ul.work .work__item .demo-btn:hover .demo-btn__play { background: #ffe14d; }
   ul.work .work__item .work__ext { grid-row: 7 !important; }
   ul.work .work__item .work__talks { grid-row: 8 !important; }
 }
+/* Work card titles use the display face, matching the industry cards and the rest of the site's headings */
+ul.work .work__item .work__title, ul.work .work__item[data-id="idetc"] .work__title, ul.work .work__item:not([data-id="idetc"]) .work__title {
+  font-family: var(--f-serif) !important; font-weight: 400 !important; font-size: 30px !important; line-height: 1.05 !important; letter-spacing: -.01em !important; }
+@media (max-width: 999px) { ul.work .work__item .work__title, ul.work .work__item:not([data-id="idetc"]) .work__title { font-size: 26px !important; } }
