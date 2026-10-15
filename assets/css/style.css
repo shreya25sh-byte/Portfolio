@@ -3648,7 +3648,12 @@ ul.work .work__item[data-id="idetc"] .work__thumb img { object-position: 82% 35%
 }
 @media (min-width: 1000px) { ul.work .work__item .work__tags li, ul.work .work__item[data-id="idetc"] .work__tags li { padding: 4px 7px; font-size: 9.5px; letter-spacing: .05em; } }
 
-/* About copy: more air between ideas */
-.about__text p { line-height: 1.75 !important; margin: 0 0 22px !important; max-width: 60ch; }
-.about__text p.about__seek { margin-top: 30px !important; padding: 2px 0 2px 16px; border-left: 3px solid #ff3fa4; color: var(--text); }
-.about__text .about-stats { margin-top: 34px; }
+/* About: compact enough to read in one screen; short paragraphs, smaller photo stack */
+#about .section-head { margin-bottom: 28px; }
+.about { align-items: start; }
+.stack-wrap { min-height: 0 !important; padding: 18px 20px 24px !important; }
+.stack { width: min(290px, 70vw) !important; }
+.about-quote { font-size: clamp(17px, 1.45vw, 20px) !important; margin-bottom: 16px !important; }
+.about__text p { font-size: 15px !important; line-height: 1.6 !important; margin: 0 0 12px !important; }
+.about__text p.about__seek { margin-top: 18px !important; padding: 0 0 0 14px; border-left: 3px solid #ff3fa4; color: var(--text); }
+.about__text .about-stats { margin-top: 20px; }
