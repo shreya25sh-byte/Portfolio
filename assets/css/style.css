@@ -3585,3 +3585,13 @@ ul.work .work__item[data-id="idetc"] .work__thumb img { object-position: 82% 35%
   ul.work .work__item:hover .work__thumb img { transform: none !important; }
 }
 @media (min-width: 1000px) and (prefers-reduced-motion: reduce) { ul.work .work__item { filter: none; } }
+/* stack: every card the same height */
+@media (min-width: 1000px) {
+  ul.work .work__item, ul.work .work__item[data-id="idetc"] { grid-template-columns: .85fr 1.15fr; height: 500px; min-height: 0; max-height: none; }
+  ul.work .work__item[data-id="idetc"] .work__title { font-size: clamp(20px, 1.5vw, 22px) !important; }
+  ul.work .work__item[data-id="idetc"] .work__tags { flex-wrap: nowrap; }
+  ul.work .work__item[data-id="idetc"] .work__tags li { padding: 5px 8px; font-size: 10px; white-space: nowrap; }
+  ul.work .work__item[data-id="idetc"] .work__talks-h { margin-bottom: 2px; }
+  ul.work .work__item[data-id="idetc"] .work__talks { padding-top: 8px !important; }
+}
+@media (min-width: 1000px) { ul.work .work__item .work__cta { grid-row: 8; align-self: end; margin-bottom: 22px; } }
