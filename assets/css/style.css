@@ -3568,3 +3568,11 @@ ul.work .work__item[data-id="idetc"] .work__thumb img { object-position: 82% 35%
   ul.work .work__item .work__cta { align-self: end; margin-bottom: 22px; }
   ul.work .work__item[data-id="idetc"] .work__thumb img { object-position: 82% 35% !important; }
 }
+/* smaller stack cards: narrower, height follows content */
+@media (min-width: 1000px) {
+  ul.work { max-width: 1040px; margin-inline: auto !important; }
+  ul.work .work__item { height: auto; min-height: 360px; max-height: calc(100vh - 150px); grid-template-columns: .95fr 1.05fr; margin-bottom: 48px; }
+  ul.work .work__item .work__title { font-size: clamp(20px, 1.6vw, 24px) !important; margin-top: 22px !important; }
+  ul.work .work__item .work__cta { margin-top: 6px; margin-bottom: 20px; }
+}
+@media (min-width: 1000px) { ul.work .work__item[data-id="idetc"] { grid-template-columns: .95fr 1.05fr; } }
