@@ -511,7 +511,7 @@ const explorer = $("#task-explorer");
 if (explorer) {
   const TASKS = {
     "Switch on": {
-      "Physical load": "Physical effort to flip the switch, and the same effort again for shutdown.",
+      "Physical load": "Physical effort to flip the switch and the same effort again for shutdown.",
       "Cognitive load": "Simple action, minimal mental effort, but a shutdown procedure has to be followed.",
       "Emotional level": "Routine, familiar task.",
       "Possible error": "Misaligned power switch → delay in starting experiments, loss of data or experiment integrity.",
@@ -527,7 +527,7 @@ if (explorer) {
     "Set up": {
       "Physical load": "Requires manual adjustments on the panel.",
       "Cognitive load": "Concentrating on temperature / humidity settings and intervals.",
-      "Emotional level": "Pressure to know exactly which setting the experiment needs, and to be precise.",
+      "Emotional level": "Pressure to know exactly which setting the experiment needs and to be precise.",
       "Possible error": "Incorrect temperature/humidity; a confusing HMI → compromised experiment integrity.",
       "Root cause": "Lack of attention to detail, amplified by an unclear interface.",
     },
