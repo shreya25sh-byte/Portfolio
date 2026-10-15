@@ -1834,3 +1834,24 @@ $$("[data-href]").forEach((el) => {
   });
   hero.addEventListener("pointerleave", () => { tilt.style.setProperty("--tx", "0deg"); tilt.style.setProperty("--ty", "0deg"); });
 })();
+
+/* Work stack: a card shrinks a touch as the next one slides over it */
+(() => {
+  const items = $$("ul.work > .work__item");
+  if (items.length < 2 || reduced) return;
+  const mq = matchMedia("(min-width: 1000px)");
+  let raf = 0;
+  const upd = () => {
+    raf = 0;
+    items.forEach((el, i) => {
+      const next = items[i + 1];
+      if (!mq.matches || !next) { el.style.removeProperty("--s"); return; }
+      const a = el.getBoundingClientRect(), b = next.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, 1 - (b.top - a.top) / a.height));
+      el.style.setProperty("--s", (1 - p * 0.05).toFixed(4));
+    });
+  };
+  addEventListener("scroll", () => { if (!raf) raf = requestAnimationFrame(upd); }, { passive: true });
+  addEventListener("resize", upd);
+  upd();
+})();
