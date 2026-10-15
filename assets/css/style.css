@@ -3868,3 +3868,6 @@ ul.work .work__pill { background: #fbe788 !important; color: #111 !important; }
 .stack-ctrl { margin-top: 24px !important; }
 .about-quote { max-width: none; }
 .about__text p { max-width: 62ch; }
+/* roles: letter lean (ink only) */
+.roles .rn .ch { display: inline-block; white-space: pre; transition: transform .35s var(--ease); will-change: transform; color: var(--text); }
+.roles .role:hover .rn, .roles .rn { color: var(--text) !important; font-style: normal !important; }

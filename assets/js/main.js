@@ -1278,7 +1278,7 @@ if (jenga) {
     const io3 = new IntersectionObserver(([e]) => {
       if (!e.isIntersecting) return;
       io3.disconnect();
-      import(new URL("assets/js/jenga3d.js?v=20261016g", document.baseURI).href)
+      import(new URL("assets/js/jenga3d.js?v=20261016h", document.baseURI).href)
         .then((m) => {
           three = m.default(jenga, {
             CORE, FLUFF, say,
@@ -1816,24 +1816,31 @@ $$("[data-href]").forEach((el) => {
   stub.addEventListener("click", go);
 })();
 
-/* Roles strip: split each role into letters (ink row + pink italic row) for the hover roll */
-$$(".roles .rn").forEach((rn) => {
-  const text = rn.textContent.trim();
-  rn.textContent = "";
-  const sr = document.createElement("span");
-  sr.className = "sr-only"; sr.textContent = text;
-  const w = document.createElement("span");
-  w.className = "rn__w"; w.setAttribute("aria-hidden", "true");
-  ["rn__a", "rn__b"].forEach((cls) => {
-    const row = document.createElement("span");
-    row.className = cls;
-    [...text].forEach((ch, i) => {
-      const c = document.createElement("span");
-      c.className = "rn__c"; c.textContent = ch;
-      c.style.setProperty("--i", i);
-      row.appendChild(c);
+/* Roles strip: same letter lean as the hero headline (letters near the cursor lift and tilt), in ink */
+(() => {
+  const strip = $(".roles");
+  if (!strip) return;
+  $$(".roles .rn").forEach((rn) => {
+    const text = rn.textContent.trim();
+    rn.textContent = "";
+    rn.setAttribute("aria-label", text);
+    [...text].forEach((ch) => {
+      const s = document.createElement("span");
+      s.className = "ch"; s.textContent = ch; s.setAttribute("aria-hidden", "true");
+      rn.appendChild(s);
     });
-    w.appendChild(row);
   });
-  rn.append(sr, w);
-});
+  if (!finePointer || reduced) return;
+  const chars = $$(".roles .ch");
+  let raf;
+  strip.addEventListener("pointermove", (e) => {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => chars.forEach((c) => {
+      const r = c.getBoundingClientRect();
+      const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
+      const d = Math.hypot(dx, dy), k = Math.max(0, 1 - d / 120);
+      c.style.transform = k ? `translate(${(-dx / d) * k * 6 || 0}px, ${-k * 9}px) rotate(${(dx / 120) * k * -12}deg)` : "";
+    }));
+  });
+  strip.addEventListener("pointerleave", () => chars.forEach((c) => { c.style.transform = ""; }));
+})();
