@@ -3460,7 +3460,6 @@ ul.work .work__link:hover .work__thumb, .work__link:hover .work__thumb { transfo
 .hero .wrap { grid-template-columns: 1.25fr .75fr; row-gap: clamp(40px, 6vw, 80px); }
 .hero { padding-bottom: clamp(64px, 9vw, 120px); }
 .hero__title { font-size: clamp(46px, 6.2vw, 100px) !important; line-height: .94 !important; margin-bottom: 40px; }
-.now-strip.roles { background: transparent !important; border-top: 1px solid var(--text); border-bottom: 1px solid var(--text); }
 /* The stack: 4 prints in "slots" (0 = back, 3 = front). JS tilts the stack in 3D with the cursor;
    the hover fan spreads the prints toward the title. */
 .hero-stack { position: relative; justify-self: center; width: 100%; max-width: 500px; height: 420px; perspective: 1100px; }
@@ -3525,3 +3524,6 @@ ul.work .work__cta, ul.work .work__ext { justify-self: start; }
   ul.work .work__item[data-id="idetc"] .work__thumb { grid-row: 1 / -1; }
   ul.work .work__item[data-id="idetc"] .work__cta { align-self: end; }
 }
+
+/* Roles strip: bubbles only, no leader lines */
+.roles .pop-links { display: none !important; }
