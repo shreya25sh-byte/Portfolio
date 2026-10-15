@@ -3576,3 +3576,12 @@ ul.work .work__item[data-id="idetc"] .work__thumb img { object-position: 82% 35%
   ul.work .work__item .work__cta { margin-top: 6px; margin-bottom: 20px; }
 }
 @media (min-width: 1000px) { ul.work .work__item[data-id="idetc"] { grid-template-columns: .95fr 1.05fr; } }
+/* stack: no hover pop; cards underneath blur and fade back once the next one covers them */
+@media (min-width: 1000px) {
+  ul.work .work__item, ul.work .work__item:hover, ul.work .work__item:focus-within {
+    transform: none !important; box-shadow: 0 -10px 30px -18px rgba(0,0,0,.25) !important;
+    filter: blur(calc(var(--p, 0) * 3px)); transition: none; }
+  ul.work .work__item::before { content: ""; position: absolute; inset: 0; z-index: 5; background: var(--bg, #eeede8); opacity: calc(var(--p, 0) * .6); pointer-events: none; }
+  ul.work .work__item:hover .work__thumb img { transform: none !important; }
+}
+@media (min-width: 1000px) and (prefers-reduced-motion: reduce) { ul.work .work__item { filter: none; } }

@@ -1835,7 +1835,7 @@ $$("[data-href]").forEach((el) => {
   hero.addEventListener("pointerleave", () => { tilt.style.setProperty("--tx", "0deg"); tilt.style.setProperty("--ty", "0deg"); });
 })();
 
-/* Work stack: a card shrinks a touch as the next one slides over it */
+/* Work stack: a card blurs and fades back as the next one slides over it */
 (() => {
   const items = $$("ul.work > .work__item");
   if (items.length < 2 || reduced) return;
@@ -1845,10 +1845,10 @@ $$("[data-href]").forEach((el) => {
     raf = 0;
     items.forEach((el, i) => {
       const next = items[i + 1];
-      if (!mq.matches || !next) { el.style.removeProperty("--s"); return; }
+      if (!mq.matches || !next) { el.style.removeProperty("--p"); return; }
       const a = el.getBoundingClientRect(), b = next.getBoundingClientRect();
       const p = Math.min(1, Math.max(0, 1 - (b.top - a.top) / a.height));
-      el.style.setProperty("--s", (1 - p * 0.05).toFixed(4));
+      el.style.setProperty("--p", p.toFixed(3));
     });
   };
   addEventListener("scroll", () => { if (!raf) raf = requestAnimationFrame(upd); }, { passive: true });
