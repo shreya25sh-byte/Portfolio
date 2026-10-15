@@ -3625,3 +3625,18 @@ ul.work .work__item[data-id="idetc"] .work__thumb img { object-position: 82% 35%
   ul.work .work__item[data-id="idetc"] .work__talks-h { margin-bottom: 0; font-size: 10px; }
 }
 @media (min-width: 1000px) { ul.work .work__item:not([data-id="idetc"]) .work__title { font-size: 19px !important; } }
+
+/* Industry cards: zine style with filleted corners */
+.xcards { gap: 22px; }
+.xcard { position: relative; border: 1.5px solid #111 !important; border-radius: 18px !important; background: #fff !important; overflow: hidden;
+  box-shadow: 4px 4px 0 #111 !important; transition: box-shadow .3s var(--ease), translate .3s var(--ease) !important; }
+.xcard:hover, .xcard:focus-visible { translate: -2px -2px; box-shadow: 7px 7px 0 #ff3fa4 !important; }
+.xcard__body { padding: 22px 24px !important; gap: 10px; }
+.xcard__tag { background: #fbe788 !important; border-radius: 999px; }
+.xcard__name { font-family: var(--f-serif) !important; font-style: italic; font-weight: 400 !important; font-size: 30px !important; line-height: 1 !important; letter-spacing: -.01em; }
+.xcard__desc { font-size: 14.5px; }
+.xcard__stat { border-top: 1px dashed #111 !important; padding-top: 14px; }
+.xcard__stat strong { color: #c4127a !important; font-size: 38px !important; }
+.xcard::after { content: "↗"; position: absolute; top: 18px; right: 18px; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: #111; color: #fff; font-size: 14px; transition: transform .3s var(--ease), background .3s, color .3s; }
+.xcard:hover::after, .xcard:focus-visible::after { background: #ff3fa4; color: #111; transform: rotate(45deg); }
+@media (prefers-reduced-motion: reduce) { .xcard, .xcard::after { transition: none !important; } }
