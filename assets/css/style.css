@@ -3877,3 +3877,35 @@ ul.work .work__pill { background: #fbe788 !important; color: #111 !important; }
 /* Contact heading: same size as the other section headings */
 .contact__big { font-size: clamp(36px, 4.6vw, 68px) !important; line-height: .98 !important; letter-spacing: -0.015em !important; }
 @media (max-width: 700px) { .contact__big { font-size: clamp(34px, 10vw, 44px) !important; } }
+
+/* About: polaroid stack + clean index card (stats under the photos, skills below the card) */
+#about .sticker{display:none!important}
+#about .about{display:grid!important;grid-template-columns:minmax(280px,360px) minmax(0,1fr)!important;column-gap:clamp(48px,7vw,112px)!important;row-gap:0;align-items:start!important}
+#about .about__text{display:contents}
+#about .stack-wrap{grid-column:1;grid-row:1/span 6;padding:0!important;align-self:start}
+#about .stack{width:min(300px,72vw)!important}
+#about .about-quote,#about .about__text p{grid-column:2;max-width:62ch}
+#about .about__text p{font-size:17px!important;line-height:1.7!important;margin:0 0 14px!important}
+#about .about__seek{border-left:0!important;padding:0!important;margin-top:8px!important}
+#about .about__seek .accent{color:#c4127a!important}
+#about .about-stats{grid-column:1;grid-row:7;display:grid!important;grid-template-columns:1fr 1fr;gap:0!important;margin-top:28px!important;border:1.5px solid #111!important;border-radius:16px!important;overflow:hidden;background:#fff!important;max-width:320px}
+#about .about-stats>div{border:0!important;padding:14px 16px!important;display:flex;flex-direction:column;align-items:flex-start;gap:2px;background:none!important}
+#about .about-stats>div:nth-child(odd){border-right:1px solid #111!important}
+#about .about-stats>div:nth-child(-n+2){border-bottom:1px solid #111!important}
+#about .about-stats b{font-size:34px!important;line-height:1!important}
+#about .about-stats span{font-size:13px!important}
+#about .kv{grid-column:2;grid-row:7;margin-top:28px!important;border-top:1px solid rgba(17,17,17,.2)!important;padding-top:22px!important}
+#about .about-quote,#about .about__text p{background:#fff;margin:0!important;padding-left:32px!important;padding-right:32px!important;border-left:1.5px solid #111!important;border-right:1.5px solid #111!important;max-width:none}
+#about .about-quote{grid-row:1;padding-top:30px!important;padding-bottom:18px!important;border-top:1.5px solid #111!important;border-radius:18px 18px 0 0;font-size:clamp(22px,2vw,28px)!important;line-height:1.25!important;background-image:linear-gradient(#ff3fa4,#ff3fa4);background-size:100% 2px;background-repeat:no-repeat;background-position:0 100%}
+#about .about__text p{padding-top:14px!important;padding-bottom:4px!important;background-image:repeating-linear-gradient(transparent 0 28px,rgba(31,95,214,.14) 28px 29px)}
+#about .about__seek{padding-bottom:28px!important;border-bottom:1.5px solid #111!important;border-radius:0 0 18px 18px;box-shadow:4px 4px 0 #111;margin-top:0!important}
+@media (max-width:900px){#about .about{grid-template-columns:1fr!important}#about .about>*,#about .about__text>*{grid-column:1!important;grid-row:auto!important}#about .about-stats{max-width:none}}
+#about .about__text p{background-image:none!important;padding-top:0!important;padding-bottom:16px!important;padding-left:40px!important;padding-right:40px!important;color:var(--body-ink)}
+#about .about-quote{padding:36px 40px 26px!important;font-size:clamp(22px,1.9vw,27px)!important;background-image:none!important;border-radius:20px 20px 0 0!important}
+#about .about-quote::after{content:"";display:block;width:56px;height:2px;background:#ff3fa4;margin-top:22px}
+#about .about__text p:nth-of-type(1){padding-top:4px!important}
+#about .about__seek{padding:18px 40px 32px!important;margin-top:4px!important;border-radius:0 0 20px 20px!important;background-image:linear-gradient(rgba(17,17,17,.15),rgba(17,17,17,.15))!important;background-size:calc(100% - 80px) 1px!important;background-position:40px 0!important;background-repeat:no-repeat!important;box-shadow:4px 4px 0 #111!important;color:var(--text)}
+#about .about-stats{max-width:300px!important;margin-left:0!important;box-shadow:3px 3px 0 #111}
+#about .kv{border-top:0!important;padding-top:8px!important;margin-top:36px!important}
+#about .about__seek{box-shadow:none!important}
+#about .about-stats{box-shadow:none!important}

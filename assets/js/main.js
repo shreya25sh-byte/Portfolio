@@ -1278,7 +1278,7 @@ if (jenga) {
     const io3 = new IntersectionObserver(([e]) => {
       if (!e.isIntersecting) return;
       io3.disconnect();
-      import(new URL("assets/js/jenga3d.js?v=20261016l", document.baseURI).href)
+      import(new URL("assets/js/jenga3d.js?v=20261016m", document.baseURI).href)
         .then((m) => {
           three = m.default(jenga, {
             CORE, FLUFF, say,
