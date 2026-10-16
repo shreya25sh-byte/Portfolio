@@ -3877,3 +3877,5 @@ ul.work .work__pill { background: #fbe788 !important; color: #111 !important; }
 /* Contact heading: same size as the other section headings */
 .contact__big { font-size: clamp(36px, 4.6vw, 68px) !important; line-height: .98 !important; letter-spacing: -0.015em !important; }
 @media (max-width: 700px) { .contact__big { font-size: clamp(34px, 10vw, 44px) !important; } }
+/* About bio: same size as the skills list (15px), per Shreya */
+#about .about__text p { font-size: 15px !important; line-height: 1.6 !important; }
