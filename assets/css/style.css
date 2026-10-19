@@ -3912,3 +3912,29 @@ ul.work .work__pill { background: #fbe788 !important; color: #111 !important; }
 #about .polaroid::before { display: none !important; }
 #about .polaroid img, #about .polaroid .logo-story { border-radius: 5px !important; }
 #about .polaroid figcaption { left: 12px; right: 12px; bottom: 14px; text-align: left; font: 500 11px/1 var(--f-mono) !important; letter-spacing: .08em; text-transform: uppercase; color: #111 !important; }
+
+/* About, recruiter pass: positioning line, full-weight thesis, one CTA treatment, linked stats */
+.about__pos { margin: 14px 0 0; max-width: 52ch; font-size: clamp(18px, 1.5vw, 21px); line-height: 1.45; color: var(--text); }
+#about .about__left .about-quote { font-size: 17px !important; line-height: 1.4 !important; color: var(--body-ink); }
+#about .about__thesis { color: var(--text) !important; font-weight: 500; }
+#about .about__thesis .muted { color: inherit !important; }
+#about .about__seek { border-left: 0 !important; padding-left: 0 !important; background: none !important; }
+.about__cta { display: flex; flex-wrap: wrap; gap: 10px; margin: 6px 0 4px; }
+#about .about-stats a { display: flex; align-items: baseline; gap: 8px; color: inherit; text-decoration: none; padding: 14px 16px; transition: background .2s; }
+#about .about-stats a:hover, #about .about-stats a:focus-visible { background: #fff0f7; }
+#about .about-stats a span { text-decoration: underline; text-decoration-color: rgba(196,18,122,.35); text-underline-offset: 3px; }
+@media (min-width: 701px) { .tldr-fab { left: max(20px, env(safe-area-inset-left, 0px) + 20px); } }
+#about .about-stats > a + a { border-left: 1px solid var(--line-strong); }
+#about .about-stats > a { flex-wrap: nowrap; }
+#about .about-stats span { white-space: nowrap; }
+@media (max-width: 1100px) { #about .about-stats > a:nth-child(3) { border-left: 0; } #about .about-stats > a:nth-child(n+3) { border-top: 1px solid var(--line-strong); } }
+#about .about-stats { grid-template-columns: 1fr 1fr !important; }
+#about .about-stats > a:nth-child(3) { border-left: 0; }
+#about .about-stats > a:nth-child(n+3) { border-top: 1px solid var(--line-strong); }
+#about .about-stats span { white-space: normal; }
+/* quote now closes the right column, under the stats */
+#about .about__text .about-quote { margin: 34px 0 0 !important; padding: 0 0 0 18px !important; border-left: 2px solid #ff3fa4 !important; font-size: clamp(19px, 1.6vw, 23px) !important; line-height: 1.35 !important; color: var(--text) !important; max-width: 46ch; }
+#about .about-stats > div { display: flex; align-items: baseline; gap: 8px; padding: 14px 16px; border: 0 !important; }
+#about .about-stats > div:nth-child(2), #about .about-stats > div:nth-child(4) { border-left: 1px solid var(--line-strong) !important; }
+#about .about-stats > div:nth-child(n+3) { border-top: 1px solid var(--line-strong) !important; }
+#about .about__text .about__cta { margin-top: 26px; }
