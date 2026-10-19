@@ -3938,3 +3938,5 @@ ul.work .work__pill { background: #fbe788 !important; color: #111 !important; }
 #about .about-stats > div:nth-child(2), #about .about-stats > div:nth-child(4) { border-left: 1px solid var(--line-strong) !important; }
 #about .about-stats > div:nth-child(n+3) { border-top: 1px solid var(--line-strong) !important; }
 #about .about__text .about__cta { margin-top: 26px; }
+#about .about__why { font-weight: 600; color: var(--text); }
+#about .stack-ctrl { margin-top: 44px !important; }
