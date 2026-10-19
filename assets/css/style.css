@@ -3904,3 +3904,5 @@ ul.work .work__pill { background: #fbe788 !important; color: #111 !important; }
 .ribbons .tools__h { padding-left: var(--gutter, 24px); }
 .ribbons .tools__view { -webkit-mask: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); mask: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); }
 .ribbons .tools__h { box-sizing: border-box; width: 100%; max-width: var(--max); margin: 0 auto 10px; padding: 0 var(--gutter) !important; }
+.ribbons { grid-template-columns: minmax(0, 1fr); }
+.ribbons .tools { min-width: 0; }
