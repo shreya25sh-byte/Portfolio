@@ -3940,3 +3940,28 @@ ul.work .work__pill { background: #fbe788 !important; color: #111 !important; }
 #about .about__text .about__cta { margin-top: 26px; }
 #about .about__why { font-weight: 600; color: var(--text); }
 #about .stack-ctrl { margin-top: 44px !important; }
+
+/* ==========================================================================
+   Design-rules pass (contrast · tap targets · pausable motion · focus)
+   ========================================================================== */
+/* contrast: project-colour method labels and the app battery chip reach WCAG AA */
+.impact .method small { color: color-mix(in srgb, var(--c, #111) 80%, #000) !important; }
+.ld__batt { color: #136b3e; }
+/* small citation text up to the 14px step */
+.quote cite { font-size: 14px; }
+/* one consistent, visible keyboard focus ring for every interactive element */
+:where(a, button, [role="tab"], [role="button"], input, summary):focus-visible { outline: 2px solid #c4127a; outline-offset: 3px; border-radius: 6px; }
+/* touch screens: every control gets at least a 44×44 tap area */
+@media (pointer: coarse) {
+  :where(button, .btn, [role="tab"], .nav__links a, .toc a, .crumbs a, .demo-btn, .ht__go, .lk, .stack-next, .jenga__rebuild) { min-height: 44px; }
+  :where(button.lk, .ht__b, [data-rot]) { min-width: 44px; min-height: 44px; }
+  .logo { min-width: 44px; min-height: 44px; }
+  .crumbs a { display: inline-flex; align-items: center; }
+}
+/* ribbons: pause on hover, on keyboard focus, or with a tap */
+.tools__view { cursor: pointer; }
+.tools__view:focus-within .tools__track, .tools.is-paused .tools__track { animation-play-state: paused; }
+@media (pointer: coarse) {
+  .jenga [data-rot] { min-width: 44px !important; min-height: 44px !important; }
+  .likert__scale button { min-height: 44px !important; }
+}

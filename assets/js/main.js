@@ -1278,7 +1278,7 @@ if (jenga) {
     const io3 = new IntersectionObserver(([e]) => {
       if (!e.isIntersecting) return;
       io3.disconnect();
-      import(new URL("assets/js/jenga3d.js?v=20261019h", document.baseURI).href)
+      import(new URL("assets/js/jenga3d.js?v=20261019i", document.baseURI).href)
         .then((m) => {
           three = m.default(jenga, {
             CORE, FLUFF, say,
@@ -1844,3 +1844,16 @@ $$("[data-href]").forEach((el) => {
   });
   strip.addEventListener("pointerleave", () => chars.forEach((c) => { c.style.transform = ""; }));
 })();
+
+/* Ribbons: tap (or Enter/Space) toggles pause, so moving content can always be stopped */
+$$(".tools").forEach((t) => {
+  const v = $(".tools__view", t);
+  if (!v) return;
+  v.tabIndex = 0;
+  v.setAttribute("role", "button");
+  v.setAttribute("aria-label", `${t.getAttribute("aria-label") || "Scrolling list"}. Press to pause or play.`);
+  v.setAttribute("aria-pressed", "false");
+  const toggle = () => { const on = t.classList.toggle("is-paused"); v.setAttribute("aria-pressed", String(on)); };
+  v.addEventListener("click", toggle);
+  v.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); } });
+});
