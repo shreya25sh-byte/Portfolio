@@ -3896,3 +3896,11 @@ ul.work .work__pill { background: #fbe788 !important; color: #111 !important; }
   .tools__track { animation: none; flex-wrap: wrap; flex: 1; }
   .tools__track[aria-hidden="true"] { display: none; }
 }
+/* About: quote above the polaroids; ribbons span the full screen width */
+.about__left { min-width: 0; }
+.about__left .about-quote { margin: 0 0 28px !important; max-width: 34ch; }
+.ribbons { width: 100vw; margin: clamp(40px, 5vw, 64px) 0 0 calc(50% - 50vw); display: grid; gap: 22px; }
+.ribbons .tools { margin: 0; }
+.ribbons .tools__h { padding-left: var(--gutter, 24px); }
+.ribbons .tools__view { -webkit-mask: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); mask: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); }
+.ribbons .tools__h { box-sizing: border-box; width: 100%; max-width: var(--max); margin: 0 auto 10px; padding: 0 var(--gutter) !important; }
