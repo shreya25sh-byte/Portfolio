@@ -3906,3 +3906,9 @@ ul.work .work__pill { background: #fbe788 !important; color: #111 !important; }
 .ribbons .tools__h { box-sizing: border-box; width: 100%; max-width: var(--max); margin: 0 auto 10px; padding: 0 var(--gutter) !important; }
 .ribbons { grid-template-columns: minmax(0, 1fr); }
 .ribbons .tools { min-width: 0; }
+
+/* About polaroids styled like the hero prints: white, ink outline, filleted corners, mono caption, no tape */
+#about .polaroid { background: #fff !important; border: 1px solid #111 !important; border-radius: 10px !important; padding: 9px 9px 46px !important; box-shadow: 0 18px 40px -26px rgba(0,0,0,.45) !important; }
+#about .polaroid::before { display: none !important; }
+#about .polaroid img, #about .polaroid .logo-story { border-radius: 5px !important; }
+#about .polaroid figcaption { left: 12px; right: 12px; bottom: 14px; text-align: left; font: 500 11px/1 var(--f-mono) !important; letter-spacing: .08em; text-transform: uppercase; color: #111 !important; }
