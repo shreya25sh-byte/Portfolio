@@ -4025,3 +4025,5 @@ ul.work .work__pill { background: #fbe788 !important; color: #111 !important; }
 /* Roles strip text matches the "Hi, I'm Shreya." greeting */
 @media (min-width: 761px) { .roles__row li, .roles .rn { font-size: clamp(20px, 1.8vw, 26px) !important; } }
 .roles .rw { display: inline-block; white-space: nowrap; }
+/* Work card titles match the roles strip */
+ul.work .work__item .work__title, ul.work .work__item[data-id="idetc"] .work__title, ul.work .work__item:not([data-id="idetc"]) .work__title { font-size: clamp(20px, 1.8vw, 26px) !important; line-height: 1.15 !important; }
