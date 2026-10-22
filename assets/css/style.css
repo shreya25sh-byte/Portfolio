@@ -4019,3 +4019,6 @@ ul.work .work__pill { background: #fbe788 !important; color: #111 !important; }
 /* "Next" link at the end of case studies: same size as section headings */
 .next__title { font-size: clamp(32px, 4.6vw, 66px); line-height: 1; }
 .next__title, .next:hover .next__title { text-shadow: none !important; }
+/* Home section headings match the hero headline size */
+@media (min-width: 761px) { .h2, .contact__big { font-size: clamp(36px, 4.1vw, 66px) !important; } }
+.h2 .serif { font-size: 1em; }
