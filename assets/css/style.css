@@ -1,3 +1,5 @@
+@font-face { font-family: "PP Editorial New"; src: url("../fonts/PPEditorialNew-Regular.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "PP Editorial New"; src: url("../fonts/PPEditorialNew-Italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
 /* ==========================================================================
    Shreya Hirpathak — UX Research Portfolio
    ========================================================================== */
@@ -25,8 +27,8 @@
   --godrej: #ff8a3d;
 
   --f-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --f-serif: "Instrument Serif", ui-serif, Georgia, serif;
-  --f-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --f-serif: "PP Editorial New", ui-serif, Georgia, serif;
+  --f-mono: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 
   --gutter: clamp(16px, 4vw, 56px);
   --max: 1320px;
@@ -1233,7 +1235,7 @@ body::before, body::after {
   --calidus: #0b8a78;
   --dfam: #d9362b;
   --radius: 6px;
-  --f-display: "Instrument Serif", ui-serif, Georgia, serif;
+  --f-display: "PP Editorial New", ui-serif, Georgia, serif;
   color-scheme: light;
 }
 body { background: var(--bg); }
@@ -3660,7 +3662,7 @@ ul.work .work__item[data-id="idetc"] .work__thumb img { object-position: 82% 35%
 
 /* ==========================================================================
    Typography system (applies site-wide)
-   3 families only: Instrument Serif = display/titles, Geist = body, Geist Mono = small labels.
+   2 families only: PP Editorial New = display/titles, Geist = body + small uppercase labels.
    Running text never below 16px, line-height 1.6, left-aligned.
    Small mono labels never below 11px.
    ========================================================================== */
@@ -3965,3 +3967,13 @@ ul.work .work__pill { background: #fbe788 !important; color: #111 !important; }
   .jenga [data-rot] { min-width: 44px !important; min-height: 44px !important; }
   .likert__scale button { min-height: 44px !important; }
 }
+
+/* ============================================================
+   Type pass: PP Editorial New + Geist (two typefaces).
+   Editorial New is wider than Instrument Serif, so display sizes
+   step down a touch; labels that used Geist Mono now use Geist,
+   with tabular figures where numbers line up.
+   ============================================================ */
+@media (min-width: 761px) { .hero__title { font-size: clamp(36px, 4.1vw, 66px) !important; } }
+.hero__title, .h2, .contact__big { letter-spacing: -0.03em; }
+.mono, .tag, .pill, .status, .nav__links a, .bar-row__val, .hbar span:last-child, .funnel__row b, .tlx__row output, .lockdemo__log, .bench-count, .masthead, [data-clock] { font-variant-numeric: tabular-nums; }

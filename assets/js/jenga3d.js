@@ -68,7 +68,7 @@ export default function initJenga3D(root, { CORE, FLUFF, say, onScore, onEnd }) 
   };
   const label = (g, text, w, h, size, wrap) => {
     g.fillStyle = "#3a220b"; g.textAlign = "center"; g.textBaseline = "middle";
-    g.font = `700 ${size}px "Geist Mono", ui-monospace, monospace`;
+    g.font = `700 ${size}px "Geist", system-ui, sans-serif`;
     const t = text.toUpperCase();
     if (!wrap) { g.fillText(t, w / 2, h / 2 + 2); return; }
     const words = t.split(" "), lines = []; let line = "";
