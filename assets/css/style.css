@@ -4016,3 +4016,5 @@ ul.work .work__pill { background: #fbe788 !important; color: #111 !important; }
 .ts--body { font-family: var(--f-sans); font-size: 16px; line-height: 1.6 !important; }
 .ts--btn { font-family: var(--f-sans); font-size: 15px; font-weight: 500; }
 .ts--label { font-family: var(--f-sans); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted) !important; }
+/* "Next" link at the end of case studies: same size as section headings */
+.next__title { font-size: clamp(32px, 4.6vw, 66px); line-height: 1; }
