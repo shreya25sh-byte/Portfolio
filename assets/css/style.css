@@ -4027,3 +4027,4 @@ ul.work .work__pill { background: #fbe788 !important; color: #111 !important; }
 .roles .rw { display: inline-block; white-space: nowrap; }
 /* Work card titles match the roles strip */
 ul.work .work__item .work__title, ul.work .work__item[data-id="idetc"] .work__title, ul.work .work__item:not([data-id="idetc"]) .work__title { font-size: clamp(20px, 1.8vw, 26px) !important; line-height: 1.15 !important; }
+@media (max-width: 760px) { .h2, .contact__big { font-size: clamp(38px, 10.4vw, 64px) !important; } }
