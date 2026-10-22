@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How I designed this portfolio · Shreya Hirpathak</title>
+  <link rel="canonical" href="https://shreya25sh-byte.github.io/Portfolio/work/portfolio.html">
+  <meta name="description" content="This portfolio as a UI/UX project: users, structure, identity, interactions, iterations, accessibility and build.">
+  <meta name="theme-color" content="#eeede8">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css?v=20261022c">
+</head>
+<body class="case case--portfolio">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="progress" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a href="../index.html" class="logo" aria-label="Shreya Hirpathak, home"><span class="logo__mark"><img src="../assets/img/logo-ink.svg" alt="" width="40" height="40"></span><span>Shreya Hirpathak</span></a>
+    <nav aria-label="Primary">
+      <ul class="nav__links" id="nav-links">
+        <li><a href="../index.html#work">Work</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a href="../index.html#contact" class="status"><span class="status__dot"></span>Open to UX Research roles</a>
+    <button class="nav__toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links"><i></i><i></i></button>
+  </header>
+
+  <main id="main">
+    <section class="case-hero">
+      <div class="wrap">
+        <div class="crumbs mono"><a href="../index.html">Home</a><span>/</span><span>Behind the site</span></div>
+        <h1 class="split">This portfolio</h1>
+        <p class="case-hero__sub split">A site a recruiter can read in a minute, <span class="serif">that still feels like me</span></p>
+        <div class="meta reveal">
+          <div><p class="h-4 mono">Role</p><p>Designer, researcher and art director. Built with Claude Code as my pair</p></div>
+          <div><p class="h-4 mono">Timeline</p><p>Sep – Oct 2026 · 4 weeks</p></div>
+          <div><p class="h-4 mono">Context</p><p>Personal project · live on GitHub Pages</p></div>
+        </div>
+        <div class="impact reveal">
+          <div class="impact__hero">
+            <span class="mono impact__kicker">Process</span>
+            <div class="impact__num"><span data-count="238">0</span></div>
+            <p class="impact__label">small, reviewed changes, each one previewed before it went live</p>
+            <p class="impact__note">Designed in the browser · Sep 23 – Oct 22</p>
+          </div>
+          <div class="impact__side">
+            <div class="impact__stats"><div><b>6</b><span>case studies, work within one scroll</span></div><div><b>38</b><span>font pairings tried on the real page</span></div><div><b>2</b><span>typefaces kept</span></div></div>
+            <div class="impact__methods">
+              <span class="mono">Methods · 5 · tap to jump</span>
+              <div class="mgrid"><a class="method" href="#users"><small>Define</small><b>Users &amp; principles</b><span>1 reader · 4 rules</span></a><a class="method" href="#structure"><small>Structure</small><b>Information architecture</b><span>9 sections, 1 job each</span></a><a class="method" href="#identity"><small>Explore</small><b>Live prototypes</b><span>side-by-side switchers</span></a><a class="method" href="#iterations"><small>Critique</small><b>Feedback rounds</b><span>designer + recruiter</span></a><a class="method" href="#access"><small>Refine</small><b>Accessibility audit</b><span>WCAG AA</span></a></div>
+            </div>
+          </div>
+        </div>
+        <div class="cover fig__frame"><img src="../assets/img/site-now-hero.webp" alt="The portfolio home page: masthead, the headline Turning curiosity into experiences that leave a mark, a stack of case-study prints and the yellow roles strip" width="1440" height="900"></div>
+      </div>
+    </section>
+
+    <div class="wrap case-body">
+      <aside class="toc" aria-label="On this page">
+        <ol>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#users">Users</a></li>
+          <li><a href="#structure">Structure</a></li>
+          <li><a href="#identity">Identity</a></li>
+          <li><a href="#interactions">Interactions</a></li>
+          <li><a href="#iterations">Iterations</a></li>
+          <li><a href="#access">Accessibility</a></li>
+          <li><a href="#build">Build</a></li>
+          <li><a href="#reflection">Reflection</a></li>
+        </ol>
+      </aside>
+
+      <div>
+        <section class="chapter" id="overview">
+          <span class="mono">Overview</span>
+          <h2 class="split">Most portfolios look the same and hide the research.</h2>
+          <div class="tldr reveal">
+            <div><h3 class="h-4 mono">Problem</h3><p>Recruiters skim dozens of portfolios between calls. Template layouts blur together, and the actual research gets buried under process diagrams.</p></div>
+            <div><h3 class="h-4 mono">Approach</h3><p>Treat the site like a research zine: evidence first, every interaction proving a skill, and every change tried live in the browser before it ships.</p></div>
+            <div><h3 class="h-4 mono">Outcome</h3><p>A fast, static, accessible site. Work is one scroll away, there's a 30-second version for skimmers, and enough personality to remember me by.</p></div>
+          </div>
+        </section>
+
+        <section class="chapter" id="users">
+          <span class="mono">Users</span>
+          <h2 class="split">One reader, and they're in a hurry.</h2>
+          <div class="fig-row st-13">
+            <div class="insight reveal st-9"><span class="mono">Primary user · the skimming recruiter</span>
+              <ul class="st-34">
+                <li>Hiring for UX Researcher or UX Designer roles at product companies.</li>
+                <li>Usually on a laptop between candidates. Sometimes on a phone, from a LinkedIn link.</li>
+                <li>Has a minute or two to decide: <strong>can she run real research and turn it into design decisions?</strong></li>
+                <li>Success looks like this: they open a case study, then email me or download the resume.</li>
+              </ul>
+            </div>
+            <div class="insight reveal st-9"><span class="mono">Design principles</span>
+              <ul class="st-34">
+                <li><strong>Evidence before decoration.</strong> Every number and interaction should prove a research skill.</li>
+                <li><strong>Work first.</strong> Case studies are reachable within one scroll.</li>
+                <li><strong>Show the person, not a template.</strong> Real photos, notes and charts over generic UI.</li>
+                <li><strong>Readable by a busy reader.</strong> Short copy, clear hierarchy, accessible contrast.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="prose reveal">
+            <p>Hiring managers are the second audience. They arrive later and read a case study in depth, so the case pages carry the detail: methods, raw data, limitations.</p>
+          </div>
+        </section>
+
+        <section class="chapter" id="structure">
+          <span class="mono">Information architecture</span>
+          <h2 class="split">Every section has one job.</h2>
+          <figure class="fig reveal">
+            <div class="table-scroll datatable-wrap">
+              <table class="datatable">
+                <thead><tr><th scope="col">#</th><th scope="col">Section</th><th scope="col">Its one job</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">0</th><td>Loader</td><td>Counts up to <b>1,910</b>, the students in my thesis survey, so the "researcher" frame is set in two seconds.</td></tr>
+                  <tr><th scope="row">1</th><td>Hero</td><td>One headline, plus a stack of case-study prints you can drag and toss.</td></tr>
+                  <tr><th scope="row">2</th><td>Roles strip</td><td>UX Researcher · Industrial Designer · Design Engineer, in one glance.</td></tr>
+                  <tr><th scope="row">3</th><td>Work</td><td>Four case studies as stacked cards, each with a 20-second Quick demo of the real study UI.</td></tr>
+                  <tr><th scope="row">4</th><td>Industry projects</td><td>Calidus and Godrej as compact cards with one outcome number each.</td></tr>
+                  <tr><th scope="row">5</th><td>About</td><td>Who I am, four proof stats, and rolling ribbons of tools and research methods.</td></tr>
+                  <tr><th scope="row">6</th><td>Experience</td><td>Work and education in tabs, so the timeline stays short.</td></tr>
+                  <tr><th scope="row">7</th><td>How I work</td><td>Design Jenga: a playable version of my process.</td></tr>
+                  <tr><th scope="row">8</th><td>Contact</td><td>A coffee-chat ticket, plus email, LinkedIn and resume in one row.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <figcaption><span class="mono">Fig. 1</span>Home page order. A floating "30-second version" button gives skimmers the whole story at any point.</figcaption>
+          </figure>
+          <div class="fig-row">
+            <figure class="fig reveal">
+              <div class="fig__frame"><img src="../assets/img/site-now-loader.webp" alt="Loader counting recruiting participants, showing 1,910" loading="lazy" width="1440" height="900"></div>
+              <figcaption><span class="mono">Fig. 2</span>The loader counts real participants</figcaption>
+            </figure>
+            <figure class="fig reveal">
+              <div class="fig__frame"><img src="../assets/img/site-now-work.webp" alt="Work section with the featured MSES case-study card" loading="lazy" width="1440" height="900"></div>
+              <figcaption><span class="mono">Fig. 3</span>Work cards lead with method, venue and a Quick demo</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="chapter" id="identity">
+          <span class="mono">Visual identity</span>
+          <h2 class="split">A research zine: paper, ink and one loud pink.</h2>
+          <div class="prose reveal">
+            <p>The zine idea came from what research actually looks like: printed surveys, field notes, sticky labels. It gives the site a personality without fighting the content.</p>
+          </div>
+          <div class="swatches reveal" role="list" aria-label="Colour palette">
+            <div class="swatch" role="listitem"><i class="sw--paper"></i><b>Paper</b><span class="mono">#EEEDE8</span></div>
+            <div class="swatch" role="listitem"><i class="sw--ink"></i><b>Ink</b><span class="mono">#111111</span></div>
+            <div class="swatch" role="listitem"><i class="sw--pink"></i><b>Riso pink</b><span class="mono">#FF3FA4</span></div>
+            <div class="swatch" role="listitem"><i class="sw--magenta"></i><b>Text magenta</b><span class="mono">#C4127A</span></div>
+            <div class="swatch" role="listitem"><i class="sw--yellow"></i><b>Highlighter</b><span class="mono">#FBE788</span></div>
+          </div>
+          <div class="specimen reveal">
+            <div><span class="mono">Display · PP Editorial New</span><div class="specimen__big">Turning <span class="serif">curiosity</span></div></div>
+            <div><span class="mono">Body + labels · Geist</span><div class="specimen__body">Short copy, clear hierarchy, accessible contrast.</div><div class="specimen__label mono">Ux research · engineering design</div></div>
+          </div>
+          <div class="prose reveal">
+            <h3>The type decision</h3>
+            <p>The first version used Instrument Serif, Geist and Geist Mono. Then I noticed Instrument Serif shows up on a lot of AI-generated sites, so it read as "template".</p>
+            <p>To replace it, I didn't compare type specimens in isolation. I built a <strong>font switcher on the real landing page</strong> and tried 38 pairings against my actual headline, About section and stats. I cut them down by elimination: script and all-caps faces failed on readability, and decorative demos were missing numbers and punctuation.</p>
+            <p>Then I applied a few type rules: use fewer typefaces, build a hierarchy, use contrast and keep spacing consistent. That ruled out the third font. The result is <strong>PP Editorial New</strong> for display and <strong>Geist</strong> for everything else, with labels set in uppercase Geist instead of a monospace.</p>
+          </div>
+        </section>
+
+        <section class="chapter" id="interactions">
+          <span class="mono">Interactions</span>
+          <h2 class="split">Play, but every toy proves something.</h2>
+          <figure class="fig reveal">
+            <div class="table-scroll datatable-wrap">
+              <table class="datatable">
+                <thead><tr><th scope="col">Interaction</th><th scope="col">What you do</th><th scope="col">What it proves</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">Participant loader</th><td>Watch it count</td><td>The scale of my thesis survey</td></tr>
+                  <tr><th scope="row">Print stack</th><td>Drag, toss, double-click to tidy</td><td>Real projects up front, not stock imagery</td></tr>
+                  <tr><th scope="row">Quick demos</th><td>20-second popups on each work card</td><td>The actual study instruments and UIs</td></tr>
+                  <tr><th scope="row">Design Jenga</th><td>Pull blocks from a 3D tower</td><td>Which steps of my process are load-bearing</td></tr>
+                  <tr><th scope="row">Tool + method ribbons</th><td>Scroll past, or tap to pause</td><td>Skills at a glance, without a wall of logos</td></tr>
+                  <tr><th scope="row">Coffee-chat ticket</th><td>Tear-off ticket in Contact</td><td>An easy, low-pressure way to reach out</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <figcaption><span class="mono">Fig. 4</span>Each interaction maps to principle 1: evidence before decoration.</figcaption>
+          </figure>
+          <figure class="fig reveal">
+            <div class="fig__frame"><img src="../assets/img/site-now-jenga.webp" alt="Design Jenga: a 3D wooden tower whose blocks are labelled with process steps" loading="lazy" width="1440" height="900"></div>
+            <figcaption><span class="mono">Fig. 5</span>Design Jenga. Real steps hold the tower up, look-alikes can be pulled safely. Built with three.js and cannon-es physics.</figcaption>
+          </figure>
+        </section>
+
+        <section class="chapter" id="iterations">
+          <span class="mono">Iterations</span>
+          <h2 class="split">Four weeks, three identities, a lot of cutting.</h2>
+          <div class="fig-row">
+            <figure class="fig reveal">
+              <div class="fig__frame"><img src="../assets/img/site-v1-dark.webp" alt="First version: dark theme with lime accent and the headline UX Researcher and Engineering Designer" loading="lazy" width="1440" height="900"></div>
+              <figcaption><span class="mono">v1 · Sep 23</span>Dark, lime accent. Looked like every developer portfolio.</figcaption>
+            </figure>
+            <figure class="fig reveal">
+              <div class="fig__frame"><img src="../assets/img/site-v2-midnight.webp" alt="Second version: midnight blue palette with iridescent accents" loading="lazy" width="1440" height="900"></div>
+              <figcaption><span class="mono">v2 · Sep 23</span>Midnight and iridescent. Prettier, still generic.</figcaption>
+            </figure>
+            <figure class="fig reveal">
+              <div class="fig__frame"><img src="../assets/img/site-v3-zine.webp" alt="Third version: newsprint research zine with pink riso photo and yellow skills band" loading="lazy" width="1440" height="900"></div>
+              <figcaption><span class="mono">v3 · Sep 23</span>The research zine is born: newsprint and riso pink.</figcaption>
+            </figure>
+            <figure class="fig reveal">
+              <div class="fig__frame"><img src="../assets/img/site-now-hero.webp" alt="Current version: calmer zine with Editorial New headline and a stack of case-study prints" loading="lazy" width="1440" height="900"></div>
+              <figcaption><span class="mono">Now · Oct 22</span>Calmer zine, real project prints, two typefaces.</figcaption>
+            </figure>
+          </div>
+          <div class="fig-row st-13">
+            <div class="insight reveal st-9"><span class="mono">Tried and cut</span>
+              <ul class="st-34">
+                <li>A colour-lens hunt for hidden field notes in the hero photo</li>
+                <li>An eye-tracking heatmap hero, then a halftone dot field</li>
+                <li>Click-anywhere ink stamps with 26 shuffled phrases</li>
+                <li>Skill bubbles around each role: almost 20 rounds in one day, then removed</li>
+                <li>A field-notes affinity board, a magnifier cursor, an index-card About</li>
+              </ul>
+            </div>
+            <div class="insight reveal st-9"><span class="mono">Feedback that changed things</span>
+              <ul class="st-34">
+                <li><strong>Senior designer:</strong> too much going on. That led to a minimal pass and a quieter hero.</li>
+                <li><strong>Recruiter critique:</strong> lead with proof. The About section was reworked around four stats and a clear "looking for" line.</li>
+                <li><strong>Design-rules audit:</strong> contrast, touch targets and focus states (see Accessibility).</li>
+              </ul>
+            </div>
+          </div>
+          <blockquote class="quote reveal">"If it doesn't help a recruiter decide, it goes, no matter how fun it was to build."<cite>The rule I kept coming back to</cite></blockquote>
+        </section>
+
+        <section class="chapter" id="access">
+          <span class="mono">Accessibility &amp; quality</span>
+          <h2 class="split">Readable by everyone, on anything.</h2>
+          <div class="fig-row st-13">
+            <div class="insight reveal st-9"><span class="mono">Accessibility</span>
+              <ul class="st-34">
+                <li>WCAG AA contrast (4.5:1 for body text). The brand pink is too light for text, so links use a darker magenta, <b>#C4127A</b>.</li>
+                <li>Body text at least 16px with a 1.6 line height.</li>
+                <li>Touch targets of at least 44px on touch screens.</li>
+                <li>Visible focus ring and a skip link. Every widget works with a keyboard.</li>
+                <li>Moving ribbons can be paused by tap or keyboard. Animation respects <em>reduced motion</em>.</li>
+              </ul>
+            </div>
+            <div class="insight reveal st-9"><span class="mono">Quality</span>
+              <ul class="st-34">
+                <li>Every change previewed at desktop (1440px) and phone (390px) widths before going live.</li>
+                <li>578 unused CSS rules removed in one clean-up pass.</li>
+                <li>Search basics: canonical URLs, Person schema, sitemap and robots.txt.</li>
+                <li>One self-hosted display font and one Google font. No framework to download.</li>
+              </ul>
+            </div>
+          </div>
+          <figure class="fig reveal">
+            <div class="fig__frame"><img src="../assets/img/site-now-mobile.webp" alt="Four phone screenshots: home, work, about and contact" loading="lazy" width="1710" height="904"></div>
+            <figcaption><span class="mono">Fig. 6</span>The phone layout: single column, compact 30-second button, same content.</figcaption>
+          </figure>
+        </section>
+
+        <section class="chapter" id="build">
+          <span class="mono">Build</span>
+          <h2 class="split">Plain HTML, CSS and JavaScript. No build step.</h2>
+          <div class="prose reveal">
+            <p>The site is static: a home page, six case studies and a study kit, served free from <strong>GitHub Pages</strong>. That keeps it fast, cheap to host and easy to change.</p>
+            <p>The 3D tower is the only heavy part. three.js and cannon-es load only when you scroll to it, with a flat CSS tower as a fallback.</p>
+            <p><strong>Tools:</strong> Figma for layout and assets, Claude Design for exploration, and Claude Code as a build partner. I set the direction, wrote the copy and reviewed every preview. Claude wrote and checked the code, and screenshotted each change on desktop and phone before I approved it.</p>
+          </div>
+        </section>
+
+        <section class="chapter" id="reflection">
+          <span class="mono">Reflection</span>
+          <h2 class="split">What I'd do next.</h2>
+          <div class="fig-row st-13">
+            <div class="insight reveal st-9"><span class="mono">What worked</span>
+              <ul class="st-34">
+                <li>Prototyping on the real page instead of in mockups. Decisions took minutes, not meetings.</li>
+                <li>Keeping principles written down (one reader, four rules) made cutting easy.</li>
+              </ul>
+            </div>
+            <div class="insight reveal st-9"><span class="mono">Next</span>
+              <ul class="st-34">
+                <li>Run a moderated test with five recruiters. Measure time to first case study and whether they can state my role after 10 seconds.</li>
+                <li>Add privacy-friendly analytics to see which case studies people actually read.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <a class="next next--idetc" href="idetc.html" data-cursor="Next">
+      <div class="wrap"><span class="mono">Now see the research · 01</span><br><span class="next__title">Backgrounds &amp; makerspaces →</span></div>
+    </a>
+  </main>
+
+  <script src="../assets/js/main.js?v=20261022c"></script>
+</body>
+</html>

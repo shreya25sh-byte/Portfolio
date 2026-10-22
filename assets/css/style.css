@@ -3977,3 +3977,26 @@ ul.work .work__pill { background: #fbe788 !important; color: #111 !important; }
 @media (min-width: 761px) { .hero__title { font-size: clamp(36px, 4.1vw, 66px) !important; } }
 .hero__title, .h2, .contact__big { letter-spacing: -0.03em; }
 .mono, .tag, .pill, .status, .nav__links a, .bar-row__val, .hbar span:last-child, .funnel__row b, .tlx__row output, .lockdemo__log, .bench-count, .masthead, [data-clock] { font-variant-numeric: tabular-nums; }
+
+/* ============================================================
+   "This portfolio" case study (work/portfolio.html)
+   ============================================================ */
+.case--portfolio { --c: #c4127a; }
+.swatches { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin: 24px 0; }
+.swatch { border: 1px solid var(--line-strong); border-radius: 10px; overflow: hidden; background: #fff; }
+.swatch i { display: block; height: 72px; border-bottom: 1px solid var(--line-strong); }
+.swatch b { display: block; padding: 10px 12px 2px; font-weight: 600; font-size: 14px; }
+.swatch span { display: block; padding: 0 12px 12px; font-size: 11px; color: var(--muted); }
+.sw--paper { background: #eeede8; } .sw--ink { background: #111; } .sw--pink { background: #ff3fa4; }
+.sw--magenta { background: #c4127a; } .sw--yellow { background: #fbe788; }
+.specimen { display: grid; grid-template-columns: 1.3fr 1fr; gap: 24px; align-items: end; padding: 28px; margin: 0 0 28px; border: 1px solid var(--line-strong); border-radius: 10px; background: #fff; }
+.specimen__big { margin: 8px 0 0; font-family: var(--f-display); font-size: clamp(40px, 5vw, 72px); line-height: 1; letter-spacing: -0.03em; }
+.specimen__big .serif { color: #c4127a; }
+.specimen__body { margin: 8px 0 10px; font-size: 18px; line-height: 1.5; }
+.specimen__label { margin: 0; color: var(--muted); }
+@media (max-width: 700px) {
+  .swatches { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .specimen { grid-template-columns: 1fr; padding: 20px; }
+}
+.footer__credit a { color: inherit; text-decoration: underline; text-underline-offset: 3px; margin-left: 6px; white-space: nowrap; }
+.footer__credit a:hover { color: #c4127a; }
