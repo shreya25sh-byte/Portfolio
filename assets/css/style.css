@@ -4028,3 +4028,20 @@ ul.work .work__pill { background: #fbe788 !important; color: #111 !important; }
 /* Work card titles match the roles strip */
 ul.work .work__item .work__title, ul.work .work__item[data-id="idetc"] .work__title, ul.work .work__item:not([data-id="idetc"]) .work__title { font-size: clamp(20px, 1.8vw, 26px) !important; line-height: 1.15 !important; }
 @media (max-width: 760px) { .h2, .contact__big { font-size: clamp(38px, 10.4vw, 64px) !important; } }
+/* ============================================================
+   Case-study heroes use the landing page's type tiers:
+   name = "Hi, I'm Shreya." · subtitle + impact number = hero headline ·
+   impact line = greeting tier · stats = About stats · labels/body unchanged
+   ============================================================ */
+.case .case-hero h1, .case .case-hero h1.is-long { font-size: clamp(20px, 1.8vw, 26px) !important; line-height: 1.2 !important; letter-spacing: 0 !important; max-width: none; }
+.case .case-hero__sub { font-family: var(--f-display) !important; font-size: clamp(36px, 4.1vw, 66px) !important; line-height: .94 !important; letter-spacing: -0.03em !important; max-width: 20ch !important; margin-top: 10px !important; }
+.case .case-hero__sub .serif { font-size: 1em !important; letter-spacing: -0.03em !important; }
+.impact__hero .impact__num { font-size: clamp(36px, 4.1vw, 66px) !important; line-height: .94 !important; }
+.impact__label { font-size: clamp(20px, 1.8vw, 26px) !important; line-height: 1.2 !important; }
+.impact__stats b { font-size: 32px !important; font-weight: 500 !important; }
+.impact__stats span, .method span { font-size: 13.5px !important; }
+@media (max-width: 760px) {
+  .case .case-hero h1, .case .case-hero h1.is-long { font-size: 20px !important; }
+  .case .case-hero__sub, .impact__hero .impact__num { font-size: clamp(38px, 10.4vw, 64px) !important; }
+  .impact__label { font-size: 20px !important; }
+}
