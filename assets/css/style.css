@@ -121,7 +121,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   transition: transform 1s var(--ease);
 }
 .loader.is-done { transform: translateY(-100%); }
-.loader__count { font-size: clamp(56px, 12vw, 160px); font-weight: 500; line-height: .9; letter-spacing: -0.05em; }
+.loader__count { font-size: clamp(48px, 10vw, 136px); font-weight: 500; line-height: .9; letter-spacing: -0.05em; }
 .loader__label { margin-bottom: 12px; color: var(--muted); }
 .loader__bar { height: 1px; background: var(--line); margin-top: 24px; position: relative; overflow: hidden; }
 .loader__bar i { position: absolute; inset: 0; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); }
