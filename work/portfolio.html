@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/style.css?v=20261022c">
+  <link rel="stylesheet" href="../assets/css/style.css?v=20261022d">
 </head>
 <body class="case case--portfolio">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -54,7 +54,7 @@
             <div class="impact__stats"><div><b>6</b><span>case studies, work within one scroll</span></div><div><b>38</b><span>font pairings tried on the real page</span></div><div><b>2</b><span>typefaces kept</span></div></div>
             <div class="impact__methods">
               <span class="mono">Methods · 5 · tap to jump</span>
-              <div class="mgrid"><a class="method" href="#users"><small>Define</small><b>Users &amp; principles</b><span>1 reader · 4 rules</span></a><a class="method" href="#structure"><small>Structure</small><b>Information architecture</b><span>9 sections, 1 job each</span></a><a class="method" href="#identity"><small>Explore</small><b>Live prototypes</b><span>side-by-side switchers</span></a><a class="method" href="#iterations"><small>Critique</small><b>Feedback rounds</b><span>designer + recruiter</span></a><a class="method" href="#access"><small>Refine</small><b>Accessibility audit</b><span>WCAG AA</span></a></div>
+              <div class="mgrid"><a class="method" href="#users"><small>Define</small><b>Users &amp; principles</b><span>1 reader · 4 rules</span></a><a class="method" href="#structure"><small>Structure</small><b>Information architecture</b><span>9 sections, 1 job each</span></a><a class="method" href="#type"><small>Explore</small><b>Live prototypes</b><span>side-by-side switchers</span></a><a class="method" href="#iterations"><small>Critique</small><b>Feedback rounds</b><span>designer + recruiter</span></a><a class="method" href="#access"><small>Refine</small><b>Accessibility audit</b><span>WCAG AA</span></a></div>
             </div>
           </div>
         </div>
@@ -69,6 +69,7 @@
           <li><a href="#users">Users</a></li>
           <li><a href="#structure">Structure</a></li>
           <li><a href="#identity">Identity</a></li>
+          <li><a href="#type">Typography</a></li>
           <li><a href="#interactions">Interactions</a></li>
           <li><a href="#iterations">Iterations</a></li>
           <li><a href="#access">Accessibility</a></li>
@@ -161,15 +162,60 @@
             <div class="swatch" role="listitem"><i class="sw--magenta"></i><b>Text magenta</b><span class="mono">#C4127A</span></div>
             <div class="swatch" role="listitem"><i class="sw--yellow"></i><b>Highlighter</b><span class="mono">#FBE788</span></div>
           </div>
+        </section>
+
+        <section class="chapter" id="type">
+          <span class="mono">Typography</span>
+          <h2 class="split">Two typefaces, one clear hierarchy.</h2>
           <div class="specimen reveal">
-            <div><span class="mono">Display · PP Editorial New</span><div class="specimen__big">Turning <span class="serif">curiosity</span></div></div>
-            <div><span class="mono">Body + labels · Geist</span><div class="specimen__body">Short copy, clear hierarchy, accessible contrast.</div><div class="specimen__label mono">Ux research · engineering design</div></div>
+            <div><span class="mono">Display · PP Editorial New</span><div class="specimen__big">Turning <span class="serif">curiosity</span></div><div class="specimen__meta mono">Regular + Italic · headings, numbers, highlights</div></div>
+            <div><span class="mono">Text · Geist</span><div class="specimen__body">Short copy, clear hierarchy, accessible contrast.</div><div class="specimen__label mono">Ux research · engineering design</div><div class="specimen__meta mono">Variable 300–700 · body, buttons, labels</div></div>
           </div>
           <div class="prose reveal">
-            <h3>The type decision</h3>
-            <p>The first version used Instrument Serif, Geist and Geist Mono. Then I noticed Instrument Serif shows up on a lot of AI-generated sites, so it read as "template".</p>
-            <p>To replace it, I didn't compare type specimens in isolation. I built a <strong>font switcher on the real landing page</strong> and tried 38 pairings against my actual headline, About section and stats. I cut them down by elimination: script and all-caps faces failed on readability, and decorative demos were missing numbers and punctuation.</p>
-            <p>Then I applied a few type rules: use fewer typefaces, build a hierarchy, use contrast and keep spacing consistent. That ruled out the third font. The result is <strong>PP Editorial New</strong> for display and <strong>Geist</strong> for everything else, with labels set in uppercase Geist instead of a monospace.</p>
+            <p>A high-contrast editorial serif carries the voice: headlines, big numbers and the pink italic words that mark what matters. A neutral sans does the work: body copy, buttons and small uppercase labels. Every size is fluid, so it scales smoothly between phone and desktop.</p>
+          </div>
+          <figure class="fig reveal">
+            <div class="table-scroll datatable-wrap">
+              <table class="datatable typescale">
+                <thead><tr><th scope="col">Role</th><th scope="col">Sample</th><th scope="col">Face</th><th scope="col">Desktop</th><th scope="col">Phone</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">Case title</th><td><span class="ts ts--h1">This portfolio</span></td><td>Editorial New</td><td>128px</td><td>56px</td></tr>
+                  <tr><th scope="row">Section heading</th><td><span class="ts ts--h2">What's on <span class="serif">your mind?</span></span></td><td>Editorial New</td><td>66px</td><td>39px</td></tr>
+                  <tr><th scope="row">Hero headline</th><td><span class="ts ts--hero">Turning <span class="serif">curiosity</span></span></td><td>Editorial New</td><td>59px</td><td>41px</td></tr>
+                  <tr><th scope="row">Chapter heading</th><td><span class="ts ts--h3">Every section has one job.</span></td><td>Editorial New</td><td>50px</td><td>30px</td></tr>
+                  <tr><th scope="row">Big number</th><td><span class="ts ts--num">1,910</span></td><td>Editorial New</td><td>88px</td><td>64px</td></tr>
+                  <tr><th scope="row">Subtitle</th><td><span class="ts ts--sub">A site a recruiter can read in a minute</span></td><td>Geist 400</td><td>32px</td><td>22px</td></tr>
+                  <tr><th scope="row">Body</th><td><span class="ts ts--body">Built during my M.S. thesis at Penn State.</span></td><td>Geist 400</td><td>16px / 1.6</td><td>16px / 1.6</td></tr>
+                  <tr><th scope="row">Button</th><td><span class="ts ts--btn">See the research ↗</span></td><td>Geist 500</td><td>15px</td><td>15px</td></tr>
+                  <tr><th scope="row">Label</th><td><span class="ts ts--label">Research methods</span></td><td>Geist, uppercase</td><td>11–11.5px</td><td>11–11.5px</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <figcaption><span class="mono">Fig. 4</span>Type scale, measured from the live site. Headings to body is about 4:1 on desktop.</figcaption>
+          </figure>
+          <div class="fig-row st-13">
+            <div class="insight reveal st-9"><span class="mono">Rules I followed</span>
+              <ul class="st-34">
+                <li><strong>Use fewer typefaces.</strong> Two families, three styles. The third font, a monospace for labels, was cut.</li>
+                <li><strong>Build a hierarchy that matches the story.</strong> Headings set expectations, labels organise, body text explains.</li>
+                <li><strong>Contrast is your best friend.</strong> Serif against sans, big against small, and pink italic for one to three words per heading. Never more.</li>
+                <li><strong>Spacing is a tool.</strong> Tight line height (0.95–1.05) and slightly negative tracking on big type. Roomy 1.6 line height on body, and open tracking on small uppercase labels.</li>
+                <li><strong>Align by function.</strong> Everything is left-aligned for reading. Only the masthead line is centred.</li>
+              </ul>
+            </div>
+            <div class="insight reveal st-9"><span class="mono">Details</span>
+              <ul class="st-34">
+                <li>Body text never goes below 16px. The one exception is the 15px About bio, kept to match its stats.</li>
+                <li>Numbers that line up in columns use tabular figures, so the loader and stats don't jitter.</li>
+                <li>Pink text uses the darker <b>#C4127A</b> to meet AA contrast. The bright pink is for shapes only.</li>
+                <li>Sizes use <code>clamp()</code>, so they scale with the screen between a phone minimum and a desktop maximum.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="prose reveal">
+            <h3>How I chose the faces</h3>
+            <p>I didn't pick from specimen sheets. I built a <strong>font switcher on the real landing page</strong> and tried 38 pairings against my actual headline, About section and stats, removing options one round at a time.</p>
+            <p>The rounds taught me what the site needed. All-caps faces made long headlines hard to read. Scripts only worked for a single word. Free demo fonts were missing numbers and punctuation. Very wide faces pushed the hero headline onto four lines. Editorial New was the one that kept the zine's personality and still read cleanly at every size.</p>
           </div>
         </section>
 
@@ -190,11 +236,11 @@
                 </tbody>
               </table>
             </div>
-            <figcaption><span class="mono">Fig. 4</span>Each interaction maps to principle 1: evidence before decoration.</figcaption>
+            <figcaption><span class="mono">Fig. 5</span>Each interaction maps to principle 1: evidence before decoration.</figcaption>
           </figure>
           <figure class="fig reveal">
             <div class="fig__frame"><img src="../assets/img/site-now-jenga.webp" alt="Design Jenga: a 3D wooden tower whose blocks are labelled with process steps" loading="lazy" width="1440" height="900"></div>
-            <figcaption><span class="mono">Fig. 5</span>Design Jenga. Real steps hold the tower up, look-alikes can be pulled safely. Built with three.js and cannon-es physics.</figcaption>
+            <figcaption><span class="mono">Fig. 6</span>Design Jenga. Real steps hold the tower up, look-alikes can be pulled safely. Built with three.js and cannon-es physics.</figcaption>
           </figure>
         </section>
 
@@ -237,7 +283,6 @@
               </ul>
             </div>
           </div>
-          <blockquote class="quote reveal">"If it doesn't help a recruiter decide, it goes, no matter how fun it was to build."<cite>The rule I kept coming back to</cite></blockquote>
         </section>
 
         <section class="chapter" id="access">
@@ -264,7 +309,7 @@
           </div>
           <figure class="fig reveal">
             <div class="fig__frame"><img src="../assets/img/site-now-mobile.webp" alt="Four phone screenshots: home, work, about and contact" loading="lazy" width="1710" height="904"></div>
-            <figcaption><span class="mono">Fig. 6</span>The phone layout: single column, compact 30-second button, same content.</figcaption>
+            <figcaption><span class="mono">Fig. 7</span>The phone layout: single column, compact 30-second button, same content.</figcaption>
           </figure>
         </section>
 
@@ -304,6 +349,6 @@
     </a>
   </main>
 
-  <script src="../assets/js/main.js?v=20261022c"></script>
+  <script src="../assets/js/main.js?v=20261022d"></script>
 </body>
 </html>

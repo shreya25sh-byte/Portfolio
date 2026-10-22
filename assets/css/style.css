@@ -4000,3 +4000,19 @@ ul.work .work__pill { background: #fbe788 !important; color: #111 !important; }
 }
 .footer__credit a { color: inherit; text-decoration: underline; text-underline-offset: 3px; margin-left: 6px; white-space: nowrap; }
 .footer__credit a:hover { color: #c4127a; }
+/* Editorial New has tall ascenders: give the split-word mask headroom so tops of letters aren't clipped */
+.split .word { padding-top: .16em; margin-top: -.16em; }
+/* Typography chapter: live type-scale samples */
+.specimen__meta { margin-top: 12px; font-size: 11px; color: var(--muted); }
+.typescale td { vertical-align: middle; font-style: normal; }
+.typescale .ts { display: block; color: var(--text); white-space: nowrap; line-height: 1.05; }
+.typescale .ts .serif { color: #c4127a; }
+.ts--h1 { font-family: var(--f-display); font-size: 56px; letter-spacing: -0.015em; }
+.ts--h2 { font-family: var(--f-display); font-size: 40px; letter-spacing: -0.03em; }
+.ts--hero { font-family: var(--f-display); font-size: 36px; letter-spacing: -0.03em; }
+.ts--h3 { font-family: var(--f-display); font-size: 30px; letter-spacing: -0.015em; }
+.ts--num { font-family: var(--f-display); font-size: 48px; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.ts--sub { font-family: var(--f-sans); font-size: 22px; letter-spacing: -0.03em; }
+.ts--body { font-family: var(--f-sans); font-size: 16px; line-height: 1.6 !important; }
+.ts--btn { font-family: var(--f-sans); font-size: 15px; font-weight: 500; }
+.ts--label { font-family: var(--f-sans); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted) !important; }
