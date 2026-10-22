@@ -4022,3 +4022,6 @@ ul.work .work__pill { background: #fbe788 !important; color: #111 !important; }
 /* Home section headings match the hero headline size */
 @media (min-width: 761px) { .h2, .contact__big { font-size: clamp(36px, 4.1vw, 66px) !important; } }
 .h2 .serif { font-size: 1em; }
+/* Roles strip text matches the "Hi, I'm Shreya." greeting */
+@media (min-width: 761px) { .roles__row li, .roles .rn { font-size: clamp(20px, 1.8vw, 26px) !important; } }
+.roles .rw { display: inline-block; white-space: nowrap; }

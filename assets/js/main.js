@@ -1278,7 +1278,7 @@ if (jenga) {
     const io3 = new IntersectionObserver(([e]) => {
       if (!e.isIntersecting) return;
       io3.disconnect();
-      import(new URL("assets/js/jenga3d.js?v=20261022g", document.baseURI).href)
+      import(new URL("assets/js/jenga3d.js?v=20261022h", document.baseURI).href)
         .then((m) => {
           three = m.default(jenga, {
             CORE, FLUFF, say,
@@ -1824,10 +1824,17 @@ $$("[data-href]").forEach((el) => {
     const text = rn.textContent.trim();
     rn.textContent = "";
     rn.setAttribute("aria-label", text);
-    [...text].forEach((ch) => {
-      const s = document.createElement("span");
-      s.className = "ch"; s.textContent = ch; s.setAttribute("aria-hidden", "true");
-      rn.appendChild(s);
+    // letters sit inside a per-word wrapper so lines only break between words
+    text.split(" ").forEach((word, i) => {
+      if (i) rn.appendChild(document.createTextNode(" "));
+      const w = document.createElement("span");
+      w.className = "rw";
+      [...word].forEach((ch) => {
+        const s = document.createElement("span");
+        s.className = "ch"; s.textContent = ch; s.setAttribute("aria-hidden", "true");
+        w.appendChild(s);
+      });
+      rn.appendChild(w);
     });
   });
   if (!finePointer || reduced) return;
