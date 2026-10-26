@@ -189,7 +189,7 @@ export default function initJenga3D(root, { CORE, FLUFF, say, onScore, onEnd }) 
     const camFlat = new THREE.Vector3(camera.position.x, 0, camera.position.z).normalize();
     const lean = side.lengthSq() > 0.01 ? side.normalize() : new THREE.Vector3(-camFlat.z, 0, camFlat.x).multiplyScalar(Math.random() < 0.5 ? 1 : -1);
     const axis = new THREE.Vector3(0, 1, 0).cross(lean).normalize();          // positive rotation tips the stack toward `lean`
-    const pivot = new THREE.Vector3(lean.x * (L / 2 + W / 2), b.body.position.y + H / 2, lean.z * (L / 2 + W / 2));
+    const pivot = new THREE.Vector3(lean.x * (L / 2), b.body.position.y + H / 2, lean.z * (L / 2));   // the tower's outer edge on the gap side
     const upper = blocks.filter((o) => !o.out && o.li > b.li).map((o) => ({
       o, p0: new THREE.Vector3(o.body.position.x, o.body.position.y, o.body.position.z),
       q0: new THREE.Quaternion(o.body.quaternion.x, o.body.quaternion.y, o.body.quaternion.z, o.body.quaternion.w),
@@ -232,7 +232,9 @@ export default function initJenga3D(root, { CORE, FLUFF, say, onScore, onEnd }) 
   const resize = () => {
     const w = scene3.clientWidth, h = scene3.clientHeight;
     renderer.setSize(w, h, false); camera.aspect = w / h;
-    baseRadius = w < 520 ? 16 : 12.5; radius = baseRadius;
+    // only the target changes here; the loop eases toward it, so a resize mid-fall doesn't snap the zoom
+    const first = baseRadius === 12.5 && radius === 12.5;
+    baseRadius = w < 520 ? 16 : 12.5; if (first) radius = baseRadius;
     camera.updateProjectionMatrix();
   };
   new ResizeObserver(resize).observe(scene3);
