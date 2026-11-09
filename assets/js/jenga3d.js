@@ -167,7 +167,10 @@ export default function initJenga3D(root, { CORE, FLUFF, say, onScore, onEnd }) 
     if (hovered === b) hovered = null;
     // slide it out along its long axis, toward whichever end faces the camera: quick start, easing to a stop
     const toCam = new THREE.Vector3().subVectors(camera.position, b.mesh.position).projectOnVector(b.axis).normalize();
+    const home = new THREE.Vector3(b.body.position.x, 0, b.body.position.z);       // where it sat in the tower, before any hover peek
     b.body.type = CANNON.Body.KINEMATIC; b.body.velocity.set(0, 0, 0); b.body.angularVelocity.set(0, 0, 0);
+    // the resting tower has gone to sleep in the physics world, and a sleeping body ignores the velocity that slides it out
+    b.body.wakeUp();
     // start from where the hover peek left it, so the block doesn't jump back before sliding
     b.body.position.vadd(new CANNON.Vec3(toCam.x * b.peek, 0, toCam.z * b.peek), b.body.position); b.peek = 0;
     const from = b.body.position.clone();
@@ -184,13 +187,15 @@ export default function initJenga3D(root, { CORE, FLUFF, say, onScore, onEnd }) 
     onEnd(false);
     // it was holding everything above it: once the block is out, the upper section tips over its edge as one rigid piece,
     // speeding up like a real topple, then physics takes over and it breaks apart where it lands
-    const side = new THREE.Vector3(b.body.position.x, 0, b.body.position.z);
+    const side = home;
     // centre block: nothing decides the side, so fall across the view (side-on reads best), left or right at random
     const camFlat = new THREE.Vector3(camera.position.x, 0, camera.position.z).normalize();
     const lean = side.lengthSq() > 0.01 ? side.normalize() : new THREE.Vector3(-camFlat.z, 0, camFlat.x).multiplyScalar(Math.random() < 0.5 ? 1 : -1);
     const axis = new THREE.Vector3(0, 1, 0).cross(lean).normalize();          // positive rotation tips the stack toward `lean`
-    const pivot = new THREE.Vector3(lean.x * (L / 2), b.body.position.y + H / 2, lean.z * (L / 2));   // the tower's outer edge on the gap side
-    const upper = blocks.filter((o) => !o.out && o.li > b.li).map((o) => ({
+    // a real step pulled from the top layer has nothing above it, so that layer's other blocks go over instead
+    const base = blocks.some((o) => !o.out && o.li > b.li) ? b.li : b.li - 1;
+    const pivot = new THREE.Vector3(lean.x * (L / 2), (base + 1) * H, lean.z * (L / 2));   // the tower's outer edge on the gap side
+    const upper = blocks.filter((o) => !o.out && o.li > base).map((o) => ({
       o, p0: new THREE.Vector3(o.body.position.x, o.body.position.y, o.body.position.z),
       q0: new THREE.Quaternion(o.body.quaternion.x, o.body.quaternion.y, o.body.quaternion.z, o.body.quaternion.w),
     }));
