@@ -1208,7 +1208,7 @@ if (jenga) {
   const say = (html) => (cap.innerHTML = html);
   // after a real step is pulled, let the fall play out, then offer a rebuild over the tower
   const over = $("#jg-over"); let overT;
-  const showOver = () => { clearTimeout(overT); overT = setTimeout(() => { over.hidden = false; requestAnimationFrame(() => over.classList.add("is-on")); }, 2600); };
+  const showOver = () => { clearTimeout(overT); overT = setTimeout(() => { over.hidden = false; requestAnimationFrame(() => over.classList.add("is-on")); }, 3600); };
   const hideOver = () => { clearTimeout(overT); over.classList.remove("is-on"); over.hidden = true; };
   const build = () => {
     dead = false; score = 0; scoreEl.textContent = 0;
@@ -1251,7 +1251,7 @@ if (jenga) {
       score++; scoreEl.textContent = score;
       say(`<b>${b.dataset.name}</b> pulled. ${b.dataset.why}`);
       const r = b.getBoundingClientRect(); burst(r.left + r.width / 2, r.top, 5);
-      if (score === FLUFF.length) { dead = true; jenga.classList.add("is-won"); say("<b>You spotted every look-alike.</b> Everything left is load-bearing."); confetti(50); }
+      if (score === FLUFF.length) { dead = true; jenga.classList.add("is-won"); say("<b>You caught every shortcut.</b> Everything left is load-bearing."); confetti(50); }
       return;
     }
     dead = true;
@@ -1285,7 +1285,7 @@ if (jenga) {
     const io3 = new IntersectionObserver(([e]) => {
       if (!e.isIntersecting) return;
       io3.disconnect();
-      import(new URL("assets/js/jenga3d.js?v=20261110a", document.baseURI).href)
+      import(new URL("assets/js/jenga3d.js?v=20261110b", document.baseURI).href)
         .then((m) => {
           three = m.default(jenga, {
             CORE, FLUFF, say,

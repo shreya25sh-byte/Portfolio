@@ -178,7 +178,7 @@ export default function initJenga3D(root, { CORE, FLUFF, say, onScore, onEnd }) 
     if (!b.core) {
       score++; onScore(score);
       say(`<b>${b.name}</b> pulled. ${b.why}`);
-      if (score === FLUFF.length) { dead = true; root.classList.add("is-won"); say("<b>You spotted every look-alike.</b> Everything left is load-bearing."); onEnd(true); }
+      if (score === FLUFF.length) { dead = true; root.classList.add("is-won"); say("<b>You caught every shortcut.</b> Everything left is load-bearing."); onEnd(true); }
       return;
     }
     dead = true;
