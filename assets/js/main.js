@@ -1206,9 +1206,13 @@ if (jenga) {
   };
   const spin = () => (tower.style.transform = `translateY(${LAYERS * H * 0.42}px) rotateX(-24deg) rotateY(${ry}deg)`);
   const say = (html) => (cap.innerHTML = html);
+  // after a real step is pulled, let the fall play out, then offer a rebuild over the tower
+  const over = $("#jg-over"); let overT;
+  const showOver = () => { clearTimeout(overT); overT = setTimeout(() => { over.hidden = false; requestAnimationFrame(() => over.classList.add("is-on")); }, 2600); };
+  const hideOver = () => { clearTimeout(overT); over.classList.remove("is-on"); over.hidden = true; };
   const build = () => {
     dead = false; score = 0; scoreEl.textContent = 0;
-    jenga.classList.remove("is-down", "is-won");
+    jenga.classList.remove("is-down", "is-won"); hideOver();
     const pool = [...CORE.map((c) => [c[0], c[1], c[2], true, c[3]]), ...FLUFF.map((f) => [...f, false, ""])].sort(() => Math.random() - 0.5);
     tower.innerHTML = "";
     for (let li = 0; li < LAYERS; li++) {
@@ -1253,6 +1257,7 @@ if (jenga) {
     dead = true;
     say(`<span class="jg-down mono">Tower down · that was a real step</span><span class="jg-learn"><b>${b.dataset.name}.</b> ${b.dataset.why}</span><span class="jg-proof"><span class="jg-tag mono">Where I learned it</span>${b.dataset.proof}</span>`);
     jenga.classList.add("is-wobble");
+    showOver();
     setTimeout(() => {
       jenga.classList.remove("is-wobble"); jenga.classList.add("is-down");
       const dir = Math.random() < 0.5 ? -1 : 1;
@@ -1269,7 +1274,9 @@ if (jenga) {
   window.addEventListener("pointerup", () => { drag = null; setTimeout(() => (moved = false), 0); });
   let three = null;
   $$("[data-rot]", jenga).forEach((b) => b.addEventListener("click", () => { if (three) return three.rotate(+b.dataset.rot); ry += 45 * b.dataset.rot; spin(); }));
-  $("#jg-rebuild").addEventListener("click", () => { if (three) return three.rebuild(); build(); spin(); });
+  const rebuild = () => { hideOver(); if (three) return three.rebuild(); build(); spin(); };
+  $("#jg-rebuild").addEventListener("click", rebuild);
+  $("#jg-again").addEventListener("click", rebuild);
   build(); spin();
 
   // Upgrade to real 3D + physics when the section is near (the CSS tower stays as the fallback)
@@ -1278,12 +1285,12 @@ if (jenga) {
     const io3 = new IntersectionObserver(([e]) => {
       if (!e.isIntersecting) return;
       io3.disconnect();
-      import(new URL("assets/js/jenga3d.js?v=20261109a", document.baseURI).href)
+      import(new URL("assets/js/jenga3d.js?v=20261110a", document.baseURI).href)
         .then((m) => {
           three = m.default(jenga, {
             CORE, FLUFF, say,
             onScore: (n) => (scoreEl.textContent = n),
-            onEnd: (won) => (won ? confetti(50) : null),
+            onEnd: (won) => (won ? confetti(50) : showOver()),
           });
           jenga.classList.add("is-3d");
         })

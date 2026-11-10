@@ -4045,3 +4045,15 @@ ul.work .work__item .work__title, ul.work .work__item[data-id="idetc"] .work__ti
   .case .case-hero__sub, .impact__hero .impact__num { font-size: clamp(38px, 10.4vw, 64px) !important; }
   .impact__label { font-size: 20px !important; }
 }
+
+/* Jenga: "try again" card once the tower is down */
+.jenga__over { position: absolute; inset: 0; z-index: 5; display: grid; place-content: center; justify-items: center; gap: 10px; text-align: center;
+  background: rgba(27, 25, 24, .62); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); opacity: 0; transition: opacity .5s var(--ease); cursor: default; }
+.jenga__over[hidden] { display: none; }
+.jenga__over.is-on { opacity: 1; }
+.jenga__over-k { margin: 0; color: #ff7cc0; font-size: 11px; letter-spacing: .12em; }
+.jenga__over-t { margin: 0 0 8px; font-family: var(--f-display); font-size: clamp(36px, 4.1vw, 66px); line-height: 1; letter-spacing: -0.03em; color: #f4f2ec; }
+.jenga__over-t .serif { color: #ff7cc0 !important; }
+.jenga__over .jenga__again { transform: translateY(8px); transition: transform .5s var(--ease); }
+.jenga__over.is-on .jenga__again { transform: none; }
+@media (prefers-reduced-motion: reduce) { .jenga__over, .jenga__over .jenga__again { transition: none; } }
