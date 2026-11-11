@@ -1208,7 +1208,7 @@ if (jenga) {
   const say = (html) => (cap.innerHTML = html);
   // after a real step is pulled, let the fall play out, then offer a rebuild over the tower
   const over = $("#jg-over"); let overT;
-  const showOver = () => { clearTimeout(overT); overT = setTimeout(() => { over.hidden = false; requestAnimationFrame(() => over.classList.add("is-on")); }, 3600); };
+  const showOver = (proof) => { $("#jg-over-proof").innerHTML = proof ? `<span class="jg-tag mono">Where I learned it</span><span>${proof}</span>` : ""; clearTimeout(overT); overT = setTimeout(() => { over.hidden = false; requestAnimationFrame(() => over.classList.add("is-on")); }, 3600); };
   const hideOver = () => { clearTimeout(overT); over.classList.remove("is-on"); over.hidden = true; };
   const build = () => {
     dead = false; score = 0; scoreEl.textContent = 0;
@@ -1255,9 +1255,9 @@ if (jenga) {
       return;
     }
     dead = true;
-    say(`<span class="jg-down mono">Tower down · that was a real step</span><span class="jg-learn"><b>${b.dataset.name}.</b> ${b.dataset.why}</span><span class="jg-proof"><span class="jg-tag mono">Where I learned it</span>${b.dataset.proof}</span>`);
+    say(`<span class="jg-learn"><b>${b.dataset.name}.</b> ${b.dataset.why}</span>`);
     jenga.classList.add("is-wobble");
-    showOver();
+    showOver(b.dataset.proof);
     setTimeout(() => {
       jenga.classList.remove("is-wobble"); jenga.classList.add("is-down");
       const dir = Math.random() < 0.5 ? -1 : 1;
@@ -1285,12 +1285,12 @@ if (jenga) {
     const io3 = new IntersectionObserver(([e]) => {
       if (!e.isIntersecting) return;
       io3.disconnect();
-      import(new URL("assets/js/jenga3d.js?v=20261110b", document.baseURI).href)
+      import(new URL("assets/js/jenga3d.js?v=20261111a", document.baseURI).href)
         .then((m) => {
           three = m.default(jenga, {
             CORE, FLUFF, say,
             onScore: (n) => (scoreEl.textContent = n),
-            onEnd: (won) => (won ? confetti(50) : showOver()),
+            onEnd: (won, proof) => (won ? confetti(50) : showOver(proof)),
           });
           jenga.classList.add("is-3d");
         })

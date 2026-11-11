@@ -4057,3 +4057,10 @@ ul.work .work__item .work__title, ul.work .work__item[data-id="idetc"] .work__ti
 .jenga__over .jenga__again { transform: translateY(8px); transition: transform .5s var(--ease); }
 .jenga__over.is-on .jenga__again { transform: none; }
 @media (prefers-reduced-motion: reduce) { .jenga__over, .jenga__over .jenga__again { transition: none; } }
+
+/* Jenga "try again" card leads with where the pulled step was learned */
+.jenga__over-proof { margin: 0 0 14px; max-width: 34ch; display: flex; flex-direction: column; align-items: center; gap: 10px;
+  font-family: var(--f-display); font-size: clamp(22px, 2.4vw, 30px); line-height: 1.2; color: #f4f2ec; }
+.jenga__over-proof:empty { display: none; }
+.jenga__over-proof .jg-tag { font-family: var(--f-sans); font-size: 11px; line-height: 1; }
+.jenga__over-t { font-size: clamp(26px, 2.6vw, 38px) !important; }

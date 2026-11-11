@@ -182,9 +182,9 @@ export default function initJenga3D(root, { CORE, FLUFF, say, onScore, onEnd }) 
       return;
     }
     dead = true;
-    say(`<span class="jg-down mono">Tower down · that was a real step</span><span class="jg-learn"><b>${b.name}.</b> ${b.why}</span><span class="jg-proof"><span class="jg-tag mono">Where I learned it</span>${b.proof}</span>`);
+    say(`<span class="jg-learn"><b>${b.name}.</b> ${b.why}</span>`);
     root.classList.add("is-down");
-    onEnd(false);
+    onEnd(false, b.proof);
     // it was holding everything above it: once the block is out, the upper section tips over its edge as one rigid piece,
     // speeding up like a real topple, then physics takes over and it breaks apart where it lands
     const side = home;
