@@ -4064,3 +4064,6 @@ ul.work .work__item .work__title, ul.work .work__item[data-id="idetc"] .work__ti
 .jenga__over-proof:empty { display: none; }
 .jenga__over-proof .jg-tag { font-family: var(--f-sans); font-size: 11px; line-height: 1; }
 .jenga__over-t { font-size: clamp(26px, 2.6vw, 38px) !important; }
+
+/* loader count: smaller, and steady digits while it ticks */
+.loader__count { font-size: clamp(36px, 6vw, 84px) !important; font-variant-numeric: tabular-nums; }

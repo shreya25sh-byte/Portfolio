@@ -59,16 +59,16 @@ if (loader) {
   } else {
     const num = $(".loader__count", loader);
     const bar = $(".loader__bar i", loader);
-    const target = 1910;
-    const dur = 1400;
-    const t0 = performance.now();
+    // starts at 1,900 (the real sample was 1,910) and keeps ticking as the page opens, like recruitment still running
+    const from = 1900, rate = 22;                                  // participants per second
+    const dur = 1400, t0 = performance.now();
+    let done = false;
     const tick = (t) => {
-      const p = Math.min(1, (t - t0) / dur);
-      const e = 1 - Math.pow(1 - p, 3);
-      num.textContent = Math.round(e * target).toLocaleString();
-      bar.style.transform = `scaleX(${e})`;
-      if (p < 1) requestAnimationFrame(tick);
-      else {
+      const el = (t - t0) / 1000, p = Math.min(1, (t - t0) / dur);
+      num.textContent = Math.floor(from + el * rate).toLocaleString();
+      bar.style.transform = `scaleX(${1 - Math.pow(1 - p, 3)})`;
+      if (p >= 1 && !done) {
+        done = true;
         setTimeout(() => {
           loader.classList.add("is-done");
           document.documentElement.classList.add("is-loaded");
@@ -76,6 +76,7 @@ if (loader) {
           setTimeout(() => loader.remove(), 1000);
         }, 250);
       }
+      if (loader.isConnected) requestAnimationFrame(tick);         // never stops counting while it is on screen
     };
     requestAnimationFrame(tick);
   }
@@ -1285,7 +1286,7 @@ if (jenga) {
     const io3 = new IntersectionObserver(([e]) => {
       if (!e.isIntersecting) return;
       io3.disconnect();
-      import(new URL("assets/js/jenga3d.js?v=20261111b", document.baseURI).href)
+      import(new URL("assets/js/jenga3d.js?v=20261120a", document.baseURI).href)
         .then((m) => {
           three = m.default(jenga, {
             CORE, FLUFF, say,
