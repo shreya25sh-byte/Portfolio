@@ -4067,3 +4067,7 @@ ul.work .work__item .work__title, ul.work .work__item[data-id="idetc"] .work__ti
 
 /* loader count: smaller, and steady digits while it ticks */
 .loader__count { font-size: clamp(36px, 6vw, 84px) !important; font-variant-numeric: tabular-nums; }
+
+/* 30-second card: drop the contact section's 220px bottom margin so the card has no empty scroll */
+.tldr-card .contact__row { margin-bottom: 0 !important; }
+@media (max-width: 520px) { .tldr-card ul { gap: 10px !important; margin-bottom: 20px !important; } .tldr-card li { font-size: 16px !important; padding-bottom: 9px; } .tldr-card h3 { margin-bottom: 12px; } }
