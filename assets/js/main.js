@@ -1286,7 +1286,7 @@ if (jenga) {
     const io3 = new IntersectionObserver(([e]) => {
       if (!e.isIntersecting) return;
       io3.disconnect();
-      import(new URL("assets/js/jenga3d.js?v=20261122a", document.baseURI).href)
+      import(new URL("assets/js/jenga3d.js?v=20261123a", document.baseURI).href)
         .then((m) => {
           three = m.default(jenga, {
             CORE, FLUFF, say,
@@ -1786,92 +1786,6 @@ $$("[data-href]").forEach((el) => {
     tilt.style.setProperty("--ty", `${(-dy * 16).toFixed(2)}deg`);
   });
   hero.addEventListener("pointerleave", () => { tilt.style.setProperty("--tx", "0deg"); tilt.style.setProperty("--ty", "0deg"); });
-})();
-
-/* Hero → Work deal: as you scroll down, the hero's print stack flies down, straightens and settles into the first case study,
-   its top print becoming that card's image and the prints under it tucking in behind. Scroll back up and they fly home. The stack and the cards themselves are untouched: the flight is done by
-   four stand-in prints in a fixed layer, positioned every frame between the live print and the live card image. */
-(() => {
-  const stack = $(".hero-stack");
-  if (!stack || reduced) return;
-  const pairs = $$(".hero-card", stack).map((c) => {
-    const slug = (c.getAttribute("href") || "").replace(/^.*\/|\.html$/g, "");
-    const item = $(`.work__item[data-id="${slug}"]`);
-    const thumb = item && $(".work__thumb", item);
-    return thumb ? { c, thumb, slot: +c.dataset.slot } : null;
-  }).filter(Boolean);
-  if (!pairs.length) return;
-  const layer = document.createElement("div");
-  layer.className = "hfly-layer"; layer.setAttribute("aria-hidden", "true");
-  pairs.sort((a, b) => a.slot - b.slot).forEach((pr) => {
-    const f = document.createElement("div");
-    f.className = "hfly";
-    const from = $("img", pr.c).getAttribute("src"), to = $("img", pr.thumb).getAttribute("src");
-    // if the card uses a different photo than the print, the stand-in swaps to it mid-flight so it lands already matching
-    f.innerHTML = `<i class="hfly__ph"><img src="${from}" alt="">${to !== from ? `<img class="hfly__to" src="${to}" alt="">` : ""}</i><span>${$("span", pr.c).innerHTML}</span>`;
-    layer.appendChild(f); pr.f = f;
-    pr.label = $("span", f); pr.to = $(".hfly__to", f);
-  });
-  document.body.appendChild(layer);
-  const ease = (t) => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-  const clamp01 = (v) => Math.max(0, Math.min(1, v));
-  const lerp = (a, b, t) => a + (b - a) * t;
-  const top = pairs.reduce((m, p) => Math.max(m, p.slot), 0);
-  let raf = 0, flying = false;
-  const set = (on) => {
-    if (on === flying) return;
-    flying = on;
-    stack.classList.toggle("is-dealt", on);
-    layer.classList.toggle("is-on", on);
-    // land with the card's own crop of the photo
-    if (on) pairs.forEach((p) => { if (p.to) { const cs = getComputedStyle($("img", p.thumb)); p.to.style.objectPosition = cs.objectPosition; } });
-    if (!on) pairs.forEach((p) => { p.thumb.style.opacity = ""; });
-  };
-  const frame = () => {
-    raf = 0;
-    const vh = innerHeight;
-    const tr = pairs.find((p) => p.slot === top).thumb.getBoundingClientRect();
-    if (!tr.width) { set(false); return; }                       // no card images in this layout: nothing to land on
-    // 0 at the top of the page, 1 once the first case study sits a third of the way down the screen
-    const s0 = vh * .04, s1 = Math.max(s0 + 200, tr.top + scrollY - vh * .3);
-    const p = clamp01((scrollY - s0) / (s1 - s0));
-    if (p <= 0 || p >= 1) { set(false); return; }
-    // read everything first, then write
-    const reads = pairs.map((pr) => {
-      const r = pr.c.getBoundingClientRect(), m = new DOMMatrixReadOnly(getComputedStyle(pr.c).transform);
-      const z = m.m43 || 0, k = 1100 / Math.max(300, 1100 - z);   // the stack's perspective makes nearer prints a touch bigger
-      return { cx: r.left + r.width / 2, cy: r.top + r.height / 2, w: pr.c.offsetWidth * k, h: pr.c.offsetHeight * k,
-        rot: Math.atan2(m.b, m.a) * 180 / Math.PI };
-    });
-    set(true);
-    const lead = pairs.find((p) => p.slot === top);
-    pairs.forEach((pr, i) => {
-      const a = reads[i], t = tr, under = top - pr.slot;          // every print aims for the first card; the ones beneath tuck in behind it
-      // the top print leaves first, the rest follow a beat behind it and catch up as they land
-      const lag = under * .07, r = clamp01((p - lag) / (1 - lag)), q = ease(clamp01(r / .88));   // lands at 88%, hands over in place after
-      const cx = lerp(a.cx, t.left + t.width / 2, q), cy = lerp(a.cy, t.top + t.height / 2, q) - Math.sin(q * Math.PI) * 40;
-      const w = lerp(a.w, t.width, q), h = lerp(a.h, t.height, q);
-      const rot = lerp(a.rot, under * (pr.slot % 2 ? 1.6 : -1.6), q) + Math.sin(q * Math.PI) * (pr.slot % 2 ? 6 : -6);
-      const f = pr.f, pad = lerp(9, 0, q);
-      f.style.width = `${w}px`; f.style.height = `${h}px`;
-      f.style.transform = `translate(${cx - w / 2}px, ${cy - h / 2}px) rotate(${rot}deg)`;
-      f.style.padding = `${pad}px ${pad}px 0`;
-      f.style.borderRadius = `${q * 6}px`;
-      f.style.borderWidth = `${lerp(1, 1.5, q)}px`;
-      f.style.boxShadow = `${q * 4}px ${q * 4}px 0 rgba(255,63,164,${q.toFixed(2)}), 0 ${lerp(22, 0, q)}px ${lerp(44, 0, q)}px -26px rgba(0,0,0,${lerp(.45, 0, q).toFixed(2)})`;
-      pr.label.style.opacity = 1 - clamp01(q * 2.5);
-      if (pr.to) pr.to.style.opacity = clamp01((q - .3) / .3);
-      pr.label.style.height = `${lerp(34, 0, clamp01(q * 1.6))}px`;
-      // last stretch: the stand-in hands over to the real card image
-      const hand = pr === lead ? clamp01((r - .88) / .12) : clamp01((r - .55) / .25);
-      f.style.opacity = 1 - hand;
-      if (pr === lead) pr.thumb.style.opacity = hand;
-    });
-  };
-  const req = () => { if (!raf) raf = requestAnimationFrame(frame); };
-  addEventListener("scroll", req, { passive: true });
-  addEventListener("resize", req);
-  req();
 })();
 
 /* Work stack: a card blurs and fades back as the next one slides over it */

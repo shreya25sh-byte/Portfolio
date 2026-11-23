@@ -4071,16 +4071,3 @@ ul.work .work__item .work__title, ul.work .work__item[data-id="idetc"] .work__ti
 /* 30-second card: drop the contact section's 220px bottom margin so the card has no empty scroll */
 .tldr-card .contact__row { margin-bottom: 0 !important; }
 @media (max-width: 520px) { .tldr-card ul { gap: 10px !important; margin-bottom: 20px !important; } .tldr-card li { font-size: 16px !important; padding-bottom: 9px; } .tldr-card h3 { margin-bottom: 12px; } }
-
-/* Hero → Work deal: stand-in prints that fly from the hero stack to each case study's image */
-.hfly-layer { position: fixed; inset: 0; z-index: 60; pointer-events: none; visibility: hidden; }
-.hfly-layer.is-on { visibility: visible; }
-.hfly { position: absolute; left: 0; top: 0; box-sizing: border-box; display: flex; flex-direction: column; overflow: hidden;
-  background: #fff; border: 1px solid #111; transform-origin: 50% 50%; will-change: transform, width, height; }
-.hfly__ph { flex: 1 1 auto; min-height: 0; position: relative; display: block; overflow: hidden; }
-.hfly__ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
-.hfly__ph .hfly__to { opacity: 0; }
-.hfly span { flex: none; display: flex; justify-content: space-between; align-items: center; overflow: hidden; padding: 0 2px;
-  font: 500 11px/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: #111; }
-.hfly span b { font-weight: 500; color: #c4127a; }
-.hero-stack.is-dealt .hero-card { visibility: hidden; }
