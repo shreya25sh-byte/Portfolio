@@ -48,6 +48,21 @@ $$("[data-copy-email]").forEach((b) =>
   })
 );
 
+/* ---------- Reader number in the masthead: picks up where the loader's participant count stopped ---------- */
+const setReader = (n) => {
+  try { sessionStorage.setItem("sh-reader", String(n)); } catch {}
+  $$("[data-reader]").forEach((el) => {
+    el.textContent = "#" + n.toLocaleString();
+    el.classList.remove("is-new"); void el.offsetWidth; el.classList.add("is-new");
+  });
+};
+{
+  let n = 0;
+  try { n = +sessionStorage.getItem("sh-reader") || 0; } catch {}
+  if (n) setReader(n);
+  else { let seen = false; try { seen = sessionStorage.getItem("sh-loaded") === "1"; } catch {} if (!$(".loader") || seen || reduced) setReader(1920 + Math.floor(Math.random() * 40)); }
+}
+
 /* ---------- Loader (home, once per session) ---------- */
 const loader = $(".loader");
 if (loader) {
@@ -69,6 +84,7 @@ if (loader) {
       bar.style.transform = `scaleX(${1 - Math.pow(1 - p, 3)})`;
       if (p >= 1 && !done) {
         done = true;
+        setReader(Math.floor(from + el * rate) + 1);
         setTimeout(() => {
           loader.classList.add("is-done");
           document.documentElement.classList.add("is-loaded");
@@ -383,8 +399,8 @@ if (board) {
 $$("[data-clock]").forEach((el) => {
   const upd = () =>
     (el.textContent = new Intl.DateTimeFormat("en-US", {
-      hour: "2-digit", minute: "2-digit", timeZone: "America/New_York", hour12: true,
-    }).format(new Date()) + " ET");
+      hour: "2-digit", minute: "2-digit", timeZone: "Asia/Kolkata", hour12: true,
+    }).format(new Date()) + " IST");
   upd();
   setInterval(upd, 30000);
 });
@@ -1286,7 +1302,7 @@ if (jenga) {
     const io3 = new IntersectionObserver(([e]) => {
       if (!e.isIntersecting) return;
       io3.disconnect();
-      import(new URL("assets/js/jenga3d.js?v=20261123a", document.baseURI).href)
+      import(new URL("assets/js/jenga3d.js?v=20261123b", document.baseURI).href)
         .then((m) => {
           three = m.default(jenga, {
             CORE, FLUFF, say,
