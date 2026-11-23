@@ -48,19 +48,33 @@ $$("[data-copy-email]").forEach((b) =>
   })
 );
 
-/* ---------- Reader number in the masthead: picks up where the loader's participant count stopped ---------- */
-const setReader = (n) => {
-  try { sessionStorage.setItem("sh-reader", String(n)); } catch {}
-  $$("[data-reader]").forEach((el) => {
-    el.textContent = "#" + n.toLocaleString();
-    el.classList.remove("is-new"); void el.offsetWidth; el.classList.add("is-new");
-  });
-};
+/* ---------- Reader number in the masthead: a real visit count ----------
+   One hit per browser session on a free public counter (Abacus); the number is kept for the rest of the visit so reloads
+   and page changes don't count again. If the counter can't be reached, the masthead just keeps showing the year. */
 {
+  const COUNTER = "https://abacus.jasoncameron.dev/hit/zine-issue03-k7q2/readers";
+  const show = (n) => $$("[data-reader]").forEach((el) => {
+    el.innerHTML = `You’re reader <em class="masthead__reader is-new">#${n.toLocaleString()}</em>`;
+  });
   let n = 0;
   try { n = +sessionStorage.getItem("sh-reader") || 0; } catch {}
-  if (n) setReader(n);
-  else { let seen = false; try { seen = sessionStorage.getItem("sh-loaded") === "1"; } catch {} if (!$(".loader") || seen || reduced) setReader(1920 + Math.floor(Math.random() * 40)); }
+  if (n) show(n);
+  else if ($("[data-reader]")) {
+    const ctl = new AbortController(); setTimeout(() => ctl.abort(), 6000);
+    fetch(COUNTER, { signal: ctl.signal, cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+      .then((d) => {
+        const v = Math.round(+d.value);
+        if (!(v > 0)) return;
+        try { sessionStorage.setItem("sh-reader", String(v)); } catch {}
+        // on the first visit, wait for the loader to clear so the number stamps in where people can see it
+        const go = () => show(v);
+        if (document.documentElement.classList.contains("is-loaded")) go();
+        else new MutationObserver((_, o) => { if (document.documentElement.classList.contains("is-loaded")) { o.disconnect(); setTimeout(go, 500); } })
+          .observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+      })
+      .catch(() => {});
+  }
 }
 
 /* ---------- Loader (home, once per session) ---------- */
@@ -84,7 +98,6 @@ if (loader) {
       bar.style.transform = `scaleX(${1 - Math.pow(1 - p, 3)})`;
       if (p >= 1 && !done) {
         done = true;
-        setReader(Math.floor(from + el * rate) + 1);
         setTimeout(() => {
           loader.classList.add("is-done");
           document.documentElement.classList.add("is-loaded");
@@ -1302,7 +1315,7 @@ if (jenga) {
     const io3 = new IntersectionObserver(([e]) => {
       if (!e.isIntersecting) return;
       io3.disconnect();
-      import(new URL("assets/js/jenga3d.js?v=20261123b", document.baseURI).href)
+      import(new URL("assets/js/jenga3d.js?v=20261123c", document.baseURI).href)
         .then((m) => {
           three = m.default(jenga, {
             CORE, FLUFF, say,
